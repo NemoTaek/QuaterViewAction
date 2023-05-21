@@ -348,6 +348,8 @@
 "Assets/KeyboardMouse.cs"
 "Assets/LifeCycle.cs"
 "Assets/MoveAsset.cs"
+"Assets/MyBall.cs"
+"Assets/OtherBall.cs"
 -langversion:9.0
 
 /deterministic
