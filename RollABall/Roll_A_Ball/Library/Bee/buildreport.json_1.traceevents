@@ -1,0 +1,476 @@
+{ "pid": 0, "tid": -1, "ph": "M", "name": "process_name", "args": { "name": "BeeDriver" } },
+{ "pid": 0, "tid": -1, "ph": "M", "name": "process_sort_index", "args": { "sort_index": "-2" } },
+{ "pid": 0, "tid": 1, "ph": "M", "name": "thread_name", "args": { "name": "" } },
+{ "pid": 0, "tid": 1, "ts": 1684735544488748, "dur": 2026111, "ph": "X", "name": "Build Player", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735544488995, "dur": 12275, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735544501273, "dur": 30956, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735544532231, "dur": 829994, "ph": "X", "name": "BuildProgram", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735545362226, "dur": 1138464, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735546500692, "dur": 14167, "ph": "X", "name": "Finish", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735546516515, "dur": 49, "ph": "X", "name": "", "args": {} },
+{ "pid": 35942, "tid": -1, "ph": "M", "name": "process_name", "args": { "name": "netcorerun.dll" } },
+{ "pid": 35942, "tid": -1, "ph": "M", "name": "process_sort_index", "args": { "sort_index": "-1" } },
+{ "pid": 35942, "tid": 1, "ph": "M", "name": "thread_name", "args": { "name": "" } },
+{ "pid": 35942, "tid": 1, "ts": 1684735544935136, "dur": 408089, "ph": "X", "name": "BuildProgram", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735544936185, "dur": 51995, "ph": "X", "name": "BuildProgramContextConstructor", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735545326765, "dur": 4796, "ph": "X", "name": "OutputData.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735545331565, "dur": 11651, "ph": "X", "name": "Backend.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735545332310, "dur": 10208, "ph": "X", "name": "JsonToString", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735545348442, "dur": 1337, "ph": "X", "name": "", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1684735545347627, "dur": 2182, "ph": "X", "name": "Write chrome-trace events", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735546516853, "dur": 857, "ph": "X", "name": "buildprogram0.traceevents", "args": {} },
+{ "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
+,{ "pid":12345, "tid":0, "ts":1684735545404207, "dur":1067, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735545405281, "dur":58, "ph":"X", "name": "Tundra",  "args": { "detail":"RemoveStaleOutputs" }}
+,{ "pid":12345, "tid":0, "ts":1684735545405363, "dur":14, "ph":"X", "name": "Tundra",  "args": { "detail":"PrepareNodes" }}
+,{ "pid":12345, "tid":0, "ts":1684735545405377, "dur":161, "ph":"X", "name": "Tundra",  "args": { "detail":"BuildQueueInit" }}
+,{ "pid":12345, "tid":0, "ts":1684735545405559, "dur":536, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735545406095, "dur":0, "ph":"X", "name": "SortWorkingStack",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491146, "dur":90, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491236, "dur":19, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491255, "dur":4, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491259, "dur":11, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491270, "dur":4, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491274, "dur":5, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491279, "dur":2, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491281, "dur":6, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491287, "dur":2, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491289, "dur":9, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491298, "dur":2, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491300, "dur":5, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491305, "dur":0, "ph":"X", "name": "SharedResourceDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491318, "dur":2, "ph":"X", "name": "BuildQueueDestroyTail",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546491340, "dur":1480, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
+,{ "pid":12345, "tid":1, "ts":1684735545405907, "dur":228, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545406136, "dur":4549, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545410693, "dur":0, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"WriteText Library/Bee/artifacts/WinPlayerBuildProgram/Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1684735545410697, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545411486, "dur":297, "ph":"X", "name": "WriteText",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1684735545411787, "dur":40, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1684735545411830, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545411966, "dur":2278, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1684735545414247, "dur":144, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":1, "ts":1684735545414420, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545414837, "dur":1285, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":1, "ts":1684735545416156, "dur":31016, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/web.config" }}
+,{ "pid":12345, "tid":1, "ts":1684735545447175, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545447340, "dur":906, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/web.config" }}
+,{ "pid":12345, "tid":1, "ts":1684735545448399, "dur":8418, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/machine.config" }}
+,{ "pid":12345, "tid":1, "ts":1684735545456820, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545456828, "dur":1106, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/machine.config" }}
+,{ "pid":12345, "tid":1, "ts":1684735545457964, "dur":30762, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball.exe" }}
+,{ "pid":12345, "tid":1, "ts":1684735545488730, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545488786, "dur":1280, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball.exe" }}
+,{ "pid":12345, "tid":1, "ts":1684735545490097, "dur":31754, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VideoModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545521855, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545521864, "dur":1358, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VideoModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545523255, "dur":16433, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545539692, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545539701, "dur":925, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545540659, "dur":13581, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545554244, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545554253, "dur":1000, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545555284, "dur":51507, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UNETModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545606795, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545606803, "dur":1980, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UNETModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545608818, "dur":78721, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545687600, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545687610, "dur":1010, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545688660, "dur":31950, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SubstanceModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545720613, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545720619, "dur":790, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SubstanceModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545721439, "dur":34760, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.PhysicsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545756203, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545756211, "dur":775, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.PhysicsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545757014, "dur":13986, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.LocalizationModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545771002, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545771009, "dur":722, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.LocalizationModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545771763, "dur":14249, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.InputModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545786017, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545786035, "dur":13669, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.InputModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545799742, "dur":46538, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GameCenterModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545846282, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545846291, "dur":706, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GameCenterModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545847029, "dur":13713, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClothModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545860745, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545860752, "dur":670, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClothModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545861451, "dur":106418, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545967873, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735545967882, "dur":1135, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735545969052, "dur":64831, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546033887, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735546033896, "dur":1049, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546034976, "dur":57450, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Numerics.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546092430, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735546092439, "dur":2573, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Numerics.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546095046, "dur":26002, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.IO.Compression.FileSystem.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546121069, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735546121078, "dur":1038, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.IO.Compression.FileSystem.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546122146, "dur":32830, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.EnterpriseServices.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546154979, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735546154989, "dur":2123, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.EnterpriseServices.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546157141, "dur":167933, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Data.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546325078, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1684735546325103, "dur":1565, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Data.dll" }}
+,{ "pid":12345, "tid":1, "ts":1684735546326698, "dur":164450, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545406480, "dur":0, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545406480, "dur":4252, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545410733, "dur":316, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/settings.map" }}
+,{ "pid":12345, "tid":2, "ts":1684735545411052, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545447892, "dur":1728, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/settings.map" }}
+,{ "pid":12345, "tid":2, "ts":1684735545449653, "dur":7029, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/web.config" }}
+,{ "pid":12345, "tid":2, "ts":1684735545456686, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545456695, "dur":767, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/web.config" }}
+,{ "pid":12345, "tid":2, "ts":1684735545457499, "dur":16944, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":2, "ts":1684735545474447, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545474454, "dur":1439, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":2, "ts":1684735545475926, "dur":17151, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VRModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545493081, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545493150, "dur":760, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VRModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545493941, "dur":30333, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VFXModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545524278, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545524286, "dur":1512, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VFXModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545525829, "dur":17240, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545543091, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545543100, "dur":849, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545544055, "dur":40209, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545584268, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545584334, "dur":1179, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545585545, "dur":131237, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIElementsModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545716786, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545716794, "dur":1526, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIElementsModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545718365, "dur":53850, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545772218, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545772225, "dur":4861, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545777159, "dur":78770, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.IMGUIModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545855933, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545855941, "dur":819, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.IMGUIModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545856790, "dur":36110, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ARModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545892904, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545892912, "dur":760, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ARModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545893701, "dur":47371, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.State.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545941089, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735545941096, "dur":630, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.State.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735545941755, "dur":217314, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546159073, "dur":6, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546159086, "dur":872, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546159989, "dur":29167, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Data.DataSetExtensions.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546189160, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546189168, "dur":738, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Data.DataSetExtensions.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546189936, "dur":95980, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Configuration.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546285920, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546285948, "dur":907, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Configuration.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546286887, "dur":17180, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546304072, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546304081, "dur":685, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":2, "ts":1684735546304797, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets1.assets" }}
+,{ "pid":12345, "tid":2, "ts":1684735546304827, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546304932, "dur":3662, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets1.assets" }}
+,{ "pid":12345, "tid":2, "ts":1684735546308624, "dur":535, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/RuntimeInitializeOnLoads.json" }}
+,{ "pid":12345, "tid":2, "ts":1684735546309162, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546309168, "dur":709, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/RuntimeInitializeOnLoads.json" }}
+,{ "pid":12345, "tid":2, "ts":1684735546309909, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level1" }}
+,{ "pid":12345, "tid":2, "ts":1684735546309939, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546309944, "dur":695, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level1" }}
+,{ "pid":12345, "tid":2, "ts":1684735546310689, "dur":26, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level0" }}
+,{ "pid":12345, "tid":2, "ts":1684735546310717, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546310722, "dur":680, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level0" }}
+,{ "pid":12345, "tid":2, "ts":1684735546311430, "dur":30, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/globalgamemanagers" }}
+,{ "pid":12345, "tid":2, "ts":1684735546311462, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1684735546311468, "dur":1121, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/globalgamemanagers" }}
+,{ "pid":12345, "tid":2, "ts":1684735546312621, "dur":178519, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545406162, "dur":1, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545406163, "dur":4570, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545410734, "dur":36501, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/machine.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735545447237, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545447253, "dur":1791, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/machine.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735545449073, "dur":73, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":3, "ts":1684735545449148, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545449519, "dur":1330, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":3, "ts":1684735545450881, "dur":6642, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735545457525, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545457532, "dur":1014, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735545458579, "dur":109, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Resources/unity default resources" }}
+,{ "pid":12345, "tid":3, "ts":1684735545458690, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545458921, "dur":13093, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Resources/unity default resources" }}
+,{ "pid":12345, "tid":3, "ts":1684735545472046, "dur":14353, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.WindModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545486404, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545486616, "dur":838, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.WindModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545487492, "dur":28802, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545516298, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545516307, "dur":1482, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545517827, "dur":75639, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545593470, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545593478, "dur":1560, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545595079, "dur":14484, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TLSModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545609567, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545609575, "dur":688, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TLSModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545610293, "dur":101232, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545711528, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545711536, "dur":1618, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545713190, "dur":54709, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545767903, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545767911, "dur":1007, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545768956, "dur":20353, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545789313, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545789321, "dur":915, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545790276, "dur":63737, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GridModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545854017, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545854044, "dur":1213, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GridModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545855295, "dur":24912, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545880212, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545880220, "dur":775, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545881025, "dur":26095, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AIModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545907124, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545907132, "dur":706, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AIModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545907867, "dur":60115, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Core.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545967985, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735545967991, "dur":1308, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Core.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735545969331, "dur":182853, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Xml.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735546152189, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546152226, "dur":2692, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Xml.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735546154953, "dur":147597, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735546302553, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546302562, "dur":1695, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.dll" }}
+,{ "pid":12345, "tid":3, "ts":1684735546304289, "dur":30, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Resources/unity_builtin_extra" }}
+,{ "pid":12345, "tid":3, "ts":1684735546304321, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546304381, "dur":850, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Resources/unity_builtin_extra" }}
+,{ "pid":12345, "tid":3, "ts":1684735546305261, "dur":29, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.resource" }}
+,{ "pid":12345, "tid":3, "ts":1684735546305292, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546305297, "dur":764, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.resource" }}
+,{ "pid":12345, "tid":3, "ts":1684735546306092, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.assets.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546306122, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546306129, "dur":1586, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.assets.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546307748, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.assets" }}
+,{ "pid":12345, "tid":3, "ts":1684735546307779, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546307786, "dur":669, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/sharedassets0.assets" }}
+,{ "pid":12345, "tid":3, "ts":1684735546308485, "dur":94, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/ScriptingAssemblies.json" }}
+,{ "pid":12345, "tid":3, "ts":1684735546308581, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546308588, "dur":601, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/ScriptingAssemblies.json" }}
+,{ "pid":12345, "tid":3, "ts":1684735546309219, "dur":31, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level1.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546309252, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546309257, "dur":706, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level1.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546309991, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level0.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546310020, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546310025, "dur":685, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/level0.resS" }}
+,{ "pid":12345, "tid":3, "ts":1684735546310739, "dur":29, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/globalgamemanagers.assets" }}
+,{ "pid":12345, "tid":3, "ts":1684735546310770, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546310775, "dur":719, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/globalgamemanagers.assets" }}
+,{ "pid":12345, "tid":3, "ts":1684735546311524, "dur":92, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/boot.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735546311618, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1684735546311623, "dur":1216, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/boot.config" }}
+,{ "pid":12345, "tid":3, "ts":1684735546312867, "dur":178273, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545406025, "dur":143, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545406168, "dur":4562, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545410730, "dur":119, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":4, "ts":1684735545410852, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545414431, "dur":1525, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":4, "ts":1684735545415993, "dur":91, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":4, "ts":1684735545416086, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545447406, "dur":1292, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":4, "ts":1684735545448734, "dur":85, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":4, "ts":1684735545448821, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545448829, "dur":1812, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":4, "ts":1684735545450676, "dur":91, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/settings.map" }}
+,{ "pid":12345, "tid":4, "ts":1684735545450770, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545450817, "dur":925, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/settings.map" }}
+,{ "pid":12345, "tid":4, "ts":1684735545451773, "dur":81, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/config" }}
+,{ "pid":12345, "tid":4, "ts":1684735545451856, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545451863, "dur":1248, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/config" }}
+,{ "pid":12345, "tid":4, "ts":1684735545453152, "dur":4273, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545457428, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545457589, "dur":1008, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545458629, "dur":53548, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.XRModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545512182, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545512191, "dur":1758, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.XRModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545513979, "dur":25708, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545539692, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545539701, "dur":865, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545540600, "dur":13640, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545554244, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545554253, "dur":1161, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545555446, "dur":13095, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UmbraModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545568545, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545568608, "dur":935, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UmbraModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545569572, "dur":35143, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIElementsNativeModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545604719, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545604728, "dur":1529, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIElementsNativeModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545606290, "dur":34902, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TilemapModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545641196, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545641205, "dur":997, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TilemapModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545642269, "dur":42598, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545684895, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545684907, "dur":775, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545685716, "dur":34637, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545720357, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545720366, "dur":937, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545721334, "dur":14114, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ProfilerModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545735453, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545735462, "dur":964, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ProfilerModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545736460, "dur":37731, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545774195, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545774204, "dur":3599, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545777833, "dur":13060, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.HotReloadModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545790897, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545790904, "dur":749, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.HotReloadModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545791682, "dur":16440, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GIModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545808126, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545808134, "dur":738, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.GIModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545808902, "dur":17188, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.DirectorModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545826094, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545826120, "dur":6230, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.DirectorModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545832396, "dur":107125, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.CoreModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545939526, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735545939534, "dur":1231, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.CoreModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735545940797, "dur":82590, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546023392, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735546023401, "dur":834, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546024274, "dur":151785, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Security.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546176062, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735546176071, "dur":955, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Security.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546177063, "dur":106525, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Core.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546283592, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735546283601, "dur":1939, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Core.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546285576, "dur":178687, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Mono.Security.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546464267, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1684735546464276, "dur":842, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Mono.Security.dll" }}
+,{ "pid":12345, "tid":4, "ts":1684735546465146, "dur":25981, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545406276, "dur":0, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545406276, "dur":4455, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545410731, "dur":36440, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/web.config" }}
+,{ "pid":12345, "tid":5, "ts":1684735545447176, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545447202, "dur":871, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.5/web.config" }}
+,{ "pid":12345, "tid":5, "ts":1684735545448110, "dur":90, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/settings.map" }}
+,{ "pid":12345, "tid":5, "ts":1684735545448202, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545448209, "dur":3102, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/4.0/settings.map" }}
+,{ "pid":12345, "tid":5, "ts":1684735545451354, "dur":79, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":5, "ts":1684735545451436, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545451443, "dur":1696, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":5, "ts":1684735545453171, "dur":43405, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545496581, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545496911, "dur":4977, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545501920, "dur":14675, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VehiclesModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545516598, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545516605, "dur":647, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.VehiclesModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545517285, "dur":16517, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545533806, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545533814, "dur":751, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545534597, "dur":13207, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545547808, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545547817, "dur":1046, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545548897, "dur":15286, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545564187, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545564196, "dur":2176, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545566405, "dur":23005, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545589415, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545589424, "dur":1491, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UIModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545590949, "dur":105017, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545695971, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545695980, "dur":1132, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545697144, "dur":13220, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.StreamingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545710368, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545710377, "dur":739, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.StreamingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545711147, "dur":13854, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545725005, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545725014, "dur":2929, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545727977, "dur":42887, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.Physics2DModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545770869, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545770877, "dur":865, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.Physics2DModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545771771, "dur":28407, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545800181, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545800189, "dur":4811, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545805033, "dur":17697, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545822735, "dur":3, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545822747, "dur":8588, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545831368, "dur":13659, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545845031, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545845041, "dur":1074, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545846151, "dur":14043, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545860199, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545860207, "dur":770, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545861008, "dur":67002, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AnimationModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545928014, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545928022, "dur":3910, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AnimationModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545931964, "dur":43682, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545975650, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735545975659, "dur":998, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735545976690, "dur":49696, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Transactions.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546026391, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735546026399, "dur":6029, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Transactions.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546032460, "dur":106019, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Runtime.Serialization.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546138483, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735546138492, "dur":1192, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Runtime.Serialization.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546139714, "dur":136310, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Drawing.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546276028, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735546276037, "dur":5629, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Drawing.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546281772, "dur":207309, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/mscorlib.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546489084, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1684735546489093, "dur":1990, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/mscorlib.dll" }}
+,{ "pid":12345, "tid":5, "ts":1684735546491113, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"Player" }}
+,{ "pid":12345, "tid":5, "ts":1684735546491115, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545406560, "dur":0, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545406560, "dur":4153, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545410713, "dur":36458, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":6, "ts":1684735545447176, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545447477, "dur":4347, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":6, "ts":1684735545451852, "dur":70, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/browscap.ini" }}
+,{ "pid":12345, "tid":6, "ts":1684735545451925, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545451931, "dur":1953, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/MonoBleedingEdge/etc/mono/browscap.ini" }}
+,{ "pid":12345, "tid":6, "ts":1684735545453923, "dur":183068, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/UnityPlayer.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545636995, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545637002, "dur":13894, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/UnityPlayer.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545650928, "dur":13862, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545664794, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545664802, "dur":819, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545665652, "dur":36905, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TerrainModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545702561, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545702569, "dur":728, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.TerrainModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545703327, "dur":14661, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545718056, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545718066, "dur":676, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545718772, "dur":13629, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545732406, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545732415, "dur":711, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545733158, "dur":13554, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545746716, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545746724, "dur":850, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545747606, "dur":23623, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545771248, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545771254, "dur":6109, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545777393, "dur":27486, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545804883, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545804892, "dur":813, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545805734, "dur":24425, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545830163, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545830176, "dur":2303, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545832576, "dur":12452, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545845031, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545845041, "dur":1959, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545847034, "dur":33997, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AudioModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545881034, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545881043, "dur":1065, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AudioModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545882145, "dur":16997, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545899147, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545899155, "dur":872, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545900061, "dur":70387, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Flow.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545970452, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735545970460, "dur":6466, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/Unity.VisualScripting.Flow.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735545976957, "dur":70946, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546047907, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735546047918, "dur":2500, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546050450, "dur":58379, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Net.Http.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546108833, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735546108841, "dur":792, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.Net.Http.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546109664, "dur":85615, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.IO.Compression.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546195455, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735546195465, "dur":1985, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.IO.Compression.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546197483, "dur":80947, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.ComponentModel.Composition.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546278434, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735546278443, "dur":2463, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/System.ComponentModel.Composition.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546280964, "dur":37445, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/netstandard.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546318413, "dur":2, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1684735546318422, "dur":971, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/jht/Desktop/gameProject/Unity/UnityProject/RollABallGame/Roll_A_Ball_Data/Managed/netstandard.dll" }}
+,{ "pid":12345, "tid":6, "ts":1684735546319424, "dur":171704, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1684735546494026, "dur":1949, "ph":"X", "name": "ProfilerWriteOutput" }
+,{ "pid": 0, "tid": 1, "ts": 1684735546517949, "dur": 2814, "ph": "X", "name": "backend_profiler1.traceevents", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1684735546516482, "dur": 4356, "ph": "X", "name": "Write chrome-trace events", "args": {} },
