@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d41c434a04741d94782570683697fcf3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - blockPrefab: {instanceID: 0}
+  - scoreText: {instanceID: 0}
+  - lineText: {instanceID: 0}
+  - levelText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
