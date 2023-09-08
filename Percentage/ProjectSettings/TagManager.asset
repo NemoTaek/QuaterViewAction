@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TopDoor
+  - BottomDoor
+  - LeftDoor
+  - RightDoor
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
