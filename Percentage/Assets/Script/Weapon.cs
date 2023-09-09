@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public Animator animator;
     public string weaponName; // 무기 이름
-    public int[] wearableRole;    // 착용 가능한 직업
     public float damage;    // 무기 데미지
-    
-    public void Init(string weaponName, int[] wearableRole, float damage)
+
+    void Awake()
+    {
+        animator = GetComponentInParent<Animator>();
+    }
+
+    public void Init(string weaponName, float damage)
     {
         this.weaponName = weaponName;
-        this.wearableRole = wearableRole;
         this.damage = damage;
     }
 

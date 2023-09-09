@@ -8,14 +8,17 @@ public class Player : MonoBehaviour
     [Header("----- Component -----")]
     public Camera camera;
     public RoleData roleData;
+    public Hand[] hand;
 
     [Header("----- Player Component -----")]
-    public Vector2 inputVec;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
 
     [Header("----- Player Property -----")]
+    public Vector2 inputVec;
+    public Vector2 fireVec;
+    bool isSlashing;
     public int role;
     public string roleName;
     public int roleBasicWeapon;
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        hand = GetComponentsInChildren<Hand>(true);
     }
 
     void Start()
@@ -85,8 +89,11 @@ public class Player : MonoBehaviour
 
     void InputKeyboard()
     {
-        //inputVec.x = Input.GetAxisRaw("Horizontal");
-        //inputVec.y = Input.GetAxisRaw("Vertical");
+        bool isAttack = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2");
+
+        if(isAttack && !isSlashing) {
+            StartCoroutine(PlayerAttack());
+        }
     }
 
     void OnMove(InputValue value)
@@ -106,6 +113,40 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
+    IEnumerator PlayerAttack()
+    {
+        isSlashing = true;
+
+        bool isRightAttack = Input.GetKeyDown(KeyCode.RightArrow);
+        bool isLeftAttack = Input.GetKeyDown(KeyCode.LeftArrow);
+        bool isUpAttack = Input.GetKeyDown(KeyCode.UpArrow);
+        bool isDownAttack = Input.GetKeyDown(KeyCode.DownArrow);
+        int handIndex = 0;
+        if (role == 0 || role == 1) handIndex = 0;
+        if (role == 2 || role == 3) handIndex = 1;
+
+        if (isRightAttack)
+        {
+            hand[handIndex].Attack("Right");
+        }
+        else if (isLeftAttack)
+        {
+            hand[handIndex].Attack("Left");
+        }
+        else if (isUpAttack)
+        {
+            hand[handIndex].Attack("Up");
+        }
+        else if (isDownAttack)
+        {
+            hand[handIndex].Attack("Down");
+        }
+
+        yield return new WaitForSeconds(1.1f);
+
+        isSlashing = false;
+    }
+
     void SetCharacterStatus()
     {
         // 기본 세팅할 것
@@ -120,21 +161,29 @@ public class Player : MonoBehaviour
                 roleName = "기사";
                 roleBasicWeapon = 0;
                 roleBasicSkill = 0;
+                GameManager.instance.weapon[0].Init("삽", 20);
+                hand[0].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Wizard:
                 roleName = "마법사";
                 roleBasicWeapon = 1;
                 roleBasicSkill = 1;
+                GameManager.instance.weapon[1].Init("지팡이", 30);
+                hand[0].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Thief:
                 roleName = "도적";
                 roleBasicWeapon = 2;
                 roleBasicSkill = 2;
+                GameManager.instance.weapon[2].Init("단검", 10);
+                hand[1].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Gunner:
                 roleName = "총잡이";
                 roleBasicWeapon = 3;
                 roleBasicSkill = 3;
+                GameManager.instance.weapon[2].Init("총", 5);
+                hand[1].gameObject.SetActive(true);
                 break;
         }
     }

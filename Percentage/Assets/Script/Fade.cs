@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Fade : MonoBehaviour
@@ -47,5 +48,30 @@ public class Fade : MonoBehaviour
         }
 
         fadePanel.gameObject.SetActive(false);
+    }
+
+    public void ClickStartButton()
+    {
+        StartCoroutine(GameStart());
+    }
+
+    IEnumerator GameStart()
+    {
+        // 1초간 점점 어두워지는 애니메이션 넣기
+        StartCoroutine(FadeOut());
+
+        yield return new WaitForSeconds(1f);
+
+        StopCoroutine(FadeOut());
+
+        int isGameStart = Random.Range(0, 2);
+        if (isGameStart == 0)
+        {
+            SceneManager.LoadScene("Intro2");
+        }
+        else
+        {
+            SceneManager.LoadScene("Stage1");
+        }
     }
 }
