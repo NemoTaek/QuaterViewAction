@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5888102977014390098}
   - component: {fileID: 7976620716490355295}
-  - component: {fileID: 9136865118705278636}
   - component: {fileID: 7669298489236662863}
+  - component: {fileID: 9136865118705278636}
   m_Layer: 0
   m_Name: Shovel
   m_TagString: Weapon
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9136865118705278636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8922646110497837756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e12c32de66ab8540a8aa58d7c8030fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: "\uC0BD"
-  damage: 10
 --- !u!61 &7669298489236662863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -126,3 +112,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3888889, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &9136865118705278636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922646110497837756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e12c32de66ab8540a8aa58d7c8030fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  weaponName: "\uC0BD"
+  damage: 10

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Fade fadeAnimation;
     public Player player;
     public Weapon[] weapon;
+    public BulletPool bulletPool;
+    public GameObject statusPanel;
 
     void Awake()
     {
@@ -27,5 +29,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    public void CloseStatusPanel()
+    {
+        player.isOpenStatus = false;
+        statusPanel.SetActive(false);
+    }
 }

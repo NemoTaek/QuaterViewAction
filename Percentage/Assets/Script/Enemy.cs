@@ -36,20 +36,22 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        EnemyMove();
+        //EnemyMove();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Weapon"))
+        if (collision.CompareTag("Weapon") || collision.CompareTag("Bullet"))
         {
-            Debug.Log("АјАн!");
-            health -= collision.GetComponent<Weapon>().damage;
+            Debug.Log(collision);
+            int role = GameManager.instance.player.role;
+            Weapon weapon = GameManager.instance.weapon[role];
+            health -= weapon.damage;
 
             if(health > 0)
             {
                 animator.SetTrigger("Hit");
-                StartCoroutine(KnockBack());
+                //StartCoroutine(KnockBack());
             }
             else
             {

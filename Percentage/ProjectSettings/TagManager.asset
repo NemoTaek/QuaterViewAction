@@ -10,6 +10,8 @@ TagManager:
   - RightDoor
   - Enemy
   - Weapon
+  - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX

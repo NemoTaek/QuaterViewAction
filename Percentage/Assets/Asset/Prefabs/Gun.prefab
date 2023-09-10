@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1925584191308840183}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  weaponName: 
-  damage: 0
+  weaponName: "\uCD1D"
+  damage: 5

@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public Vector2 fireVec;
     bool isSlashing;
+    public bool isOpenStatus;
+
     public int role;
     public string roleName;
     public int roleBasicWeapon;
@@ -83,6 +85,9 @@ public class Player : MonoBehaviour
         // 키보드 입력
         InputKeyboard();
 
+        // 상태창 오픈하면 아무것도 못하게 할 것
+        if (isOpenStatus) return;
+
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
     }
@@ -91,8 +96,14 @@ public class Player : MonoBehaviour
     {
         bool isAttack = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2");
 
-        if(isAttack && !isSlashing) {
+        if(isAttack && !isOpenStatus && !isSlashing) {
             StartCoroutine(PlayerAttack());
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            isOpenStatus = !isOpenStatus;
+            GameManager.instance.statusPanel.SetActive(isOpenStatus);
         }
     }
 
@@ -107,6 +118,8 @@ public class Player : MonoBehaviour
 
     void PlayerMove()
     {
+        if (isOpenStatus) return;
+
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         //rigid.AddForce(inputVec);
         //rigid.velocity = inputVec;
@@ -121,25 +134,34 @@ public class Player : MonoBehaviour
         bool isLeftAttack = Input.GetKeyDown(KeyCode.LeftArrow);
         bool isUpAttack = Input.GetKeyDown(KeyCode.UpArrow);
         bool isDownAttack = Input.GetKeyDown(KeyCode.DownArrow);
-        int handIndex = 0;
-        if (role == 0 || role == 1) handIndex = 0;
-        if (role == 2 || role == 3) handIndex = 1;
+        Vector2 dirVec = Vector2.zero;
 
+        // 총은 무기 휘두르는 모션이 없으므로 제외하고 무기 애니메이션 실행
         if (isRightAttack)
         {
-            hand[handIndex].Attack("Right");
+            if(role != 3)   hand[role].Attack("Right");
+            dirVec = Vector2.right;
         }
         else if (isLeftAttack)
         {
-            hand[handIndex].Attack("Left");
+            if (role != 3)  hand[role].Attack("Left");
+            dirVec = Vector2.left;
         }
         else if (isUpAttack)
         {
-            hand[handIndex].Attack("Up");
+            if (role != 3)   hand[role].Attack("Up");
+            dirVec = Vector2.up;
         }
         else if (isDownAttack)
         {
-            hand[handIndex].Attack("Down");
+            if (role != 3)  hand[role].Attack("Down");
+            dirVec = Vector2.down;
+        }
+
+        // 지팡이와 총은 각각 마법과 총알을 발사
+        if(role == 1 || role == 3)
+        {
+            GameManager.instance.weapon[role].Shot(dirVec, transform.position);
         }
 
         yield return new WaitForSeconds(1.1f);
@@ -161,29 +183,29 @@ public class Player : MonoBehaviour
                 roleName = "기사";
                 roleBasicWeapon = 0;
                 roleBasicSkill = 0;
-                GameManager.instance.weapon[0].Init("삽", 20);
-                hand[0].gameObject.SetActive(true);
+                GameManager.instance.weapon[role].Init("삽", 20);
+                hand[role].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Wizard:
                 roleName = "마법사";
                 roleBasicWeapon = 1;
                 roleBasicSkill = 1;
-                GameManager.instance.weapon[1].Init("지팡이", 30);
-                hand[0].gameObject.SetActive(true);
+                GameManager.instance.weapon[role].Init("지팡이", 30);
+                hand[role].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Thief:
                 roleName = "도적";
                 roleBasicWeapon = 2;
                 roleBasicSkill = 2;
-                GameManager.instance.weapon[2].Init("단검", 10);
-                hand[1].gameObject.SetActive(true);
+                GameManager.instance.weapon[role].Init("단검", 10);
+                hand[role].gameObject.SetActive(true);
                 break;
             case (int)RoleData.RoleType.Gunner:
                 roleName = "총잡이";
                 roleBasicWeapon = 3;
                 roleBasicSkill = 3;
-                GameManager.instance.weapon[2].Init("총", 5);
-                hand[1].gameObject.SetActive(true);
+                GameManager.instance.weapon[role].Init("총", 5);
+                hand[role].gameObject.SetActive(true);
                 break;
         }
     }
