@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Weapon") || collision.CompareTag("Bullet"))
         {
-            Debug.Log(collision);
             int role = GameManager.instance.player.role;
             Weapon weapon = GameManager.instance.weapon[role];
             health -= weapon.damage;

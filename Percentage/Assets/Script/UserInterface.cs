@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class UserInterface : MonoBehaviour
 {
-    public Image[] HeartArea;
+    public Player player;
+
+    public Image[] heartArea;
     public Sprite heart;
     public Sprite heartEmpty;
 
@@ -23,6 +25,50 @@ public class UserInterface : MonoBehaviour
     public Sprite[] skillImage;
     public Text[] skillName;
     public Text[] skillDesc;
+
+    public Text statusHeart;
+    public Text statusSpeed;
+    public Text statusAttackSpeed;
+    public Text statusPower;
+
+    void OnEnable()
+    {
+        int uiIndex = player.role * 5;
+
+        // 코인 개수 세팅
+        coinText.text = "0";
+
+        // 무기와 스킬 이미지 세팅
+        for(int i=0; i<5; i++)
+        {
+            gameWeaponArea[i].sprite = weaponImage[uiIndex + i];
+            statusWeaponArea[i].sprite = weaponImage[uiIndex + i];
+            gameSkillArea[i].sprite = skillImage[uiIndex + i];
+            statusSkillArea[i].sprite = skillImage[uiIndex + i];
+        }
+        
+        // 체력 세팅
+        for(int i=0; i<heartArea.Length; i++)
+        {
+            Color color = heartArea[i].color;
+
+            if(i < player.health)
+            {
+                heartArea[i].sprite = heart;
+            }
+            else
+            {
+                color.a = 0;
+                heartArea[i].color = color;
+            }
+        }
+
+        // 스탯창 정보 출력
+        statusHeart.text = player.health.ToString();
+        statusSpeed.text = player.speed.ToString();
+        statusAttackSpeed.text = player.attackSpeed.ToString();
+        statusPower.text = player.power.ToString();
+    }
 
     void Start()
     {

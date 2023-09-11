@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 {
     [Header("----- Component -----")]
     public Camera camera;
-    public RoleData roleData;
     public Hand[] hand;
+    public UserInterface ui;
 
     [Header("----- Player Component -----")]
     Rigidbody2D rigid;
@@ -25,7 +25,12 @@ public class Player : MonoBehaviour
     public string roleName;
     public int roleBasicWeapon;
     public int roleBasicSkill;
+    
+    public float maxHealth = 10;
+    public float health;
     public float speed;
+    public float attackSpeed;
+    public float power;
 
     void Awake()
     {
@@ -179,34 +184,52 @@ public class Player : MonoBehaviour
 
         switch (role)
         {
-            case (int)RoleData.RoleType.Knight:
+            case 0:
                 roleName = "기사";
                 roleBasicWeapon = 0;
                 roleBasicSkill = 0;
-                GameManager.instance.weapon[role].Init("삽", 20);
+                GameManager.instance.weapon[role].Init("삽", 20, 1);
                 hand[role].gameObject.SetActive(true);
+                health = 4;
+                speed = 2;
+                attackSpeed = 2;
+                power = 4;
                 break;
-            case (int)RoleData.RoleType.Wizard:
+            case 1:
                 roleName = "마법사";
                 roleBasicWeapon = 1;
                 roleBasicSkill = 1;
-                GameManager.instance.weapon[role].Init("지팡이", 30);
+                GameManager.instance.weapon[role].Init("지팡이", 30, 1);
                 hand[role].gameObject.SetActive(true);
+                health = 3;
+                speed = 3;
+                attackSpeed = 2;
+                power = 4;
                 break;
-            case (int)RoleData.RoleType.Thief:
+            case 2:
                 roleName = "도적";
                 roleBasicWeapon = 2;
                 roleBasicSkill = 2;
-                GameManager.instance.weapon[role].Init("단검", 10);
+                GameManager.instance.weapon[role].Init("단검", 10, 1);
                 hand[role].gameObject.SetActive(true);
+                health = 2;
+                speed = 4;
+                attackSpeed =42;
+                power = 2;
                 break;
-            case (int)RoleData.RoleType.Gunner:
+            case 3:
                 roleName = "총잡이";
                 roleBasicWeapon = 3;
                 roleBasicSkill = 3;
-                GameManager.instance.weapon[role].Init("총", 5);
+                GameManager.instance.weapon[role].Init("총", 5, 1);
                 hand[role].gameObject.SetActive(true);
+                health = 3;
+                speed = 3;
+                attackSpeed = 3;
+                power = 3;
                 break;
         }
+
+        ui.gameObject.SetActive(true);
     }
 }
