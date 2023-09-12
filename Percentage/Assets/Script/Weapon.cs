@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Bullet bullet;
     public Animator animator;
 
     public string weaponName; // 무기 이름
@@ -37,7 +36,7 @@ public class Weapon : MonoBehaviour
     public void Shot(Vector2 dirVec, Vector3 playerPosition)
     {
         int playerRole = GameManager.instance.player.role;
-        bullet = playerRole == 1 ? GameManager.instance.bulletPool.Get(0) : GameManager.instance.bulletPool.Get(1);
+        GameObject bullet = playerRole == 1 ? GameManager.instance.ObjectPool.Get(0) : GameManager.instance.ObjectPool.Get(1);
 
         if(dirVec == Vector2.right)
         {
@@ -60,6 +59,6 @@ public class Weapon : MonoBehaviour
             bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 180) : Quaternion.Euler(0, 0, 90);
         }
 
-        bullet.rigid.velocity = dirVec * 5;
+        bullet.GetComponent<Rigidbody2D>().velocity = dirVec * 5;
     }
 }

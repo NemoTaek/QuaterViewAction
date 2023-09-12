@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class UserInterface : MonoBehaviour
 {
+    [Header("----- Component -----")]
     public Player player;
 
+    [Header("----- Main UI -----")]
     public Image[] heartArea;
     public Sprite heart;
     public Sprite heartEmpty;
@@ -14,6 +16,7 @@ public class UserInterface : MonoBehaviour
     public Image coin;
     public Text coinText;
 
+    [Header("----- Status UI -----")]
     public Image[] gameWeaponArea;
     public Image[] statusWeaponArea;
     public Sprite[] weaponImage;
@@ -30,6 +33,12 @@ public class UserInterface : MonoBehaviour
     public Text statusSpeed;
     public Text statusAttackSpeed;
     public Text statusPower;
+
+    [Header("----- Reward Box UI -----")]
+    public Text[] acquireText;
+    public Text[] upgradeText;
+    public Text failedText;
+    public Text destroyedText;
 
     void OnEnable()
     {
@@ -68,6 +77,14 @@ public class UserInterface : MonoBehaviour
         statusSpeed.text = player.speed.ToString();
         statusAttackSpeed.text = player.attackSpeed.ToString();
         statusPower.text = player.power.ToString();
+
+        // 보상 획득 시 나타난 텍스트 초기화
+        acquireText[0].gameObject.SetActive(false);
+        acquireText[1].gameObject.SetActive(false);
+        upgradeText[0].gameObject.SetActive(false);
+        upgradeText[1].gameObject.SetActive(false);
+        failedText.gameObject.SetActive(false);
+        destroyedText.gameObject.SetActive(false);
     }
 
     void Start()

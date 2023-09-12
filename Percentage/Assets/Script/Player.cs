@@ -19,12 +19,12 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public Vector2 fireVec;
     bool isSlashing;
-    public bool isOpenStatus;
+    public float attackDelay;
 
     public int role;
     public string roleName;
-    public int roleBasicWeapon;
-    public int roleBasicSkill;
+    public List<int> acquireWeapons;
+    public List<int> acquireSkills;
     
     public float maxHealth = 10;
     public float health;
@@ -87,30 +87,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // 키보드 입력
-        InputKeyboard();
-
         // 상태창 오픈하면 아무것도 못하게 할 것
-        if (isOpenStatus) return;
+        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
+
+        // 공격 딜레이
+        if (GameManager.instance.isAttack && !isSlashing)
+        {
+            StartCoroutine(PlayerAttack());
+        }
 
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
     }
 
-    void InputKeyboard()
-    {
-        bool isAttack = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2");
 
-        if(isAttack && !isOpenStatus && !isSlashing) {
-            StartCoroutine(PlayerAttack());
-        }
-
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            isOpenStatus = !isOpenStatus;
-            GameManager.instance.statusPanel.SetActive(isOpenStatus);
-        }
-    }
 
     void OnMove(InputValue value)
     {
@@ -123,7 +113,7 @@ public class Player : MonoBehaviour
 
     void PlayerMove()
     {
-        if (isOpenStatus) return;
+        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
 
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         //rigid.AddForce(inputVec);
@@ -135,29 +125,26 @@ public class Player : MonoBehaviour
     {
         isSlashing = true;
 
-        bool isRightAttack = Input.GetKeyDown(KeyCode.RightArrow);
-        bool isLeftAttack = Input.GetKeyDown(KeyCode.LeftArrow);
-        bool isUpAttack = Input.GetKeyDown(KeyCode.UpArrow);
-        bool isDownAttack = Input.GetKeyDown(KeyCode.DownArrow);
+
         Vector2 dirVec = Vector2.zero;
 
         // 총은 무기 휘두르는 모션이 없으므로 제외하고 무기 애니메이션 실행
-        if (isRightAttack)
+        if (GameManager.instance.isRightAttack)
         {
             if(role != 3)   hand[role].Attack("Right");
             dirVec = Vector2.right;
         }
-        else if (isLeftAttack)
+        else if (GameManager.instance.isLeftAttack)
         {
             if (role != 3)  hand[role].Attack("Left");
             dirVec = Vector2.left;
         }
-        else if (isUpAttack)
+        else if (GameManager.instance.isUpAttack)
         {
             if (role != 3)   hand[role].Attack("Up");
             dirVec = Vector2.up;
         }
-        else if (isDownAttack)
+        else if (GameManager.instance.isDownAttack)
         {
             if (role != 3)  hand[role].Attack("Down");
             dirVec = Vector2.down;
@@ -169,7 +156,7 @@ public class Player : MonoBehaviour
             GameManager.instance.weapon[role].Shot(dirVec, transform.position);
         }
 
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(attackDelay + 0.1f);
 
         isSlashing = false;
     }
@@ -186,10 +173,11 @@ public class Player : MonoBehaviour
         {
             case 0:
                 roleName = "기사";
-                roleBasicWeapon = 0;
-                roleBasicSkill = 0;
-                GameManager.instance.weapon[role].Init("삽", 20, 1);
+                GameManager.instance.weapon[role].Init("검", 20, 1);
                 hand[role].gameObject.SetActive(true);
+                acquireWeapons.Add(0);
+                acquireSkills.Add(0);
+
                 health = 4;
                 speed = 2;
                 attackSpeed = 2;
@@ -197,10 +185,11 @@ public class Player : MonoBehaviour
                 break;
             case 1:
                 roleName = "마법사";
-                roleBasicWeapon = 1;
-                roleBasicSkill = 1;
-                GameManager.instance.weapon[role].Init("지팡이", 30, 1);
+                GameManager.instance.weapon[role].Init("스태프", 30, 1);
                 hand[role].gameObject.SetActive(true);
+                acquireWeapons.Add(5);
+                acquireSkills.Add(5);
+
                 health = 3;
                 speed = 3;
                 attackSpeed = 2;
@@ -208,10 +197,11 @@ public class Player : MonoBehaviour
                 break;
             case 2:
                 roleName = "도적";
-                roleBasicWeapon = 2;
-                roleBasicSkill = 2;
                 GameManager.instance.weapon[role].Init("단검", 10, 1);
                 hand[role].gameObject.SetActive(true);
+                acquireWeapons.Add(10);
+                acquireSkills.Add(10);
+
                 health = 2;
                 speed = 4;
                 attackSpeed =42;
@@ -219,10 +209,11 @@ public class Player : MonoBehaviour
                 break;
             case 3:
                 roleName = "총잡이";
-                roleBasicWeapon = 3;
-                roleBasicSkill = 3;
                 GameManager.instance.weapon[role].Init("총", 5, 1);
                 hand[role].gameObject.SetActive(true);
+                acquireWeapons.Add(15);
+                acquireSkills.Add(15);
+
                 health = 3;
                 speed = 3;
                 attackSpeed = 3;

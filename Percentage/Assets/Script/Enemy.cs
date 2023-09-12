@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     public Rigidbody2D target;
     Collider2D collider;
+    Room room;
 
     public float speed;
     public float health;
@@ -21,6 +22,8 @@ public class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
+        room = gameObject.GetComponentInParent<Room>();
     }
 
     void OnEnable()
@@ -36,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        //EnemyMove();
+        StartCoroutine(EnemyMove());
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -50,7 +53,7 @@ public class Enemy : MonoBehaviour
             if(health > 0)
             {
                 animator.SetTrigger("Hit");
-                //StartCoroutine(KnockBack());
+                StartCoroutine(KnockBack());
             }
             else
             {
@@ -58,6 +61,7 @@ public class Enemy : MonoBehaviour
                 collider.enabled = false;
                 rigid.simulated = false;
                 animator.SetBool("Dead", true);
+                room.enemyCount--;
             }
         }
     }
@@ -73,10 +77,13 @@ public class Enemy : MonoBehaviour
         spriteRenderer.flipX = target.position.x < rigid.position.x ? true : false;
     }
 
-    void EnemyMove()
+    IEnumerator EnemyMove()
     {
+        // 소환 후 1초는 여유시간
+        yield return new WaitForSeconds(1);
+
         // 죽었거나, 맞을때는 앞으로 못가도록 설정
-        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
+        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) yield break;
 
         Vector2 dirVec = target.position - rigid.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
@@ -92,8 +99,17 @@ public class Enemy : MonoBehaviour
         Vector3 dirVec = transform.position - playerPosition;
         rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
     }
+
     void DeadAnimation()
     {
         gameObject.SetActive(false);
+
+        int random = Random.Range(0, 10);
+        if(random >= 0 && random < 3)
+        {
+            GameObject coin = GameManager.instance.ObjectPool.Get(2);
+            coin.transform.position = transform.position;
+        }
+        
     }
 }
