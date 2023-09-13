@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public string roleName;
     public List<int> acquireWeapons;
     public List<int> acquireSkills;
+    public int getWeaponCount;
     
     public float maxHealth = 10;
     public float health;
@@ -100,8 +101,6 @@ public class Player : MonoBehaviour
         animator.SetFloat("speed", inputVec.magnitude);
     }
 
-
-
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
@@ -166,18 +165,27 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(0, 4);
+        int roleRandom = Random.Range(0, 1);
         role = roleRandom;
 
         switch (role)
         {
             case 0:
                 roleName = "기사";
-                GameManager.instance.weapon[role].Init("검", 20, 1);
                 hand[role].gameObject.SetActive(true);
+
+                // 무기 생성
+                GameObject newWeapon = GameManager.instance.GenerateWeapon();
+                GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
+                GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[0]);
+                getWeaponCount++;
                 acquireWeapons.Add(0);
                 acquireSkills.Add(0);
 
+                // ui 갱신
+                GameManager.instance.ui.isChanged = true;
+
+                // 기본 스탯 설정
                 health = 4;
                 speed = 2;
                 attackSpeed = 2;
@@ -185,7 +193,7 @@ public class Player : MonoBehaviour
                 break;
             case 1:
                 roleName = "마법사";
-                GameManager.instance.weapon[role].Init("스태프", 30, 1);
+                //GameManager.instance.weapon[role].Init("스태프", 30, 1);
                 hand[role].gameObject.SetActive(true);
                 acquireWeapons.Add(5);
                 acquireSkills.Add(5);
@@ -197,7 +205,7 @@ public class Player : MonoBehaviour
                 break;
             case 2:
                 roleName = "도적";
-                GameManager.instance.weapon[role].Init("단검", 10, 1);
+                //GameManager.instance.weapon[role].Init("단검", 10, 1);
                 hand[role].gameObject.SetActive(true);
                 acquireWeapons.Add(10);
                 acquireSkills.Add(10);
@@ -209,7 +217,7 @@ public class Player : MonoBehaviour
                 break;
             case 3:
                 roleName = "총잡이";
-                GameManager.instance.weapon[role].Init("총", 5, 1);
+                //GameManager.instance.weapon[role].Init("총", 5, 1);
                 hand[role].gameObject.SetActive(true);
                 acquireWeapons.Add(15);
                 acquireSkills.Add(15);

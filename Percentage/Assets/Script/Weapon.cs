@@ -1,26 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Animator animator;
-
-    public string weaponName; // 무기 이름
-    public float damage;    // 무기 데미지
+    public int id;  // 무기 아이디
+    public string name; // 무기 이름
+    public float damage;    // 무기 공격력
     public int level;   // 무기 강화 레벨
+    public string desc; // 무기 설명
+    public Sprite icon; // 무기 아이콘
+
+    SpriteRenderer spriteRenderer;
+    BoxCollider2D collider;
 
     void Awake()
     {
-        animator = GetComponentInParent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
-    public void Init(string weaponName, float damage, int level)
+    public void Init(WeaponData data)
     {
-        this.weaponName = weaponName;
-        this.damage = damage;
-        this.level = level;
+        id = data.weaponId;
+        name = data.weaponName;
+        damage = data.baseDamage + data.damage;
+        level = data.level;
+        desc = data.weaponDesc;
+        icon = data.weaponIcon;
+
+        transform.parent = GameManager.instance.player.hand[(int)data.weaponType].transform;
+        spriteRenderer.sprite = icon;
+        spriteRenderer.sortingOrder = -1;
+        collider.isTrigger = true;
+        collider.size = new Vector2(0.31f, 0.26f);
+
+        // 직업별로 세세하게 위치가 다르기 때문에 설정
+        transform.localPosition = new Vector3(0, 0.3f, 0);
+        transform.localScale = Vector3.one * 3;
+        transform.localRotation = Quaternion.Euler(0, 0, 225);
+        
     }
 
     void Start()

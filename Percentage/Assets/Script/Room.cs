@@ -60,7 +60,7 @@ public class Room : MonoBehaviour
             doors[i].gameObject.SetActive(true);
         }
 
-        // º¸»ó È¹µæ (0: ½ÇÆÐ, 1: ¼º°ø)
+        // º¸»ó È¹µæ (0: ¼º°ø, 1: ½ÇÆÐ)
         int successOrFail = Random.Range(0, 1);
         if (successOrFail == 0)
         {

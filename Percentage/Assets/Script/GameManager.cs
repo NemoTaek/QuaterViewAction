@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour
     public Fade fadeAnimation;
     public Player player;
     public Weapon[] weapon;
+    public WeaponData[] weaponData;
     public ObjectPool ObjectPool;
 
     public UserInterface ui;
-    public GameObject statusPanel;
-    public GameObject rewardBoxPanel;
+    public StatusInfo statusPanel;
+    public RoomReward rewardBoxPanel;
 
     public int coin;
 
@@ -57,34 +58,35 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             isOpenStatus = !isOpenStatus;
-            statusPanel.SetActive(isOpenStatus);
+            statusPanel.gameObject.SetActive(isOpenStatus);
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             isOpenBox = false;
-            rewardBoxPanel.SetActive(false);
+            rewardBoxPanel.gameObject.SetActive(false);
         }
     }
 
     public void CloseStatusPanel()
     {
         isOpenStatus = false;
-        statusPanel.SetActive(false);
+        statusPanel.gameObject.SetActive(false);
     }
 
     public void CloseRewardBoxPanel()
     {
         isOpenBox = false;
+        rewardBoxPanel.gameObject.SetActive(false);
+    }
 
-        // 보상 획득 시 나타난 텍스트 초기화
-        ui.acquireText[0].gameObject.SetActive(false);
-        ui.acquireText[1].gameObject.SetActive(false);
-        ui.upgradeText[0].gameObject.SetActive(false);
-        ui.upgradeText[1].gameObject.SetActive(false);
-        ui.failedText.gameObject.SetActive(false);
-        ui.destroyedText.gameObject.SetActive(false);
+    public GameObject GenerateWeapon()
+    {
+        GameObject newWeapon = new GameObject();
+        newWeapon.AddComponent<SpriteRenderer>();
+        newWeapon.AddComponent<BoxCollider2D>();
+        newWeapon.tag = "Weapon";
 
-        rewardBoxPanel.SetActive(false);
+        return newWeapon;
     }
 }
