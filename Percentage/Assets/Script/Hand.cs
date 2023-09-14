@@ -6,12 +6,14 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     Animator animator;
-    Weapon weapon;
+    public Weapon[] haveWeapons;
+
+    public bool isChanged;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
-        weapon = GetComponentInChildren<Weapon>(true);
+        haveWeapons = GetComponentsInChildren<Weapon>(true);
     }
 
     void OnEnable()
@@ -26,11 +28,29 @@ public class Hand : MonoBehaviour
 
     void Update()
     {
-        
+        if (isChanged)
+        {
+            haveWeapons = GetComponentsInChildren<Weapon>(true);
+            SwapWeapon(GameManager.instance.player.currentWeaponIndex);
+        }
     }
 
     public void Attack(string direction)
     {
         animator.SetTrigger(direction + "Attack");
+    }
+
+    public void SwapWeapon(int index)
+    {
+        for(int i=0; i< haveWeapons.Length; i++)
+        {
+            if (haveWeapons[i].gameObject.activeSelf)
+            {
+                haveWeapons[i].gameObject.SetActive(false);
+                break;
+            }
+        }
+        haveWeapons[index].gameObject.SetActive(true);
+        isChanged = false;
     }
 }

@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     public int id;  // 무기 아이디
     public string name; // 무기 이름
     public float damage;    // 무기 공격력
+    public float[] upgradeDamage;    // 무기 업그레이드 시 상승하는 공격력
     public int level;   // 무기 강화 레벨
     public string desc; // 무기 설명
     public Sprite icon; // 무기 아이콘
@@ -26,7 +27,8 @@ public class Weapon : MonoBehaviour
     {
         id = data.weaponId;
         name = data.weaponName;
-        damage = data.baseDamage + data.damage;
+        damage = data.baseDamage;
+        upgradeDamage = data.upgradeDamage;
         level = data.level;
         desc = data.weaponDesc;
         icon = data.weaponIcon;

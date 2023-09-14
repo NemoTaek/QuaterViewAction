@@ -16,6 +16,7 @@ public class WeaponData : ScriptableObject
 
     [Header("----- Level Data -----")]
     public float baseDamage;
-    public float damage;
+    public float[] upgradeDamage;
     public int level;
+    public int maxLevel;
 }

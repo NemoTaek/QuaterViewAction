@@ -49,22 +49,32 @@ public class GameManager : MonoBehaviour
 
     void InputKeyboard()
     {
+        // 공격 입력
         isAttack = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2");
         isRightAttack = Input.GetKeyDown(KeyCode.RightArrow);
         isLeftAttack = Input.GetKeyDown(KeyCode.LeftArrow);
         isUpAttack = Input.GetKeyDown(KeyCode.UpArrow);
         isDownAttack = Input.GetKeyDown(KeyCode.DownArrow);
 
+        // 인벤토리 창 입력
         if (Input.GetKeyDown(KeyCode.I))
         {
             isOpenStatus = !isOpenStatus;
             statusPanel.gameObject.SetActive(isOpenStatus);
         }
 
+        // 상자 창 닫기 입력
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             isOpenBox = false;
             rewardBoxPanel.gameObject.SetActive(false);
+        }
+
+        // 무기 교체 입력
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            player.currentWeaponIndex = player.currentWeaponIndex == player.getWeaponCount - 1 ? 0 : player.currentWeaponIndex + 1;
+            player.hand[player.role].isChanged = true;
         }
     }
 

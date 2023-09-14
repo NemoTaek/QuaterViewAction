@@ -40,31 +40,69 @@ public class RoomReward : MonoBehaviour
         // 이미 가지고 있으면 강화, 없으면 획득
         int random = Random.Range(0, 5);
         bool isAcquire = false;
-        foreach (int typeId in list)
+        WeaponData randomWeaponData = GameManager.instance.weaponData[random];
+
+        for (int i=0; i<list.Count; i++)
         {
-            if (typeId == random)
+            if (list[i] == random)
             {
                 isAcquire = true;
+                Weapon randomWeapon = GameManager.instance.weapon[random];
+                int weaponLevel = randomWeapon.level;
 
                 // 강화로직 구현
                 int upgradeRandom = Random.Range(0, 100);
                 if (upgradeRandom >= 0 && upgradeRandom < 60)
                 {
-                    int upgradeValue = Random.Range(-5, 5);
                     upgradeText[0].gameObject.SetActive(true);
                     upgradeText[1].gameObject.SetActive(true);
-                    upgradeText[0].text = type + " " + GameManager.instance.weaponData[random].weaponName + "강화에 성공하셨습니다.";
-                    upgradeText[1].text = "강화에 성공하여 무기 공격력이 " + upgradeValue + "상승하였습니다.";
+                    upgradeText[0].text = type + " " + randomWeapon.name + "강화에 성공하셨습니다.";
+                    upgradeText[1].text = "강화에 성공하여 무기 공격력이 " + randomWeapon.upgradeDamage[weaponLevel] + "상승하였습니다.";
+                    randomWeapon.damage += randomWeapon.upgradeDamage[weaponLevel];
+                    randomWeapon.level++;
                 }
-                else if (upgradeRandom < 95)
+                else if (upgradeRandom < 70)
                 {
                     failedText.gameObject.SetActive(true);
-                    failedText.text = type + " " + GameManager.instance.weaponData[random].weaponName + "강화에 실패하셨습니다.";
+                    if(weaponLevel > 0)
+                    {
+                        failedText.text = type + " " + randomWeaponData.weaponName + "강화에 실패하여 단계가 하락합니다.";
+                        randomWeapon.damage -= randomWeapon.upgradeDamage[weaponLevel];
+                        randomWeapon.level--;
+                    }
+                    else
+                    {
+                        failedText.text = type + " " + randomWeaponData.weaponName + "강화에 실패하였습니다.";
+                    }
+
                 }
                 else
                 {
                     destroyedText.gameObject.SetActive(true);
-                    destroyedText.text = type + " " + GameManager.instance.weaponData[random].weaponName + "강화에 실패하여" + type + "이(가) 파괴되었습니다.";
+                    if (random != GameManager.instance.player.role * 5)
+                    {
+                        destroyedText.text = type + " " + randomWeaponData.weaponName + "강화에 실패하여 " + type + "이(가) 파괴되었습니다.";
+
+                        // 무기 개수 감소, 장착 무기를 기본무기로 변경
+                        GameManager.instance.player.getWeaponCount--;
+                        GameManager.instance.player.currentWeaponIndex = 0;
+
+                        // 오브젝트 파괴, 무기 리스트에서 삭제
+                        GameObject destoryWeapon = GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[i].gameObject;
+                        Destroy(destoryWeapon);
+                        list.RemoveAt(i);
+
+                        // 손에 든 무기 업데이트, UI 적용
+                        GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                        GameManager.instance.ui.isChanged = true;
+                    }
+
+                    // 기본무기면 파괴 안되도록. 다시 로직 돌리자
+                    else
+                    {
+                        destroyedText.gameObject.SetActive(false);
+                        AcquireOrUpgrade(list, type);
+                    }
                 }
 
                 break;
@@ -74,18 +112,20 @@ public class RoomReward : MonoBehaviour
         {
             // 획득 텍스트 노출
             acquireText[0].gameObject.SetActive(true);
-            acquireText[0].text = type + " " + GameManager.instance.weaponData[random].weaponName + "을(를) 획득하셨습니다.";
+            acquireText[0].text = type + " " + randomWeaponData.weaponName + "을(를) 획득하셨습니다.";
 
             // 뽑은 무기가 내 직업이 낄 수 있다면 넣고, 아니면 반환
-            if(GameManager.instance.player.role == (int)GameManager.instance.weaponData[random].weaponType)
+            if(GameManager.instance.player.role == (int)randomWeaponData.weaponType)
             {
                 list.Add(random);
 
-                // 무기 생성
+                // 무기 생성 후 획득한 무기로 스위칭
                 GameObject newWeapon = GameManager.instance.GenerateWeapon();
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount] = newWeapon.AddComponent<Weapon>();
-                GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(GameManager.instance.weaponData[random]);
+                GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(randomWeaponData);
                 GameManager.instance.player.getWeaponCount++;
+                GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
+                GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
 
                 // UI에 적용
                 GameManager.instance.ui.isChanged = true;
@@ -100,12 +140,12 @@ public class RoomReward : MonoBehaviour
         weaponSkillImage.gameObject.SetActive(true);
         if (type == "무기")
         {
-            weaponSkillImage.sprite = GameManager.instance.weaponData[random].weaponIcon;
+            weaponSkillImage.sprite = randomWeaponData.weaponIcon;
         }
         else
         {
             //weaponImage.gameObject.SetActive(true);
-            //weaponImage.sprite = GameManager.instance.weaponData[random].weaponIcon;
+            //weaponImage.sprite = randomWeaponData.weaponIcon;
         }
     }
 }

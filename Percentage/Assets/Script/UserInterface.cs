@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     public bool isChanged = false;
+    public Sprite blankImage;
 
     public Image[] heartArea;
     public Sprite heart;
@@ -54,16 +55,16 @@ public class UserInterface : MonoBehaviour
         {
             SetWeaponInventory();
         }
-
     }
 
     public void SetWeaponInventory()
     {
         // 무기와 스킬 이미지 세팅
-        for (int i = 0; i < GameManager.instance.player.getWeaponCount; i++)
+        for (int i = 0; i < 5; i++)
         {
-            gameWeaponArea[i].sprite = GameManager.instance.weapon[i].icon;
+            gameWeaponArea[i].sprite = i < GameManager.instance.player.getWeaponCount ? GameManager.instance.weapon[i].icon : blankImage;
             //gameSkillArea[i].sprite = skillImage[uiIndex + i];
         }
+        isChanged = false;
     }
 }

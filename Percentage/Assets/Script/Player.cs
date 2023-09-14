@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public Vector2 fireVec;
     bool isSlashing;
     public float attackDelay;
+    public int currentWeaponIndex;
 
     public int role;
     public string roleName;
@@ -178,7 +179,9 @@ public class Player : MonoBehaviour
                 GameObject newWeapon = GameManager.instance.GenerateWeapon();
                 GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
                 GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[0]);
+                hand[role].isChanged = true;
                 getWeaponCount++;
+                currentWeaponIndex = 0;
                 acquireWeapons.Add(0);
                 acquireSkills.Add(0);
 

@@ -7,7 +7,7 @@ public class StatusInfo : MonoBehaviour
 {
     [Header("----- Component -----")]
     public Player player;
-    
+
     //public Image[] statusSkillArea;
     //public Sprite[] skillImage;
     //public Text[] skillName;
@@ -20,6 +20,8 @@ public class StatusInfo : MonoBehaviour
 
     public GameObject statusWeaponArea;
 
+    public Sprite blankImage;
+
     void OnEnable()
     {
         // 스탯창 정보 출력
@@ -28,17 +30,7 @@ public class StatusInfo : MonoBehaviour
         statusAttackSpeed.text = player.attackSpeed.ToString();
         statusPower.text = player.power.ToString();
 
-        for(int i=0; i<GameManager.instance.player.getWeaponCount; i++)
-        {
-            // 이미지 0: 배경, 이미지 1: 무기 칸 배경, 텍스트 0: 타이틀
-            Image[] weaponImage = statusWeaponArea.GetComponentsInChildren<Image>();
-            Text[] weaponText = statusWeaponArea.GetComponentsInChildren<Text>();
-
-            weaponImage[2 * (i + 1)].sprite = GameManager.instance.weapon[i].icon;
-            weaponText[1 + (i * 3)].text = GameManager.instance.weapon[i].name;
-            weaponText[2 + (i * 3)].text = "레벨: " + GameManager.instance.weapon[i].level.ToString();
-            weaponText[3 + (i * 3)].text = "공격력: " + GameManager.instance.weapon[i].damage.ToString();
-        }
+        SetStatus();
     }
 
     void Start()
@@ -46,9 +38,24 @@ public class StatusInfo : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetStatus()
+    {
+        // 무기와 스킬 이미지 세팅
+        for (int i = 0; i < 5; i++)
+        {
+            // 이미지 0: 배경, 이미지 1: 무기 칸 배경, 텍스트 0: 타이틀
+            Image[] weaponImage = statusWeaponArea.GetComponentsInChildren<Image>();
+            Text[] weaponText = statusWeaponArea.GetComponentsInChildren<Text>();
+
+            weaponImage[2 * (i + 1)].sprite = i < GameManager.instance.player.getWeaponCount ? GameManager.instance.weapon[i].icon : blankImage;
+            weaponText[1 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? GameManager.instance.weapon[i].name : "";
+            weaponText[2 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? "레벨: " + GameManager.instance.weapon[i].level.ToString() : "";
+            weaponText[3 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? "공격력: " + GameManager.instance.weapon[i].damage.ToString() : "";
+        }
     }
 }
