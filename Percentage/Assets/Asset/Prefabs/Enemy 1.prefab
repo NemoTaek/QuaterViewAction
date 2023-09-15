@@ -243,7 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab16d3cc9fe05904d8e39ec85121f220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
   target: {fileID: 0}
   speed: 1
   health: 0
-  maxHealth: 1
+  maxHealth: 100

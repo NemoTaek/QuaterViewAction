@@ -64,11 +64,8 @@ public class Room : MonoBehaviour
         int successOrFail = Random.Range(0, 1);
         if (successOrFail == 0)
         {
-            for(int i=1; i < 10; i++)
-            {
-                GameObject box = GameManager.instance.ObjectPool.Get(3);
-                box.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-3, 3), 1);
-            }
+            GameObject box = GameManager.instance.ObjectPool.Get(3);
+            box.transform.position = transform.position + Vector3.forward;
         }
 
         isBattle = false;

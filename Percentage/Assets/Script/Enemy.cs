@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
     public Rigidbody2D target;
-    Collider2D collider;
+    Collider2D col;
     Room room;
 
     public float speed;
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<Collider2D>();
+        col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         room = gameObject.GetComponentInParent<Room>();
@@ -39,26 +39,31 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        StartCoroutine(EnemyMove());
+        // 죽었거나, 맞을때는 앞으로 못가도록 설정
+        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
+
+        EnemyMove();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Weapon") || collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Weapon") || collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
         {
+            float knockbackAmount = collision.CompareTag("SkillBullet") ? 10f : 3f;
+
             int role = GameManager.instance.player.role;
-            Weapon weapon = GameManager.instance.weapon[role];
+            Weapon weapon = GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex];
             health -= weapon.damage;
 
             if(health > 0)
             {
                 animator.SetTrigger("Hit");
-                StartCoroutine(KnockBack());
+                StartCoroutine(KnockBack(knockbackAmount));
             }
             else
             {
                 isLive = false;
-                collider.enabled = false;
+                col.enabled = false;
                 rigid.simulated = false;
                 animator.SetBool("Dead", true);
                 room.enemyCount--;
@@ -77,27 +82,22 @@ public class Enemy : MonoBehaviour
         spriteRenderer.flipX = target.position.x < rigid.position.x ? true : false;
     }
 
-    IEnumerator EnemyMove()
+    void EnemyMove()
     {
-        // 소환 후 1초는 여유시간
-        yield return new WaitForSeconds(1);
-
-        // 죽었거나, 맞을때는 앞으로 못가도록 설정
-        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) yield break;
-
         Vector2 dirVec = target.position - rigid.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
     }
 
-    IEnumerator KnockBack()
+    IEnumerator KnockBack(float knockbackAmount)
     {
         // 하나의 물리 프레임 딜레이
         yield return new WaitForFixedUpdate();
+
         Vector3 playerPosition = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPosition;
-        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
+        rigid.AddForce(dirVec.normalized * knockbackAmount, ForceMode2D.Impulse);
     }
 
     void DeadAnimation()

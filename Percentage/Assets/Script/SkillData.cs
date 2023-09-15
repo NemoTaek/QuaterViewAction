@@ -6,12 +6,17 @@ using UnityEngine;
 public class SkillData : ScriptableObject
 {
     public enum UsableRoleType { Knight, Wizard, Thief, Gunner }
+    public enum SkillType { Basic, Utility, Buff, Special, Ultimate }
 
     [Header("----- Main Info -----")]
     public UsableRoleType usableRoleType;
+    public SkillType skillType;
     public int skillId;
     public string skillName;
     public string skillDesc;
+    public float skillCoolTime;
+    public float skiilDuringTime;
+    public float skillRange;
     public Sprite skillIcon;
 
     [Header("----- Level Data -----")]

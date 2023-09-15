@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2780032783948503886}
   - component: {fileID: 2143171995013749312}
   m_Layer: 0
-  m_Name: Fire Ball
-  m_TagString: SkillBullet
+  m_Name: Fire Blow
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

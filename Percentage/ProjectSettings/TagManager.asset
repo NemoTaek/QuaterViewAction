@@ -12,6 +12,7 @@ TagManager:
   - Weapon
   - Bullet
   - Wall
+  - SkillBullet
   layers:
   - Default
   - TransparentFX

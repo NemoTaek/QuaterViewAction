@@ -6,13 +6,14 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [Header("----- Component -----")]
-    public Camera camera;
+    public Camera cam;
     public Hand[] hand;
     public UserInterface ui;
 
     [Header("----- Player Component -----")]
-    Rigidbody2D rigid;
-    SpriteRenderer spriteRenderer;
+    public Rigidbody2D rigid;
+    public SpriteRenderer spriteRenderer;
+    public Collider2D col;
     Animator animator;
 
     [Header("----- Player Property -----")]
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     bool isSlashing;
     public float attackDelay;
     public int currentWeaponIndex;
+    public bool isDarkSight;
 
     public int role;
     public string roleName;
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         hand = GetComponentsInChildren<Hand>(true);
     }
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
         PlayerMove();
     }
 
@@ -59,31 +63,31 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("TopDoor"))
         {
-            cameraPosition = new Vector3(camera.transform.position.x, camera.transform.position.y + 12, camera.transform.position.z);
+            cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y + 12, cam.transform.position.z);
             playerPosition = new Vector3(transform.position.x, transform.position.y + 5.5f, transform.position.z);
             transform.position = playerPosition;
-            StartCoroutine(camera.MoveRoom(cameraPosition));
+            StartCoroutine(cam.MoveRoom(cameraPosition));
         }
         if (collision.CompareTag("BottomDoor"))
         {
-            cameraPosition = new Vector3(camera.transform.position.x, camera.transform.position.y - 12, camera.transform.position.z);
+            cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y - 12, cam.transform.position.z);
             playerPosition = new Vector3(transform.position.x, transform.position.y - 5.5f, transform.position.z);
             transform.position = playerPosition;
-            StartCoroutine(camera.MoveRoom(cameraPosition));
+            StartCoroutine(cam.MoveRoom(cameraPosition));
         }
         if (collision.CompareTag("LeftDoor"))
         {
-            cameraPosition = new Vector3(camera.transform.position.x - 20, camera.transform.position.y, camera.transform.position.z);
+            cameraPosition = new Vector3(cam.transform.position.x - 20, cam.transform.position.y, cam.transform.position.z);
             playerPosition = new Vector3(transform.position.x - 5.5f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
-            StartCoroutine(camera.MoveRoom(cameraPosition));
+            StartCoroutine(cam.MoveRoom(cameraPosition));
         }
         if (collision.CompareTag("RightDoor"))
         {
-            cameraPosition = new Vector3(camera.transform.position.x + 20, camera.transform.position.y, camera.transform.position.z);
+            cameraPosition = new Vector3(cam.transform.position.x + 20, cam.transform.position.y, cam.transform.position.z);
             playerPosition = new Vector3(transform.position.x + 5.5f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
-            StartCoroutine(camera.MoveRoom(cameraPosition));
+            StartCoroutine(cam.MoveRoom(cameraPosition));
         }
     }
 
@@ -100,6 +104,12 @@ public class Player : MonoBehaviour
 
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
+
+        // 은신 상태면 적과의 몸빵 데미지를 무시하고 투과할 수 있음
+        if(isDarkSight)
+        {
+
+        }
     }
 
     void OnMove(InputValue value)
@@ -113,8 +123,6 @@ public class Player : MonoBehaviour
 
     void PlayerMove()
     {
-        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
-
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         //rigid.AddForce(inputVec);
         //rigid.velocity = inputVec;
@@ -131,29 +139,23 @@ public class Player : MonoBehaviour
         // 총은 무기 휘두르는 모션이 없으므로 제외하고 무기 애니메이션 실행
         if (GameManager.instance.isRightAttack)
         {
-            if(role != 3)   hand[role].Attack("Right");
             dirVec = Vector2.right;
+            hand[role].Attack("Right", dirVec, 1);
         }
         else if (GameManager.instance.isLeftAttack)
         {
-            if (role != 3)  hand[role].Attack("Left");
             dirVec = Vector2.left;
+            hand[role].Attack("Left", dirVec, 1);
         }
         else if (GameManager.instance.isUpAttack)
         {
-            if (role != 3)   hand[role].Attack("Up");
             dirVec = Vector2.up;
+            hand[role].Attack("Up", dirVec, 1);
         }
         else if (GameManager.instance.isDownAttack)
         {
-            if (role != 3)  hand[role].Attack("Down");
             dirVec = Vector2.down;
-        }
-
-        // 지팡이와 총은 각각 마법과 총알을 발사
-        if(role == 1 || role == 3)
-        {
-            GameManager.instance.weapon[role].Shot(dirVec, transform.position);
+            hand[role].Attack("Down", dirVec, 1);
         }
 
         yield return new WaitForSeconds(attackDelay + 0.1f);
@@ -166,27 +168,15 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(0, 1);
+        int roleRandom = Random.Range(0, 2);
         role = roleRandom;
+        GameObject newWeapon = GameManager.instance.GenerateWeapon();
 
         switch (role)
         {
             case 0:
                 roleName = "기사";
                 hand[role].gameObject.SetActive(true);
-
-                // 무기 생성
-                GameObject newWeapon = GameManager.instance.GenerateWeapon();
-                GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
-                GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[0]);
-                hand[role].isChanged = true;
-                getWeaponCount++;
-                currentWeaponIndex = 0;
-                acquireWeapons.Add(0);
-                acquireSkills.Add(0);
-
-                // ui 갱신
-                GameManager.instance.ui.isChanged = true;
 
                 // 기본 스탯 설정
                 health = 4;
@@ -196,11 +186,9 @@ public class Player : MonoBehaviour
                 break;
             case 1:
                 roleName = "마법사";
-                //GameManager.instance.weapon[role].Init("스태프", 30, 1);
                 hand[role].gameObject.SetActive(true);
-                acquireWeapons.Add(5);
-                acquireSkills.Add(5);
 
+                // 기본 스탯 설정
                 health = 3;
                 speed = 3;
                 attackSpeed = 2;
@@ -208,11 +196,9 @@ public class Player : MonoBehaviour
                 break;
             case 2:
                 roleName = "도적";
-                //GameManager.instance.weapon[role].Init("단검", 10, 1);
                 hand[role].gameObject.SetActive(true);
-                acquireWeapons.Add(10);
-                acquireSkills.Add(10);
 
+                // 기본 스탯 설정
                 health = 2;
                 speed = 4;
                 attackSpeed =42;
@@ -220,11 +206,9 @@ public class Player : MonoBehaviour
                 break;
             case 3:
                 roleName = "총잡이";
-                //GameManager.instance.weapon[role].Init("총", 5, 1);
                 hand[role].gameObject.SetActive(true);
-                acquireWeapons.Add(15);
-                acquireSkills.Add(15);
 
+                // 기본 스탯 설정
                 health = 3;
                 speed = 3;
                 attackSpeed = 3;
@@ -232,6 +216,17 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        ui.gameObject.SetActive(true);
+        // 무기 생성 후 세팅
+        GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
+        GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[role * 5]);
+        hand[role].isChanged = true;
+        getWeaponCount++;
+        currentWeaponIndex = 0;
+        acquireWeapons.Add(0);
+        acquireSkills.Add(0);
+
+        // ui 갱신
+        GameManager.instance.ui.gameObject.SetActive(true);
+        GameManager.instance.ui.isChanged = true;
     }
 }
