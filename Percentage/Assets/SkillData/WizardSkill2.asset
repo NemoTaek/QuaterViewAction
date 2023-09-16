@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181ca8c2ac6197044a0ba9af65d253d7, type: 3}
+  m_Name: WizardSkill2
+  m_EditorClassIdentifier: 
+  usableRoleType: 1
+  skillType: 1
+  skillId: 6
+  skillName: "\uD30C\uC774\uC5B4 \uBE14\uB85C\uC6B0"
+  skillDesc: "\uC218\uD3C9/\uC218\uC9C1 \uBC29\uD5A5\uC73C\uB85C \uC801\uC744 \uB109\uBC31\uC2DC\uD0A8\uB2E4."
+  skillCoolTime: 5
+  skillDuringTime: 0
+  skillRange: 0
+  skillIcon: {fileID: 21300000, guid: f028f3df14d37274ebbd09ca7d5124e2, type: 3}
+  baseDamage: 5
+  upgradeDamage:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  level: 0
+  maxLevel: 5

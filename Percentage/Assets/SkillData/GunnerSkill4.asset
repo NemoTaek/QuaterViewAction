@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181ca8c2ac6197044a0ba9af65d253d7, type: 3}
+  m_Name: GunnerSkill4
+  m_EditorClassIdentifier: 
+  usableRoleType: 3
+  skillType: 3
+  skillId: 18
+  skillName: "\uBD88\uB9BF\uD30C\uD2F0"
+  skillDesc: "\uC8FC\uC704\uC758 \uC801\uC744 \uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548
+    \uACF5\uACA9\uD55C\uB2E4."
+  skillCoolTime: 15
+  skiilDuringTime: 0
+  skillRange: 0
+  skillIcon: {fileID: 21300000, guid: 658324f53125df34b8f70f0d43fe90b4, type: 3}
+  baseDamage: 5
+  upgradeDamage:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  level: 0
+  maxLevel: 5

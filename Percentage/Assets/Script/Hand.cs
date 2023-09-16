@@ -10,6 +10,7 @@ public class Hand : MonoBehaviour
     [Header("----- Component -----")]
     Animator animator;
     public Weapon[] haveWeapons;
+    public Skill[] haveScills;
 
     [Header("----- Common -----")]
     public bool isChanged;
@@ -20,6 +21,7 @@ public class Hand : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         haveWeapons = GetComponentsInChildren<Weapon>(true);
+        haveScills = GetComponentsInChildren<Skill>(true);
     }
 
     void OnEnable()
@@ -37,6 +39,7 @@ public class Hand : MonoBehaviour
         if (isChanged)
         {
             haveWeapons = GetComponentsInChildren<Weapon>(true);
+            haveScills = GetComponentsInChildren<Skill>(true);
             SwapWeapon(GameManager.instance.player.currentWeaponIndex);
         }
     }
@@ -48,10 +51,19 @@ public class Hand : MonoBehaviour
 
     public void Attack(string direction, Vector2 dirVec, int skillIndex)
     {
+        // 스킬 사용 가능한지 체크
+        bool isUsableSkill = GameManager.instance.skill[skillIndex].isUsableSkill;
+
+        // 사용 불가능하면 탈출
+        if (!isUsableSkill) return;
+
         switch (skillIndex)
         {
             case 0:
-                animator.SetTrigger(direction + "Attack");
+                // 스킬 사용
+                UseSkill(skillIndex);
+
+                if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
 
                 // 지팡이와 총은 각각 마법과 총알을 발사
                 if (GameManager.instance.player.role == 1 || GameManager.instance.player.role == 3)
@@ -61,12 +73,24 @@ public class Hand : MonoBehaviour
                 break;
 
             case 1:
+                //float skillDamage = GameManager.instance.skillData[GameManager.instance.player.role * 5 + skillIndex].upgradeDamage[];
                 // 전사는 돌진, 법사는 넉백, 도적은 은신, 거너는 백스텝샷
-                if (GameManager.instance.player.role == 0) StartCoroutine(Rush(dirVec));
-                else if (GameManager.instance.player.role == 1) StartCoroutine(BackStepShot(-dirVec));
-                else if (GameManager.instance.player.role == 2) StartCoroutine(DarkSight());
-                else if (GameManager.instance.player.role == 3) StartCoroutine(BackStepShot(-dirVec));
-                animator.SetTrigger(direction + "Attack");
+                if (GameManager.instance.player.role == 0) Rush(dirVec, skillIndex);
+                else if (GameManager.instance.player.role == 1) FireBlow(dirVec, skillIndex);
+                else if (GameManager.instance.player.role == 2) StartCoroutine(DarkSight(skillIndex));
+                else if (GameManager.instance.player.role == 3) BackStepShot(-dirVec, skillIndex);
+
+                if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
+                break;
+
+            case 2:
+                // 전사는 집중, 법사는 명상, 도적은 지뢰, 거너는 다이스
+                //if (GameManager.instance.player.role == 0) Concentration();
+                //else if (GameManager.instance.player.role == 1) Meditation();
+                //else if (GameManager.instance.player.role == 2) MineLander();
+                //else if (GameManager.instance.player.role == 3) Dice();
+
+                if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
                 break;
         }
     }
@@ -85,36 +109,75 @@ public class Hand : MonoBehaviour
         isChanged = false;
     }
 
-    IEnumerator Rush(Vector2 dirVec)
+    void UseSkill(int skillIndex)
     {
-        GameManager.instance.player.rigid.AddForce(dirVec * 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.skill[skillIndex].isUseSkill = true;
+        GameManager.instance.skill[skillIndex].isUsableSkill = false;
+        StartCoroutine(GameManager.instance.skill[skillIndex].CheckSkillCoolTime());
     }
 
-    IEnumerator FireBlow(Vector2 dirVec)
+    // 2번스킬들
+    void Rush(Vector2 dirVec, int skillIndex)
     {
+        // 스킬 사용
+        UseSkill(skillIndex);
+
+        //float skillDamage = 
+        //GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].damage += 
+        GameManager.instance.player.rigid.AddForce(dirVec * 0.5f);
+    }
+
+    void FireBlow(Vector2 dirVec, int skillIndex)
+    {
+        // 스킬 사용
+        UseSkill(skillIndex);
+
         GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].SkillFire(dirVec, transform.position);
         GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].SkillFire(-dirVec, transform.position);
-
-        yield return new WaitForSeconds(0.5f);
     }
 
-    IEnumerator DarkSight()
+    IEnumerator DarkSight(int skillIndex)
     {
+        // 스킬 사용
+        UseSkill(skillIndex);
+
         Color color = GameManager.instance.player.spriteRenderer.color;
         color.a = 0.5f;
         GameManager.instance.player.spriteRenderer.color = color;
         GameManager.instance.player.col.isTrigger = true;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(GameManager.instance.skillData[11].skillDuringTime);
         GameManager.instance.player.col.isTrigger = false;
         color.a = 1f;
         GameManager.instance.player.spriteRenderer.color = color;
     }
 
-    IEnumerator BackStepShot(Vector2 dirVec)
+    void BackStepShot(Vector2 dirVec, int skillIndex)
     {
+        // 스킬 사용
+        UseSkill(skillIndex);
+
         GameManager.instance.player.rigid.AddForce(dirVec * 0.3f);
-        yield return new WaitForSeconds(0.5f);
     }
+
+    // 3번스킬들
+    //void Conenctration()
+    //{
+
+    //}
+
+    //void Meditation()
+    //{
+
+    //}
+
+    //void MineLander()
+    //{
+
+    //}
+
+    //void Dice()
+    //{
+
+    //}
 }

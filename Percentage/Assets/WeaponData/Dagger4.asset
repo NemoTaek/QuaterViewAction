@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c5bb62d727457449c4f10875c12452, type: 3}
+  m_Name: Dagger4
+  m_EditorClassIdentifier: 
+  weaponType: 2
+  weaponId: 13
+  weaponName: "\uC6A9\uCC9C\uAD8C"
+  weaponDesc: "\uC6A9 \uBAA8\uC591\uC744 \uD55C \uB2E8\uAC80\uC774\uB2E4."
+  weaponIcon: {fileID: 21300000, guid: 6f0368f617b0cd940a288f4c78d7cb79, type: 3}
+  baseDamage: 40
+  upgradeDamage:
+  - 6
+  - 6
+  - 6
+  - 7
+  - 7
+  - 8
+  - 8
+  level: 0
+  maxLevel: 6

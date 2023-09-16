@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Weapon[] weapon;
     public WeaponData[] weaponData;
+    public Skill[] skill;
+    public SkillData[] skillData;
     public ObjectPool ObjectPool;
 
     public UserInterface ui;
@@ -76,6 +78,18 @@ public class GameManager : MonoBehaviour
             player.currentWeaponIndex = player.currentWeaponIndex == player.getWeaponCount - 1 ? 0 : player.currentWeaponIndex + 1;
             player.hand[player.role].isChanged = true;
         }
+
+        // 스킬 장착 입력
+        // KeyCode.Alpha1 == 49
+        for(int i=0; i<5; i++)
+        {
+            if (player.currentSkillIndex != i && Input.GetKeyDown((KeyCode)(49 + i)))
+            {
+                player.currentSkillIndex = i;
+                player.isSlashing = false;
+                StopCoroutine(player.PlayerAttack());
+            }
+        }
     }
 
     public void CloseStatusPanel()
@@ -98,5 +112,13 @@ public class GameManager : MonoBehaviour
         newWeapon.tag = "Weapon";
 
         return newWeapon;
+    }
+
+    public GameObject GenerateSkill()
+    {
+        GameObject newSkill = new GameObject();
+        newSkill.tag = "Skill";
+
+        return newSkill;
     }
 }

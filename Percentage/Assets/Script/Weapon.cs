@@ -40,10 +40,17 @@ public class Weapon : MonoBehaviour
         col.size = new Vector2(0.31f, 0.26f);
 
         // 직업별로 세세하게 위치가 다르기 때문에 설정
-        transform.localPosition = new Vector3(0.2f, 0.3f, 0);
         transform.localScale = Vector3.one * 3;
-        transform.localRotation = Quaternion.Euler(0, 0, 225);
-        
+        if (GameManager.instance.player.role == 0 || GameManager.instance.player.role == 1)
+        {
+            transform.localPosition = new Vector3(0.2f, 0.3f, 0);
+            transform.localRotation = Quaternion.Euler(0, 180, -90);
+        }
+        else if (GameManager.instance.player.role == 2 || GameManager.instance.player.role == 3)
+        {
+            transform.localPosition = new Vector3(0.3f, -0.1f, 0);
+            transform.localRotation = Quaternion.Euler(0, 180, -45);
+        }
     }
 
     void Start()
@@ -88,7 +95,7 @@ public class Weapon : MonoBehaviour
     public void SkillFire(Vector2 dirVec, Vector3 playerPosition)
     {
         int playerRole = GameManager.instance.player.role;
-        GameObject bullet = playerRole == 1 ? GameManager.instance.ObjectPool.Get(4) : GameManager.instance.ObjectPool.Get(1);
+        GameObject bullet = playerRole == 1 ? GameManager.instance.ObjectPool.Get(4) : GameManager.instance.ObjectPool.Get(5);
 
         if (dirVec == Vector2.right)
         {

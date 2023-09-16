@@ -19,9 +19,10 @@ public class Player : MonoBehaviour
     [Header("----- Player Property -----")]
     public Vector2 inputVec;
     public Vector2 fireVec;
-    bool isSlashing;
+    public bool isSlashing;
     public float attackDelay;
     public int currentWeaponIndex;
+    public int currentSkillIndex;
     public bool isDarkSight;
 
     public int role;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     public List<int> acquireWeapons;
     public List<int> acquireSkills;
     public int getWeaponCount;
+    public int getSkillCount;
     
     public float maxHealth = 10;
     public float health;
@@ -129,33 +131,31 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    IEnumerator PlayerAttack()
+    public IEnumerator PlayerAttack()
     {
         isSlashing = true;
-
-
         Vector2 dirVec = Vector2.zero;
 
         // 총은 무기 휘두르는 모션이 없으므로 제외하고 무기 애니메이션 실행
         if (GameManager.instance.isRightAttack)
         {
             dirVec = Vector2.right;
-            hand[role].Attack("Right", dirVec, 1);
+            hand[role].Attack("Right", dirVec, currentSkillIndex);
         }
         else if (GameManager.instance.isLeftAttack)
         {
             dirVec = Vector2.left;
-            hand[role].Attack("Left", dirVec, 1);
+            hand[role].Attack("Left", dirVec, currentSkillIndex);
         }
         else if (GameManager.instance.isUpAttack)
         {
             dirVec = Vector2.up;
-            hand[role].Attack("Up", dirVec, 1);
+            hand[role].Attack("Up", dirVec, currentSkillIndex);
         }
         else if (GameManager.instance.isDownAttack)
         {
             dirVec = Vector2.down;
-            hand[role].Attack("Down", dirVec, 1);
+            hand[role].Attack("Down", dirVec, currentSkillIndex);
         }
 
         yield return new WaitForSeconds(attackDelay + 0.1f);
@@ -168,9 +168,10 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(0, 2);
+        int roleRandom = Random.Range(0, 4);
         role = roleRandom;
         GameObject newWeapon = GameManager.instance.GenerateWeapon();
+        GameObject newSkill = GameManager.instance.GenerateSkill();
 
         switch (role)
         {
@@ -201,11 +202,11 @@ public class Player : MonoBehaviour
                 // 기본 스탯 설정
                 health = 2;
                 speed = 4;
-                attackSpeed =42;
+                attackSpeed = 4;
                 power = 2;
                 break;
             case 3:
-                roleName = "총잡이";
+                roleName = "거너";
                 hand[role].gameObject.SetActive(true);
 
                 // 기본 스탯 설정
@@ -219,10 +220,19 @@ public class Player : MonoBehaviour
         // 무기 생성 후 세팅
         GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
         GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[role * 5]);
+        GameManager.instance.weapon[getWeaponCount].name = GameManager.instance.weapon[getWeaponCount].weaponNname;
         hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
         acquireWeapons.Add(0);
+
+        // 스킬 생성 후 세팅
+        GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
+        GameManager.instance.skill[getSkillCount].Init(GameManager.instance.skillData[role * 5]);
+        GameManager.instance.skill[getSkillCount].name = GameManager.instance.skill[getSkillCount].skillNname;
+        hand[role].isChanged = true;
+        getSkillCount++;
+        currentSkillIndex = 0;
         acquireSkills.Add(0);
 
         // ui 갱신

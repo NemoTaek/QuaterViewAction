@@ -18,7 +18,7 @@ public class Room : MonoBehaviour
 
     void OnEnable()
     {
-        BattleStart();
+        //BattleStart();
     }
 
     void Start()

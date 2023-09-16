@@ -15,7 +15,7 @@ public class SkillData : ScriptableObject
     public string skillName;
     public string skillDesc;
     public float skillCoolTime;
-    public float skiilDuringTime;
+    public float skillDuringTime;
     public float skillRange;
     public Sprite skillIcon;
 

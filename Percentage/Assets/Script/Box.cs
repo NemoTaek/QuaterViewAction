@@ -27,7 +27,7 @@ public class Box : MonoBehaviour
             roomReward = GameManager.instance.rewardBoxPanel.GetComponent<RoomReward>();
 
             // 무기강화, 스킬강화 중 랜덤 선택
-            int weaponOrSkill = Random.Range(0, 1);
+            int weaponOrSkill = Random.Range(1, 2);
 
             // 무기이면
             if (weaponOrSkill == 0)

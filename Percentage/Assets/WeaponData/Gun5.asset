@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c5bb62d727457449c4f10875c12452, type: 3}
+  m_Name: Gun5
+  m_EditorClassIdentifier: 
+  weaponType: 3
+  weaponId: 19
+  weaponName: "\uB808\uB4DC \uAC74"
+  weaponDesc: "\uC804\uC124\uC758 \uAC70\uB108\uAC00 \uC0AC\uC6A9\uD558\uB358 \uAC80\uC774\uB2E4."
+  weaponIcon: {fileID: 21300000, guid: b880faa6d53581f4faa813c42a5d4e8f, type: 3}
+  baseDamage: 50
+  upgradeDamage:
+  - 7
+  - 7
+  - 7
+  - 8
+  - 8
+  - 9
+  - 9
+  level: 0
+  maxLevel: 6
