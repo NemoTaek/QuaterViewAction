@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class Skill : MonoBehaviour
@@ -67,6 +65,87 @@ public class Skill : MonoBehaviour
             }
             yield return new WaitForSeconds(0.01f * Time.deltaTime);
         }
-        
+    }
+
+    public void UseSkillSetting()
+    {
+        isUseSkill = true;
+        isUsableSkill = false;
+        StartCoroutine(CheckSkillCoolTime());
+    }
+
+    public IEnumerator UseSkill(Vector2 dirVec, int id)
+    {
+        UseSkillSetting();
+
+        switch(id)
+        {
+            // 전사 돌진
+            case 1:
+                GameManager.instance.player.rigid.AddForce(dirVec * 0.5f);
+                break;
+            // 전사 집중
+            case 2:
+                break;
+            // 전사 가드어택
+            case 3:
+                break;
+            // 전사 검기
+            case 4:
+                break;
+
+            // 마법사 파이어 블로우
+            case 6:
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].SkillFire(dirVec, transform.parent.transform.position);
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].SkillFire(-dirVec, transform.parent.transform.position);
+                break;
+            // 마법사 명상
+            case 7:
+                break;
+            // 마법사 메테오
+            case 8:
+                break;
+            // 마법사 인페르노라이즈
+            case 9:
+                break;
+
+            // 도적 은신
+            case 11:
+                Color color = GameManager.instance.player.spriteRenderer.color;
+                color.a = 0.5f;
+                GameManager.instance.player.spriteRenderer.color = color;
+                GameManager.instance.player.col.isTrigger = true;
+
+                yield return new WaitForSeconds(skillDuringTime);
+                GameManager.instance.player.col.isTrigger = false;
+                color.a = 1f;
+                GameManager.instance.player.spriteRenderer.color = color;
+                break;
+            // 도적 헤이스트
+            case 12:
+                break;
+            // 도적 지뢰
+            case 13:
+                break;
+            // 도적 암살
+            case 14:
+                break;
+
+            // 거너 백스텝샷
+            case 16:
+                GameManager.instance.player.rigid.AddForce(dirVec * 0.3f);
+                break;
+            // 거너 다이스
+            case 17:
+                break;
+            // 거너 불릿파티
+            case 18:
+                break;
+            // 거너 헤드샷
+            case 19:
+                break;
+        }
+
+        yield return null;
     }
 }

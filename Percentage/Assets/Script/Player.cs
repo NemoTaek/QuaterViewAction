@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
         hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
-        acquireWeapons.Add(0);
+        acquireWeapons.Add(role * 5);
 
         // 스킬 생성 후 세팅
         GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
@@ -233,7 +233,7 @@ public class Player : MonoBehaviour
         hand[role].isChanged = true;
         getSkillCount++;
         currentSkillIndex = 0;
-        acquireSkills.Add(0);
+        acquireSkills.Add(role * 5);
 
         // ui 갱신
         GameManager.instance.ui.gameObject.SetActive(true);

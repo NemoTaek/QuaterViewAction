@@ -77,17 +77,18 @@ public class GameManager : MonoBehaviour
         {
             player.currentWeaponIndex = player.currentWeaponIndex == player.getWeaponCount - 1 ? 0 : player.currentWeaponIndex + 1;
             player.hand[player.role].isChanged = true;
+            ui.isChanged = true;
         }
 
         // 스킬 장착 입력
         // KeyCode.Alpha1 == 49
         for(int i=0; i<5; i++)
         {
-            if (player.currentSkillIndex != i && Input.GetKeyDown((KeyCode)(49 + i)))
+            // 누르려는 키가 현재 사용중인 스킬이 아니고, 획득한 스킬이면 장착 가능
+            if (player.currentSkillIndex != i && i < player.acquireSkills.Count && Input.GetKeyDown((KeyCode)(49 + i)))
             {
                 player.currentSkillIndex = i;
-                player.isSlashing = false;
-                StopCoroutine(player.PlayerAttack());
+                ui.isChanged = true;
             }
         }
     }

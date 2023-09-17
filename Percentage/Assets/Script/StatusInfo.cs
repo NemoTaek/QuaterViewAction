@@ -19,6 +19,7 @@ public class StatusInfo : MonoBehaviour
     public Text statusPower;
 
     public GameObject statusWeaponArea;
+    public GameObject statusSkillArea;
 
     public Sprite blankImage;
 
@@ -56,6 +57,17 @@ public class StatusInfo : MonoBehaviour
             weaponText[1 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? GameManager.instance.weapon[i].name : "";
             weaponText[2 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? "레벨: " + GameManager.instance.weapon[i].level.ToString() : "";
             weaponText[3 + (i * 3)].text = i < GameManager.instance.player.getWeaponCount ? "공격력: " + GameManager.instance.weapon[i].damage.ToString() : "";
+
+            Image[] skillImage = statusSkillArea.GetComponentsInChildren<Image>();
+            Text[] skillText = statusSkillArea.GetComponentsInChildren<Text>();
+
+            skillImage[2 * (i + 1)].sprite = i < GameManager.instance.player.getSkillCount ? GameManager.instance.skill[i].icon : blankImage;
+            skillText[1 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? GameManager.instance.skill[i].name : "";
+            skillText[2 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? "레벨: " + GameManager.instance.skill[i].level.ToString() : "";
+            skillText[3 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? "공격력: " + GameManager.instance.skill[i].damage.ToString() : "";
+            skillText[4 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? "쿨타임: " + GameManager.instance.skill[i].skillCoolTime.ToString() : "";
+            skillText[5 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? "지속시간: " + GameManager.instance.skill[i].skillDuringTime.ToString() : "";
+            skillText[6 + (i * 6)].text = i < GameManager.instance.player.getSkillCount ? GameManager.instance.skill[i].desc.ToString() : "";
         }
     }
 }

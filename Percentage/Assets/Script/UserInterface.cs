@@ -17,10 +17,7 @@ public class UserInterface : MonoBehaviour
     public Text coinText;
 
     public Image[] gameWeaponArea;
-    public Sprite[] weaponImage;
-
     public Image[] gameSkillArea;
-    public Sprite[] skillImage;
 
     void OnEnable()
     {
@@ -53,17 +50,23 @@ public class UserInterface : MonoBehaviour
     {
         if (isChanged)
         {
-            SetWeaponInventory();
+            SetInventory();
         }
     }
 
-    public void SetWeaponInventory()
+    public void SetInventory()
     {
         // 무기와 스킬 이미지 세팅
         for (int i = 0; i < 5; i++)
         {
             gameWeaponArea[i].sprite = i < GameManager.instance.player.getWeaponCount ? GameManager.instance.weapon[i].icon : blankImage;
-            //gameSkillArea[i].sprite = skillImage[uiIndex + i];
+            gameSkillArea[i].sprite = i < GameManager.instance.player.getSkillCount ? GameManager.instance.skill[i].icon : blankImage;
+
+            // 현재 사용중인 무기와 스킬은 노란색 테두리
+            if (GameManager.instance.player.currentWeaponIndex == i) gameWeaponArea[i].GetComponentsInParent<Image>()[1].color = new Color32(255, 201, 87, 255);
+            else gameWeaponArea[i].GetComponentsInParent<Image>()[1].color = Color.white;
+            if (GameManager.instance.player.currentSkillIndex == i) gameSkillArea[i].GetComponentsInParent<Image>()[1].color = new Color32(255, 201, 87, 255);
+            else gameSkillArea[i].GetComponentsInParent<Image>()[1].color = Color.white;
         }
         isChanged = false;
     }
