@@ -22,11 +22,15 @@ public class GameManager : MonoBehaviour
 
     public int coin;
 
-    public bool isAttack;
     public bool isRightAttack;
     public bool isLeftAttack;
     public bool isUpAttack;
     public bool isDownAttack;
+    public bool isUltimateRightAttack;
+    public bool isUltimateLeftAttack;
+    public bool isUltimateUpAttack;
+    public bool isUltimateDownAttack;
+
     public bool isOpenStatus;
     public bool isOpenBox;
 
@@ -52,11 +56,14 @@ public class GameManager : MonoBehaviour
     void InputKeyboard()
     {
         // 공격 입력
-        isAttack = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2");
-        isRightAttack = Input.GetKeyDown(KeyCode.RightArrow);
-        isLeftAttack = Input.GetKeyDown(KeyCode.LeftArrow);
-        isUpAttack = Input.GetKeyDown(KeyCode.UpArrow);
-        isDownAttack = Input.GetKeyDown(KeyCode.DownArrow);
+        isRightAttack = Input.GetKey(KeyCode.RightArrow);
+        isLeftAttack = Input.GetKey(KeyCode.LeftArrow);
+        isUpAttack = Input.GetKey(KeyCode.UpArrow);
+        isDownAttack = Input.GetKey(KeyCode.DownArrow);
+        isUltimateRightAttack = Input.GetKeyUp(KeyCode.RightArrow);
+        isUltimateLeftAttack = Input.GetKeyUp(KeyCode.LeftArrow);
+        isUltimateUpAttack = Input.GetKeyUp(KeyCode.UpArrow);
+        isUltimateDownAttack = Input.GetKeyUp(KeyCode.DownArrow);
 
         // 인벤토리 창 입력
         if (Input.GetKeyDown(KeyCode.I))

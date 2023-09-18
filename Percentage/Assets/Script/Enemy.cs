@@ -49,7 +49,9 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Weapon") || collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
+        // 무기의 경우에는 공격을 했을 때만 공격판정이 들어가도록
+        if ((collision.CompareTag("Weapon") && GameManager.instance.skill[GameManager.instance.player.currentSkillIndex].isAttack) 
+            || collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
         {
             float knockbackAmount = collision.CompareTag("SkillBullet") ? 10f : 3f;
 

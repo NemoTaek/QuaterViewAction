@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour
     Animator animator;
     public Weapon[] haveWeapons;
     public Skill[] haveSkills;
+    
 
     [Header("----- Common -----")]
     public bool isChanged;
@@ -52,23 +53,24 @@ public class Hand : MonoBehaviour
         // 사용 불가능하면 탈출
         if (!isUsableSkill) return;
 
-        if(skillIndex == 0)
-        {
-            // 스킬 사용
-            GameManager.instance.skill[skillIndex].UseSkillSetting();
+        //if(skillIndex == 0)
+        //{
+        //    // 스킬 사용
+        //    GameManager.instance.skill[skillIndex].UseSkillSetting();
 
-            if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
+        //    if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
 
-            // 지팡이와 총은 각각 마법과 총알을 발사
-            if (GameManager.instance.player.role == 1 || GameManager.instance.player.role == 3)
-            {
-                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(dirVec, transform.position);
-            }
-        }
-        else
-        {
-            StartCoroutine(GameManager.instance.skill[skillIndex].UseSkill(dirVec, GameManager.instance.skill[skillIndex].id));
-        }
+        //    // 지팡이와 총은 각각 마법과 총알을 발사
+        //    if (GameManager.instance.player.role == 1 || GameManager.instance.player.role == 3)
+        //    {
+        //        GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(dirVec, transform.position);
+        //    }
+        //}
+        //else
+        //{
+        StartCoroutine(GameManager.instance.skill[skillIndex].UseSkill(dirVec));
+        //}
+
     }
 
     public void SwapWeapon(int index)

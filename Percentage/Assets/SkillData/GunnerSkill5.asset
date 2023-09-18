@@ -16,10 +16,10 @@ MonoBehaviour:
   skillType: 4
   skillId: 19
   skillName: "\uD5E4\uB4DC\uC0F7"
-  skillDesc: "\uC804\uBC29\uC758 \uC801\uC5D0\uAC8C \uD070 \uB370\uBBF8\uC9C0\uB97C
-    \uC785\uD78C\uB2E4."
+  skillDesc: "\uAE30\uB97C \uBAA8\uC544 \uC804\uBC29\uC758 \uC801\uC5D0\uAC8C \uD070
+    \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
   skillCoolTime: 180
-  skiilDuringTime: 3
+  skillDuringTime: 0
   skillRange: 10
   skillIcon: {fileID: 21300000, guid: e684168af92995c42adf6a85e0a817cb, type: 3}
   baseDamage: 50

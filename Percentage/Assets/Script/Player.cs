@@ -13,8 +13,11 @@ public class Player : MonoBehaviour
     [Header("----- Player Component -----")]
     public Rigidbody2D rigid;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer buffSprite;
     public Collider2D col;
     Animator animator;
+    public GameObject keydownGuage;
+    Guage guage;
 
     [Header("----- Player Property -----")]
     public Vector2 inputVec;
@@ -24,6 +27,10 @@ public class Player : MonoBehaviour
     public int currentWeaponIndex;
     public int currentSkillIndex;
     public bool isDarkSight;
+    public bool isDamaged;
+    public float keydownTimer;
+    public bool isKeydown;
+    public bool isChargeComplete = false;
 
     public int role;
     public string roleName;
@@ -45,6 +52,7 @@ public class Player : MonoBehaviour
         col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         hand = GetComponentsInChildren<Hand>(true);
+        guage = GetComponentInChildren<Guage>();
     }
 
     void Start()
@@ -63,6 +71,7 @@ public class Player : MonoBehaviour
         Vector3 cameraPosition = Vector3.zero;
         Vector3 playerPosition = Vector3.zero;
 
+        // 맵 이동
         if (collision.CompareTag("TopDoor"))
         {
             cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y + 12, cam.transform.position.z);
@@ -93,24 +102,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 적과 닿으면 체력 감소
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            isDamaged = true;
+            health -= 0.5f;
+        }
+    }
+
     void Update()
     {
         // 상태창 오픈하면 아무것도 못하게 할 것
         if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
 
-        // 공격 딜레이
-        if (GameManager.instance.isAttack && !isSlashing)
-        {
-            StartCoroutine(PlayerAttack());
-        }
+        // 플레이어 공격
+        PlayerAttack();
+
+        //if (GameManager.instance.isUltimateRightAttack || GameManager.instance.isUltimateLeftAttack || GameManager.instance.isUltimateUpAttack || GameManager.instance.isUltimateDownAttack)
+        //{
+        //    // 게이지가 완충되었을 때, 키를 떼면 스킬 발동
+        //    if (keydownTimer >= 3f)
+        //    {
+        //        hand[role].Attack(dirString, dirVec, currentSkillIndex);
+        //    }
+        //    isKeydown = false;
+        //    keydownTimer = 0;
+        //    keydownGuage.transform.localScale = Vector3.zero;
+        //}
 
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
 
-        // 은신 상태면 적과의 몸빵 데미지를 무시하고 투과할 수 있음
-        if(isDarkSight)
+        // 피격 시 1초 무적
+        if(isDamaged)
         {
-
+            StartCoroutine(PlayerDamaged());
         }
     }
 
@@ -131,36 +159,117 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    public IEnumerator PlayerAttack()
+    IEnumerator PlayerDamaged()
     {
-        isSlashing = true;
+        Color color =spriteRenderer.color;
+        color.a = 0.5f;
+        spriteRenderer.color = color;
+
+        yield return new WaitForSeconds(1f);
+
+        isDamaged = false;
+        color.a = 1f;
+        spriteRenderer.color = color;
+    }
+
+    public void PlayerAttack()
+    {
         Vector2 dirVec = Vector2.zero;
 
-        // 총은 무기 휘두르는 모션이 없으므로 제외하고 무기 애니메이션 실행
+        // 공격
         if (GameManager.instance.isRightAttack)
         {
             dirVec = Vector2.right;
-            hand[role].Attack("Right", dirVec, currentSkillIndex);
+            SetAttackDirection(GameManager.instance.isRightAttack, dirVec, "Right");
         }
         else if (GameManager.instance.isLeftAttack)
         {
             dirVec = Vector2.left;
-            hand[role].Attack("Left", dirVec, currentSkillIndex);
+            SetAttackDirection(GameManager.instance.isLeftAttack, dirVec, "Left");
         }
         else if (GameManager.instance.isUpAttack)
         {
             dirVec = Vector2.up;
-            hand[role].Attack("Up", dirVec, currentSkillIndex);
+            SetAttackDirection(GameManager.instance.isUpAttack, dirVec, "Up");
         }
         else if (GameManager.instance.isDownAttack)
         {
             dirVec = Vector2.down;
-            hand[role].Attack("Down", dirVec, currentSkillIndex);
+            SetAttackDirection(GameManager.instance.isDownAttack, dirVec, "Down");
         }
 
-        yield return new WaitForSeconds(attackDelay + 0.1f);
+        // 궁극기 키다운에서 키업
+        // 게이지가 완충되었을 때, 키를 떼면 스킬 발동
+        if (GameManager.instance.isUltimateRightAttack)
+        {
+            if (keydownTimer >= 3f)
+            {
+                hand[role].Attack("Right", Vector2.right, currentSkillIndex);
+            }
+            ChargingCancel();
+        }
+        else if (GameManager.instance.isUltimateLeftAttack)
+        {
+            if (keydownTimer >= 3f)
+            {
+                hand[role].Attack("Left", Vector2.left, currentSkillIndex);
+            }
+            ChargingCancel();
+        }
+        else if (GameManager.instance.isUltimateUpAttack)
+        {
+            if (keydownTimer >= 3f)
+            {
+                hand[role].Attack("Up", Vector2.up, currentSkillIndex);
+            }
+            ChargingCancel();
+        }
+        else if (GameManager.instance.isUltimateDownAttack)
+        {
+            if (keydownTimer >= 3f)
+            {
+                hand[role].Attack("Down", Vector2.down, currentSkillIndex);
+            }
+            ChargingCancel();
+        }
+    }
 
-        isSlashing = false;
+    void SetAttackDirection(bool directionKey, Vector2 dirVec, string dirString)
+    {
+        if (GameManager.instance.skill[currentSkillIndex].id == 4 && GameManager.instance.skill[currentSkillIndex].coolTimeTimer <= 0)
+        {
+            ChargingWeapon(directionKey);
+        }
+        else
+        {
+            hand[role].Attack(dirString, dirVec, currentSkillIndex);
+        }
+    }
+
+    void ChargingWeapon(bool directionKey)
+    {
+        // 스킬을 활성화 하고 키다운 하면 게이지가 활성화
+        keydownGuage.transform.localScale = new Vector3(1.5f, 0.5f, 1);
+
+        if (directionKey)
+        {
+            // 게이지 충전시간 증가 및 UI 갱신
+            isKeydown = true;
+            keydownTimer += Time.deltaTime;
+            guage.transform.localScale = Vector3.right * (keydownTimer * 0.9f) + Vector3.up * 2.64f;
+
+            if (keydownTimer >= 3f)
+            {
+                keydownTimer = 3f;
+            }
+        }
+    }
+
+    void ChargingCancel()
+    {
+        isKeydown = false;
+        keydownTimer = 0;
+        keydownGuage.transform.localScale = Vector3.zero;
     }
 
     void SetCharacterStatus()
@@ -168,7 +277,7 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(0, 4);
+        int roleRandom = Random.Range(0, 1);
         role = roleRandom;
         GameObject newWeapon = GameManager.instance.GenerateWeapon();
         GameObject newSkill = GameManager.instance.GenerateSkill();
