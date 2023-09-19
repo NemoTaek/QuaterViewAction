@@ -129,4 +129,14 @@ public class GameManager : MonoBehaviour
 
         return newSkill;
     }
+
+    public string SetAttackAnimation(Vector2 dirVec)
+    {
+        if (dirVec == Vector2.right) return "RightAttack";
+        else if (dirVec == Vector2.left) return "LeftAttack";
+        else if (dirVec == Vector2.up) return "UpAttack";
+        else if (dirVec == Vector2.down) return "DownAttack";
+
+        return null;
+    }
 }

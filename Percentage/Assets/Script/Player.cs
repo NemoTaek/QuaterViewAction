@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     public SpriteRenderer buffSprite;
     public Collider2D col;
     Animator animator;
-    public GameObject keydownGuage;
-    Guage guage;
+    public Transform keydownGuage;
+    public Transform guage;
 
     [Header("----- Player Property -----")]
     public Vector2 inputVec;
@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
         col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         hand = GetComponentsInChildren<Hand>(true);
-        guage = GetComponentInChildren<Guage>();
     }
 
     void Start()
@@ -120,18 +119,6 @@ public class Player : MonoBehaviour
         // 플레이어 공격
         PlayerAttack();
 
-        //if (GameManager.instance.isUltimateRightAttack || GameManager.instance.isUltimateLeftAttack || GameManager.instance.isUltimateUpAttack || GameManager.instance.isUltimateDownAttack)
-        //{
-        //    // 게이지가 완충되었을 때, 키를 떼면 스킬 발동
-        //    if (keydownTimer >= 3f)
-        //    {
-        //        hand[role].Attack(dirString, dirVec, currentSkillIndex);
-        //    }
-        //    isKeydown = false;
-        //    keydownTimer = 0;
-        //    keydownGuage.transform.localScale = Vector3.zero;
-        //}
-
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
 
@@ -180,22 +167,22 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isRightAttack)
         {
             dirVec = Vector2.right;
-            SetAttackDirection(GameManager.instance.isRightAttack, dirVec, "Right");
+            SetAttackDirection(GameManager.instance.isRightAttack, dirVec);
         }
         else if (GameManager.instance.isLeftAttack)
         {
             dirVec = Vector2.left;
-            SetAttackDirection(GameManager.instance.isLeftAttack, dirVec, "Left");
+            SetAttackDirection(GameManager.instance.isLeftAttack, dirVec);
         }
         else if (GameManager.instance.isUpAttack)
         {
             dirVec = Vector2.up;
-            SetAttackDirection(GameManager.instance.isUpAttack, dirVec, "Up");
+            SetAttackDirection(GameManager.instance.isUpAttack, dirVec);
         }
         else if (GameManager.instance.isDownAttack)
         {
             dirVec = Vector2.down;
-            SetAttackDirection(GameManager.instance.isDownAttack, dirVec, "Down");
+            SetAttackDirection(GameManager.instance.isDownAttack, dirVec);
         }
 
         // 궁극기 키다운에서 키업
@@ -204,7 +191,7 @@ public class Player : MonoBehaviour
         {
             if (keydownTimer >= 3f)
             {
-                hand[role].Attack("Right", Vector2.right, currentSkillIndex);
+                hand[role].Attack(Vector2.right, currentSkillIndex);
             }
             ChargingCancel();
         }
@@ -212,7 +199,7 @@ public class Player : MonoBehaviour
         {
             if (keydownTimer >= 3f)
             {
-                hand[role].Attack("Left", Vector2.left, currentSkillIndex);
+                hand[role].Attack(Vector2.left, currentSkillIndex);
             }
             ChargingCancel();
         }
@@ -220,7 +207,7 @@ public class Player : MonoBehaviour
         {
             if (keydownTimer >= 3f)
             {
-                hand[role].Attack("Up", Vector2.up, currentSkillIndex);
+                hand[role].Attack(Vector2.up, currentSkillIndex);
             }
             ChargingCancel();
         }
@@ -228,13 +215,13 @@ public class Player : MonoBehaviour
         {
             if (keydownTimer >= 3f)
             {
-                hand[role].Attack("Down", Vector2.down, currentSkillIndex);
+                hand[role].Attack(Vector2.down, currentSkillIndex);
             }
             ChargingCancel();
         }
     }
 
-    void SetAttackDirection(bool directionKey, Vector2 dirVec, string dirString)
+    void SetAttackDirection(bool directionKey, Vector2 dirVec)
     {
         if (GameManager.instance.skill[currentSkillIndex].id == 4 && GameManager.instance.skill[currentSkillIndex].coolTimeTimer <= 0)
         {
@@ -242,21 +229,21 @@ public class Player : MonoBehaviour
         }
         else
         {
-            hand[role].Attack(dirString, dirVec, currentSkillIndex);
+            hand[role].Attack(dirVec, currentSkillIndex);
         }
     }
 
     void ChargingWeapon(bool directionKey)
     {
         // 스킬을 활성화 하고 키다운 하면 게이지가 활성화
-        keydownGuage.transform.localScale = new Vector3(1.5f, 0.5f, 1);
+        keydownGuage.localScale = new Vector3(1.5f, 0.5f, 1);
 
         if (directionKey)
         {
             // 게이지 충전시간 증가 및 UI 갱신
             isKeydown = true;
             keydownTimer += Time.deltaTime;
-            guage.transform.localScale = Vector3.right * (keydownTimer * 0.9f) + Vector3.up * 2.64f;
+            guage.localScale = Vector3.right * (keydownTimer * 0.9f) + Vector3.up * 2.64f;
 
             if (keydownTimer >= 3f)
             {
@@ -269,7 +256,7 @@ public class Player : MonoBehaviour
     {
         isKeydown = false;
         keydownTimer = 0;
-        keydownGuage.transform.localScale = Vector3.zero;
+        keydownGuage.localScale = Vector3.zero;
     }
 
     void SetCharacterStatus()

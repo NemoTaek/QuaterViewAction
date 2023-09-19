@@ -4767,7 +4767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 649458867}
   - component: {fileID: 649458869}
-  - component: {fileID: 649458868}
   m_Layer: 0
   m_Name: Guage
   m_TagString: Untagged
@@ -4790,21 +4789,6 @@ Transform:
   m_Father: {fileID: 1695996766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &649458868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649458866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5781c4b2aa6cd6649bdb9270ec199445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keydownTimer: 0
-  isKeydown: 0
-  isChargeComplete: 0
 --- !u!212 &649458869
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11442,13 +11426,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 8854762373755917708, guid: 7b9737a4f22c14f4f82985ac3d5e6cab, type: 3}
-  - {fileID: 7224274248480558358, guid: 2f5c2247f6e41b24bae0fa949ba9a8bd, type: 3}
   - {fileID: 2053457538541657376, guid: 4be8164916375524da25f8499ff4d8fd, type: 3}
   - {fileID: 1929079885948690608, guid: d0ab7eab534ec9b48a2f5b91b54dd353, type: 3}
-  - {fileID: 8854762373755917708, guid: c166d99705f1d2d46baa4cfbdb8c561a, type: 3}
+  - {fileID: 8854762373755917708, guid: 7b9737a4f22c14f4f82985ac3d5e6cab, type: 3}
+  - {fileID: 7224274248480558358, guid: 2f5c2247f6e41b24bae0fa949ba9a8bd, type: 3}
+  - {fileID: 3688735051652521523, guid: 346a49007c4d8fb438cea6dde0489fc2, type: 3}
   - {fileID: 7224274248480558358, guid: e7f4f3bc8e8d534469b92e5232bc036c, type: 3}
   - {fileID: 6461972455850156111, guid: 6ce2010d39ddcf7489b19d29dff523a4, type: 3}
+  - {fileID: 5197622537987411580, guid: 964d2ce4a204d8044b43505a158c05b7, type: 3}
+  - {fileID: 1495169211968459104, guid: 9147146513ad9074fa7631be7cc4fd61, type: 3}
+  - {fileID: 5982907101959649266, guid: 9dd2f1f2d30e62d46a6a09d78bde1f1b, type: 3}
+  - {fileID: 7345132869029873112, guid: b752247061c3e5648b08f90b1ff1099d, type: 3}
+  - {fileID: 1809474543443006198, guid: 871bfc6a515e63047b5f81efc317011b, type: 3}
 --- !u!4 &1592833165
 Transform:
   m_ObjectHideFlags: 0
@@ -13001,7 +12990,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   buffSprite: {fileID: 400745435}
   col: {fileID: 0}
-  keydownGuage: {fileID: 1695996764}
+  keydownGuage: {fileID: 1695996766}
+  guage: {fileID: 649458867}
   inputVec: {x: 0, y: 0}
   fireVec: {x: 0, y: 0}
   isSlashing: 0

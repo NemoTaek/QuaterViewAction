@@ -63,61 +63,35 @@ public class Weapon : MonoBehaviour
         
     }
 
-    public void Shot(Vector2 dirVec, Vector3 playerPosition)
+    public void Shot(int bulletId, Vector2 dirVec, Vector3 shotPosition, float shotVelocity)
     {
+        // bulletId
+        // 2: 파이어볼, 3: 총알(불릿파티), 4: 파이어블로우, 5: 백스텝샷(헤드샷), 6: 가드어택, 7: 메테오, 8: 지뢰, 9: 검기, 10: 인페르노라이즈, 11: 암살
+        GameObject bullet = GameManager.instance.ObjectPool.Get(bulletId);
+
         int playerRole = GameManager.instance.player.role;
-        GameObject bullet = playerRole == 1 ? GameManager.instance.ObjectPool.Get(0) : GameManager.instance.ObjectPool.Get(1);
-
-        if(dirVec == Vector2.right)
-        {
-            bullet.transform.position = new Vector3(playerPosition.x + 0.5f, playerPosition.y, playerPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, -90) : Quaternion.Euler(0, 0, 180);
-        }
-        else if (dirVec == Vector2.left)
-        {
-            bullet.transform.position = new Vector3(playerPosition.x - 0.5f, playerPosition.y, playerPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 90) : Quaternion.Euler(0, 0, 0);
-        }
-        else if(dirVec == Vector2.up)
-        {
-            bullet.transform.position = new Vector3(playerPosition.x, playerPosition.y + 0.5f, playerPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 0, -90);
-        }
-        else if (dirVec == Vector2.down)
-        {
-            bullet.transform.position = new Vector3(playerPosition.x, playerPosition.y - 0.5f, playerPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 180) : Quaternion.Euler(0, 0, 90);
-        }
-
-        bullet.GetComponent<Rigidbody2D>().velocity = dirVec * 5;
-    }
-
-    public void SkillFire(Vector2 dirVec, Vector3 playerPosition)
-    {
-        int playerRole = GameManager.instance.player.role;
-        GameObject bullet = playerRole == 1 ? GameManager.instance.ObjectPool.Get(4) : GameManager.instance.ObjectPool.Get(5);
 
         if (dirVec == Vector2.right)
         {
-            bullet.transform.position = new Vector3(playerPosition.x + 0.5f, playerPosition.y, playerPosition.z);
+            bullet.transform.position = new Vector3(shotPosition.x + 0.5f, shotPosition.y, shotPosition.z);
             bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, -90) : Quaternion.Euler(0, 0, 180);
         }
         else if (dirVec == Vector2.left)
         {
-            bullet.transform.position = new Vector3(playerPosition.x - 0.5f, playerPosition.y, playerPosition.z);
+            bullet.transform.position = new Vector3(shotPosition.x - 0.5f, shotPosition.y, shotPosition.z);
             bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 90) : Quaternion.Euler(0, 0, 0);
         }
         else if (dirVec == Vector2.up)
         {
-            bullet.transform.position = new Vector3(playerPosition.x, playerPosition.y + 0.5f, playerPosition.z);
+            bullet.transform.position = new Vector3(shotPosition.x, shotPosition.y + 0.5f, shotPosition.z);
             bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 0, -90);
         }
         else if (dirVec == Vector2.down)
         {
-            bullet.transform.position = new Vector3(playerPosition.x, playerPosition.y - 0.5f, playerPosition.z);
+            bullet.transform.position = new Vector3(shotPosition.x, shotPosition.y - 0.5f, shotPosition.z);
             bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 180) : Quaternion.Euler(0, 0, 90);
         }
 
-        bullet.GetComponent<Rigidbody2D>().velocity = dirVec * 5;
+        bullet.GetComponent<Rigidbody2D>().velocity = dirVec * shotVelocity;
     }
 }

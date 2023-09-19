@@ -8,7 +8,7 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     [Header("----- Component -----")]
-    Animator animator;
+    public Animator animator;
     public Weapon[] haveWeapons;
     public Skill[] haveSkills;
     
@@ -45,7 +45,7 @@ public class Hand : MonoBehaviour
         }
     }
 
-    public void Attack(string direction, Vector2 dirVec, int skillIndex)
+    public void Attack(Vector2 dirVec, int skillIndex)
     {
         // 스킬 사용 가능한지 체크
         bool isUsableSkill = GameManager.instance.skill[skillIndex].isUsableSkill;
@@ -53,23 +53,33 @@ public class Hand : MonoBehaviour
         // 사용 불가능하면 탈출
         if (!isUsableSkill) return;
 
-        //if(skillIndex == 0)
-        //{
-        //    // 스킬 사용
-        //    GameManager.instance.skill[skillIndex].UseSkillSetting();
+        // 애니메이터 속도 기본값. 전사 돌진에서 속도를 5로 사용하기 때문에 기본값이 필요
+        animator.speed = 1;
 
-        //    if (GameManager.instance.player.role != 3) animator.SetTrigger(direction + "Attack");
+        if (skillIndex == 0)
+        {
+            // 스킬 사용
+            GameManager.instance.skill[skillIndex].UseSkillSetting();
 
-        //    // 지팡이와 총은 각각 마법과 총알을 발사
-        //    if (GameManager.instance.player.role == 1 || GameManager.instance.player.role == 3)
-        //    {
-        //        GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(dirVec, transform.position);
-        //    }
-        //}
-        //else
-        //{
-        StartCoroutine(GameManager.instance.skill[skillIndex].UseSkill(dirVec));
-        //}
+            // 총은 무기 움직이는 모션이 없으므로 제외하고 애니메이션 실행
+            if (GameManager.instance.player.role != 3) animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
+
+            // 지팡이와 총은 각각 마법과 총알을 발사
+            if (GameManager.instance.player.role == 1)
+            {
+                // 불릿 id, 발사 방향, 발사 위치, 발사 속도
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(0, dirVec, transform.position, 5);
+            }
+            else if (GameManager.instance.player.role == 3)
+            {
+                // 불릿 id, 발사 방향, 발사 위치, 발사 속도
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(1, dirVec, transform.position, 5);
+            }
+        }
+        else
+        {
+            StartCoroutine(GameManager.instance.skill[skillIndex].UseSkill(dirVec));
+        }
 
     }
 

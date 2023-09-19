@@ -88,6 +88,8 @@ public class Skill : MonoBehaviour
         {
             // 전사 돌진
             case 1:
+                player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
+                player.hand[player.role].animator.speed = 5;
                 player.rigid.AddForce(dirVec * 0.5f);
                 break;
             // 전사 집중
@@ -131,13 +133,14 @@ public class Skill : MonoBehaviour
                 break;
             // 전사 검기
             case 4:
-                GameManager.instance.weapon[player.currentWeaponIndex].SkillFire(dirVec, transform.parent.transform.position);
+                player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(9, dirVec, GameManager.instance.weapon[player.role].transform.position, 10);
                 break;
 
             // 마법사 파이어 블로우
             case 6:
-                GameManager.instance.weapon[player.currentWeaponIndex].SkillFire(dirVec, transform.parent.transform.position);
-                GameManager.instance.weapon[player.currentWeaponIndex].SkillFire(-dirVec, transform.parent.transform.position);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, dirVec, GameManager.instance.weapon[player.role].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, -dirVec, GameManager.instance.weapon[player.role].transform.position, 5);
                 break;
             // 마법사 명상
             case 7:
@@ -193,6 +196,7 @@ public class Skill : MonoBehaviour
 
             // 거너 백스텝샷
             case 16:
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, transform.position, 5);
                 player.rigid.AddForce(dirVec * (-0.3f));
                 break;
             // 거너 다이스
