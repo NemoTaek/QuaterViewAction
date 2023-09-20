@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class SkillBullet : MonoBehaviour
 {
-    Rigidbody2D rigid;
-    public int type;
+    public Rigidbody2D rigid;
+    public Animator animator;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()

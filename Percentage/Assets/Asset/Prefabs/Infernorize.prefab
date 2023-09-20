@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 529617878520544529}
   - component: {fileID: 2403829864981944446}
   - component: {fileID: 8722942660711101735}
+  - component: {fileID: -1266860814566136790}
   m_Layer: 0
   m_Name: Infernorize
   m_TagString: SkillBullet
@@ -133,3 +134,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 17.99, y: 18.7}
   m_EdgeRadius: 0
+--- !u!114 &-1266860814566136790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345132869029873112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0

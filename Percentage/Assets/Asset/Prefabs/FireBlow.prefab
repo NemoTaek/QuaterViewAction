@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1516159071300520048}
   - component: {fileID: 4753878520699499097}
   - component: {fileID: 1530852045941124620}
+  - component: {fileID: 3695277726189527032}
   m_Layer: 0
   m_Name: FireBlow
   m_TagString: SkillBullet
@@ -133,3 +134,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.73, y: 1.84}
   m_EdgeRadius: 0
+--- !u!114 &3695277726189527032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3688735051652521523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0

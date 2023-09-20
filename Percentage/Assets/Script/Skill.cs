@@ -90,6 +90,7 @@ public class Skill : MonoBehaviour
             case 1:
                 player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
                 player.hand[player.role].animator.speed = 5;
+
                 player.rigid.AddForce(dirVec * 0.5f);
                 break;
             // 전사 집중
@@ -134,13 +135,13 @@ public class Skill : MonoBehaviour
             // 전사 검기
             case 4:
                 player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(9, dirVec, GameManager.instance.weapon[player.role].transform.position, 10);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(9, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
                 break;
 
             // 마법사 파이어 블로우
             case 6:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, dirVec, GameManager.instance.weapon[player.role].transform.position, 5);
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, -dirVec, GameManager.instance.weapon[player.role].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, -dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 break;
             // 마법사 명상
             case 7:
@@ -154,11 +155,45 @@ public class Skill : MonoBehaviour
                 break;
             // 마법사 메테오
             case 8:
-                // 맵 사이즈 알아내서 거기에 지금 박스 설치한것 처럼 랜덤으로 10개정도 나오도록
+                // 메테오 랜덤 위치에 배치
+                SkillBullet[] meteors = new SkillBullet[10];
+                for(int i=0; i<10; i++)
+                {
+                    GameObject obj = GameManager.instance.ObjectPool.Get(7);
+                    float randomX = Random.Range(-6.5f, 7.5f);
+                    float randomY = Random.Range(-2.5f, 3.5f);
+                    
+                    SkillBullet meteor = obj.GetComponent<SkillBullet>();
+                    meteor.transform.position = new Vector2(randomX, randomY);
+                    meteors[i] = meteor;
+                }
+
+                yield return new WaitForSeconds(0.5f);
+
+                // 0.5초 후 하강
+                for (int i = 0; i < 10; i++)
+                {
+                    //meteors[i].rigid.AddForce(new Vector2(-1, -1) * 2f, ForceMode2D.Impulse);
+                    meteors[i].rigid.velocity = new Vector2(-1, -1) * 2f;
+                }
+
+                yield return new WaitForSeconds(0.5f);
+
+                // 0.5초 후 사라짐
+                for (int i = 0; i < 10; i++)
+                {
+                    meteors[i].gameObject.SetActive(false);
+                }
+
                 break;
             // 마법사 인페르노라이즈
             case 9:
-                // 키다운 해서 3초 이상 눌렀다가 떼면 되도록
+                GameObject infernorize = GameManager.instance.ObjectPool.Get(10);
+                infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y, 1);
+
+                yield return new WaitForSeconds(2f);
+
+                infernorize.SetActive(false);
                 break;
 
             // 도적 은신

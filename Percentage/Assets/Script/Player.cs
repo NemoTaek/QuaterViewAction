@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerDamaged()
     {
-        Color color =spriteRenderer.color;
+        Color color = spriteRenderer.color;
         color.a = 0.5f;
         spriteRenderer.color = color;
 
@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
 
     void SetAttackDirection(bool directionKey, Vector2 dirVec)
     {
-        if (GameManager.instance.skill[currentSkillIndex].id == 4 && GameManager.instance.skill[currentSkillIndex].coolTimeTimer <= 0)
+        if (GameManager.instance.skill[currentSkillIndex].id == role * 5 + 4 && GameManager.instance.skill[currentSkillIndex].coolTimeTimer <= 0)
         {
             ChargingWeapon(directionKey);
         }
@@ -264,7 +264,7 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(0, 1);
+        int roleRandom = Random.Range(1, 2);
         role = roleRandom;
         GameObject newWeapon = GameManager.instance.GenerateWeapon();
         GameObject newSkill = GameManager.instance.GenerateSkill();

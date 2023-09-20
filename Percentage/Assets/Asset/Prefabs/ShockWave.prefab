@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 644075466957414626}
   - component: {fileID: 8529107917187913596}
   - component: {fileID: 8529107917187913597}
+  - component: {fileID: 857439802925855369}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: SkillBullet
@@ -293,3 +294,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &857439802925855369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461972455850156111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
