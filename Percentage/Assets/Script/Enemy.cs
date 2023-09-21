@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
         int random = Random.Range(0, 10);
         if(random >= 0 && random < 3)
         {
-            GameObject coin = GameManager.instance.ObjectPool.Get(0);
+            GameObject coin = GameManager.instance.objectPool.Get(0);
             coin.transform.position = transform.position;
         }
         

@@ -67,29 +67,36 @@ public class Weapon : MonoBehaviour
     {
         // bulletId
         // 2: 파이어볼, 3: 총알(불릿파티), 4: 파이어블로우, 5: 백스텝샷(헤드샷), 6: 가드어택, 7: 메테오, 8: 지뢰, 9: 검기, 10: 인페르노라이즈, 11: 암살
-        GameObject bullet = GameManager.instance.ObjectPool.Get(bulletId);
+        GameObject bullet = GameManager.instance.objectPool.Get(bulletId);
 
         int playerRole = GameManager.instance.player.role;
 
         if (dirVec == Vector2.right)
         {
             bullet.transform.position = new Vector3(shotPosition.x + 0.5f, shotPosition.y, shotPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, -90) : Quaternion.Euler(0, 0, 180);
+            bullet.transform.rotation = Quaternion.Euler(0, 0, -90);
         }
         else if (dirVec == Vector2.left)
         {
             bullet.transform.position = new Vector3(shotPosition.x - 0.5f, shotPosition.y, shotPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 90) : Quaternion.Euler(0, 0, 0);
+            bullet.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
         else if (dirVec == Vector2.up)
         {
             bullet.transform.position = new Vector3(shotPosition.x, shotPosition.y + 0.5f, shotPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 0, -90);
+            bullet.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (dirVec == Vector2.down)
         {
             bullet.transform.position = new Vector3(shotPosition.x, shotPosition.y - 0.5f, shotPosition.z);
-            bullet.transform.rotation = playerRole == 1 ? Quaternion.Euler(0, 0, 180) : Quaternion.Euler(0, 0, 90);
+            bullet.transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else
+        {
+            // Atan2(y, x): y / x 계산하여 라디안 값을 리턴. 그 후 각도로 변환
+            float shotDeg = Mathf.Atan2(dirVec.y, dirVec.x) * Mathf.Rad2Deg - 90;
+            bullet.transform.position = new Vector3(shotPosition.x, shotPosition.y, shotPosition.z);
+            bullet.transform.rotation = Quaternion.Euler(0, 0, shotDeg);
         }
 
         bullet.GetComponent<Rigidbody2D>().velocity = dirVec * shotVelocity;

@@ -19,7 +19,7 @@ MonoBehaviour:
   skillDesc: "\uC8FC\uC704\uC758 \uC801\uC744 \uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548
     \uACF5\uACA9\uD55C\uB2E4."
   skillCoolTime: 15
-  skiilDuringTime: 0
+  skillDuringTime: 5
   skillRange: 0
   skillIcon: {fileID: 21300000, guid: 658324f53125df34b8f70f0d43fe90b4, type: 3}
   baseDamage: 5

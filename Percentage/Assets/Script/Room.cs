@@ -69,7 +69,7 @@ public class Room : MonoBehaviour
 
             for(int i=0; i<10; i++)
             {
-                GameObject box = GameManager.instance.ObjectPool.Get(1);
+                GameObject box = GameManager.instance.objectPool.Get(1);
                 box.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-3, 3), 1);
             }
         }

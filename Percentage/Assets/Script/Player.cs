@@ -67,8 +67,8 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector3 cameraPosition = Vector3.zero;
-        Vector3 playerPosition = Vector3.zero;
+        Vector3 cameraPosition = cam.transform.position;
+        Vector3 playerPosition = transform.position;
 
         // 맵 이동
         if (collision.CompareTag("TopDoor"))
@@ -264,7 +264,7 @@ public class Player : MonoBehaviour
         // 기본 세팅할 것
         // 직업, 스탯
         // 직업 정해지면 그에 맞는 기본 무기와 스킬 세팅
-        int roleRandom = Random.Range(1, 2);
+        int roleRandom = Random.Range(0, 4);
         role = roleRandom;
         GameObject newWeapon = GameManager.instance.GenerateWeapon();
         GameObject newSkill = GameManager.instance.GenerateSkill();

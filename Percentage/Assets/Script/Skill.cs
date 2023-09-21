@@ -116,7 +116,7 @@ public class Skill : MonoBehaviour
                     // 지속시간 안에 플레이어가 피격당했으면 1초간 충격파 발생
                     if (player.isDamaged)
                     {
-                        GameObject shockWave = GameManager.instance.ObjectPool.Get(6);
+                        GameObject shockWave = GameManager.instance.objectPool.Get(6);
                         shockWave.transform.position = player.transform.position;
 
                         yield return new WaitForSeconds(1f);
@@ -159,7 +159,7 @@ public class Skill : MonoBehaviour
                 SkillBullet[] meteors = new SkillBullet[10];
                 for(int i=0; i<10; i++)
                 {
-                    GameObject obj = GameManager.instance.ObjectPool.Get(7);
+                    GameObject obj = GameManager.instance.objectPool.Get(7);
                     float randomX = Random.Range(-6.5f, 7.5f);
                     float randomY = Random.Range(-2.5f, 3.5f);
                     
@@ -188,8 +188,8 @@ public class Skill : MonoBehaviour
                 break;
             // 마법사 인페르노라이즈
             case 9:
-                GameObject infernorize = GameManager.instance.ObjectPool.Get(10);
-                infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y, 1);
+                GameObject infernorize = GameManager.instance.objectPool.Get(10);
+                infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
 
                 yield return new WaitForSeconds(2f);
 
@@ -221,17 +221,55 @@ public class Skill : MonoBehaviour
                 break;
             // 도적 지뢰
             case 13:
-                // 플레이어 상하좌우로 1정도 내외로 해서 랜덤으로 3개 설치
-                // 나는 피격당해도 체력 안닳도록 설정 (적만 닳도록)
+                // 지뢰 오브젝트 생성
+                GameObject[] mines = new GameObject[8];
+                for(int i=0; i<8; i++)
+                {
+                    mines[i] = GameManager.instance.objectPool.Get(8);
+                }
+
+                // 플레이어 주변 8방향에 지뢰 설치
+                for (int i = 0; i < 8; i++)
+                {
+                    for (float dx = -0.5f; dx < 1; dx += 0.5f)
+                    {
+                        for (float dy = -0.5f; dy < 1; dy += 0.5f)
+                        {
+                            if (dx == 0 && dy == 0) continue;
+                            mines[i].transform.position = new Vector3(player.transform.position.x + dx, player.transform.position.y + dy, 1);
+                        }
+                    }
+                }
+
+                yield return new WaitForSeconds(skillDuringTime);
+
+                // 지속시간 후에도 지뢰가 남아있다면 펑
+                for (int i = 0; i < 8; i++)
+                {
+                    if(mines[i].activeSelf) mines[i].SetActive(false);
+                }
                 break;
             // 도적 암살
             case 14:
-                // 키다운 해서 3초 이상 눌렀다가 떼면 되도록
+                // 1타
+                GameObject assassination1 = GameManager.instance.objectPool.Get(11);
+                assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
+                yield return new WaitForSeconds(0.5f);
+
+                // 2타
+                GameObject assassination2 = GameManager.instance.objectPool.Get(11);
+                assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
+                assassination2.transform.rotation = Quaternion.Euler(0, 0, 90);
+
+                yield return new WaitForSeconds(1f);
+
+                assassination1.SetActive(false);
+                assassination2.SetActive(false);
                 break;
 
             // 거너 백스텝샷
             case 16:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 player.rigid.AddForce(dirVec * (-0.3f));
                 break;
             // 거너 다이스
@@ -247,7 +285,7 @@ public class Skill : MonoBehaviour
 
                         yield return new WaitForSeconds(skillDuringTime);
 
-                        player.buffSprite.sprite = icon;
+                        player.buffSprite.sprite = null;
                         player.attackSpeed -= upgradeDamage[level];
                         break;
                     case 2:
@@ -256,7 +294,7 @@ public class Skill : MonoBehaviour
 
                         yield return new WaitForSeconds(skillDuringTime);
 
-                        player.buffSprite.sprite = icon;
+                        player.buffSprite.sprite = null;
                         player.speed -= upgradeDamage[level];
                         break;
                     case 3:
@@ -265,7 +303,7 @@ public class Skill : MonoBehaviour
 
                         yield return new WaitForSeconds(skillDuringTime);
 
-                        player.buffSprite.sprite = icon;
+                        player.buffSprite.sprite = null;
                         player.power -= upgradeDamage[level];
                         break;
                 }
@@ -273,10 +311,25 @@ public class Skill : MonoBehaviour
             // 거너 불릿파티
             case 18:
                 // 플레이어 위치 기준으로 랜덤 방향으로 지속시간동안 스킬불렛 발사
+                float timer = skillDuringTime;
+
+                while(timer > 0)
+                {
+                    // 발사 방향 랜덤 세팅
+                    float shotDirX = Random.Range(-1.0f, 1.0f);
+                    float shotDirY = Random.Range(-1.0f, 1.0f);
+                    Vector2 shotDir = new Vector2(shotDirX, shotDirY).normalized;
+
+                    // 랜덤 방향 발사
+                    GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, shotDir, player.transform.position + new Vector3(shotDir.x, shotDir.y, 1), 3);
+                    yield return new WaitForSeconds(0.1f);
+
+                    timer -= 0.1f;
+                }
                 break;
             // 거너 헤드샷
             case 19:
-                // 키다운 해서 3초 이상 눌렀다가 떼면 되도록
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
                 break;
         }
 

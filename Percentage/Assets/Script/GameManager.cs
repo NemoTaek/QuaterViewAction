@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public WeaponData[] weaponData;
     public Skill[] skill;
     public SkillData[] skillData;
-    public ObjectPool ObjectPool;
+    public ObjectPool objectPool;
+    public Map map;
 
     public UserInterface ui;
     public StatusInfo statusPanel;
