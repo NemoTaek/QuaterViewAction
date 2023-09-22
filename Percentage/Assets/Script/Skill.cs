@@ -156,14 +156,13 @@ public class Skill : MonoBehaviour
             // 마법사 메테오
             case 8:
                 // 메테오 랜덤 위치에 배치
-                SkillBullet[] meteors = new SkillBullet[10];
+                GameObject[] meteors = new GameObject[10];
                 for(int i=0; i<10; i++)
                 {
-                    GameObject obj = GameManager.instance.objectPool.Get(7);
+                    GameObject meteor = GameManager.instance.objectPool.Get(7);
                     float randomX = Random.Range(-6.5f, 7.5f);
                     float randomY = Random.Range(-2.5f, 3.5f);
-                    
-                    SkillBullet meteor = obj.GetComponent<SkillBullet>();
+
                     meteor.transform.position = new Vector2(randomX, randomY);
                     meteors[i] = meteor;
                 }
@@ -173,8 +172,9 @@ public class Skill : MonoBehaviour
                 // 0.5초 후 하강
                 for (int i = 0; i < 10; i++)
                 {
-                    //meteors[i].rigid.AddForce(new Vector2(-1, -1) * 2f, ForceMode2D.Impulse);
-                    meteors[i].rigid.velocity = new Vector2(-1, -1) * 2f;
+                    Rigidbody2D meteoRigid = meteors[i].GetComponent<Rigidbody2D>();
+                    //meteoRigid.AddForce(new Vector2(-1, -1) * 2f, ForceMode2D.Impulse);
+                    meteoRigid.velocity = new Vector2(-1, -1) * 2f;
                 }
 
                 yield return new WaitForSeconds(0.5f);
@@ -223,44 +223,38 @@ public class Skill : MonoBehaviour
             case 13:
                 // 지뢰 오브젝트 생성
                 GameObject[] mines = new GameObject[8];
-                for(int i=0; i<8; i++)
-                {
-                    mines[i] = GameManager.instance.objectPool.Get(8);
-                }
+                Vector3[] minePosition = new Vector3[8];
 
-                // 플레이어 주변 8방향에 지뢰 설치
-                for (int i = 0; i < 8; i++)
+                // 플레이어 주변 8방향 설정
+                int index = 0;
+                for (float dx = -1f; dx < 2; dx++)
                 {
-                    for (float dx = -0.5f; dx < 1; dx += 0.5f)
+                    for (float dy = -1f; dy < 2; dy++)
                     {
-                        for (float dy = -0.5f; dy < 1; dy += 0.5f)
-                        {
-                            if (dx == 0 && dy == 0) continue;
-                            mines[i].transform.position = new Vector3(player.transform.position.x + dx, player.transform.position.y + dy, 1);
-                        }
+                        if (dx == 0 && dy == 0) continue;
+                        minePosition[index] = new Vector3(player.transform.position.x + dx, player.transform.position.y + dy, 1);
+                        index++;
                     }
                 }
 
-                yield return new WaitForSeconds(skillDuringTime);
-
-                // 지속시간 후에도 지뢰가 남아있다면 펑
+                // 설정한 위치에 지뢰 설치
                 for (int i = 0; i < 8; i++)
                 {
-                    if(mines[i].activeSelf) mines[i].SetActive(false);
+                    mines[i] = GameManager.instance.objectPool.Get(8);
+                    mines[i].transform.position = minePosition[i];
                 }
                 break;
             // 도적 암살
             case 14:
                 // 1타
                 GameObject assassination1 = GameManager.instance.objectPool.Get(11);
-                assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
+                assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 yield return new WaitForSeconds(0.5f);
 
                 // 2타
                 GameObject assassination2 = GameManager.instance.objectPool.Get(11);
-                assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
+                assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 assassination2.transform.rotation = Quaternion.Euler(0, 0, 90);
-
                 yield return new WaitForSeconds(1f);
 
                 assassination1.SetActive(false);

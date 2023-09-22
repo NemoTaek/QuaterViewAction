@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public SkillData[] skillData;
     public ObjectPool objectPool;
     public Map map;
+    public Room room;
 
     public UserInterface ui;
     public StatusInfo statusPanel;
@@ -42,7 +43,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        // 처음 방에 도착 표시
+        room.isArrive = true;
     }
 
     void Update()

@@ -77,6 +77,10 @@ public class Player : MonoBehaviour
             playerPosition = new Vector3(transform.position.x, transform.position.y + 5.5f, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
+
+            // 현재 방을 다시 갱신
+            GameManager.instance.room.upRoom.isArrive = true;
+            GameManager.instance.room = GameManager.instance.room.upRoom;
         }
         if (collision.CompareTag("BottomDoor"))
         {
@@ -84,6 +88,10 @@ public class Player : MonoBehaviour
             playerPosition = new Vector3(transform.position.x, transform.position.y - 5.5f, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
+
+            // 현재 방을 다시 갱신
+            GameManager.instance.room.downRoom.isArrive = true;
+            GameManager.instance.room = GameManager.instance.room.downRoom;
         }
         if (collision.CompareTag("LeftDoor"))
         {
@@ -91,6 +99,10 @@ public class Player : MonoBehaviour
             playerPosition = new Vector3(transform.position.x - 5.5f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
+
+            // 현재 방을 다시 갱신
+            GameManager.instance.room.leftRoom.isArrive = true;
+            GameManager.instance.room = GameManager.instance.room.leftRoom;
         }
         if (collision.CompareTag("RightDoor"))
         {
@@ -98,6 +110,10 @@ public class Player : MonoBehaviour
             playerPosition = new Vector3(transform.position.x + 5.5f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
+
+            // 현재 방을 다시 갱신
+            GameManager.instance.room.rightRoom.isArrive = true;
+            GameManager.instance.room = GameManager.instance.room.rightRoom;
         }
     }
 
