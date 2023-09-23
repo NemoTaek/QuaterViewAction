@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    public enum RoomType { Clear, Battle, Arcade, Shop, Boss };
+
+    [Header("----- Component -----")]
     public Enemy enemy;
-    public Transform[] spawnPoint;
+    public SpawnPoint[] spawnPoint;
     public Door[] doors;
     public Room upRoom;
     public Room rightRoom;
     public Room downRoom;
     public Room leftRoom;
 
-    public bool isArrive;
+    [Header("----- Room Object -----")]
+    public Button[] buttons;
+
+    [Header("----- Room Property -----")]
+    public RoomType roomType;
     public bool isBattle;
-    public bool isClear;
     public int enemyCount = 0;
+    public bool isClear;
 
     void Awake()
     {
-        doors = GetComponentsInChildren<Door>();
+        spawnPoint = GetComponentsInChildren<SpawnPoint>();
+        doors = GetComponentsInChildren<Door>(true);
+        buttons = GetComponentsInChildren<Button>();
     }
 
     void OnEnable()
@@ -49,25 +58,40 @@ public class Room : MonoBehaviour
 
     void Update()
     {
-        // 클리어한 적이 없는 방에 플레이어가 도착하면 전투 시작
-        if(!isClear && isArrive)
+        // 현재 있는 방만 검사
+        if(GameManager.instance.currentRoom.gameObject == gameObject)
         {
-            BattleStart();
-        }
-
-        // 방에 적이 없을 때
-        if(!isClear && enemyCount == 0)
-        {
-            // 전투중이었다면 전투 종료 로직
-            if(isBattle)
+            // 방 타입 설정
+            // 스폰 포인트가 있으면 전투방
+            if (spawnPoint.Length > 0)
             {
-                BattleEnd();
+                roomType = RoomType.Battle;
+
+                // 전투 시작중이 아니라면 전투 시작
+                if (!isClear && !isBattle) BattleStart();
+
+                // 전투중인데 적을 모두 처치했다면 전투 종료
+                else if (!isClear && isBattle)
+                {
+                    if (enemyCount <= 0) BattleEnd();
+                }
             }
 
-            // 애초에 전투를 하지 않았다면 바로 문 열기
+            // 버튼이 있으면 아케이드방
+            else if (buttons.Length > 0)
+            {
+                roomType = RoomType.Arcade;
+
+                // 버튼을 모두 누르면 방 클리어
+                if (!isClear && IsAllButtonPressed()) BattleEnd();
+            }
+
+            // 모두 아니면 클리어 방
             else
             {
-                DoorOpen();
+                roomType = RoomType.Clear;
+
+                if(!isClear)    DoorOpen();
             }
         }
     }
@@ -75,24 +99,21 @@ public class Room : MonoBehaviour
     void BattleStart()
     {
         isBattle = true;
-        isArrive = false;
 
         // 전투 시작 시 문 폐쇄
-        for (int i = 0; i < doors.Length; i++)
-        {
-            doors[i].gameObject.SetActive(false);
-        }
+        //for (int i = 0; i < doors.Length; i++)
+        //{
+        //    doors[i].gameObject.SetActive(false);
+        //}
 
-        // 몬스터 소환
-        for (int i = 0; i < spawnPoint.Length; i++)
+        // 소환 지점이 있다면 몬스터 소환
+        if(spawnPoint.Length > 0)
         {
-            Instantiate(enemy, spawnPoint[i]);
-            enemyCount++;
-        }
-
-        if(enemyCount == 0)
-        {
-            BattleEnd();
+            for (int i = 0; i < spawnPoint.Length; i++)
+            {
+                Instantiate(enemy, spawnPoint[i].transform);
+                enemyCount++;
+            }
         }
     }
 
@@ -112,10 +133,7 @@ public class Room : MonoBehaviour
             //}
         }
 
-        isBattle = false;
-
-        // 현재 방 클리어
-        isClear = true;
+        //isBattle = false;
 
         // 전투가 끝났다면 감지되지는 위치의 문을 오픈
         DoorOpen();
@@ -123,9 +141,20 @@ public class Room : MonoBehaviour
 
     void DoorOpen()
     {
+        isClear = true;
+
         if (upRoom) doors[0].gameObject.SetActive(true);
         if (rightRoom) doors[1].gameObject.SetActive(true);
         if (downRoom) doors[2].gameObject.SetActive(true);
         if (leftRoom) doors[3].gameObject.SetActive(true);
+    }
+
+    bool IsAllButtonPressed()
+    {
+        for(int i=0; i<buttons.Length; i++)
+        {
+            if (!buttons[i].isPressed) return false;
+        }
+        return true;
     }
 }

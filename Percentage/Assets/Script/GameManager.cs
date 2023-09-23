@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public SkillData[] skillData;
     public ObjectPool objectPool;
     public Map map;
-    public Room room;
+    public Room currentRoom;
 
     public UserInterface ui;
     public StatusInfo statusPanel;
@@ -43,8 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // 처음 방에 도착 표시
-        room.isArrive = true;
+
     }
 
     void Update()
@@ -95,7 +94,7 @@ public class GameManager : MonoBehaviour
         for(int i=0; i<5; i++)
         {
             // 누르려는 키가 현재 사용중인 스킬이 아니고, 획득한 스킬이면 장착 가능
-            if (player.currentSkillIndex != i && i < player.acquireSkills.Count && Input.GetKeyDown((KeyCode)(49 + i)))
+            if (player.currentSkillIndex != i && i < player.getSkillCount && Input.GetKeyDown((KeyCode)(49 + i)))
             {
                 player.currentSkillIndex = i;
                 ui.isChanged = true;

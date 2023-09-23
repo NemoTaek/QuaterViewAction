@@ -34,11 +34,12 @@ public class Player : MonoBehaviour
 
     public int role;
     public string roleName;
-    public List<int> acquireWeapons;
-    public List<int> acquireSkills;
     public int getWeaponCount;
     public int getSkillCount;
     
+    // 스탯에 관련한 공식은 아이작을 따른다.
+    // 공격력: 플레이어 기본 공격력 * sqrt(게임 중 획득한 공격력 수치 * 1.2 + 1)
+    // 공격속도: 16 - 6 * sqrt(게임 중 획득한 공격속도 수치 * 1.3 + 1). 만약 루트 값이 음수가 나오면 16 - 6 * 게임 중 획득한 공격속도 수치 로 설정
     public float maxHealth = 10;
     public float health;
     public float speed;
@@ -74,46 +75,42 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("TopDoor"))
         {
             cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y + 12, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x, transform.position.y + 5.5f, transform.position.z);
+            playerPosition = new Vector3(transform.position.x, transform.position.y + 6f, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
-            GameManager.instance.room.upRoom.isArrive = true;
-            GameManager.instance.room = GameManager.instance.room.upRoom;
+            GameManager.instance.currentRoom = GameManager.instance.currentRoom.upRoom;
         }
         if (collision.CompareTag("BottomDoor"))
         {
             cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y - 12, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x, transform.position.y - 5.5f, transform.position.z);
+            playerPosition = new Vector3(transform.position.x, transform.position.y - 6f, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
-            GameManager.instance.room.downRoom.isArrive = true;
-            GameManager.instance.room = GameManager.instance.room.downRoom;
+            GameManager.instance.currentRoom = GameManager.instance.currentRoom.downRoom;
         }
         if (collision.CompareTag("LeftDoor"))
         {
             cameraPosition = new Vector3(cam.transform.position.x - 20, cam.transform.position.y, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x - 5.5f, transform.position.y, transform.position.z);
+            playerPosition = new Vector3(transform.position.x - 6f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
-            GameManager.instance.room.leftRoom.isArrive = true;
-            GameManager.instance.room = GameManager.instance.room.leftRoom;
+            GameManager.instance.currentRoom = GameManager.instance.currentRoom.leftRoom;
         }
         if (collision.CompareTag("RightDoor"))
         {
             cameraPosition = new Vector3(cam.transform.position.x + 20, cam.transform.position.y, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x + 5.5f, transform.position.y, transform.position.z);
+            playerPosition = new Vector3(transform.position.x + 6f, transform.position.y, transform.position.z);
             transform.position = playerPosition;
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
-            GameManager.instance.room.rightRoom.isArrive = true;
-            GameManager.instance.room = GameManager.instance.room.rightRoom;
+            GameManager.instance.currentRoom = GameManager.instance.currentRoom.rightRoom;
         }
     }
 
@@ -336,7 +333,6 @@ public class Player : MonoBehaviour
         hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
-        acquireWeapons.Add(role * 5);
 
         // 스킬 생성 후 세팅
         GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
@@ -345,7 +341,6 @@ public class Player : MonoBehaviour
         hand[role].isChanged = true;
         getSkillCount++;
         currentSkillIndex = 0;
-        acquireSkills.Add(role * 5);
 
         // ui 갱신
         GameManager.instance.ui.gameObject.SetActive(true);

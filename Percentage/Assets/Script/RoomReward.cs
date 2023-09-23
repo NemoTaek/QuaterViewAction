@@ -34,15 +34,15 @@ public class RoomReward : MonoBehaviour
         
     }
 
-    public void AcquireOrUpgrade(int random, List<int> list, WeaponData randomWeaponData)
+    public void AcquireOrUpgrade(int random, WeaponData randomWeaponData)
     {
         // 랜덤 장비 획득
         // 이미 가지고 있으면 강화, 없으면 획득
         bool isAcquire = false;
 
-        for (int i=0; i<list.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
-            if (list[i] == random)
+            if (i < GameManager.instance.player.getWeaponCount && GameManager.instance.weapon[i].id == random)
             {
                 isAcquire = true;
                 Weapon randomWeapon = GameManager.instance.weapon[i];
@@ -88,7 +88,6 @@ public class RoomReward : MonoBehaviour
                         // 오브젝트 파괴, 무기 리스트에서 삭제
                         GameObject destoryWeapon = GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[i].gameObject;
                         Destroy(destoryWeapon);
-                        list.RemoveAt(i);
 
                         // 손에 든 무기 업데이트, UI 적용
                         GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
@@ -99,7 +98,7 @@ public class RoomReward : MonoBehaviour
                     else
                     {
                         destroyedText.gameObject.SetActive(false);
-                        AcquireOrUpgrade(random, list, randomWeaponData);
+                        AcquireOrUpgrade(random, randomWeaponData);
                     }
                 }
 
@@ -115,7 +114,6 @@ public class RoomReward : MonoBehaviour
             // 뽑은 무기가 내 직업이 낄 수 있다면 넣고, 아니면 반환
             if(GameManager.instance.player.role == (int)randomWeaponData.weaponType)
             {
-                list.Add(random);
 
                 // 무기 생성 후 획득한 무기로 스위칭
                 GameObject newWeapon = GameManager.instance.GenerateWeapon();
@@ -140,15 +138,15 @@ public class RoomReward : MonoBehaviour
         weaponSkillImage.sprite = randomWeaponData.weaponIcon;
     }
 
-    public void AcquireOrUpgrade(int random, List<int> list, SkillData randomSkillData)
+    public void AcquireOrUpgrade(int random, SkillData randomSkillData)
     {
         // 랜덤 스킬 획득
         // 이미 가지고 있으면 강화, 없으면 획득
         bool isAcquire = false;
 
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
-            if (list[i] == random)
+            if (i < GameManager.instance.player.getSkillCount && GameManager.instance.skill[i].id == random)
             {
                 isAcquire = true;
                 Skill randomSkill = GameManager.instance.skill[i];
@@ -194,7 +192,6 @@ public class RoomReward : MonoBehaviour
                         // 오브젝트 파괴, 무기 리스트에서 삭제
                         GameObject destorySkill = GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[i].gameObject;
                         Destroy(destorySkill);
-                        list.RemoveAt(i);
 
                         // 손에 든 무기 업데이트, UI 적용
                         GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
@@ -205,7 +202,7 @@ public class RoomReward : MonoBehaviour
                     else
                     {
                         destroyedText.gameObject.SetActive(false);
-                        AcquireOrUpgrade(random, list, randomSkillData);
+                        AcquireOrUpgrade(random, randomSkillData);
                     }
                 }
 
@@ -221,8 +218,6 @@ public class RoomReward : MonoBehaviour
             // 뽑은 무기가 내 직업이 낄 수 있다면 넣고, 아니면 반환
             if (GameManager.instance.player.role == (int)randomSkillData.usableRoleType)
             {
-                list.Add(random);
-
                 // 무기 생성 후 획득한 무기로 스위칭
                 GameObject newSkill = GameManager.instance.GenerateSkill();
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount] = newSkill.AddComponent<Skill>();

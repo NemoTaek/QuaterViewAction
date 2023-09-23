@@ -15,6 +15,7 @@ TagManager:
   - SkillBullet
   - Skill
   - Room
+  - Button
   layers:
   - Default
   - TransparentFX
