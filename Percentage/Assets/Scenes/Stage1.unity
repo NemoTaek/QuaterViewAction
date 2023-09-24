@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169939774733922135, guid: 1e9054becbb3a014185800e4c2c251db, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 9169939774733922135, guid: 1e9054becbb3a014185800e4c2c251db, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4575,7 +4575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169939774733922135, guid: 1e9054becbb3a014185800e4c2c251db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9169939774733922135, guid: 1e9054becbb3a014185800e4c2c251db, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11077,6 +11077,7 @@ MonoBehaviour:
   - {fileID: 7345132869029873112, guid: b752247061c3e5648b08f90b1ff1099d, type: 3}
   - {fileID: 1809474543443006198, guid: 871bfc6a515e63047b5f81efc317011b, type: 3}
   - {fileID: 2653323031335568553, guid: c778740778c39174cb00419670042d3d, type: 3}
+  - {fileID: 1081831669186790275, guid: b043c73cdd81bd14fa149e3a6e0552a8, type: 3}
 --- !u!4 &1592833165
 Transform:
   m_ObjectHideFlags: 0
@@ -13805,7 +13806,7 @@ PrefabInstance:
     - target: {fileID: 7552491755958541291, guid: a6fb46e26096317408339a5dc37e818b, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 5986447738475801369, guid: 96e4943ba9ba17d48ad95381db7da689, type: 3}
+      objectReference: {fileID: 3729714250780382269, guid: 96e4943ba9ba17d48ad95381db7da689, type: 3}
     - target: {fileID: 7552491755958541293, guid: a6fb46e26096317408339a5dc37e818b, type: 3}
       propertyPath: m_Name
       value: Boss Room
@@ -13965,6 +13966,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4692410850375777196, guid: e8973fcf6cb8cad41982f496782adaac, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
     - target: {fileID: 4692410850375777197, guid: e8973fcf6cb8cad41982f496782adaac, type: 3}
       propertyPath: m_RootOrder
       value: 4

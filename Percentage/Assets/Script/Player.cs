@@ -112,15 +112,24 @@ public class Player : MonoBehaviour
             // 현재 방을 다시 갱신
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.rightRoom;
         }
+
+        // 적의 총알에 맞으면 체력 감소
+        if (collision.CompareTag("EnemyBullet") && !isDamaged)
+        {
+            health -= 0.5f;
+            isDamaged = true;
+            StartCoroutine(PlayerDamaged());
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         // 적과 닿으면 체력 감소
-        if (collision.collider.CompareTag("Enemy"))
+        if (collision.collider.CompareTag("Enemy") && !isDamaged)
         {
-            isDamaged = true;
             health -= 0.5f;
+            isDamaged = true;
+            StartCoroutine(PlayerDamaged());
         }
     }
 
@@ -134,12 +143,6 @@ public class Player : MonoBehaviour
 
         // 플레이어 이동 애니메이션
         animator.SetFloat("speed", inputVec.magnitude);
-
-        // 피격 시 1초 무적
-        if(isDamaged)
-        {
-            StartCoroutine(PlayerDamaged());
-        }
     }
 
     void OnMove(InputValue value)
@@ -168,6 +171,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         isDamaged = false;
+
         color.a = 1f;
         spriteRenderer.color = color;
     }

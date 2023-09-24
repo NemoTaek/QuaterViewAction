@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2487482577066881483}
   - component: {fileID: 7783113049911586963}
   - component: {fileID: 154087104203379137}
-  - component: {fileID: 5986447738475801369}
   - component: {fileID: 4583383361022046217}
   - component: {fileID: 9067315394585443663}
+  - component: {fileID: 3729714250780382269}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -110,23 +110,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5986447738475801369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3482542510697800589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab16d3cc9fe05904d8e39ec85121f220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
-  target: {fileID: 0}
-  speed: 1
-  health: 0
-  maxHealth: 10
 --- !u!50 &4583383361022046217
 Rigidbody2D:
   serializedVersion: 4
@@ -158,12 +141,30 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9375, y: 0.875}
   m_Direction: 0
+--- !u!114 &3729714250780382269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482542510697800589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a67eaa611d05b0542a01a24184ff1f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
+  target: {fileID: 0}
+  enemyType: 2
+  speed: 2
+  health: 0
+  maxHealth: 100
 --- !u!1 &7843655204524196019
 GameObject:
   m_ObjectHideFlags: 0

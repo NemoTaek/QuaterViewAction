@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public enum EnemyType { Trace, Random, Boss };
+
+    [Header("----- Component -----")]
     public Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
@@ -11,10 +14,14 @@ public class Enemy : MonoBehaviour
     Collider2D col;
     Room room;
 
+    [Header("----- Enemy Property -----")]
+    public EnemyType enemyType;
     public float speed;
     public float health;
     public float maxHealth;
     bool isLive;
+    bool isObjectCollision;
+    Vector2 moveDir;
 
     void Awake()
     {
@@ -30,11 +37,12 @@ public class Enemy : MonoBehaviour
     {
         isLive = true;
         health = maxHealth;
+        StartCoroutine(SetRandomMove());
     }
 
     void Start()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -75,6 +83,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Object") || collision.collider.CompareTag("Wall"))
+        {
+            isObjectCollision = true;
+        }
+    }
+
     void Update()
     {
         
@@ -88,10 +104,68 @@ public class Enemy : MonoBehaviour
 
     void EnemyMove()
     {
+        switch(enemyType)
+        {
+            case EnemyType.Trace:
+                TraceMove();
+                break;
+
+            case EnemyType.Random:
+                RandomMove();
+                break;
+        }
+    }
+
+    public void TraceMove()
+    {
         Vector2 dirVec = target.position - rigid.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
+    }
+
+    public void RandomMove()
+    {
+        // 오브젝트에 부딪치면 방향 전환
+        if (isObjectCollision)
+        {
+            StopCoroutine(SetRandomMove());
+            StartCoroutine(SetRandomMove());
+            isObjectCollision = false;
+        }
+
+        rigid.MovePosition(rigid.position + moveDir * speed * Time.fixedDeltaTime);
+        rigid.velocity = Vector2.zero;
+    }
+
+    public void StopMove()
+    {
+        rigid.MovePosition(rigid.position);
+    }
+
+    IEnumerator SetRandomMove()
+    {
+        while (true)
+        {
+            int dirRandom = Random.Range(0, 4);
+            switch (dirRandom)
+            {
+                case 0:
+                    moveDir = Vector2.up;
+                    break;
+                case 1:
+                    moveDir = Vector2.right;
+                    break;
+                case 2:
+                    moveDir = Vector2.down;
+                    break;
+                case 3:
+                    moveDir = Vector2.left;
+                    break;
+            }
+
+            yield return new WaitForSeconds(3);
+        }
     }
 
     IEnumerator KnockBack(float knockbackAmount)
@@ -114,6 +188,5 @@ public class Enemy : MonoBehaviour
             GameObject coin = GameManager.instance.objectPool.Get(0);
             coin.transform.position = transform.position;
         }
-        
     }
 }

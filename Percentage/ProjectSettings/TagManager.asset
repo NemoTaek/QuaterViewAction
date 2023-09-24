@@ -16,6 +16,8 @@ TagManager:
   - Skill
   - Room
   - Button
+  - Object
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - Water
   - UI
   - Room
-  - 
+  - Enemy
   - 
   - 
   - 

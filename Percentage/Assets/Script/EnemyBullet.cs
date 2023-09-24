@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     public Rigidbody2D rigid;
 
@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Wall") || collision.CompareTag("Object"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Wall") || collision.CompareTag("Object"))
         {
             gameObject.SetActive(false);
             transform.position = transform.parent.position;
@@ -27,6 +27,6 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }
