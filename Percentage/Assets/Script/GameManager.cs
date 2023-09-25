@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Skill[] skill;
     public SkillData[] skillData;
     public ObjectPool objectPool;
+    public ItemPool itemPool;
     public Map map;
     public Room currentRoom;
 

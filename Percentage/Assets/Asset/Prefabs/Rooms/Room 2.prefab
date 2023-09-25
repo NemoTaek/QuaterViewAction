@@ -2844,7 +2844,7 @@ MonoBehaviour:
   downRoom: {fileID: 0}
   leftRoom: {fileID: 0}
   buttons: []
-  roomType: 0
+  roomType: 2
   isBattle: 0
   enemyCount: 0
   isClear: 0

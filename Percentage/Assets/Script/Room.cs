@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
-    public enum RoomType { Clear, Battle, Arcade, Shop, Boss };
+    public enum RoomType { Clear, Battle, Arcade, Shop };
 
     [Header("----- Component -----")]
     public Enemy enemy;
@@ -14,21 +15,28 @@ public class Room : MonoBehaviour
     public Room rightRoom;
     public Room downRoom;
     public Room leftRoom;
+    public GameObject[] itemPoint;
 
     [Header("----- Room Object -----")]
     public Button[] buttons;
+    public List<int> itemsInShop;
+    public Item[] itemPrice;
 
     [Header("----- Room Property -----")]
     public RoomType roomType;
     public bool isBattle;
     public int enemyCount = 0;
     public bool isClear;
+    public int itemCount;
+    public bool isItemSet;
 
     void Awake()
     {
         spawnPoint = GetComponentsInChildren<SpawnPoint>();
         doors = GetComponentsInChildren<Door>(true);
         buttons = GetComponentsInChildren<Button>();
+
+        itemsInShop = new List<int>();
     }
 
     void OnEnable()
@@ -54,6 +62,31 @@ public class Room : MonoBehaviour
         if (upRoomRayCast) upRoom = upRoomRayCast.collider.gameObject.GetComponent<Room>();
         RaycastHit2D downRoomRayCast = Physics2D.Raycast(transform.position + Vector3.down * 6, Vector2.down, 3, LayerMask.GetMask("Room"));
         if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
+
+
+        // 방 타입 설정
+        // 상점방에는 랜덤 3개의 아이템 깔아놓기
+        // 아무것도 없는 방에는 문 열어놓기
+        if (roomType == RoomType.Clear || roomType == RoomType.Shop)
+        {
+            if(roomType == RoomType.Shop)
+            {
+                int totalItemCount = GameManager.instance.itemPool.items.Length;
+                itemPrice = new Item[itemCount];
+
+                while (itemsInShop.Count < itemCount)
+                {
+                    int random = Random.Range(1, totalItemCount);
+                    int isInItemList = itemsInShop.Find(x => x == random);
+
+                    if (isInItemList == 0)
+                    {
+                        itemsInShop.Add(random);
+                    }
+                }
+            }
+            DoorOpen();
+        }
     }
 
     void Update()
@@ -61,12 +94,9 @@ public class Room : MonoBehaviour
         // 현재 있는 방만 검사
         if(GameManager.instance.currentRoom.gameObject == gameObject)
         {
-            // 방 타입 설정
             // 스폰 포인트가 있으면 전투방
             if (spawnPoint.Length > 0)
             {
-                roomType = RoomType.Battle;
-
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
 
@@ -80,18 +110,28 @@ public class Room : MonoBehaviour
             // 버튼이 있으면 아케이드방
             else if (buttons.Length > 0)
             {
-                roomType = RoomType.Arcade;
-
                 // 버튼을 모두 누르면 방 클리어
                 if (!isClear && IsAllButtonPressed()) BattleEnd();
             }
 
-            // 모두 아니면 클리어 방
-            else
+            if (roomType == RoomType.Shop && !isItemSet)
             {
-                roomType = RoomType.Clear;
+                for (int i = 0; i < itemsInShop.Count; i++)
+                {
+                    // 아이템을 생성하고 배치
+                    Item shopItem = GameManager.instance.itemPool.Get(itemsInShop[i]);
+                    shopItem.transform.position = itemPoint[i].transform.position + Vector3.up;
 
-                if(!isClear)    DoorOpen();
+                    // 아이템 가격 세팅
+                    itemPrice[i] = GameManager.instance.itemPool.Get(0);
+                    itemPrice[i].GetComponent<Text>().text = "$ " + shopItem.price.ToString();
+
+                    // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅
+                    // Camera.main.WorldToScreenPoint(): 월드 좌표값을 스크린 좌표값으로 변경하는 메소드
+                    itemPrice[i].transform.position = Camera.main.WorldToScreenPoint(itemPoint[i].transform.position - (transform.position) / 2);
+                    itemPrice[i].transform.SetParent(GameManager.instance.ui.transform.parent.transform);
+                }
+                isItemSet = true;
             }
         }
     }

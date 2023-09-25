@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraMap : MonoBehaviour
 {
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 
     public IEnumerator MoveRoom(Vector3 destination)

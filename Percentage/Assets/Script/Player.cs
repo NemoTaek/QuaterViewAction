@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [Header("----- Component -----")]
-    public Camera cam;
+    public CameraMap cam;
     public Hand[] hand;
     public UserInterface ui;
 
@@ -80,6 +80,14 @@ public class Player : MonoBehaviour
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
+            // 상점방이었으면 아이템 가격 텍스트 비활성화
+            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            {
+                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+                {
+                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+                }
+            }
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.upRoom;
         }
         if (collision.CompareTag("BottomDoor"))
@@ -90,6 +98,14 @@ public class Player : MonoBehaviour
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
+            // 상점방이었으면 아이템 가격 텍스트 비활성화
+            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            {
+                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+                {
+                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+                }
+            }
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.downRoom;
         }
         if (collision.CompareTag("LeftDoor"))
@@ -100,6 +116,14 @@ public class Player : MonoBehaviour
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
+            // 상점방이었으면 아이템 가격 텍스트 비활성화
+            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            {
+                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+                {
+                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+                }
+            }
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.leftRoom;
         }
         if (collision.CompareTag("RightDoor"))
@@ -110,6 +134,14 @@ public class Player : MonoBehaviour
             StartCoroutine(cam.MoveRoom(cameraPosition));
 
             // 현재 방을 다시 갱신
+            // 상점방이었으면 아이템 가격 텍스트 비활성화
+            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            {
+                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+                {
+                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+                }
+            }
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.rightRoom;
         }
 
