@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("----- Component -----")]
     public static GameManager instance;
     public Fade fadeAnimation;
     public Player player;
@@ -18,13 +19,14 @@ public class GameManager : MonoBehaviour
     public ItemPool itemPool;
     public Map map;
     public Room currentRoom;
+    public ItemData[] itemData;
 
+    [Header("----- UI Component -----")]
     public UserInterface ui;
     public StatusInfo statusPanel;
     public RoomReward rewardBoxPanel;
 
-    public int coin;
-
+    [Header("----- Key Input -----")]
     public bool isRightAttack;
     public bool isLeftAttack;
     public bool isUpAttack;
@@ -34,8 +36,10 @@ public class GameManager : MonoBehaviour
     public bool isUltimateUpAttack;
     public bool isUltimateDownAttack;
 
+    [Header("----- System Info -----")]
     public bool isOpenStatus;
     public bool isOpenBox;
+    public int coin;
 
     void Awake()
     {

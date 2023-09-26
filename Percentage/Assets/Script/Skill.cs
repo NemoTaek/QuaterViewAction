@@ -7,7 +7,7 @@ public class Skill : MonoBehaviour
     Player player;
 
     public int id;  // 스킬 아이디
-    public string skillNname; // 스킬 이름
+    public string skillName; // 스킬 이름
     public float damage;    // 스킬 공격력
     public float[] upgradeDamage;    // 스킬 업그레이드 시 상승하는 공격력
     public float skillCoolTime;     // 스킬 쿨타임
@@ -31,7 +31,7 @@ public class Skill : MonoBehaviour
     public void Init(SkillData data)
     {
         id = data.skillId;
-        skillNname = data.skillName;
+        skillName = data.skillName;
         damage = data.baseDamage;
         upgradeDamage = data.upgradeDamage;
         skillCoolTime = data.skillCoolTime;
@@ -51,7 +51,10 @@ public class Skill : MonoBehaviour
 
     void Update()
     {
-
+        if (id == player.role * 5)
+        {
+            skillCoolTime = player.attackSpeed;
+        }
     }
 
     public IEnumerator CheckSkillCoolTime()
@@ -96,12 +99,12 @@ public class Skill : MonoBehaviour
             // 전사 집중
             case 2:
                 player.buffSprite.sprite = icon;
-                player.power += upgradeDamage[level];
+                player.powerUp += upgradeDamage[level];
 
                 yield return new WaitForSeconds(skillDuringTime);
 
                 player.buffSprite.sprite = null;
-                player.power -= upgradeDamage[level];
+                player.powerUp -= upgradeDamage[level];
                 break;
             // 전사 가드어택
             case 3:
@@ -146,12 +149,12 @@ public class Skill : MonoBehaviour
             // 마법사 명상
             case 7:
                 player.buffSprite.sprite = icon;
-                player.power += upgradeDamage[level];
+                player.powerUp += upgradeDamage[level];
 
                 yield return new WaitForSeconds(skillDuringTime);
 
                 player.buffSprite.sprite = null;
-                player.power -= upgradeDamage[level];
+                player.powerUp -= upgradeDamage[level];
                 break;
             // 마법사 메테오
             case 8:
@@ -275,12 +278,12 @@ public class Skill : MonoBehaviour
                         break;
                     case 1:
                         player.buffSprite.sprite = icon;
-                        player.attackSpeed += upgradeDamage[level];
+                        player.attackSpeedUp += upgradeDamage[level];
 
                         yield return new WaitForSeconds(skillDuringTime);
 
                         player.buffSprite.sprite = null;
-                        player.attackSpeed -= upgradeDamage[level];
+                        player.attackSpeedUp -= upgradeDamage[level];
                         break;
                     case 2:
                         player.buffSprite.sprite = icon;
@@ -293,12 +296,12 @@ public class Skill : MonoBehaviour
                         break;
                     case 3:
                         player.buffSprite.sprite = icon;
-                        player.power += upgradeDamage[level];
+                        player.powerUp += upgradeDamage[level];
 
                         yield return new WaitForSeconds(skillDuringTime);
 
                         player.buffSprite.sprite = null;
-                        player.power -= upgradeDamage[level];
+                        player.powerUp -= upgradeDamage[level];
                         break;
                 }
                 break;

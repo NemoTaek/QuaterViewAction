@@ -7,7 +7,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public int id;  // 무기 아이디
-    public string weaponNname; // 무기 이름
+    public string weaponName; // 무기 이름
     public float damage;    // 무기 공격력
     public float[] upgradeDamage;    // 무기 업그레이드 시 상승하는 공격력
     public int level;   // 무기 강화 레벨
@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
     public void Init(WeaponData data)
     {
         id = data.weaponId;
-        weaponNname = data.weaponName;
+        weaponName = data.weaponName;
         damage = data.baseDamage;
         upgradeDamage = data.upgradeDamage;
         level = data.level;

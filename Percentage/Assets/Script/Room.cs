@@ -20,6 +20,7 @@ public class Room : MonoBehaviour
     [Header("----- Room Object -----")]
     public Button[] buttons;
     public List<int> itemsInShop;
+    public Item[] itemPrefab;
     public Item[] itemPrice;
 
     [Header("----- Room Property -----")]
@@ -46,45 +47,15 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        // 레이어 마스크는 레이어를 비트로 판단하기 때문에 비트 연산자를 사용하여 작성해야 한한다.
-        // 그냥 레이어 자리에 6 이렇게 쓰니까 안먹히더라..
-        // 특정 레이어를 제외하려면 ~(1 << 레이어) 이렇게 사용하면 된다.
-        //LayerMask layer = (1 << LayerMask.NameToLayer("Room"));
-        //colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(25, 15), 0, layer);
-
-        // 근데 대각선은 굳이 알아낼 필요가 없다...
-        // 이번엔 레이캐스트로 상하좌우만 쏴서 검출해보도록 하자
-        RaycastHit2D leftRoomRayCast = Physics2D.Raycast(transform.position + Vector3.left * 10, Vector2.left, 3, LayerMask.GetMask("Room"));
-        if (leftRoomRayCast) leftRoom = leftRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D rightRoomRayCast = Physics2D.Raycast(transform.position + Vector3.right * 10, Vector2.right, 3, LayerMask.GetMask("Room"));
-        if (rightRoomRayCast) rightRoom = rightRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D upRoomRayCast = Physics2D.Raycast(transform.position + Vector3.up * 6, Vector2.up, 3, LayerMask.GetMask("Room"));
-        if (upRoomRayCast) upRoom = upRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D downRoomRayCast = Physics2D.Raycast(transform.position + Vector3.down * 6, Vector2.down, 3, LayerMask.GetMask("Room"));
-        if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
-
+        CheckAroundRoom();
 
         // 방 타입 설정
         // 상점방에는 랜덤 3개의 아이템 깔아놓기
-        // 아무것도 없는 방에는 문 열어놓기
         if (roomType == RoomType.Clear || roomType == RoomType.Shop)
         {
-            if(roomType == RoomType.Shop)
-            {
-                int totalItemCount = GameManager.instance.itemPool.items.Length;
-                itemPrice = new Item[itemCount];
+            if(roomType == RoomType.Shop)   SetShopItem();
 
-                while (itemsInShop.Count < itemCount)
-                {
-                    int random = Random.Range(1, totalItemCount);
-                    int isInItemList = itemsInShop.Find(x => x == random);
-
-                    if (isInItemList == 0)
-                    {
-                        itemsInShop.Add(random);
-                    }
-                }
-            }
+            // 적이나 수행 오브젝트가 없는 방에는 문 열어놓기
             DoorOpen();
         }
     }
@@ -92,7 +63,7 @@ public class Room : MonoBehaviour
     void Update()
     {
         // 현재 있는 방만 검사
-        if(GameManager.instance.currentRoom.gameObject == gameObject)
+        if (GameManager.instance.currentRoom.gameObject == gameObject)
         {
             // 스폰 포인트가 있으면 전투방
             if (spawnPoint.Length > 0)
@@ -116,24 +87,59 @@ public class Room : MonoBehaviour
 
             if (roomType == RoomType.Shop && !isItemSet)
             {
-                for (int i = 0; i < itemsInShop.Count; i++)
+                // 아이템이 한번도 세팅되지 않았으면 가격 배열 초기화 후 세팅
+                itemPrice = GameManager.instance.ui.transform.parent.GetComponentsInChildren<Item>(true);
+                if (itemPrice.Length == 0)
                 {
-                    // 아이템을 생성하고 배치
-                    Item shopItem = GameManager.instance.itemPool.Get(itemsInShop[i]);
-                    shopItem.transform.position = itemPoint[i].transform.position + Vector3.up;
-
-                    // 아이템 가격 세팅
-                    itemPrice[i] = GameManager.instance.itemPool.Get(0);
-                    itemPrice[i].GetComponent<Text>().text = "$ " + shopItem.price.ToString();
-
-                    // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅
-                    // Camera.main.WorldToScreenPoint(): 월드 좌표값을 스크린 좌표값으로 변경하는 메소드
-                    itemPrice[i].transform.position = Camera.main.WorldToScreenPoint(itemPoint[i].transform.position - (transform.position) / 2);
-                    itemPrice[i].transform.SetParent(GameManager.instance.ui.transform.parent.transform);
+                    itemPrice = new Item[itemCount];
+                    SetShopItemPrice();
                 }
+
+                // 세팅 된적이 있으면 다시 활성화
+                else
+                {
+                    for (int i = 0; i < itemPrice.Length; i++)
+                    {
+                        // 구매한 아이템은 비활성화
+                        itemPrice[i].gameObject.SetActive(!itemPrefab[i].isPurchased);
+                    }
+                }
+
                 isItemSet = true;
             }
         }
+        else
+        {
+            // 상점 방을 나가면 UI를 비활성화 시켜야 한다.
+            if(roomType == RoomType.Shop)
+            {
+                isItemSet = false;
+                for (int i = 0; i < itemsInShop.Count; i++)
+                {
+                    itemPrice[i].gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+
+    void CheckAroundRoom()
+    {
+        // 레이어 마스크는 레이어를 비트로 판단하기 때문에 비트 연산자를 사용하여 작성해야 한한다.
+        // 그냥 레이어 자리에 6 이렇게 쓰니까 안먹히더라..
+        // 특정 레이어를 제외하려면 ~(1 << 레이어) 이렇게 사용하면 된다.
+        //LayerMask layer = (1 << LayerMask.NameToLayer("Room"));
+        //colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(25, 15), 0, layer);
+
+        // 근데 대각선은 굳이 알아낼 필요가 없다...
+        // 이번엔 레이캐스트로 상하좌우만 쏴서 검출해보도록 하자
+        RaycastHit2D leftRoomRayCast = Physics2D.Raycast(transform.position + Vector3.left * 10, Vector2.left, 3, LayerMask.GetMask("Room"));
+        if (leftRoomRayCast) leftRoom = leftRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D rightRoomRayCast = Physics2D.Raycast(transform.position + Vector3.right * 10, Vector2.right, 3, LayerMask.GetMask("Room"));
+        if (rightRoomRayCast) rightRoom = rightRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D upRoomRayCast = Physics2D.Raycast(transform.position + Vector3.up * 6, Vector2.up, 3, LayerMask.GetMask("Room"));
+        if (upRoomRayCast) upRoom = upRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D downRoomRayCast = Physics2D.Raycast(transform.position + Vector3.down * 6, Vector2.down, 3, LayerMask.GetMask("Room"));
+        if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
     }
 
     void BattleStart()
@@ -196,5 +202,58 @@ public class Room : MonoBehaviour
             if (!buttons[i].isPressed) return false;
         }
         return true;
+    }
+
+    void SetShopItem()
+    {
+        int index = 0;
+        int totalItemCount = GameManager.instance.itemPool.items.Length;
+
+        // 처음 아이템 세팅
+        itemPrice = new Item[itemCount];
+        for (int i = 0; i < itemCount; i++)
+        {
+            itemPrice[i] = GameManager.instance.itemPool.Get(0);
+            itemPrice[i].gameObject.SetActive(false);
+        }
+
+        // 중복이 안되도록 아이템 세팅
+        while (index < itemCount)
+        {
+            int random = Random.Range(1, totalItemCount);
+            int isInItemList = itemsInShop.Find(x => x == random);
+
+            if (isInItemList == 0)
+            {
+                itemsInShop.Add(random);
+
+                // 아이템 생성 후 배치
+                itemPrefab[index] = GameManager.instance.itemPool.Get(random);
+                itemPrefab[index].transform.position = itemPoint[index].transform.position + Vector3.up;
+                itemPrefab[index].Init(GameManager.instance.itemData[random - 1]);
+                index++;
+            }
+        }
+    }
+
+    void SetShopItemPrice()
+    {
+        for (int i = 0; i < itemPrice.Length; i++)
+        {
+            // 아이템 가격 세팅
+            itemPrice[i] = GameManager.instance.itemPool.Get(0);
+            itemPrice[i].GetComponent<Text>().text = "$ " + itemPrefab[i].price.ToString();
+
+            // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅
+            // Camera.main.WorldToScreenPoint(): 월드 좌표값을 스크린 좌표값으로 변경하는 메소드
+            itemPrice[i].transform.position = Camera.main.WorldToScreenPoint(itemPoint[i].transform.position - (transform.position) / 2);
+            itemPrice[i].transform.SetParent(GameManager.instance.ui.transform.parent.transform);
+
+            // 구매한 아이템은 비활성화
+            if (itemPrefab[i].isPurchased)
+            {
+                itemPrice[i].gameObject.SetActive(false);
+            }
+        }
     }
 }

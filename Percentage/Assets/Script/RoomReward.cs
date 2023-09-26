@@ -119,7 +119,7 @@ public class RoomReward : MonoBehaviour
                 GameObject newWeapon = GameManager.instance.GenerateWeapon();
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount] = newWeapon.AddComponent<Weapon>();
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(randomWeaponData);
-                GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].name = GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].weaponNname;
+                GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].name = GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].weaponName;
                 GameManager.instance.player.getWeaponCount++;
                 GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
                 GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
@@ -222,7 +222,7 @@ public class RoomReward : MonoBehaviour
                 GameObject newSkill = GameManager.instance.GenerateSkill();
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount] = newSkill.AddComponent<Skill>();
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount].Init(randomSkillData);
-                GameManager.instance.skill[GameManager.instance.player.getSkillCount].name = GameManager.instance.skill[GameManager.instance.player.getSkillCount].skillNname;
+                GameManager.instance.skill[GameManager.instance.player.getSkillCount].name = GameManager.instance.skill[GameManager.instance.player.getSkillCount].skillName;
                 GameManager.instance.player.getSkillCount++;
                 GameManager.instance.player.currentSkillIndex = GameManager.instance.player.getSkillCount - 1;
                 GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;

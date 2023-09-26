@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public Vector2 fireVec;
     public bool isSlashing;
-    public float attackDelay;
     public int currentWeaponIndex;
     public int currentSkillIndex;
     public bool isDarkSight;
@@ -37,14 +36,15 @@ public class Player : MonoBehaviour
     public int getWeaponCount;
     public int getSkillCount;
     
-    // 스탯에 관련한 공식은 아이작을 따른다.
-    // 공격력: 플레이어 기본 공격력 * sqrt(게임 중 획득한 공격력 수치 * 1.2 + 1)
-    // 공격속도: 16 - 6 * sqrt(게임 중 획득한 공격속도 수치 * 1.3 + 1). 만약 루트 값이 음수가 나오면 16 - 6 * 게임 중 획득한 공격속도 수치 로 설정
     public float maxHealth = 10;
     public float health;
     public float speed;
     public float attackSpeed;
+    public float attackSpeedUp = 0;
+    public float basePower;
     public float power;
+    public float powerUp = 0;
+    public float staticPower = 0;
 
     void Awake()
     {
@@ -81,13 +81,13 @@ public class Player : MonoBehaviour
 
             // 현재 방을 다시 갱신
             // 상점방이었으면 아이템 가격 텍스트 비활성화
-            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
-            {
-                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
-                {
-                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
-                }
-            }
+            //if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            //{
+            //    for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+            //    {
+            //        GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+            //    }
+            //}
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.upRoom;
         }
         if (collision.CompareTag("BottomDoor"))
@@ -99,13 +99,13 @@ public class Player : MonoBehaviour
 
             // 현재 방을 다시 갱신
             // 상점방이었으면 아이템 가격 텍스트 비활성화
-            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
-            {
-                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
-                {
-                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
-                }
-            }
+            //if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            //{
+            //    for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+            //    {
+            //        GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+            //    }
+            //}
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.downRoom;
         }
         if (collision.CompareTag("LeftDoor"))
@@ -117,13 +117,13 @@ public class Player : MonoBehaviour
 
             // 현재 방을 다시 갱신
             // 상점방이었으면 아이템 가격 텍스트 비활성화
-            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
-            {
-                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
-                {
-                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
-                }
-            }
+            //if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            //{
+            //    for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+            //    {
+            //        GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+            //    }
+            //}
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.leftRoom;
         }
         if (collision.CompareTag("RightDoor"))
@@ -135,13 +135,13 @@ public class Player : MonoBehaviour
 
             // 현재 방을 다시 갱신
             // 상점방이었으면 아이템 가격 텍스트 비활성화
-            if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
-            {
-                for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
-                {
-                    GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
-                }
-            }
+            //if (GameManager.instance.currentRoom.roomType == Room.RoomType.Shop)
+            //{
+            //    for (int i = 0; i < GameManager.instance.currentRoom.itemPrice.Length; i++)
+            //    {
+            //        GameManager.instance.currentRoom.itemPrice[i].gameObject.SetActive(false);
+            //    }
+            //}
             GameManager.instance.currentRoom = GameManager.instance.currentRoom.rightRoom;
         }
 
@@ -169,6 +169,9 @@ public class Player : MonoBehaviour
     {
         // 상태창 오픈하면 아무것도 못하게 할 것
         if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
+
+        // 플레이어 스탯 실시간 계산
+        CalculateStatus();
 
         // 플레이어 공격
         PlayerAttack();
@@ -326,9 +329,9 @@ public class Player : MonoBehaviour
 
                 // 기본 스탯 설정
                 health = 4;
-                speed = 2;
-                attackSpeed = 2;
-                power = 4;
+                speed = 2.5f;
+                attackSpeed = 0;
+                basePower = 3.5f;
                 break;
             case 1:
                 roleName = "마법사";
@@ -337,8 +340,8 @@ public class Player : MonoBehaviour
                 // 기본 스탯 설정
                 health = 3;
                 speed = 3;
-                attackSpeed = 2;
-                power = 4;
+                attackSpeed = 0;
+                basePower = 3f;
                 break;
             case 2:
                 roleName = "도적";
@@ -346,9 +349,9 @@ public class Player : MonoBehaviour
 
                 // 기본 스탯 설정
                 health = 2;
-                speed = 4;
-                attackSpeed = 4;
-                power = 2;
+                speed = 3.5f;
+                attackSpeed = 0.5f;
+                basePower = 2.5f;
                 break;
             case 3:
                 roleName = "거너";
@@ -357,15 +360,15 @@ public class Player : MonoBehaviour
                 // 기본 스탯 설정
                 health = 3;
                 speed = 3;
-                attackSpeed = 3;
-                power = 3;
+                attackSpeed = 0;
+                basePower = 3f;
                 break;
         }
 
         // 무기 생성 후 세팅
         GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
         GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[role * 5]);
-        GameManager.instance.weapon[getWeaponCount].name = GameManager.instance.weapon[getWeaponCount].weaponNname;
+        GameManager.instance.weapon[getWeaponCount].name = GameManager.instance.weapon[getWeaponCount].weaponName;
         hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
@@ -373,7 +376,7 @@ public class Player : MonoBehaviour
         // 스킬 생성 후 세팅
         GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
         GameManager.instance.skill[getSkillCount].Init(GameManager.instance.skillData[role * 5]);
-        GameManager.instance.skill[getSkillCount].name = GameManager.instance.skill[getSkillCount].skillNname;
+        GameManager.instance.skill[getSkillCount].name = GameManager.instance.skill[getSkillCount].skillName;
         hand[role].isChanged = true;
         getSkillCount++;
         currentSkillIndex = 0;
@@ -381,5 +384,21 @@ public class Player : MonoBehaviour
         // ui 갱신
         GameManager.instance.ui.gameObject.SetActive(true);
         GameManager.instance.ui.isChanged = true;
+    }
+
+    void CalculateStatus()
+    {
+        // 스탯에 관련한 공식은 아이작을 따른다.
+        // 공격력: 플레이어 기본 공격력 * sqrt(게임 중 획득한 공격력 수치 * 1.2 + 1) + 고정으로 올려주는 데미지
+        float tempPower = powerUp;
+        power = basePower * Mathf.Sqrt((tempPower * 1.2f) + 1) + staticPower;
+
+        // 공격속도: 16 - 6 * sqrt(게임 중 획득한 공격속도 수치 * 1.3 + 1). 만약 루트 값이 음수가 나오면 16 - 6 * 게임 중 획득한 공격속도 수치 로 설정
+        // ex) 공속이 3인 캐릭터는 16 - 6 * (sqrt(4.9)) = 16 - 6 * 2.2 = 2.8
+        // 플레이어는 초당 30 / 공속+1 번 공격한다. -> 초당 30 / 3.8번 -> 1번 공격하는데 3.8 / 30 초
+        float tempAttackSpeed = attackSpeedUp;
+        float finalAttackSpeed = 16 - 6 * Mathf.Sqrt(tempAttackSpeed * 1.3f + 1);
+        if (finalAttackSpeed >= 0) attackSpeed = (finalAttackSpeed + 1) / 30;
+        else attackSpeed = (16 - 6 + tempAttackSpeed + 1) / 30;
     }
 }

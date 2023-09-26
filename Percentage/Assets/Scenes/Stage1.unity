@@ -1337,10 +1337,15 @@ MonoBehaviour:
   itemPool: {fileID: 509478442}
   map: {fileID: 1734918323}
   currentRoom: {fileID: 771335261}
+  itemData:
+  - {fileID: 11400000, guid: 16f7f384249148e4d94a22c7e5e0065b, type: 2}
+  - {fileID: 11400000, guid: e35d2e4569a9e3d49b9ac3dd19aefd2c, type: 2}
+  - {fileID: 11400000, guid: b05206d48ae3eb14d99eae0658622f9f, type: 2}
+  - {fileID: 11400000, guid: 53ed45c0d20cd2145a6091a5922db37a, type: 2}
+  - {fileID: 11400000, guid: 6c70fccf2f8f2f147ae6a2e2f6ceacfd, type: 2}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}
   rewardBoxPanel: {fileID: 1657077297}
-  coin: 0
   isRightAttack: 0
   isLeftAttack: 0
   isUpAttack: 0
@@ -1351,6 +1356,7 @@ MonoBehaviour:
   isUltimateDownAttack: 0
   isOpenStatus: 0
   isOpenBox: 0
+  coin: 99999
 --- !u!4 &197463308
 Transform:
   m_ObjectHideFlags: 0
@@ -3105,7 +3111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464987586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13413,7 +13419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123670728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13923,6 +13929,10 @@ PrefabInstance:
     - target: {fileID: 7633159740424731667, guid: e0cce10b4f7d0d646a59fd3c7e19e5ff, type: 3}
       propertyPath: itemPrice.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633159740424731667, guid: e0cce10b4f7d0d646a59fd3c7e19e5ff, type: 3}
+      propertyPath: itemPrefab.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7633159740424731667, guid: e0cce10b4f7d0d646a59fd3c7e19e5ff, type: 3}
       propertyPath: itemPoint.Array.data[0]
