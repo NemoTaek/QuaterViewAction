@@ -15,5 +15,5 @@ public class ItemData : ScriptableObject
     public string itemDesc;
     public float itemCoolTime;
     public float itemDuringTime;
-    public Sprite itemIcon;
+    public Sprite itemImage;
 }

@@ -11,6 +11,7 @@ public class UserInterface : MonoBehaviour
 
     public Image[] heartArea;
     public Sprite heart;
+    public Sprite heartHalf;
     public Sprite heartEmpty;
 
     public Image coin;
@@ -19,31 +20,28 @@ public class UserInterface : MonoBehaviour
     public Image[] gameWeaponArea;
     public Image[] gameSkillArea;
 
+    public GameObject bossUI;
+    public RectTransform bossHealth;
+
+    public GameObject mapBoard;
+    public GameObject roomSquare;
+
     void OnEnable()
     {
         // 코인 개수 세팅
         coinText.text = "0";
-        
-        // 체력 세팅
-        for(int i=0; i<heartArea.Length; i++)
-        {
-            Color color = heartArea[i].color;
-
-            if(i < GameManager.instance.player.health)
-            {
-                heartArea[i].sprite = heart;
-            }
-            else
-            {
-                color.a = 0;
-                heartArea[i].color = color;
-            }
-        }
     }
 
     void Start()
     {
-        
+        for(int i = 10; i < 500; i += 60)
+        {
+            for (int j = 10; j < 500; j += 60)
+            {
+                GameObject room = Instantiate(roomSquare, mapBoard.transform);
+                room.GetComponent<RectTransform>().anchoredPosition = new Vector3(-i, -j, 0);
+            }
+        }
     }
 
     void Update()
@@ -56,6 +54,36 @@ public class UserInterface : MonoBehaviour
 
     public void SetInventory()
     {
+        // 체력 세팅
+        for (int i = 0; i < heartArea.Length; i++)
+        {
+            Color color = heartArea[i].color;
+            color.a = 1;
+
+            if (i <= GameManager.instance.player.currentHealth - 1)
+            {
+                heartArea[i].sprite = heart;
+            }
+            else if (i <= GameManager.instance.player.health - 1)
+            {
+                // 체력이 0.5단위인 경우는 하트 반칸으로 채우기
+                if (GameManager.instance.player.currentHealth - i < 1 && GameManager.instance.player.currentHealth - i > 0)
+                {
+                    heartArea[i].sprite = heartHalf;
+                }
+                else
+                {
+                    heartArea[i].sprite = heartEmpty;
+                }
+            }
+            else
+            {
+                color.a = 0;
+            }
+
+            heartArea[i].color = color;
+        }
+
         // 무기와 스킬 이미지 세팅
         for (int i = 0; i < 5; i++)
         {

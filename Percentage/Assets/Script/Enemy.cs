@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float health;
     public float maxHealth;
-    bool isLive;
+    public bool isLive;
     bool isObjectCollision;
     Vector2 moveDir;
 
@@ -79,6 +79,12 @@ public class Enemy : MonoBehaviour
                 rigid.simulated = false;
                 animator.SetBool("Dead", true);
                 room.enemyCount--;
+
+                // 보스가 죽으면 보스 체력 UI 비활성화
+                if(room.roomType == Room.RoomType.Boss)
+                {
+                    GameManager.instance.ui.bossUI.SetActive(false);
+                }
             }
         }
     }

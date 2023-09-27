@@ -38,6 +38,7 @@ public class Weapon : MonoBehaviour
         spriteRenderer.sortingOrder = -1;
         col.isTrigger = true;
         col.size = new Vector2(0.31f, 0.26f);
+        if(id == 13)    spriteRenderer.flipX = true;
 
         // 직업별로 세세하게 위치가 다르기 때문에 설정
         transform.localScale = Vector3.one * 3;

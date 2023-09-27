@@ -16,15 +16,17 @@ public class GameManager : MonoBehaviour
     public Skill[] skill;
     public SkillData[] skillData;
     public ObjectPool objectPool;
+    public Canvas itemCanvas;
     public ItemPool itemPool;
-    public Map map;
     public Room currentRoom;
     public ItemData[] itemData;
+    public Map map;
 
     [Header("----- UI Component -----")]
     public UserInterface ui;
     public StatusInfo statusPanel;
     public RoomReward rewardBoxPanel;
+    public GetItemPanel getItemPanel;
 
     [Header("----- Key Input -----")]
     public bool isRightAttack;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     [Header("----- System Info -----")]
     public bool isOpenStatus;
     public bool isOpenBox;
+    public bool isOpenItemPanel;
     public int coin;
 
     void Awake()
@@ -82,8 +85,8 @@ public class GameManager : MonoBehaviour
         // 상자 창 닫기 입력
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            isOpenBox = false;
-            rewardBoxPanel.gameObject.SetActive(false);
+            if(isOpenBox)   CloseRewardBoxPanel();
+            if(isOpenItemPanel) CloseItemPanel();
         }
 
         // 무기 교체 입력
@@ -117,6 +120,12 @@ public class GameManager : MonoBehaviour
     {
         isOpenBox = false;
         rewardBoxPanel.gameObject.SetActive(false);
+    }
+
+    public void CloseItemPanel()
+    {
+        isOpenItemPanel = false;
+        getItemPanel.gameObject.SetActive(false);
     }
 
     public GameObject GenerateWeapon()

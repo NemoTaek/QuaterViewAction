@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
-    public enum RoomType { Clear, Battle, Arcade, Shop };
+    public enum RoomType { Clear, Battle, Arcade, Shop, Boss };
 
     [Header("----- Component -----")]
     public Enemy enemy;
@@ -25,6 +25,7 @@ public class Room : MonoBehaviour
 
     [Header("----- Room Property -----")]
     public RoomType roomType;
+    public bool isVisited;
     public bool isBattle;
     public int enemyCount = 0;
     public bool isClear;
@@ -88,7 +89,7 @@ public class Room : MonoBehaviour
             if (roomType == RoomType.Shop && !isItemSet)
             {
                 // 아이템이 한번도 세팅되지 않았으면 가격 배열 초기화 후 세팅
-                itemPrice = GameManager.instance.ui.transform.parent.GetComponentsInChildren<Item>(true);
+                itemPrice = GameManager.instance.itemCanvas.GetComponentsInChildren<Item>(true);
                 if (itemPrice.Length == 0)
                 {
                     itemPrice = new Item[itemCount];
@@ -106,6 +107,18 @@ public class Room : MonoBehaviour
                 }
 
                 isItemSet = true;
+            }
+
+            // 보스방이면 보스 체력 UI 활성화
+            if(roomType == RoomType.Boss)
+            {
+                Boss boss = GetComponentInChildren<Boss>();
+                if (boss)
+                {
+                    if (boss.isLive && !GameManager.instance.ui.bossUI.activeSelf) GameManager.instance.ui.bossUI.SetActive(true);
+                    float currentBossHealth = boss.health;
+                    GameManager.instance.ui.bossHealth.sizeDelta = new Vector2(currentBossHealth / boss.maxHealth * 500, 100);
+                }
             }
         }
         else
@@ -247,7 +260,7 @@ public class Room : MonoBehaviour
             // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅
             // Camera.main.WorldToScreenPoint(): 월드 좌표값을 스크린 좌표값으로 변경하는 메소드
             itemPrice[i].transform.position = Camera.main.WorldToScreenPoint(itemPoint[i].transform.position - (transform.position) / 2);
-            itemPrice[i].transform.SetParent(GameManager.instance.ui.transform.parent.transform);
+            itemPrice[i].transform.SetParent(GameManager.instance.itemCanvas.transform);
 
             // 구매한 아이템은 비활성화
             if (itemPrefab[i].isPurchased)

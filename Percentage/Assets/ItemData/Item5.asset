@@ -19,4 +19,4 @@ MonoBehaviour:
   itemDesc: "\uBA39\uC73C\uBA74 \uC5B4\uB5BB\uAC8C \uB420\uAE4C\uC694?"
   itemCoolTime: 0
   itemDuringTime: 0
-  itemIcon: {fileID: 21300000, guid: db4ec3f65cb117146bd5a33880868c1d, type: 3}
+  itemImage: {fileID: 21300000, guid: db4ec3f65cb117146bd5a33880868c1d, type: 3}

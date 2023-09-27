@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     public int getSkillCount;
     
     public float maxHealth = 10;
+    public float currentHealth;
     public float health;
     public float speed;
     public float attackSpeed;
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
+        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel) return;
         PlayerMove();
     }
 
@@ -148,8 +149,6 @@ public class Player : MonoBehaviour
         // 적의 총알에 맞으면 체력 감소
         if (collision.CompareTag("EnemyBullet") && !isDamaged)
         {
-            health -= 0.5f;
-            isDamaged = true;
             StartCoroutine(PlayerDamaged());
         }
     }
@@ -159,8 +158,6 @@ public class Player : MonoBehaviour
         // 적과 닿으면 체력 감소
         if (collision.collider.CompareTag("Enemy") && !isDamaged)
         {
-            health -= 0.5f;
-            isDamaged = true;
             StartCoroutine(PlayerDamaged());
         }
     }
@@ -168,7 +165,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // 상태창 오픈하면 아무것도 못하게 할 것
-        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox) return;
+        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel) return;
 
         // 플레이어 스탯 실시간 계산
         CalculateStatus();
@@ -199,6 +196,10 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerDamaged()
     {
+        currentHealth -= 0.5f;
+        isDamaged = true;
+        GameManager.instance.ui.isChanged = true;
+
         Color color = spriteRenderer.color;
         color.a = 0.5f;
         spriteRenderer.color = color;
@@ -364,6 +365,7 @@ public class Player : MonoBehaviour
                 basePower = 3f;
                 break;
         }
+        currentHealth = health;
 
         // 무기 생성 후 세팅
         GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
@@ -400,5 +402,17 @@ public class Player : MonoBehaviour
         float finalAttackSpeed = 16 - 6 * Mathf.Sqrt(tempAttackSpeed * 1.3f + 1);
         if (finalAttackSpeed >= 0) attackSpeed = (finalAttackSpeed + 1) / 30;
         else attackSpeed = (16 - 6 + tempAttackSpeed + 1) / 30;
+
+        // 게임에서의 최대 체력은 10
+        // 플레이어의 최대 체력은 처음 세팅된 체력. 추후에 아이템으로 변동될 수 있음
+        
+        // 플레이어의 최대 체력(health)은 게임의 최대 체력(10)을 넘을 수 없다.
+        if (maxHealth < health) health = maxHealth;
+
+        // 현재 체력(currentHealth)은 플레이어의 최대 체력(health)을 넘을 수 없다.
+        if (health < currentHealth) currentHealth = health;
+
+        // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
+        if (health <= 0 || currentHealth <= 0) Debug.Log("죽어");
     }
 }

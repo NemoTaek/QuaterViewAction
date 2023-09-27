@@ -10,7 +10,7 @@ public class Item : MonoBehaviour
     public string desc;
     public float coolTime;
     public float duringTime;
-    public Sprite icon;
+    public Sprite image;
 
     public bool isPurchased;
     Player player;
@@ -28,7 +28,7 @@ public class Item : MonoBehaviour
         desc = data.itemDesc;
         coolTime = data.itemCoolTime;
         duringTime = data.itemDuringTime;
-        icon = data.itemIcon;
+        image = data.itemImage;
     }
 
     void Start()
@@ -46,9 +46,15 @@ public class Item : MonoBehaviour
                 GameManager.instance.coin -= price;
 
                 // 아이템 획득 UI 활성화
+                GameManager.instance.isOpenItemPanel = true;
+                GameManager.instance.getItemPanel.gameObject.SetActive(true);
+                GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
 
                 // 구매한 아이템 적용
                 StartCoroutine(UseItem(id));
+
+                // 스탯 변화가 있다면 스탯 창 UI 갱신
+                GameManager.instance.ui.isChanged = true;
 
                 // 판매 완료 처리
                 isPurchased = true;
@@ -71,8 +77,8 @@ public class Item : MonoBehaviour
         {
             // 밴드
             case 1:
-                player.maxHealth++;
                 player.health++;
+                player.currentHealth++;
                 break;
             // 달러
             case 2:
@@ -84,7 +90,7 @@ public class Item : MonoBehaviour
                 player.speed -= 0.5f;
                 player.attackSpeedUp += 1;
                 player.health += 1;
-                player.maxHealth += 1;
+                player.currentHealth += 1;
                 player.transform.localScale += Vector3.one * 0.25f;
                 break;
             // 미니버섯

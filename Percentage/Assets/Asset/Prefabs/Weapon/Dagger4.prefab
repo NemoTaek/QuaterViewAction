@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  weaponNname: 
+  weaponName: 
   damage: 10
   upgradeDamage: []
   level: 1
