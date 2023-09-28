@@ -4830,12 +4830,14 @@ MonoBehaviour:
   itemsInShop: 
   itemPrefab: []
   itemPrice: []
-  roomType: 2
+  roomType: 3
+  isVisited: 0
   isBattle: 0
   enemyCount: 0
   isClear: 0
   itemCount: 0
   isItemSet: 0
+  isMapDraw: 0
 --- !u!1 &23136038238998625
 GameObject:
   m_ObjectHideFlags: 0

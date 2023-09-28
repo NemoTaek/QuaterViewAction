@@ -95,7 +95,7 @@ public class Boss : Enemy
         int countPerCycle = 10;
         for (int i = 0; i < countPerCycle; i++)
         {
-            GameObject bossBullet = GameManager.instance.objectPool.Get(13);
+            EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(11).GetComponent<EnemyBullet>();
             Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
             bossBullet.transform.position = transform.position;
 
@@ -112,7 +112,7 @@ public class Boss : Enemy
 
     void Sniping()
     {
-        GameObject bossBullet = GameManager.instance.objectPool.Get(13);
+        EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(11).GetComponent<EnemyBullet>();
         Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
         bossBullet.transform.position = transform.position;
 

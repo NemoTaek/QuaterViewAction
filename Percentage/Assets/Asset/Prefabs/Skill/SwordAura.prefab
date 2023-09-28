@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5647874793952407274}
   - component: {fileID: 1342537281706710301}
   - component: {fileID: 3007322932146802342}
+  - component: {fileID: 2881944249236320779}
   - component: {fileID: 6033254760035197248}
   m_Layer: 0
   m_Name: SwordAura
@@ -134,6 +135,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.4, y: 2.19}
   m_EdgeRadius: 0
+--- !u!114 &2881944249236320779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982907101959649266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de2af0141326b64fa30d183931c6604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &6033254760035197248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,4 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  id: 0

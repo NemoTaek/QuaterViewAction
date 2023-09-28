@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7453010282565978889}
   - component: {fileID: 5599357630673062558}
   - component: {fileID: 2780032783948503886}
-  - component: {fileID: 2143171995013749312}
+  - component: {fileID: 6650827889419815577}
+  - component: {fileID: -3415368054863616326}
   m_Layer: 0
   m_Name: Fire Ball
   m_TagString: Bullet
@@ -124,7 +125,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2143171995013749312
+--- !u!114 &6650827889419815577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,4 +137,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de2af0141326b64fa30d183931c6604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
+  id: 0
+--- !u!114 &-3415368054863616326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854762373755917708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0

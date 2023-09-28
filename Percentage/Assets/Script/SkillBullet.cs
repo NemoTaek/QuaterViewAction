@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillBullet : MonoBehaviour
+public class SkillBullet : Bullet
 {
-    public Rigidbody2D rigid;
-    public Animator animator;
-    public int id;
-
     void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+
     }
 
     void OnEnable()
@@ -30,18 +25,15 @@ public class SkillBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Wall"))
-        {
-            gameObject.SetActive(false);
-            transform.position = transform.parent.position;
-        }
-
         if (collision.CompareTag("Enemy"))
         {
             if(id == 8)
             {
                 StartCoroutine(ExplodeMine());
             }
+
+            gameObject.SetActive(false);
+            transform.position = transform.parent.position;
         }
     }
 
@@ -62,7 +54,7 @@ public class SkillBullet : MonoBehaviour
         gameObject.transform.localScale = Vector3.zero;
 
         // 지뢰 자리에 폭발 이펙트 생성
-        GameObject explosion = GameManager.instance.objectPool.Get(12);
+        Bullet explosion = GameManager.instance.bulletPool.Get(10);
         explosion.transform.position = transform.position;
 
         // 0.5초 후 폭발
@@ -70,6 +62,6 @@ public class SkillBullet : MonoBehaviour
 
         // 둘다 사라져
         gameObject.SetActive(false);
-        explosion.SetActive(false);
+        explosion.gameObject.SetActive(false);
     }
 }

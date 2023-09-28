@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Fade fadeAnimation;
     public Player player;
+    public BulletPool bulletPool;
     public Weapon[] weapon;
     public WeaponData[] weaponData;
     public Skill[] skill;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     public bool isOpenBox;
     public bool isOpenItemPanel;
     public int coin;
+    public int mapPosition = 41;
 
     void Awake()
     {
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        if (currentRoom.roomType == Room.RoomType.Start)    currentRoom.isVisited = true;
     }
 
     void Update()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
-    public enum RoomType { Clear, Battle, Arcade, Shop, Boss };
+    public enum RoomType { Start, Clear, Battle, Arcade, Shop, Boss };
 
     [Header("----- Component -----")]
     public Enemy enemy;
@@ -31,6 +31,7 @@ public class Room : MonoBehaviour
     public bool isClear;
     public int itemCount;
     public bool isItemSet;
+    public bool isMapDraw;
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class Room : MonoBehaviour
 
         // 방 타입 설정
         // 상점방에는 랜덤 3개의 아이템 깔아놓기
-        if (roomType == RoomType.Clear || roomType == RoomType.Shop)
+        if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Shop)
         {
             if(roomType == RoomType.Shop)   SetShopItem();
 
@@ -66,6 +67,9 @@ public class Room : MonoBehaviour
         // 현재 있는 방만 검사
         if (GameManager.instance.currentRoom.gameObject == gameObject)
         {
+            // 주변 맵 밝히기
+            if (!isMapDraw)  DrawMap();
+
             // 스폰 포인트가 있으면 전투방
             if (spawnPoint.Length > 0)
             {
@@ -155,6 +159,44 @@ public class Room : MonoBehaviour
         if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
     }
 
+    void DrawMap()
+    {
+        // 맵 UI에서 현재 위치한 방의 투명도는 0.75, 주변에 있는 방은 0.25로 설정
+        // 참고로 우측 상단이 1번째, 좌측 하단이 81번째. 생성 방향은 상->하, 우->좌
+        Image[] mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
+
+        // 현재 위치는 찐하게 방문 표시
+        mapSquare[GameManager.instance.mapPosition].color = new Color(1, 1, 1, 0.75f);
+
+        // 주변방으 옅게 표시
+        if (leftRoom && !leftRoom.isVisited)
+        {
+            int mapPosition = GameManager.instance.mapPosition;
+            mapPosition += 9;
+            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+        }
+        if (rightRoom && !rightRoom.isVisited)
+        {
+            int mapPosition = GameManager.instance.mapPosition;
+            mapPosition -= 9;
+            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+        }
+        if (upRoom && !upRoom.isVisited)
+        {
+            int mapPosition = GameManager.instance.mapPosition;
+            mapPosition -= 1;
+            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+        }
+        if (downRoom && !downRoom.isVisited)
+        {
+            int mapPosition = GameManager.instance.mapPosition;
+            mapPosition += 1;
+            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+        }
+
+        isMapDraw = true;
+    }
+
     void BattleStart()
     {
         isBattle = true;
@@ -179,10 +221,10 @@ public class Room : MonoBehaviour
     void BattleEnd()
     {
         // 보상 획득 (0: 성공, 1: 실패)
-        int successOrFail = Random.Range(0, 1);
+        int successOrFail = Random.Range(0, 2);
         if (successOrFail == 0)
         {
-            GameObject box = GameManager.instance.objectPool.Get(1);
+            GameObject box = GameManager.instance.objectPool.Get(0);
             box.transform.position = transform.position + Vector3.forward;
 
             //for(int i=0; i<10; i++)
@@ -190,6 +232,14 @@ public class Room : MonoBehaviour
             //    GameObject box = GameManager.instance.objectPool.Get(1);
             //    box.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-3, 3), 1);
             //}
+        }
+        else
+        {
+            // 상자 얻기에 실패하면 돈이나 하트 생성
+            // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
+            int randomObject = Random.Range(1, 4);
+            GameObject reward = GameManager.instance.objectPool.Get(randomObject);
+            reward.transform.position = transform.position;
         }
 
         //isBattle = false;

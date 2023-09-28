@@ -68,12 +68,12 @@ public class Hand : MonoBehaviour
             if (GameManager.instance.player.role == 1)
             {
                 // 불릿 id, 발사 방향, 발사 위치, 발사 속도
-                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(2, dirVec, transform.position, 5);
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(0, dirVec, transform.position, 5);
             }
             else if (GameManager.instance.player.role == 3)
             {
                 // 불릿 id, 발사 방향, 발사 위치, 발사 속도
-                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(3, dirVec, transform.position, 5);
+                GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(1, dirVec, transform.position, 5);
             }
         }
         else

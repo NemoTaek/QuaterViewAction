@@ -66,9 +66,7 @@ public class Weapon : MonoBehaviour
 
     public void Shot(int bulletId, Vector2 dirVec, Vector3 shotPosition, float shotVelocity)
     {
-        // bulletId
-        // 2: 파이어볼, 3: 총알(불릿파티), 4: 파이어블로우, 5: 백스텝샷(헤드샷), 6: 가드어택, 7: 메테오, 8: 지뢰, 9: 검기, 10: 인페르노라이즈, 11: 암살
-        GameObject bullet = GameManager.instance.objectPool.Get(bulletId);
+        SkillBullet bullet = GameManager.instance.bulletPool.Get(bulletId).GetComponent<SkillBullet>();
 
         int playerRole = GameManager.instance.player.role;
 

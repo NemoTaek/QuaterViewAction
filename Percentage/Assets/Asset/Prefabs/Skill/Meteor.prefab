@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 48931058629118995}
   - component: {fileID: 1947586507515578013}
   - component: {fileID: 8338628234505529923}
+  - component: {fileID: -4715548395993535739}
   - component: {fileID: 2713356102291654520}
   m_Layer: 0
   m_Name: Meteor
@@ -134,6 +135,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &-4715548395993535739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601397433435903370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de2af0141326b64fa30d183931c6604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &2713356102291654520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,5 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
-  animator: {fileID: 0}
+  id: 0

@@ -119,13 +119,13 @@ public class Skill : MonoBehaviour
                     // 지속시간 안에 플레이어가 피격당했으면 1초간 충격파 발생
                     if (player.isDamaged)
                     {
-                        GameObject shockWave = GameManager.instance.objectPool.Get(6);
+                        SkillBullet shockWave = GameManager.instance.bulletPool.Get(4).GetComponent<SkillBullet>();
                         shockWave.transform.position = player.transform.position;
 
                         yield return new WaitForSeconds(1f);
 
                         player.buffSprite.sprite = null;
-                        shockWave.SetActive(false);
+                        shockWave.gameObject.SetActive(false);
                         break;
                     }
 
@@ -138,13 +138,13 @@ public class Skill : MonoBehaviour
             // 전사 검기
             case 4:
                 player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(9, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(7, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
                 break;
 
             // 마법사 파이어 블로우
             case 6:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(4, -dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(2, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(2, -dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 break;
             // 마법사 명상
             case 7:
@@ -159,10 +159,10 @@ public class Skill : MonoBehaviour
             // 마법사 메테오
             case 8:
                 // 메테오 랜덤 위치에 배치
-                GameObject[] meteors = new GameObject[10];
+                SkillBullet[] meteors = new SkillBullet[10];
                 for(int i=0; i<10; i++)
                 {
-                    GameObject meteor = GameManager.instance.objectPool.Get(7);
+                    SkillBullet meteor = GameManager.instance.bulletPool.Get(5).GetComponent<SkillBullet>();
                     float randomX = Random.Range(-6.5f, 7.5f);
                     float randomY = Random.Range(-2.5f, 3.5f);
 
@@ -191,12 +191,12 @@ public class Skill : MonoBehaviour
                 break;
             // 마법사 인페르노라이즈
             case 9:
-                GameObject infernorize = GameManager.instance.objectPool.Get(10);
+                SkillBullet infernorize = GameManager.instance.bulletPool.Get(8).GetComponent<SkillBullet>();
                 infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
 
                 yield return new WaitForSeconds(2f);
 
-                infernorize.SetActive(false);
+                infernorize.gameObject.SetActive(false);
                 break;
 
             // 도적 은신
@@ -225,7 +225,7 @@ public class Skill : MonoBehaviour
             // 도적 지뢰
             case 13:
                 // 지뢰 오브젝트 생성
-                GameObject[] mines = new GameObject[8];
+                SkillBullet[] mines = new SkillBullet[8];
                 Vector3[] minePosition = new Vector3[8];
 
                 // 플레이어 주변 8방향 설정
@@ -243,30 +243,30 @@ public class Skill : MonoBehaviour
                 // 설정한 위치에 지뢰 설치
                 for (int i = 0; i < 8; i++)
                 {
-                    mines[i] = GameManager.instance.objectPool.Get(8);
+                    mines[i] = GameManager.instance.bulletPool.Get(6).GetComponent<SkillBullet>();
                     mines[i].transform.position = minePosition[i];
                 }
                 break;
             // 도적 암살
             case 14:
                 // 1타
-                GameObject assassination1 = GameManager.instance.objectPool.Get(11);
+                SkillBullet assassination1 = GameManager.instance.bulletPool.Get(9).GetComponent<SkillBullet>();
                 assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 yield return new WaitForSeconds(0.5f);
 
                 // 2타
-                GameObject assassination2 = GameManager.instance.objectPool.Get(11);
+                SkillBullet assassination2 = GameManager.instance.bulletPool.Get(9).GetComponent<SkillBullet>();
                 assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 assassination2.transform.rotation = Quaternion.Euler(0, 0, 90);
                 yield return new WaitForSeconds(1f);
 
-                assassination1.SetActive(false);
-                assassination2.SetActive(false);
+                assassination1.gameObject.SetActive(false);
+                assassination2.gameObject.SetActive(false);
                 break;
 
             // 거너 백스텝샷
             case 16:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 player.rigid.AddForce(dirVec * (-0.3f));
                 break;
             // 거너 다이스
@@ -318,7 +318,7 @@ public class Skill : MonoBehaviour
                     Vector2 shotDir = new Vector2(shotDirX, shotDirY).normalized;
 
                     // 랜덤 방향 발사
-                    GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, shotDir, player.transform.position + new Vector3(shotDir.x, shotDir.y, 1), 3);
+                    GameManager.instance.weapon[player.currentWeaponIndex].Shot(1, shotDir, player.transform.position + new Vector3(shotDir.x, shotDir.y, 1), 3);
                     yield return new WaitForSeconds(0.1f);
 
                     timer -= 0.1f;
@@ -326,7 +326,7 @@ public class Skill : MonoBehaviour
                 break;
             // 거너 헤드샷
             case 19:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(5, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
                 break;
         }
 

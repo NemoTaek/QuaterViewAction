@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5873561481177362984}
   - component: {fileID: 2309773911362198122}
   - component: {fileID: 3735466877564502069}
+  - component: {fileID: -450998334187178505}
   - component: {fileID: 7495937797293586849}
   m_Layer: 0
   m_Name: Assassination
@@ -134,6 +135,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-450998334187178505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809474543443006198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de2af0141326b64fa30d183931c6604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &7495937797293586849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
-  animator: {fileID: 0}
   id: 0

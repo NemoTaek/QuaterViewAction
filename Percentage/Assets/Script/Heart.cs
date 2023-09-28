@@ -2,26 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Heart : MonoBehaviour
 {
-    public int id;
-
-    void Awake()
-    {
-
-    }
+    public float recovery;
 
     void Start()
     {
-
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Wall") || collision.CompareTag("Object"))
+        if (collision.CompareTag("Player"))
         {
+            GameManager.instance.player.health += recovery;
             gameObject.SetActive(false);
-            transform.position = transform.parent.position;
         }
     }
 

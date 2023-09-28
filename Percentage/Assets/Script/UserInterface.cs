@@ -40,6 +40,7 @@ public class UserInterface : MonoBehaviour
             {
                 GameObject room = Instantiate(roomSquare, mapBoard.transform);
                 room.GetComponent<RectTransform>().anchoredPosition = new Vector3(-i, -j, 0);
+                room.GetComponent<Image>().color = new Color(1, 1, 1, 0);
             }
         }
     }

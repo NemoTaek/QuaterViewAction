@@ -424,12 +424,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   itemPrice: []
-  roomType: 3
+  roomType: 4
+  isVisited: 0
   isBattle: 0
   enemyCount: 0
   isClear: 0
   itemCount: 3
   isItemSet: 0
+  isMapDraw: 0
 --- !u!1 &6383698671867584278
 GameObject:
   m_ObjectHideFlags: 0

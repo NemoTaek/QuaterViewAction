@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 63691354868590494}
   - component: {fileID: 3841896304588210700}
   - component: {fileID: 6925066707653465264}
+  - component: {fileID: 7499542564831897480}
   - component: {fileID: -2443064810458997720}
   m_Layer: 0
   m_Name: Mine
@@ -134,6 +135,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7499542564831897480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495169211968459104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de2af0141326b64fa30d183931c6604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &-2443064810458997720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e757d62762f55a341922f2a0bc57eedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
-  animator: {fileID: 0}
   id: 8
