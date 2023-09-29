@@ -340,12 +340,14 @@ public class Player : MonoBehaviour
         currentHealth = health;
 
         // 무기 생성 후 세팅
+        // 무기의 데미지는 아이템으로 먹은 추가 데미지와 같게 들어간다. 무기 교체할 때도 동일하게 적용한다.
         GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
         GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[role * 5]);
         GameManager.instance.weapon[getWeaponCount].name = GameManager.instance.weapon[getWeaponCount].weaponName;
         hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
+        powerUp += (GameManager.instance.weapon[currentWeaponIndex].damage + GameManager.instance.weapon[currentWeaponIndex].upgradeDamage[GameManager.instance.weapon[currentWeaponIndex].level]);
 
         // 스킬 생성 후 세팅
         GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
@@ -360,12 +362,11 @@ public class Player : MonoBehaviour
         GameManager.instance.ui.isChanged = true;
     }
 
-    void CalculateStatus()
+    public void CalculateStatus(int a=0)
     {
         // 스탯에 관련한 공식은 아이작을 따른다.
         // 공격력: 플레이어 기본 공격력 * sqrt(게임 중 획득한 공격력 수치 * 1.2 + 1) + 고정으로 올려주는 데미지
-        float tempPower = powerUp;
-        power = basePower * Mathf.Sqrt((tempPower * 1.2f) + 1) + staticPower;
+        power = basePower * Mathf.Sqrt((powerUp * 1.2f) + 1) + staticPower;
 
         // 공격속도: 16 - 6 * sqrt(게임 중 획득한 공격속도 수치 * 1.3 + 1). 만약 루트 값이 음수가 나오면 16 - 6 * 게임 중 획득한 공격속도 수치 로 설정
         // ex) 공속이 3인 캐릭터는 16 - 6 * (sqrt(4.9)) = 16 - 6 * 2.2 = 2.8

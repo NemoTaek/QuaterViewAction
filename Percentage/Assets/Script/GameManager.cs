@@ -94,7 +94,10 @@ public class GameManager : MonoBehaviour
         // 무기 교체 입력
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            // 무기를 교체하면 무기 공격력에 해당하여 플레이어 공격력이 증가가 되고, UI도 변경된다.
+            player.powerUp -= (weapon[player.currentWeaponIndex].damage + weapon[player.currentWeaponIndex].upgradeDamage[weapon[player.currentWeaponIndex].level]);
             player.currentWeaponIndex = player.currentWeaponIndex == player.getWeaponCount - 1 ? 0 : player.currentWeaponIndex + 1;
+            player.powerUp += (weapon[player.currentWeaponIndex].damage + weapon[player.currentWeaponIndex].upgradeDamage[weapon[player.currentWeaponIndex].level]);
             player.hand[player.role].isChanged = true;
             ui.isChanged = true;
         }

@@ -38,6 +38,8 @@ public class Weapon : MonoBehaviour
         spriteRenderer.sortingOrder = -1;
         col.isTrigger = true;
         col.size = new Vector2(0.31f, 0.26f);
+
+        // 용천권 이미지가 좀 그래서 뒤집어야 손잡이가 플레이어 쪽으로 옴...
         if(id == 13)    spriteRenderer.flipX = true;
 
         // 직업별로 세세하게 위치가 다르기 때문에 설정

@@ -121,7 +121,7 @@ public class RoomReward : MonoBehaviour
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(randomWeaponData);
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].name = GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].weaponName;
                 GameManager.instance.player.getWeaponCount++;
-                GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
+                //GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
                 GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
 
                 // UI에 적용
@@ -224,7 +224,7 @@ public class RoomReward : MonoBehaviour
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount].Init(randomSkillData);
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount].name = GameManager.instance.skill[GameManager.instance.player.getSkillCount].skillName;
                 GameManager.instance.player.getSkillCount++;
-                GameManager.instance.player.currentSkillIndex = GameManager.instance.player.getSkillCount - 1;
+                //GameManager.instance.player.currentSkillIndex = GameManager.instance.player.getSkillCount - 1;
                 GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
 
                 // UI에 적용

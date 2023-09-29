@@ -19,7 +19,7 @@ MonoBehaviour:
   weaponIcon: {fileID: 21300000, guid: b880faa6d53581f4faa813c42a5d4e8f, type: 3}
   baseDamage: 50
   upgradeDamage:
-  - 7
+  - 0
   - 7
   - 7
   - 8

@@ -13,7 +13,8 @@ public class Heart : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // 체력이 다 차있다면 안먹어지도록
+        if (collision.CompareTag("Player") && GameManager.instance.player.health != GameManager.instance.player.currentHealth)
         {
             GameManager.instance.player.health += recovery;
             gameObject.SetActive(false);
