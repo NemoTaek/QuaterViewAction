@@ -46,7 +46,13 @@ public class RoomReward : MonoBehaviour
             {
                 isAcquire = true;
                 Weapon randomWeapon = GameManager.instance.weapon[i];
-                int weaponLevel = randomWeapon.level;
+
+                // 최고 레벨인 경우 그의 공로를 인정하여 더는 강화하지 않도록 설정
+                if(randomWeapon.level == randomWeapon.maxLevel)
+                {
+                    AcquireOrUpgrade(random, randomWeaponData);
+                    break;
+                }
 
                 // 강화로직 구현
                 int upgradeRandom = Random.Range(0, 100);
@@ -54,18 +60,23 @@ public class RoomReward : MonoBehaviour
                 {
                     upgradeText[0].gameObject.SetActive(true);
                     upgradeText[1].gameObject.SetActive(true);
-                    upgradeText[0].text = "장비 " + randomWeapon.name + " 강화에 성공하셨습니다.";
-                    upgradeText[1].text = "강화에 성공하여 장비 공격력이 " + randomWeapon.upgradeDamage[weaponLevel] + " 상승하였습니다.";
-                    randomWeapon.damage += randomWeapon.upgradeDamage[weaponLevel];
+
+                    // 레벨 증가
                     randomWeapon.level++;
+                    upgradeText[0].text = "장비 " + randomWeapon.name + " 강화에 성공하셨습니다.";
+                    upgradeText[1].text = "강화에 성공하여 장비 공격력이 " + randomWeapon.upgradeDamage[randomWeapon.level] + " 상승하였습니다.";
+                    randomWeapon.damage += randomWeapon.upgradeDamage[randomWeapon.level];
+
+                    // 현재 착용중인 무기가 강화에 성공했다면 무기 교체 시 공격력 변화에 오류가 없도록 공격력 증가에 바로 반영
+                    if (i == GameManager.instance.player.currentWeaponIndex) GameManager.instance.player.powerUp += randomWeapon.upgradeDamage[randomWeapon.level];
                 }
                 else if (upgradeRandom < 95)
                 {
                     failedText.gameObject.SetActive(true);
-                    if(weaponLevel > 0)
+                    if(randomWeapon.level > 0)
                     {
                         failedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 단계가 하락합니다.";
-                        randomWeapon.damage -= randomWeapon.upgradeDamage[weaponLevel];
+                        randomWeapon.damage -= randomWeapon.upgradeDamage[randomWeapon.level];
                         randomWeapon.level--;
                     }
                     else
@@ -99,6 +110,7 @@ public class RoomReward : MonoBehaviour
                     {
                         destroyedText.gameObject.SetActive(false);
                         AcquireOrUpgrade(random, randomWeaponData);
+                        break;
                     }
                 }
 
@@ -150,7 +162,13 @@ public class RoomReward : MonoBehaviour
             {
                 isAcquire = true;
                 Skill randomSkill = GameManager.instance.skill[i];
-                int weaponLevel = randomSkill.level;
+
+                // 최고 레벨인 경우 그의 공로를 인정하여 더는 강화하지 않도록 설정
+                if (randomSkill.level == randomSkill.maxLevel)
+                {
+                    AcquireOrUpgrade(random, randomSkillData);
+                    break;
+                }
 
                 // 강화로직 구현
                 int upgradeRandom = Random.Range(0, 100);
@@ -158,18 +176,20 @@ public class RoomReward : MonoBehaviour
                 {
                     upgradeText[0].gameObject.SetActive(true);
                     upgradeText[1].gameObject.SetActive(true);
-                    upgradeText[0].text = "스킬 " + randomSkill.name + " 강화에 성공하셨습니다.";
-                    upgradeText[1].text = "강화에 성공하여 스킬 공격력이 " + randomSkill.upgradeDamage[weaponLevel] + " 상승하였습니다.";
-                    randomSkill.damage += randomSkill.upgradeDamage[weaponLevel];
+
+                    // 레벨 증가
                     randomSkill.level++;
+                    upgradeText[0].text = "스킬 " + randomSkill.name + " 강화에 성공하셨습니다.";
+                    upgradeText[1].text = "강화에 성공하여 스킬 공격력이 " + randomSkill.upgradeDamage[randomSkill.level] + " 상승하였습니다.";
+                    randomSkill.damage += randomSkill.upgradeDamage[randomSkill.level];
                 }
                 else if (upgradeRandom < 95)
                 {
                     failedText.gameObject.SetActive(true);
-                    if (weaponLevel > 0)
+                    if (randomSkill.level > 0)
                     {
                         failedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 단계가 하락합니다.";
-                        randomSkill.damage -= randomSkill.upgradeDamage[weaponLevel];
+                        randomSkill.damage -= randomSkill.upgradeDamage[randomSkill.level];
                         randomSkill.level--;
                     }
                     else
@@ -203,6 +223,7 @@ public class RoomReward : MonoBehaviour
                     {
                         destroyedText.gameObject.SetActive(false);
                         AcquireOrUpgrade(random, randomSkillData);
+                        break;
                     }
                 }
 

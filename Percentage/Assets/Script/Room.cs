@@ -226,12 +226,6 @@ public class Room : MonoBehaviour
         {
             GameObject box = GameManager.instance.objectPool.Get(0);
             box.transform.position = transform.position + Vector3.forward;
-
-            //for(int i=0; i<10; i++)
-            //{
-            //    GameObject box = GameManager.instance.objectPool.Get(1);
-            //    box.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-3, 3), 1);
-            //}
         }
         else
         {

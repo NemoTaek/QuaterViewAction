@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Skill : MonoBehaviour
@@ -12,8 +13,8 @@ public class Skill : MonoBehaviour
     public float[] upgradeDamage;    // 스킬 업그레이드 시 상승하는 공격력
     public float skillCoolTime;     // 스킬 쿨타임
     public float skillDuringTime;   // 스킬 지속시간
-    public float skillRange;    // 스킬 범위
     public int level;   // 스킬 강화 레벨
+    public int maxLevel;    // 스킬 최고 레벨
     public string desc; // 스킬 설명
     public Sprite icon; // 스킬 아이콘
 
@@ -36,8 +37,8 @@ public class Skill : MonoBehaviour
         upgradeDamage = data.upgradeDamage;
         skillCoolTime = data.skillCoolTime;
         skillDuringTime = data.skillDuringTime;
-        skillRange = data.skillRange;
         level = data.level;
+        maxLevel = data.maxLevel;
         desc = data.skillDesc;
         icon = data.skillIcon;
 
@@ -54,6 +55,10 @@ public class Skill : MonoBehaviour
         if (id == player.role * 5)
         {
             skillCoolTime = player.attackSpeed;
+        }
+        if (id == 11)
+        {
+            skillDuringTime = damage + upgradeDamage[level];
         }
     }
 
@@ -122,7 +127,7 @@ public class Skill : MonoBehaviour
                         SkillBullet shockWave = GameManager.instance.bulletPool.Get(4).GetComponent<SkillBullet>();
                         shockWave.transform.position = player.transform.position;
 
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(skillDuringTime);
 
                         player.buffSprite.sprite = null;
                         shockWave.gameObject.SetActive(false);
@@ -272,38 +277,33 @@ public class Skill : MonoBehaviour
             // 거너 다이스
             case 17:
                 int randomStatus = Random.Range(0, 4);
-                switch(randomStatus)
+
+                player.buffSprite.sprite = icon;
+
+                switch (randomStatus)
                 {
                     case 0:
                         break;
                     case 1:
-                        player.buffSprite.sprite = icon;
-                        player.attackSpeedUp += upgradeDamage[level];
-
+                        player.attackSpeedUp += damage + upgradeDamage[level];
                         yield return new WaitForSeconds(skillDuringTime);
-
-                        player.buffSprite.sprite = null;
-                        player.attackSpeedUp -= upgradeDamage[level];
+                        player.attackSpeedUp -= damage + upgradeDamage[level];
                         break;
                     case 2:
-                        player.buffSprite.sprite = icon;
-                        player.speed += upgradeDamage[level];
-
+                        // 이동속도의 경우에는 조금만 높아도 휙휙 변해서 반만 적용
+                        player.speed += (damage + upgradeDamage[level]) / 2;
                         yield return new WaitForSeconds(skillDuringTime);
-
-                        player.buffSprite.sprite = null;
-                        player.speed -= upgradeDamage[level];
+                        player.speed -= (damage + upgradeDamage[level]) / 2;
                         break;
                     case 3:
-                        player.buffSprite.sprite = icon;
-                        player.powerUp += upgradeDamage[level];
-
+                        player.powerUp += damage + upgradeDamage[level];
                         yield return new WaitForSeconds(skillDuringTime);
-
-                        player.buffSprite.sprite = null;
-                        player.powerUp -= upgradeDamage[level];
+                        player.powerUp -= damage + upgradeDamage[level];
                         break;
                 }
+
+                player.buffSprite.sprite = null;
+
                 break;
             // 거너 불릿파티
             case 18:

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public StatusInfo statusPanel;
     public RoomReward rewardBoxPanel;
     public GetItemPanel getItemPanel;
+    public GameResult gameResultPanel;
 
     [Header("----- Key Input -----")]
     public bool isRightAttack;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     public bool isOpenItemPanel;
     public int coin;
     public int mapPosition = 41;
+    public float elapsedTime = 0;
 
     void Awake()
     {
@@ -58,12 +60,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // 게임 시간
+        elapsedTime += Time.deltaTime;
+
         // 키보드 입력
         InputKeyboard();
 
         // 코인 개수
         ui.coinText.text = coin.ToString();
+
+        // UI창이 열려있으면 시간 멈추도록
+        if (isOpenStatus || isOpenBox || isOpenItemPanel) GamePause();
+        else GameResume();
     }
+
 
     void InputKeyboard()
     {
@@ -95,9 +105,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             // 무기를 교체하면 무기 공격력에 해당하여 플레이어 공격력이 증가가 되고, UI도 변경된다.
-            player.powerUp -= (weapon[player.currentWeaponIndex].damage + weapon[player.currentWeaponIndex].upgradeDamage[weapon[player.currentWeaponIndex].level]);
+            player.powerUp -= weapon[player.currentWeaponIndex].damage;
             player.currentWeaponIndex = player.currentWeaponIndex == player.getWeaponCount - 1 ? 0 : player.currentWeaponIndex + 1;
-            player.powerUp += (weapon[player.currentWeaponIndex].damage + weapon[player.currentWeaponIndex].upgradeDamage[weapon[player.currentWeaponIndex].level]);
+            player.powerUp += weapon[player.currentWeaponIndex].damage;
             player.hand[player.role].isChanged = true;
             ui.isChanged = true;
         }
@@ -159,5 +169,24 @@ public class GameManager : MonoBehaviour
         else if (dirVec == Vector2.down) return "DownAttack";
 
         return null;
+    }
+
+    void GamePause()
+    {
+        Time.timeScale = 0;
+    }
+
+    void GameResume()
+    {
+        Time.timeScale = 1;
+    }
+
+    public IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(1f);
+
+        gameResultPanel.gameObject.SetActive(true);
+
+        GamePause();
     }
 }

@@ -19,16 +19,15 @@ MonoBehaviour:
   skillDesc: "\uB9F5 \uC804\uCCB4\uC5D0 \uB79C\uB364\uC73C\uB85C \uC6B4\uC11D\uC744
     \uB5A8\uC5B4\uB728\uB9B0\uB2E4."
   skillCoolTime: 15
-  skiilDuringTime: 0
-  skillRange: 0
+  skillDuringTime: 0
   skillIcon: {fileID: 21300000, guid: 7eb6496b44bc359418f6b42bc9c21ac8, type: 3}
-  baseDamage: 5
+  baseDamage: 200
   upgradeDamage:
-  - 5
-  - 10
+  - 0
+  - 15
   - 15
   - 20
   - 25
-  - 30
+  - 25
   level: 0
   maxLevel: 5

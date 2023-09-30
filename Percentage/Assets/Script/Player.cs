@@ -130,14 +130,20 @@ public class Player : MonoBehaviour
         // 적과 닿으면 체력 감소
         if (collision.collider.CompareTag("Enemy") && !isDamaged)
         {
-            StartCoroutine(PlayerDamaged());
+            // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
+            if (health <= 0)
+            {
+                animator.SetTrigger("dead");
+                StartCoroutine(GameManager.instance.GameOver());
+            }
+            else StartCoroutine(PlayerDamaged());
         }
     }
 
     void Update()
     {
         // 상태창 오픈하면 아무것도 못하게 할 것
-        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel) return;
+        //if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel) return;
 
         // 플레이어 스탯 실시간 계산
         CalculateStatus();
@@ -384,8 +390,5 @@ public class Player : MonoBehaviour
 
         // 현재 체력(currentHealth)은 플레이어의 최대 체력(health)을 넘을 수 없다.
         if (health < currentHealth) currentHealth = health;
-
-        // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
-        if (health <= 0 || currentHealth <= 0) Debug.Log("죽어");
     }
 }

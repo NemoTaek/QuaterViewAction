@@ -16,7 +16,6 @@ public class SkillData : ScriptableObject
     public string skillDesc;
     public float skillCoolTime;
     public float skillDuringTime;
-    public float skillRange;
     public Sprite skillIcon;
 
     [Header("----- Level Data -----")]

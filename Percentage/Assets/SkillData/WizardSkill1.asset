@@ -16,18 +16,18 @@ MonoBehaviour:
   skillType: 0
   skillId: 5
   skillName: "\uD30C\uC774\uC5B4\uBCFC"
-  skillDesc: "\uC804\uBC29\uC5D0 \uD654\uC5FC\uAD6C 1\uAC1C\uB97C \uBC1C\uC0AC\uD55C\uB2E4."
+  skillDesc: "\uC804\uBC29\uC5D0 \uD654\uC5FC\uAD6C 1\uAC1C\uB97C {0}% \uB370\uBBF8\uC9C0\uB85C
+    \uBC1C\uC0AC\uD55C\uB2E4."
   skillCoolTime: 0.5
   skillDuringTime: 0
-  skillRange: 0
   skillIcon: {fileID: 21300000, guid: 9be627206effbed41ab662c28c5c0a4d, type: 3}
-  baseDamage: 10
+  baseDamage: 100
   upgradeDamage:
+  - 0
+  - 5
+  - 5
   - 10
-  - 20
-  - 30
-  - 40
-  - 50
-  - 60
+  - 10
+  - 10
   level: 0
   maxLevel: 5

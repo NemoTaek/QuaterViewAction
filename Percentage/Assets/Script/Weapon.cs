@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public float damage;    // 무기 공격력
     public float[] upgradeDamage;    // 무기 업그레이드 시 상승하는 공격력
     public int level;   // 무기 강화 레벨
+    public int maxLevel;    // 무기 최고 레벨
     public string desc; // 무기 설명
     public Sprite icon; // 무기 아이콘
 
@@ -30,6 +31,7 @@ public class Weapon : MonoBehaviour
         damage = data.baseDamage;
         upgradeDamage = data.upgradeDamage;
         level = data.level;
+        maxLevel = data.maxLevel;
         desc = data.weaponDesc;
         icon = data.weaponIcon;
 
@@ -69,8 +71,6 @@ public class Weapon : MonoBehaviour
     public void Shot(int bulletId, Vector2 dirVec, Vector3 shotPosition, float shotVelocity)
     {
         SkillBullet bullet = GameManager.instance.bulletPool.Get(bulletId).GetComponent<SkillBullet>();
-
-        int playerRole = GameManager.instance.player.role;
 
         if (dirVec == Vector2.right)
         {
