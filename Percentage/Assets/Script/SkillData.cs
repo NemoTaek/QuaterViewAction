@@ -13,6 +13,7 @@ public class SkillData : ScriptableObject
     public SkillType skillType;
     public int skillId;
     public string skillName;
+    [TextArea]
     public string skillDesc;
     public float skillCoolTime;
     public float skillDuringTime;

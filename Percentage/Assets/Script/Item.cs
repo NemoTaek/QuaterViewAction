@@ -52,6 +52,7 @@ public class Item : MonoBehaviour
 
                 // 구매한 아이템 적용
                 StartCoroutine(UseItem(id));
+                GameManager.instance.getItemList.Add(image);
 
                 // 스탯 변화가 있다면 스탯 창 UI 갱신
                 GameManager.instance.ui.isChanged = true;

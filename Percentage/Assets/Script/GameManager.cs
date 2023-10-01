@@ -41,16 +41,22 @@ public class GameManager : MonoBehaviour
     public bool isUltimateDownAttack;
 
     [Header("----- System Info -----")]
+    public int stage;
     public bool isOpenStatus;
     public bool isOpenBox;
     public bool isOpenItemPanel;
     public int coin;
     public int mapPosition = 41;
     public float elapsedTime = 0;
+    public List<Sprite> getItemList;
 
     void Awake()
     {
         instance = this;
+        getItemList = new List<Sprite>();
+
+        // 다른 씬으로 로딩되어도 오브젝트가 파괴되지 않는다.
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

@@ -17,10 +17,9 @@ MonoBehaviour:
   skillId: 18
   skillName: "\uBD88\uB9BF\uD30C\uD2F0"
   skillDesc: "\uC8FC\uC704\uC758 \uC801\uC744 \uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548
-    \uACF5\uACA9\uD55C\uB2E4."
+    {0}% \uB370\uBBF8\uC9C0\uB85C \uACF5\uACA9\uD55C\uB2E4."
   skillCoolTime: 90
   skillDuringTime: 10
-  skillRange: 0
   skillIcon: {fileID: 21300000, guid: 658324f53125df34b8f70f0d43fe90b4, type: 3}
   baseDamage: 10
   upgradeDamage:

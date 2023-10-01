@@ -8,11 +8,6 @@ public class StatusInfo : MonoBehaviour
     [Header("----- Component -----")]
     public Player player;
 
-    //public Image[] statusSkillArea;
-    //public Sprite[] skillImage;
-    //public Text[] skillName;
-    //public Text[] skillDesc;
-
     public Text statusHeart;
     public Text statusSpeed;
     public Text statusAttackSpeed;

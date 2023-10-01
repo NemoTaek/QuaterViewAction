@@ -17,7 +17,9 @@ MonoBehaviour:
   skillId: 17
   skillName: "\uB2E4\uC774\uC2A4"
   skillDesc: "\uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548 \uB79C\uB364 \uC2A4\uD0EF\uC774
-    \uC0C1\uC2B9\uD55C\uB2E4."
+    {0} \uC0C1\uC2B9\uD55C\uB2E4. \uAF5D\uC774 \uB098\uC62C \uC218 \uC788\uB2E4.
+    \uC774\uB3D9\uC18D\uB3C4\uC758 \uACBD\uC6B0\uB294 \uC808\uBC18\uC758 \uD6A8\uACFC\uB97C
+    \uBC1B\uB294\uB2E4."
   skillCoolTime: 60
   skillDuringTime: 20
   skillIcon: {fileID: 21300000, guid: a2eb57158b6c5dd4e84c229a90ef5295, type: 3}

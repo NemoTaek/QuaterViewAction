@@ -16,7 +16,8 @@ MonoBehaviour:
   skillType: 4
   skillId: 14
   skillName: "\uC554\uC0B4"
-  skillDesc: "\uAE30\uB97C \uBAA8\uC740 \uD6C4 \uD06C\uAC8C 2\uBC88 \uBCA4."
+  skillDesc: "\uAE30\uB97C \uBAA8\uC740 \uD6C4 {0}% \uB370\uBBF8\uC9C0\uB85C \uD06C\uAC8C
+    2\uBC88 \uBCA4\uB2E4."
   skillCoolTime: 180
   skillDuringTime: 0
   skillIcon: {fileID: 21300000, guid: 64687a1fdb5ecd74daed239aaf848bd4, type: 3}
