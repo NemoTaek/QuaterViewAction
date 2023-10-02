@@ -14,6 +14,7 @@ public class Boss : Enemy
 
     void FixedUpdate()
     {
+        if (GameManager.instance.player.isDead) return;
         if (isTrace) TraceMove();
         if (!isPatternPlaying)  StartCoroutine(BossPattern());
     }

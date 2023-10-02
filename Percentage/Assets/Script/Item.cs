@@ -106,14 +106,20 @@ public class Item : MonoBehaviour
                 float[] delta = { 1, 0.2f, 1, 0.5f };
                 for(int i = 0; i < status.Length; i++)
                 {
-                    int randomStat = Random.Range(0, 2);
-                    if (randomStat == 0) status[i] += delta[i];
-                    else status[i] -= delta[i];
+                    // 0이 나오면 스탯의 변화가 없고, 1이 나오면 스탯에 변화를 준다.
+                    int choice = Random.Range(0, 2);
+                    if(choice == 1)
+                    {
+                        int randomStat = Random.Range(0, 2);
+                        if (randomStat == 0) status[i] += delta[i];
+                        else status[i] -= delta[i];
 
-                    if (i == 0) player.health = status[i];
-                    else if (i == 1) player.speed = status[i];
-                    else if (i == 2) player.powerUp = status[i];
-                    else if (i == 3) player.attackSpeedUp = status[i];
+                        if (i == 0) player.health = status[i];
+                        else if (i == 1) player.speed = status[i];
+                        else if (i == 2) player.powerUp = status[i];
+                        else if (i == 3) player.attackSpeedUp = status[i];
+                    }
+                    
                 }
                 break;
         }

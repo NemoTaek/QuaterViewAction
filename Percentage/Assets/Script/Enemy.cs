@@ -47,10 +47,9 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 죽었거나, 맞을때는 앞으로 못가도록 설정
-        // 스탯창을 열었을 때는 멈추도록 설정
-        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
-        //if (GameManager.instance.isOpenStatus) return;
+        // 죽었거나, 맞을때는 넉백 효과를 위해 앞으로 못가도록 설정
+        // 게임오버 시에도 못움직이도록 설정
+        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || GameManager.instance.player.isDead) return;
 
         EnemyMove();
     }

@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
         else GameResume();
     }
 
-
     void InputKeyboard()
     {
         // 공격 입력
@@ -187,7 +186,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public IEnumerator GameOver()
+    public IEnumerator GameResult()
     {
         yield return new WaitForSeconds(1f);
 

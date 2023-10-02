@@ -220,23 +220,34 @@ public class Room : MonoBehaviour
 
     void BattleEnd()
     {
-        // 보상 획득 (0: 성공, 1: 실패)
-        int successOrFail = Random.Range(0, 2);
-        if (successOrFail == 0)
+        if(roomType == RoomType.Boss)
         {
-            GameObject box = GameManager.instance.objectPool.Get(0);
-            box.transform.position = transform.position + Vector3.forward;
+            // 포탈 생성
+            GameObject portal = GameManager.instance.objectPool.Get(4);
+            portal.transform.position = transform.position;
+
+            // 보스 리워드 생성
+            //GameObject bossReward = GameManager.instance.objectPool.Get(5);
+            //portal.transform.position = transform.position + Vector3.down;
         }
         else
         {
-            // 상자 얻기에 실패하면 돈이나 하트 생성
-            // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
-            int randomObject = Random.Range(1, 4);
-            GameObject reward = GameManager.instance.objectPool.Get(randomObject);
-            reward.transform.position = transform.position;
+            // 보상 획득 (0: 성공, 1: 실패)
+            int successOrFail = Random.Range(0, 2);
+            if (successOrFail == 0)
+            {
+                GameObject box = GameManager.instance.objectPool.Get(0);
+                box.transform.position = transform.position + Vector3.forward;
+            }
+            else
+            {
+                // 상자 얻기에 실패하면 돈이나 하트 생성
+                // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
+                int randomObject = Random.Range(1, 4);
+                GameObject reward = GameManager.instance.objectPool.Get(randomObject);
+                reward.transform.position = transform.position;
+            }
         }
-
-        //isBattle = false;
 
         // 전투가 끝났다면 감지되지는 위치의 문을 오픈
         DoorOpen();

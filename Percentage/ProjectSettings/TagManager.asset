@@ -18,6 +18,7 @@ TagManager:
   - Button
   - Object
   - EnemyBullet
+  - Portal
   layers:
   - Default
   - TransparentFX
