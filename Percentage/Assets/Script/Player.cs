@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -137,7 +138,8 @@ public class Player : MonoBehaviour
         {
             // 다음 스테이지로 가거나 게임 클리어거나
             isGameClear = true;
-            StartCoroutine(GameManager.instance.GameResult());
+            //StartCoroutine(GameManager.instance.GameResult());
+            SceneManager.LoadScene("Stage2");
         }
     }
 

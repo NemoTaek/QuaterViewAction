@@ -52,10 +52,20 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
-        getItemList = new List<Sprite>();
+        if (instance == null)
+        {
+            instance = this;
+            getItemList = new List<Sprite>();
+        }
+        else if (instance != this)
+        {
+            // DontDestroyOnLoad 메소드가 있는 게임오브젝트는 DontDestroyOnLoad 영역으로 이동하게 된다.
+            // 그 후에 같은 오브젝트가 있으면 또 생성되어 해당 오브젝트가 중복이 되어버린다.
+            // 그러므로 이전에 있던 오브젝트를 가져오고, 현재에 새로 생기는 오브젝트는 삭제한다.
+            Destroy(gameObject);
+        }
 
-        // 다른 씬으로 로딩되어도 오브젝트가 파괴되지 않는다.
+        // 다른 씬으로 로딩되어도 오브젝트가 파괴되지 않는다...?
         DontDestroyOnLoad(gameObject);
     }
 
