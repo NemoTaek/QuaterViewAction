@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [Header("----- Component -----")]
-    public static GameManager instance;
+    public CameraMap cam;
     public Fade fadeAnimation;
     public Player player;
     public BulletPool bulletPool;
@@ -19,9 +18,7 @@ public class GameManager : MonoBehaviour
     public ObjectPool objectPool;
     public Canvas itemCanvas;
     public ItemPool itemPool;
-    public Room currentRoom;
     public ItemData[] itemData;
-    public Map map;
 
     [Header("----- UI Component -----")]
     public UserInterface ui;
@@ -46,32 +43,12 @@ public class GameManager : MonoBehaviour
     public bool isOpenBox;
     public bool isOpenItemPanel;
     public int coin;
-    public int mapPosition = 41;
     public float elapsedTime = 0;
     public List<Sprite> getItemList;
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            getItemList = new List<Sprite>();
-        }
-        else if (instance != this)
-        {
-            // DontDestroyOnLoad 메소드가 있는 게임오브젝트는 DontDestroyOnLoad 영역으로 이동하게 된다.
-            // 그 후에 같은 오브젝트가 있으면 또 생성되어 해당 오브젝트가 중복이 되어버린다.
-            // 그러므로 이전에 있던 오브젝트를 가져오고, 현재에 새로 생기는 오브젝트는 삭제한다.
-            Destroy(gameObject);
-        }
-
-        // 다른 씬으로 로딩되어도 오브젝트가 파괴되지 않는다...?
-        DontDestroyOnLoad(gameObject);
-    }
-
     void Start()
     {
-        if (currentRoom.roomType == Room.RoomType.Start)    currentRoom.isVisited = true;
+        getItemList = new List<Sprite>();
     }
 
     void Update()
@@ -88,6 +65,20 @@ public class GameManager : MonoBehaviour
         // UI창이 열려있으면 시간 멈추도록
         if (isOpenStatus || isOpenBox || isOpenItemPanel) GamePause();
         else GameResume();
+    }
+
+    public void GameInit()
+    {
+        // 플레이어, 카메라 위치 초기화
+        player.transform.position = Vector3.forward;
+        cam.transform.position = Vector3.back;
+
+        // 전 스테이지의 아이템 삭제
+        Item[] items = itemPool.GetComponentsInChildren<Item>(true);
+        foreach (Item item in items)
+        {
+            Destroy(item.gameObject);
+        }
     }
 
     void InputKeyboard()

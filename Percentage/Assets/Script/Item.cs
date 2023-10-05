@@ -61,7 +61,7 @@ public class Item : MonoBehaviour
                 isPurchased = true;
 
                 // 상점에서 아이템 갱신
-                GameManager.instance.currentRoom.isItemSet = false;
+                Map.instance.currentRoom.isItemSet = false;
                 gameObject.SetActive(false);
             }
         }

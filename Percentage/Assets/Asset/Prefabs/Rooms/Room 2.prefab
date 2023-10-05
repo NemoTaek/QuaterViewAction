@@ -3772,7 +3772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23136038026130159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3946,7 +3946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPressed: 0
   button: {fileID: 23136038048811215}
-  pressedButton: {fileID: 5161100852020948693, guid: 2bfb07de0af6b644c8aa5a135008a5ee, type: 3}
+  pressedButton: {fileID: 23136038810535751}
 --- !u!1 &23136038061403162
 GameObject:
   m_ObjectHideFlags: 0
@@ -4820,22 +4820,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
   spawnPoint: []
+  itemPoint: []
   doors: []
   upRoom: {fileID: 0}
   rightRoom: {fileID: 0}
   downRoom: {fileID: 0}
   leftRoom: {fileID: 0}
-  itemPoint: []
   buttons: []
-  itemsInShop: 
-  itemPrefab: []
-  itemPrice: []
   roomType: 3
   isVisited: 0
   isBattle: 0
   enemyCount: 0
   isClear: 0
-  itemCount: 0
   isItemSet: 0
   isMapDraw: 0
 --- !u!1 &23136038238998625
@@ -6917,7 +6913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &23136038810535736
 Transform:
   m_ObjectHideFlags: 0

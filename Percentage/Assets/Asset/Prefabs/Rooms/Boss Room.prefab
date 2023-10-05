@@ -2143,7 +2143,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9185452441705823359}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2244,22 +2244,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 3729714250780382269, guid: 96e4943ba9ba17d48ad95381db7da689, type: 3}
   spawnPoint: []
+  itemPoint: []
   doors: []
   upRoom: {fileID: 0}
   rightRoom: {fileID: 0}
   downRoom: {fileID: 0}
   leftRoom: {fileID: 0}
-  itemPoint: []
   buttons: []
-  itemsInShop: 
-  itemPrefab: []
-  itemPrice: []
   roomType: 5
   isVisited: 0
   isBattle: 0
   enemyCount: 0
   isClear: 0
-  itemCount: 0
   isItemSet: 0
   isMapDraw: 0
 --- !u!1 &9185452442012403507

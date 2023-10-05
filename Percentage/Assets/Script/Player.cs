@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [Header("----- Component -----")]
-    public CameraMap cam;
     public Hand[] hand;
     public UserInterface ui;
 
@@ -72,55 +71,6 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector3 cameraPosition = cam.transform.position;
-        Vector3 playerPosition = transform.position;
-
-        // 맵 이동
-        if (collision.CompareTag("TopDoor"))
-        {
-            cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y + 12, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x, transform.position.y + 6f, transform.position.z);
-            transform.position = playerPosition;
-            StartCoroutine(cam.MoveRoom(cameraPosition));
-
-            GameManager.instance.currentRoom = GameManager.instance.currentRoom.upRoom;
-            GameManager.instance.currentRoom.isVisited = true;
-            GameManager.instance.mapPosition -= 1;
-        }
-        if (collision.CompareTag("BottomDoor"))
-        {
-            cameraPosition = new Vector3(cam.transform.position.x, cam.transform.position.y - 12, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x, transform.position.y - 6f, transform.position.z);
-            transform.position = playerPosition;
-            StartCoroutine(cam.MoveRoom(cameraPosition));
-
-            GameManager.instance.currentRoom = GameManager.instance.currentRoom.downRoom;
-            GameManager.instance.currentRoom.isVisited = true;
-            GameManager.instance.mapPosition += 1;
-        }
-        if (collision.CompareTag("LeftDoor"))
-        {
-            cameraPosition = new Vector3(cam.transform.position.x - 20, cam.transform.position.y, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x - 6f, transform.position.y, transform.position.z);
-            transform.position = playerPosition;
-            StartCoroutine(cam.MoveRoom(cameraPosition));
-
-            GameManager.instance.currentRoom = GameManager.instance.currentRoom.leftRoom;
-            GameManager.instance.currentRoom.isVisited = true;
-            GameManager.instance.mapPosition += 9;
-        }
-        if (collision.CompareTag("RightDoor"))
-        {
-            cameraPosition = new Vector3(cam.transform.position.x + 20, cam.transform.position.y, cam.transform.position.z);
-            playerPosition = new Vector3(transform.position.x + 6f, transform.position.y, transform.position.z);
-            transform.position = playerPosition;
-            StartCoroutine(cam.MoveRoom(cameraPosition));
-
-            GameManager.instance.currentRoom = GameManager.instance.currentRoom.rightRoom;
-            GameManager.instance.currentRoom.isVisited = true;
-            GameManager.instance.mapPosition -= 9;
-        }
-
         // 적의 총알에 맞으면 체력 감소
         if (collision.CompareTag("EnemyBullet") && !isDamaged)
         {
@@ -132,14 +82,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(GameManager.instance.GameResult());
             }
             else StartCoroutine(PlayerDamaged());
-        }
-
-        if (collision.CompareTag("Portal"))
-        {
-            // 다음 스테이지로 가거나 게임 클리어거나
-            isGameClear = true;
-            //StartCoroutine(GameManager.instance.GameResult());
-            SceneManager.LoadScene("Stage2");
         }
     }
 
