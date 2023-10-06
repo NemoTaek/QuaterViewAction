@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     public Canvas itemCanvas;
     public ItemPool itemPool;
     public ItemData[] itemData;
+    public GameObject itemPricePool;
 
     [Header("----- UI Component -----")]
     public UserInterface ui;
@@ -74,10 +75,16 @@ public class GameManager : Singleton<GameManager>
         cam.transform.position = Vector3.back;
 
         // 전 스테이지의 아이템 삭제
+        itemPool.ClearItemList();
         Item[] items = itemPool.GetComponentsInChildren<Item>(true);
+        Item[] itemPrices = itemPricePool.GetComponentsInChildren<Item>(true);
         foreach (Item item in items)
         {
             Destroy(item.gameObject);
+        }
+        foreach (Item price in itemPrices)
+        {
+            Destroy(price.gameObject);
         }
     }
 

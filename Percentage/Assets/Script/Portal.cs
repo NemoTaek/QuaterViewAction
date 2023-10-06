@@ -20,6 +20,7 @@ public class Portal : MonoBehaviour
 
             StartCoroutine(LoadScene());
             StartCoroutine(UnloadScene());
+            GameManager.instance.GameInit();
 
             gameObject.SetActive(false);
         }

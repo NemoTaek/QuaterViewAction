@@ -25,6 +25,12 @@ public class UserInterface : MonoBehaviour
 
     public GameObject mapBoard;
     public GameObject roomSquare;
+    public GameObject[] roomIcons;
+
+    void Awake()
+    {
+        roomIcons = new GameObject[81];
+    }
 
     void OnEnable()
     {
@@ -34,15 +40,8 @@ public class UserInterface : MonoBehaviour
 
     void Start()
     {
-        for(int i = 10; i < 500; i += 60)
-        {
-            for (int j = 10; j < 500; j += 60)
-            {
-                GameObject room = Instantiate(roomSquare, mapBoard.transform);
-                room.GetComponent<RectTransform>().anchoredPosition = new Vector3(-i, -j, 0);
-                room.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            }
-        }
+        MakeMapBoard();
+        ClearMapBoard();
     }
 
     void Update()
@@ -98,5 +97,28 @@ public class UserInterface : MonoBehaviour
             else gameSkillArea[i].GetComponentsInParent<Image>()[1].color = Color.white;
         }
         isChanged = false;
+    }
+
+    void MakeMapBoard()
+    {
+        int index = 0;
+        for (int i = 10; i < 500; i += 60)
+        {
+            for (int j = 10; j < 500; j += 60)
+            {
+                GameObject roomIcon = Instantiate(roomSquare, mapBoard.transform);
+                roomIcon.GetComponent<RectTransform>().anchoredPosition = new Vector3(-i, -j, 0);
+                roomIcons[index] = roomIcon;
+                index++;
+            }
+        }
+    }
+
+    public void ClearMapBoard()
+    {
+        for (int i = 0; i < 81; i++)
+        {
+            if(roomIcons[i] != null)    roomIcons[i].GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
     }
 }

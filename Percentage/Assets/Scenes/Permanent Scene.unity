@@ -1391,6 +1391,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b05206d48ae3eb14d99eae0658622f9f, type: 2}
   - {fileID: 11400000, guid: 53ed45c0d20cd2145a6091a5922db37a, type: 2}
   - {fileID: 11400000, guid: 6c70fccf2f8f2f147ae6a2e2f6ceacfd, type: 2}
+  itemPricePool: {fileID: 714128833}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}
   rewardBoxPanel: {fileID: 1657077297}
@@ -3854,6 +3855,7 @@ MonoBehaviour:
   bossHealth: {fileID: 323801511}
   mapBoard: {fileID: 1279332570}
   roomSquare: {fileID: 1097387290584436778, guid: 19d038dd33a53734eba98670ba40c6cb, type: 3}
+  roomIcons: []
 --- !u!1 &570708606
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Enemy : MonoBehaviour
 {
@@ -192,7 +193,7 @@ public class Enemy : MonoBehaviour
         int random = Random.Range(0, 10);
         if(random >= 0 && random < 3)
         {
-            GameObject coin = GameManager.instance.objectPool.Get(1);
+            GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], room.roomReward.transform);
             coin.transform.position = transform.position;
         }
     }

@@ -9,11 +9,7 @@ public class ItemPool : MonoBehaviour
 
     void Awake()
     {
-        pools = new List<Item>[items.Length];
-        for (int i = 0; i < pools.Length; i++)
-        {
-            pools[i] = new List<Item>();
-        }
+        ClearItemList();
     }
 
     public Item Get(int index)
@@ -37,5 +33,14 @@ public class ItemPool : MonoBehaviour
         }
 
         return select;
+    }
+
+    public void ClearItemList()
+    {
+        pools = new List<Item>[items.Length];
+        for (int i = 0; i < pools.Length; i++)
+        {
+            pools[i] = new List<Item>();
+        }
     }
 }

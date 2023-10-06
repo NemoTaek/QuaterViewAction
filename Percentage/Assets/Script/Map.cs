@@ -35,15 +35,12 @@ public class Map : Singleton<Map>
 
     public void MapInit()
     {
-        GameManager.instance.GameInit();
+        // 우측 상단 맵 초기화
+        GameManager.instance.ui.ClearMapBoard();
 
+        // 각 방마다 설정값 세팅
         foreach (Room room in rooms)
         {
-            // 이전 스테이지의 잔해들 모두 삭제
-            room.isVisited = false;
-
-
-
             // 시작 방이면 현재 방을 시작 방으로 설정
             if (room.roomType == Room.RoomType.Start)
             {
@@ -105,6 +102,10 @@ public class Map : Singleton<Map>
             priceText.GetComponent<Text>().text = "$ " + itemPrefab[i].price.ToString();
             itemPrice[i] = priceText;
             itemPrice[i].transform.SetParent(GameManager.instance.itemCanvas.transform);
+
+            //Item priceText = Instantiate(GameManager.instance.itemPool.items[0], GameManager.instance.itemCanvas.transform);
+            //priceText.GetComponent<Text>().text = "$ " + itemPrefab[i].price.ToString();
+            //itemPrice[i] = priceText;
         }
     }
 }

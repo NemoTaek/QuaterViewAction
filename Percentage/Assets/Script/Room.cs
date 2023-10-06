@@ -20,6 +20,7 @@ public class Room : MonoBehaviour
 
     [Header("----- Room Object -----")]
     public Button[] buttons;
+    public GameObject roomReward;
 
     [Header("----- Room Property -----")]
     public RoomType roomType;
@@ -50,11 +51,36 @@ public class Room : MonoBehaviour
 
     void Update()
     {
+        SettingRooms();
+    }
+
+    void CheckAroundRoom()
+    {
+        // 레이어 마스크는 레이어를 비트로 판단하기 때문에 비트 연산자를 사용하여 작성해야 한한다.
+        // 그냥 레이어 자리에 6 이렇게 쓰니까 안먹히더라..
+        // 특정 레이어를 제외하려면 ~(1 << 레이어) 이렇게 사용하면 된다.
+        //LayerMask layer = (1 << LayerMask.NameToLayer("Room"));
+        //colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(25, 15), 0, layer);
+
+        // 근데 대각선은 굳이 알아낼 필요가 없다...
+        // 이번엔 레이캐스트로 상하좌우만 쏴서 검출해보도록 하자
+        RaycastHit2D leftRoomRayCast = Physics2D.Raycast(transform.position + Vector3.left * 10, Vector2.left, 3, LayerMask.GetMask("Room"));
+        if (leftRoomRayCast) leftRoom = leftRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D rightRoomRayCast = Physics2D.Raycast(transform.position + Vector3.right * 10, Vector2.right, 3, LayerMask.GetMask("Room"));
+        if (rightRoomRayCast) rightRoom = rightRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D upRoomRayCast = Physics2D.Raycast(transform.position + Vector3.up * 6, Vector2.up, 3, LayerMask.GetMask("Room"));
+        if (upRoomRayCast) upRoom = upRoomRayCast.collider.gameObject.GetComponent<Room>();
+        RaycastHit2D downRoomRayCast = Physics2D.Raycast(transform.position + Vector3.down * 6, Vector2.down, 3, LayerMask.GetMask("Room"));
+        if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
+    }
+
+    void SettingRooms()
+    {
         // 현재 있는 방만 검사
         if (Map.instance.currentRoom.gameObject == gameObject)
         {
             // 주변 맵 밝히기
-            if (!isMapDraw)  DrawMap();
+            if (!isMapDraw) DrawMap();
 
             // 스폰 포인트가 있으면 전투방
             if (spawnPoint.Length > 0)
@@ -91,7 +117,7 @@ public class Room : MonoBehaviour
             }
 
             // 보스방이면 보스 체력 UI 활성화
-            if(roomType == RoomType.Boss)
+            if (roomType == RoomType.Boss)
             {
                 Boss boss = GetComponentInChildren<Boss>();
                 if (boss)
@@ -105,34 +131,19 @@ public class Room : MonoBehaviour
         else
         {
             // 상점 방을 나가면 UI를 비활성화 시켜야 한다.
-            if(roomType == RoomType.Shop && Map.instance.isItemSet)
+            if (roomType == RoomType.Shop && Map.instance.isItemSet)
             {
                 for (int i = 0; i < Map.instance.itemsInShop.Count; i++)
                 {
-                    Map.instance.itemPrice[i].gameObject.SetActive(false);
+                    Item itemPrice = Map.instance.itemPrice[i];
+                    if(itemPrice != null)
+                    {
+                        if (itemPrice.gameObject.activeSelf) itemPrice.gameObject.SetActive(false);
+                    }
+                    
                 }
             }
         }
-    }
-
-    void CheckAroundRoom()
-    {
-        // 레이어 마스크는 레이어를 비트로 판단하기 때문에 비트 연산자를 사용하여 작성해야 한한다.
-        // 그냥 레이어 자리에 6 이렇게 쓰니까 안먹히더라..
-        // 특정 레이어를 제외하려면 ~(1 << 레이어) 이렇게 사용하면 된다.
-        //LayerMask layer = (1 << LayerMask.NameToLayer("Room"));
-        //colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(25, 15), 0, layer);
-
-        // 근데 대각선은 굳이 알아낼 필요가 없다...
-        // 이번엔 레이캐스트로 상하좌우만 쏴서 검출해보도록 하자
-        RaycastHit2D leftRoomRayCast = Physics2D.Raycast(transform.position + Vector3.left * 10, Vector2.left, 3, LayerMask.GetMask("Room"));
-        if (leftRoomRayCast) leftRoom = leftRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D rightRoomRayCast = Physics2D.Raycast(transform.position + Vector3.right * 10, Vector2.right, 3, LayerMask.GetMask("Room"));
-        if (rightRoomRayCast) rightRoom = rightRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D upRoomRayCast = Physics2D.Raycast(transform.position + Vector3.up * 6, Vector2.up, 3, LayerMask.GetMask("Room"));
-        if (upRoomRayCast) upRoom = upRoomRayCast.collider.gameObject.GetComponent<Room>();
-        RaycastHit2D downRoomRayCast = Physics2D.Raycast(transform.position + Vector3.down * 6, Vector2.down, 3, LayerMask.GetMask("Room"));
-        if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
     }
 
     void DrawMap()
@@ -210,18 +221,21 @@ public class Room : MonoBehaviour
         {
             // 보상 획득 (0: 성공, 1: 실패)
             int successOrFail = Random.Range(0, 2);
+            GameObject reward;
             if (successOrFail == 0)
             {
-                GameObject box = GameManager.instance.objectPool.Get(0);
-                box.transform.position = transform.position + Vector3.forward;
+                reward = GameManager.instance.objectPool.prefabs[0];
+                Instantiate(reward, roomReward.transform);
+                reward.transform.position = Vector3.zero;
             }
             else
             {
                 // 상자 얻기에 실패하면 돈이나 하트 생성
                 // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
                 int randomObject = Random.Range(1, 4);
-                GameObject reward = GameManager.instance.objectPool.Get(randomObject);
-                reward.transform.position = transform.position;
+                reward = GameManager.instance.objectPool.prefabs[randomObject];
+                Instantiate(reward, roomReward.transform);
+                reward.transform.position = Vector3.zero;
             }
         }
 
