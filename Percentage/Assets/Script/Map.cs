@@ -10,21 +10,25 @@ public class Map : Singleton<Map>
     public Room startRoom;
     public Room currentRoom;
     public int mapPosition;
+    public Image[] mapSquare;
 
     [Header("----- Shop Setting -----")]
     public List<int> itemsInShop;
     public Item[] itemPrefab;
     public Item[] itemPrice;
-    public int itemCount;
+    public int shopItemCount;
     public bool isItemSet;
 
     void Start()
     {
+        // 맵 정중앙은 41번
         mapPosition = 41;
-        itemCount = 3;
+        shopItemCount = 3;
         itemsInShop = new List<int>();
-        itemPrefab = new Item[itemCount];
+        itemPrefab = new Item[shopItemCount];
+
         rooms = GetComponentsInChildren<Room>();
+        mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
         MapInit();
     }
 
@@ -51,29 +55,45 @@ public class Map : Singleton<Map>
             }
 
             // 비 전투방에서는 문 열어놓기
-            if (room.roomType == Room.RoomType.Clear || room.roomType == Room.RoomType.Shop)
+            if (room.roomType == Room.RoomType.Clear || room.roomType == Room.RoomType.Golden || room.roomType == Room.RoomType.Shop)
             {
                 // 비 전투방에서는 문 열어놓기
                 room.DoorOpen();
 
-                // 상점방에는 아이템 깔아두기
+                // 상점방과 황금방에는 아이템 깔아두기
                 if (room.roomType == Room.RoomType.Shop)
                 {
-                    SetShopItem(room);
+                    SetShopItem(room, shopItemCount);
                     SetShopItemPrice();
+                    isItemSet = true;
+                }
+                else if (room.roomType == Room.RoomType.Golden)
+                {
+                    SetGoldenItem(room);
                     isItemSet = true;
                 }
             }
         }
     }
 
-    void SetShopItem(Room shopRoom)
+    void SetGoldenItem(Room room)
+    {
+        int totalItemCount = GameManager.instance.itemPool.items.Length;
+        int random = Random.Range(1, totalItemCount);
+
+        // 아이템 생성 후 배치
+        Item goldenItem = GameManager.instance.itemPool.Get(random);
+        goldenItem.transform.position = room.itemPoint[0].transform.position;
+        goldenItem.Init(GameManager.instance.itemData[random - 1]);
+    }
+
+    void SetShopItem(Room room, int count)
     {
         int index = 0;
         int totalItemCount = GameManager.instance.itemPool.items.Length;
 
         // 중복이 안되도록 아이템 세팅
-        while (index < itemCount)
+        while (index < count)
         {
             int random = Random.Range(1, totalItemCount);
             int isInItemList = itemsInShop.Find(x => x == random);
@@ -84,7 +104,7 @@ public class Map : Singleton<Map>
 
                 // 아이템 생성 후 배치
                 itemPrefab[index] = GameManager.instance.itemPool.Get(random);
-                itemPrefab[index].transform.position = shopRoom.itemPoint[index].transform.position + Vector3.up;
+                itemPrefab[index].transform.position = room.itemPoint[index].transform.position + Vector3.up;
                 itemPrefab[index].Init(GameManager.instance.itemData[random - 1]);
                 index++;
             }
@@ -93,8 +113,8 @@ public class Map : Singleton<Map>
 
     void SetShopItemPrice()
     {
-        itemPrice = new Item[itemCount];
-        for (int i = 0; i < itemCount; i++)
+        itemPrice = new Item[shopItemCount];
+        for (int i = 0; i < shopItemCount; i++)
         {
             // 아이템 가격 세팅
             // 아이템 가격 텍스트는 Canvas에 설정되므로 상점방이 아니면 active를 비활성화 해야한다.

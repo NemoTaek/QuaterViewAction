@@ -19,6 +19,7 @@ TagManager:
   - Object
   - EnemyBullet
   - Portal
+  - Spike
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - UI
   - Room
   - Enemy
-  - 
+  - Object
   - 
   - 
   - 

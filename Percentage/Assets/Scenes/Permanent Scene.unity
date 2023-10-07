@@ -1397,6 +1397,10 @@ MonoBehaviour:
   rewardBoxPanel: {fileID: 1657077297}
   getItemPanel: {fileID: 16247932}
   gameResultPanel: {fileID: 545262700}
+  roomIcon:
+  - {fileID: 21300000, guid: e0a4320b7092da943aea7ca91faa2b9e, type: 3}
+  - {fileID: 21300000, guid: af9f0512ea9da994f95a23d2d642c9e8, type: 3}
+  - {fileID: 21300000, guid: 9369cda952a4da443a4ba8e5304c2fd8, type: 3}
   isRightAttack: 0
   isLeftAttack: 0
   isUpAttack: 0

@@ -183,6 +183,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cbdef1cbfff9f4dad0b9e741a007bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rooms: []
+  startRoom: {fileID: 0}
+  currentRoom: {fileID: 0}
+  mapPosition: 0
+  itemsInShop: 
+  itemPrefab: []
+  itemPrice: []
+  itemCount: 0
+  isItemSet: 0
 --- !u!1001 &23136037737761528
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
-    public enum RoomType { Start, Clear, Battle, Arcade, Shop, Boss };
+    public enum RoomType { Start, Clear, Battle, Arcade, Golden, Shop, Boss };
 
     [Header("----- Component -----")]
     public Enemy enemy;
@@ -150,38 +150,49 @@ public class Room : MonoBehaviour
     {
         // 맵 UI에서 현재 위치한 방의 투명도는 0.75, 주변에 있는 방은 0.25로 설정
         // 참고로 우측 상단이 1번째, 좌측 하단이 81번째. 생성 방향은 상->하, 우->좌
-        Image[] mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
 
         // 현재 위치는 찐하게 방문 표시
-        mapSquare[Map.instance.mapPosition].color = new Color(1, 1, 1, 0.75f);
+        Map.instance.mapSquare[Map.instance.mapPosition].color = new Color(1, 1, 1, 0.75f);
 
-        // 주변방으 옅게 표시
-        if (leftRoom && !leftRoom.isVisited)
-        {
-            int mapPosition = Map.instance.mapPosition;
-            mapPosition += 9;
-            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
-        }
-        if (rightRoom && !rightRoom.isVisited)
-        {
-            int mapPosition = Map.instance.mapPosition;
-            mapPosition -= 9;
-            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
-        }
-        if (upRoom && !upRoom.isVisited)
-        {
-            int mapPosition = Map.instance.mapPosition;
-            mapPosition -= 1;
-            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
-        }
-        if (downRoom && !downRoom.isVisited)
-        {
-            int mapPosition = Map.instance.mapPosition;
-            mapPosition += 1;
-            mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
-        }
+        // 주변 방 옅게 표시
+        if (leftRoom && !leftRoom.isVisited)    ColorMap(leftRoom, 9);
+        if (rightRoom && !rightRoom.isVisited)  ColorMap(rightRoom, -9);
+        if (upRoom && !upRoom.isVisited)    ColorMap(upRoom, -1);
+        if (downRoom && !downRoom.isVisited)    ColorMap(downRoom, 1);
 
         isMapDraw = true;
+    }
+
+    void ColorMap(Room directionRoom, int roomIndex)
+    {
+        int mapPosition = Map.instance.mapPosition;
+        mapPosition += roomIndex;
+        Map.instance.mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+
+        // 특수방이라면 아이콘 추가
+        SpecialRoom(directionRoom, Map.instance.mapSquare[mapPosition]);
+    }
+
+    void SpecialRoom(Room room, Image mapSqure)
+    {
+        if(room.roomType == RoomType.Boss)
+        {
+            mapSqure.gameObject.SetActive(true);
+            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
+            roomIcon.sprite = GameManager.instance.roomIcon[0];
+        }
+        else if (room.roomType == RoomType.Golden)
+        {
+            mapSqure.gameObject.SetActive(true);
+            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
+            roomIcon.sprite = GameManager.instance.roomIcon[1];
+        }
+        else if (room.roomType == RoomType.Shop)
+        {
+            mapSqure.gameObject.SetActive(true);
+            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
+            roomIcon.sprite = GameManager.instance.roomIcon[2];
+        }
     }
 
     void BattleStart()
@@ -225,8 +236,6 @@ public class Room : MonoBehaviour
             if (successOrFail == 0)
             {
                 reward = GameManager.instance.objectPool.prefabs[0];
-                Instantiate(reward, roomReward.transform);
-                reward.transform.position = Vector3.zero;
             }
             else
             {
@@ -234,9 +243,49 @@ public class Room : MonoBehaviour
                 // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
                 int randomObject = Random.Range(1, 4);
                 reward = GameManager.instance.objectPool.prefabs[randomObject];
-                Instantiate(reward, roomReward.transform);
-                reward.transform.position = Vector3.zero;
             }
+
+            // 보상이 떨어지는 자리에 오브젝트가 있으면 헷갈리므로 있으면 다른곳에 놓도록 설정
+            float distance = 0.1f;
+            Vector3 pos = Vector3.zero;
+            RaycastHit2D rayCast = Physics2D.Raycast(transform.position, Vector2.up, distance, LayerMask.GetMask("Object"));
+            if(rayCast.collider)
+            {
+                Debug.Log(rayCast.collider);
+                while (true)
+                {
+                    RaycastHit2D upObjectRayCast = Physics2D.Raycast(transform.position + Vector3.up, Vector2.up, distance, LayerMask.GetMask("Object"));
+                    if (!upObjectRayCast.collider)
+                    {
+                        pos = Vector3.up * (distance + 1);
+                        break;
+                    }
+                    RaycastHit2D rightObjectRayCast = Physics2D.Raycast(transform.position + Vector3.right, Vector2.right, distance, LayerMask.GetMask("Object"));
+                    if (!rightObjectRayCast.collider)
+                    {
+                        pos = Vector3.right * (distance + 1);
+                        break;
+                    }
+                    RaycastHit2D downObjectRayCast = Physics2D.Raycast(transform.position + Vector3.down, Vector2.down, distance, LayerMask.GetMask("Object"));
+                    if (!downObjectRayCast.collider)
+                    {
+                        pos = Vector3.down * (distance + 1);
+                        break;
+                    }
+                    RaycastHit2D leftObjectRayCast = Physics2D.Raycast(transform.position + Vector3.left, Vector2.left, distance, LayerMask.GetMask("Object"));
+                    if (!leftObjectRayCast.collider)
+                    {
+                        pos = Vector3.left * (distance + 1);
+                        break;
+                    }
+
+                    // 여기까지 왔으면 사방에 무언가 있는것이므로 거리를 늘려 다시 재본다.
+                    distance++;
+                }
+            }
+            Debug.Log(pos);
+            Instantiate(reward, roomReward.transform);
+            reward.transform.position = pos;
         }
 
         // 전투가 끝났다면 감지되지는 위치의 문을 오픈

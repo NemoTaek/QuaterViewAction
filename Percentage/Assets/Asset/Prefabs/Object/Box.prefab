@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6149275670896026556}
   - component: {fileID: 4581963863242224142}
   - component: {fileID: 2008811389360034771}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

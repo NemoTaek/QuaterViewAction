@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7976620716490355295}
   - component: {fileID: 9136865118705278636}
   - component: {fileID: 4291553370310395880}
+  - component: {fileID: -8779154079742266191}
   m_Layer: 0
   m_Name: Sword3
   m_TagString: Weapon
@@ -99,10 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  weaponNname: 
+  weaponName: 
   damage: 10
   upgradeDamage: []
   level: 0
+  maxLevel: 0
   desc: 
   icon: {fileID: 0}
 --- !u!61 &4291553370310395880
@@ -131,3 +133,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.31, y: 0.26}
   m_EdgeRadius: 0
+--- !u!50 &-8779154079742266191
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922646110497837756}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

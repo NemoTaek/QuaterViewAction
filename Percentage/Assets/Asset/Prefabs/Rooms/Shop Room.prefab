@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6383698671305949026}
-  - component: {fileID: 6383698671305949025}
   m_Layer: 0
   m_Name: Item Point (1)
   m_TagString: Untagged
@@ -63,18 +62,6 @@ Transform:
   m_Father: {fileID: 6898856697258561658}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6383698671305949025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6383698671305949027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6383698671631603106
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +314,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6383698671701065908}
-  - component: {fileID: 6383698671701065907}
   m_Layer: 0
   m_Name: Item Point
   m_TagString: Untagged
@@ -350,18 +336,6 @@ Transform:
   m_Father: {fileID: 6898856697258561658}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6383698671701065907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6383698671701065909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6383698671865972578
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6383698671865972578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -451,7 +425,7 @@ MonoBehaviour:
   leftRoom: {fileID: 0}
   buttons: []
   roomReward: {fileID: 4347188415737671880}
-  roomType: 4
+  roomType: 5
   isVisited: 0
   isBattle: 0
   enemyCount: 0
@@ -4291,7 +4265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6383698673225925054}
-  - component: {fileID: 6383698673225925053}
   m_Layer: 0
   m_Name: Item Point (2)
   m_TagString: Untagged
@@ -4314,15 +4287,3 @@ Transform:
   m_Father: {fileID: 6898856697258561658}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6383698673225925053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6383698673225925055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -17,11 +17,13 @@ public class Weapon : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
     BoxCollider2D col;
+    Rigidbody2D rigid;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<BoxCollider2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     public void Init(WeaponData data)
@@ -38,6 +40,9 @@ public class Weapon : MonoBehaviour
         transform.parent = GameManager.instance.player.hand[(int)data.weaponType].transform;
         spriteRenderer.sprite = icon;
         spriteRenderer.sortingOrder = -1;
+
+        rigid.bodyType = RigidbodyType2D.Kinematic;
+
         col.isTrigger = true;
         col.size = new Vector2(0.31f, 0.26f);
 

@@ -27,6 +27,7 @@ public class GameManager : Singleton<GameManager>
     public RoomReward rewardBoxPanel;
     public GetItemPanel getItemPanel;
     public GameResult gameResultPanel;
+    public Sprite[] roomIcon;
 
     [Header("----- Key Input -----")]
     public bool isRightAttack;
@@ -161,6 +162,7 @@ public class GameManager : Singleton<GameManager>
         GameObject newWeapon = new GameObject();
         newWeapon.AddComponent<SpriteRenderer>();
         newWeapon.AddComponent<BoxCollider2D>();
+        newWeapon.AddComponent<Rigidbody2D>();
         newWeapon.tag = "Weapon";
 
         return newWeapon;

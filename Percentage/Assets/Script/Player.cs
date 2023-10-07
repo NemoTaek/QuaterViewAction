@@ -74,14 +74,15 @@ public class Player : MonoBehaviour
         // 적의 총알에 맞으면 체력 감소
         if (collision.CompareTag("EnemyBullet") && !isDamaged)
         {
-            // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
-            if (currentHealth <= 0)
-            {
-                isDead = true;
-                animator.SetTrigger("dead");
-                StartCoroutine(GameManager.instance.GameResult());
-            }
-            else StartCoroutine(PlayerDamaged());
+            // 적의 총알 삭제
+            collision.gameObject.SetActive(false);
+
+            PlayerCollide();
+        }
+
+        if (collision.CompareTag("Spike") && !isDamaged)
+        {
+            PlayerCollide();
         }
     }
 
@@ -90,14 +91,7 @@ public class Player : MonoBehaviour
         // 적과 닿으면 체력 감소
         if (collision.collider.CompareTag("Enemy") && !isDamaged)
         {
-            // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
-            if (currentHealth <= 0)
-            {
-                isDead = true;
-                animator.SetTrigger("dead");
-                StartCoroutine(GameManager.instance.GameResult());
-            }
-            else StartCoroutine(PlayerDamaged());
+            PlayerCollide();
         }
     }
 
@@ -130,6 +124,17 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
+    void PlayerCollide()
+    {
+        // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            animator.SetTrigger("dead");
+            StartCoroutine(GameManager.instance.GameResult());
+        }
+        else StartCoroutine(PlayerDamaged());
+    }
     IEnumerator PlayerDamaged()
     {
         currentHealth -= 0.5f;
