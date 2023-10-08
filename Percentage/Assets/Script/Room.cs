@@ -233,25 +233,15 @@ public class Room : MonoBehaviour
             // 보상 획득 (0: 성공, 1: 실패)
             int successOrFail = Random.Range(0, 2);
             GameObject reward;
-            if (successOrFail == 0)
-            {
-                reward = GameManager.instance.objectPool.prefabs[0];
-            }
-            else
-            {
-                // 상자 얻기에 실패하면 돈이나 하트 생성
-                // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
-                int randomObject = Random.Range(1, 4);
-                reward = GameManager.instance.objectPool.prefabs[randomObject];
-            }
 
             // 보상이 떨어지는 자리에 오브젝트가 있으면 헷갈리므로 있으면 다른곳에 놓도록 설정
             float distance = 0.1f;
-            Vector3 pos = Vector3.zero;
             RaycastHit2D rayCast = Physics2D.Raycast(transform.position, Vector2.up, distance, LayerMask.GetMask("Object"));
-            if(rayCast.collider)
+            Vector3 pos = Vector3.zero;
+
+            // 가운데 자리에 무언가 있으면 사방을 한번 둘러본다. 없으면 위에 초기화 한대로 가운데에 떨어질것이다.
+            if (rayCast.collider)
             {
-                Debug.Log(rayCast.collider);
                 while (true)
                 {
                     RaycastHit2D upObjectRayCast = Physics2D.Raycast(transform.position + Vector3.up, Vector2.up, distance, LayerMask.GetMask("Object"));
@@ -283,9 +273,20 @@ public class Room : MonoBehaviour
                     distance++;
                 }
             }
-            Debug.Log(pos);
-            Instantiate(reward, roomReward.transform);
-            reward.transform.position = pos;
+
+            if (successOrFail == 0)
+            {
+                reward = Instantiate(GameManager.instance.objectPool.prefabs[0], roomReward.transform);
+                reward.transform.position = transform.position + pos;
+            }
+            else
+            {
+                // 상자 얻기에 실패하면 돈이나 하트 생성
+                // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
+                int randomObject = Random.Range(1, 4);
+                reward = Instantiate(GameManager.instance.objectPool.prefabs[randomObject], roomReward.transform);
+                reward.transform.position = transform.position + pos;
+            }
         }
 
         // 전투가 끝났다면 감지되지는 위치의 문을 오픈

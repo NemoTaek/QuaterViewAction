@@ -120,4 +120,9 @@ public class Boss : Enemy
         Vector2 dirVec = target.position - rigid.position;
         bulletRigid.velocity = dirVec.normalized * 10f;
     }
+
+    void StopPattern()
+    {
+        StopCoroutine(BossPattern());
+    }
 }

@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public bool isLive;
     bool isObjectCollision;
-    Vector2 moveDir;
 
     void Awake()
     {
@@ -36,14 +35,14 @@ public class Enemy : MonoBehaviour
 
     void OnEnable()
     {
+        // 적 상태 초기화
         isLive = true;
         health = maxHealth;
-        StartCoroutine(SetRandomMove());
     }
 
     void Start()
     {
-
+        if(enemyType == EnemyType.Random) StartCoroutine(SetRandomMove());
     }
 
     void FixedUpdate()
@@ -52,7 +51,7 @@ public class Enemy : MonoBehaviour
         // 게임오버 시에도 못움직이도록 설정
         if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || GameManager.instance.player.isDead) return;
 
-        EnemyMove();
+        if (enemyType == EnemyType.Trace)   TraceMove();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -110,39 +109,11 @@ public class Enemy : MonoBehaviour
         spriteRenderer.flipX = target.position.x < rigid.position.x ? true : false;
     }
 
-    void EnemyMove()
-    {
-        switch(enemyType)
-        {
-            case EnemyType.Trace:
-                TraceMove();
-                break;
-
-            case EnemyType.Random:
-                RandomMove();
-                break;
-        }
-    }
-
     public void TraceMove()
     {
         Vector2 dirVec = target.position - rigid.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
-        rigid.velocity = Vector2.zero;
-    }
-
-    public void RandomMove()
-    {
-        // 오브젝트에 부딪치면 방향 전환
-        if (isObjectCollision)
-        {
-            StopCoroutine(SetRandomMove());
-            StartCoroutine(SetRandomMove());
-            isObjectCollision = false;
-        }
-
-        rigid.MovePosition(rigid.position + moveDir * speed * Time.fixedDeltaTime);
         rigid.velocity = Vector2.zero;
     }
 
@@ -153,6 +124,8 @@ public class Enemy : MonoBehaviour
 
     IEnumerator SetRandomMove()
     {
+        Vector2 moveDir = Vector2.zero;
+
         while (true)
         {
             int dirRandom = Random.Range(0, 4);
@@ -171,6 +144,16 @@ public class Enemy : MonoBehaviour
                     moveDir = Vector2.left;
                     break;
             }
+
+            // 오브젝트에 부딪치면 방향 전환
+            if (isObjectCollision)
+            {
+                isObjectCollision = false;
+                continue;
+            }
+
+            rigid.MovePosition(rigid.position + moveDir * speed * Time.fixedDeltaTime);
+            rigid.velocity = Vector2.zero;
 
             yield return new WaitForSeconds(3);
         }
