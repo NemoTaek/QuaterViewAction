@@ -21,7 +21,8 @@ public class Enemy : MonoBehaviour
     public float health;
     public float maxHealth;
     public bool isLive;
-    bool isObjectCollision;
+    public bool isObjectCollision;
+    public bool moveStart;
 
     void Awake()
     {
@@ -42,7 +43,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        if(enemyType == EnemyType.Random) StartCoroutine(SetRandomMove());
+        // 스폰되고 1초 후 이동 시작
+        StartCoroutine(MoveOneSecondAfter());
+        if (enemyType == EnemyType.Random) StartCoroutine(SetRandomMove());
     }
 
     void FixedUpdate()
@@ -51,7 +54,7 @@ public class Enemy : MonoBehaviour
         // 게임오버 시에도 못움직이도록 설정
         if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || GameManager.instance.player.isDead) return;
 
-        if (enemyType == EnemyType.Trace)   TraceMove();
+        if (enemyType == EnemyType.Trace && moveStart)   TraceMove();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -94,7 +97,11 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag("Object") || collision.collider.CompareTag("Wall"))
         {
-            isObjectCollision = true;
+            if (enemyType == EnemyType.Random)
+            {
+                StopCoroutine(SetRandomMove());
+                StartCoroutine(SetRandomMove());
+            }
         }
     }
 
@@ -107,6 +114,12 @@ public class Enemy : MonoBehaviour
     {
         // 기본은 오른쪽을 보고있다. 뒤집으려면 타겟(플레이어)가 적보다 왼쪽에 있어야 한다.
         spriteRenderer.flipX = target.position.x < rigid.position.x ? true : false;
+    }
+
+    IEnumerator MoveOneSecondAfter()
+    {
+        yield return new WaitForSeconds(1);
+        moveStart = true;
     }
 
     public void TraceMove()
@@ -124,6 +137,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator SetRandomMove()
     {
+        yield return new WaitForSeconds(1);
         Vector2 moveDir = Vector2.zero;
 
         while (true)
@@ -145,17 +159,10 @@ public class Enemy : MonoBehaviour
                     break;
             }
 
-            // 오브젝트에 부딪치면 방향 전환
-            if (isObjectCollision)
-            {
-                isObjectCollision = false;
-                continue;
-            }
+            rigid.AddForce(moveDir);
+            rigid.velocity = moveDir * speed;
 
-            rigid.MovePosition(rigid.position + moveDir * speed * Time.fixedDeltaTime);
-            rigid.velocity = Vector2.zero;
-
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
         }
     }
 

@@ -106,6 +106,7 @@ public class Map : Singleton<Map>
                 itemPrefab[index] = GameManager.instance.itemPool.Get(random);
                 itemPrefab[index].transform.position = room.itemPoint[index].transform.position + Vector3.up;
                 itemPrefab[index].Init(GameManager.instance.itemData[random - 1]);
+                itemPrefab[index].isInShop = true;
                 index++;
             }
         }

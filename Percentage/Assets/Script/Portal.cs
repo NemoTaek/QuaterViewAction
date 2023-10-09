@@ -33,7 +33,7 @@ public class Portal : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        yield return SceneManager.LoadSceneAsync("Stage2", LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
     }
 
     IEnumerator UnloadScene()

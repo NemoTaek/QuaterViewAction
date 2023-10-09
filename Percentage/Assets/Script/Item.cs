@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     public float duringTime;
     public Sprite image;
 
+    public bool isInShop;
     public bool isPurchased;
     Player player;
 
@@ -40,36 +41,45 @@ public class Item : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            if(price < GameManager.instance.coin)
+            // 상점에 있고, 아이템 가격보다 많은 돈을 가지고 있다면 돈 차감
+            if(isInShop)
             {
-                // 아이템 가격만큼 코인 차감
-                GameManager.instance.coin -= price;
-
-                // 아이템 획득 UI 활성화
-                GameManager.instance.isOpenItemPanel = true;
-                GameManager.instance.getItemPanel.gameObject.SetActive(true);
-                GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
-
-                // 구매한 아이템 적용
-                StartCoroutine(UseItem(id));
-                GameManager.instance.getItemList.Add(image);
-
-                // 스탯 변화가 있다면 스탯 창 UI 갱신
-                GameManager.instance.ui.isChanged = true;
-
-                // 판매 완료 처리
-                isPurchased = true;
-
-                // 상점에서 아이템 갱신
-                Map.instance.currentRoom.isItemSet = false;
-                gameObject.SetActive(false);
+                if(price < GameManager.instance.coin)
+                {
+                    GameManager.instance.coin -= price;
+                    GetItem();
+                }
             }
+            // 황금방에 있으면 그냥 먹을 수 있음
+            else GetItem();
         }
     }
 
     void Update()
     {
         
+    }
+
+    void GetItem()
+    {
+        // 아이템 획득 UI 활성화
+        GameManager.instance.isOpenItemPanel = true;
+        GameManager.instance.getItemPanel.gameObject.SetActive(true);
+        GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
+
+        // 구매한 아이템 적용
+        StartCoroutine(UseItem(id));
+        GameManager.instance.getItemList.Add(image);
+
+        // 스탯 변화가 있다면 스탯 창 UI 갱신
+        GameManager.instance.ui.isChanged = true;
+
+        // 판매 완료 처리
+        isPurchased = true;
+
+        // 상점에서 아이템 갱신
+        Map.instance.currentRoom.isItemSet = false;
+        gameObject.SetActive(false);
     }
 
     public IEnumerator UseItem(int id)

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro2.unity
     guid: 50fcd9182a6b9854292a36703c0c3b90
   - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: bc7ab7ab39e0fa842b95afb4d8933908
+  - enabled: 1
     path: Assets/Scenes/Permanent Scene.unity
     guid: 7995869e2c3257d4e98922d9fe9dc9b2
   - enabled: 1

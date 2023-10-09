@@ -14,7 +14,7 @@ public class Boss : Enemy
 
     void FixedUpdate()
     {
-        if (GameManager.instance.player.isDead) return;
+        if (!moveStart || GameManager.instance.player.isDead) return;
         if (isTrace) TraceMove();
         if (!isPatternPlaying)  StartCoroutine(BossPattern());
     }
@@ -123,6 +123,7 @@ public class Boss : Enemy
 
     void StopPattern()
     {
+        isPatternPlaying = true;
         StopCoroutine(BossPattern());
     }
 }

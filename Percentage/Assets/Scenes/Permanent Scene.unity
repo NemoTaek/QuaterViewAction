@@ -1409,7 +1409,7 @@ MonoBehaviour:
   isUltimateLeftAttack: 0
   isUltimateUpAttack: 0
   isUltimateDownAttack: 0
-  stage: 0
+  stage: 1
   isOpenStatus: 0
   isOpenBox: 0
   isOpenItemPanel: 0

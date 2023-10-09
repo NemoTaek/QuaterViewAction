@@ -71,8 +71,8 @@ public class Fade : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Permanent Scene");
-            SceneManager.LoadScene("Stage1", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Permanent Scene", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         }
     }
 }
