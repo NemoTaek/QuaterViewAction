@@ -1392,6 +1392,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53ed45c0d20cd2145a6091a5922db37a, type: 2}
   - {fileID: 11400000, guid: 6c70fccf2f8f2f147ae6a2e2f6ceacfd, type: 2}
   itemPricePool: {fileID: 714128833}
+  uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}
   rewardBoxPanel: {fileID: 1657077297}
@@ -1410,6 +1411,7 @@ MonoBehaviour:
   isUltimateUpAttack: 0
   isUltimateDownAttack: 0
   stage: 1
+  lastStageIndex: 2
   isOpenStatus: 0
   isOpenBox: 0
   isOpenItemPanel: 0

@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject itemPricePool;
 
     [Header("----- UI Component -----")]
+    public Canvas uiCanvas;
     public UserInterface ui;
     public StatusInfo statusPanel;
     public RoomReward rewardBoxPanel;
@@ -41,6 +42,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("----- System Info -----")]
     public int stage;
+    public int lastStageIndex;
     public bool isOpenStatus;
     public bool isOpenBox;
     public bool isOpenItemPanel;
@@ -71,6 +73,9 @@ public class GameManager : Singleton<GameManager>
 
     public void GameInit()
     {
+        // 스테이지 업
+        stage++;
+
         // 플레이어, 카메라 위치 초기화
         player.transform.position = Vector3.forward;
         cam.transform.position = Vector3.back;
