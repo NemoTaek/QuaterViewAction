@@ -9,6 +9,7 @@ public class LoadingManager : MonoBehaviour
     public Sprite[] loadingImage;
     public Image character;
     int randomCharacter;
+    string[] tipTextArray;
     public Text tip;
     public Image progressBar;
     public float timer;
@@ -18,6 +19,13 @@ public class LoadingManager : MonoBehaviour
     {
         timer = 0;
         randomCharacter = Random.Range(0, 2);
+        tipTextArray = new string[]{
+            "WASD로 이동하고, 화살표로 공격할 수 있습니다.",
+            "직업은 기사, 마법사, 도적, 거너 4가지가 있습니다.",
+            "상자 안에는 좋은 것만 있을까요?",
+            "안좋은 일이 생기더라도 실망하지 말아요!",
+        };
+        tip.text = tipTextArray[Random.Range(0, tipTextArray.Length)];
         StartCoroutine(LoadingScene());
     }
 
@@ -36,7 +44,6 @@ public class LoadingManager : MonoBehaviour
         // 0: 인트로1, 1: 인트로2, 2: 로딩 씬, 3: 파괴되면 안되는 오브젝트 모음 씬
         // 4부터가 스테이지 1, 2, 3
         stage = GameManager.instance.stage;
-        Debug.Log(stage);
         AsyncOperation operation = SceneManager.LoadSceneAsync(stage + 3, LoadSceneMode.Additive);
 
         // 씬 로딩이 완료되어도 장면이 전환되지 않도록 설정

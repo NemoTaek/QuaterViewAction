@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public bool isObjectCollision;
     public bool moveStart;
 
+    public bool enemySlow;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -74,7 +76,12 @@ public class Enemy : MonoBehaviour
             if (health > 0)
             {
                 animator.SetTrigger("Hit");
-                StartCoroutine(KnockBack(knockbackAmount));
+
+                // 투과 효과를 먹지 않았다면 넉백효과
+                if (!collision.gameObject.GetComponent<Bullet>().isPenetrate)    StartCoroutine(KnockBack(knockbackAmount));
+
+                // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
+                if (!collision.gameObject.GetComponent<Bullet>().isSlow && !enemySlow) StartCoroutine(MoveSlow());
             }
             else
             {
@@ -174,6 +181,17 @@ public class Enemy : MonoBehaviour
         Vector3 playerPosition = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPosition;
         rigid.AddForce(dirVec.normalized * knockbackAmount, ForceMode2D.Impulse);
+    }
+
+    IEnumerator MoveSlow()
+    {
+        enemySlow = true;
+
+        speed /= 2;
+        yield return new WaitForSeconds(2.5f);
+        speed *= 2;
+
+        enemySlow = false;
     }
 
     void DeadAnimation()

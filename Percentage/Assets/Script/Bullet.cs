@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int id;
+    public bool isPenetrate;
+    public bool isSlow;
 
     void Awake()
     {
@@ -18,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Wall") || collision.CompareTag("Object"))
+        if (!isPenetrate && (collision.CompareTag("Wall") || collision.CompareTag("Object")))
         {
             gameObject.SetActive(false);
             transform.position = transform.parent.position;

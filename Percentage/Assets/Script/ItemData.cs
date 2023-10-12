@@ -16,4 +16,12 @@ public class ItemData : ScriptableObject
     public float itemCoolTime;
     public float itemDuringTime;
     public Sprite itemImage;
+
+    [Header("----- Item Status -----")]
+    public float itemSpeed;
+    public float itemAttackSpeed;
+    public float itemDamage;
+    public float itemStaticDamage;
+    public float itemHealth;
+    public float itemCurrentHealth;
 }

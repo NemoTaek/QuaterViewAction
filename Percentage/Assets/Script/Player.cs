@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
     public float power;
     public float powerUp = 0;
     public float staticPower = 0;
+    public bool isFly;
+    public bool isScapular;
 
     void Awake()
     {
@@ -80,7 +82,8 @@ public class Player : MonoBehaviour
             PlayerCollide();
         }
 
-        if (collision.CompareTag("Spike") && !isDamaged)
+        // 피격시 무적 1초와 비행효과 있을 경우를 제외하면 피격
+        if (collision.CompareTag("Spike") && !isDamaged && !isFly)
         {
             PlayerCollide();
         }
@@ -135,12 +138,22 @@ public class Player : MonoBehaviour
         }
         else StartCoroutine(PlayerDamaged());
     }
+
     IEnumerator PlayerDamaged()
     {
-        currentHealth -= 0.5f;
+        // 성의 아이템을 먹으면 30% 확률로 노피격 판정
+        if (isScapular)
+        {
+            int random = Random.Range(0, 10);
+            if (random > 3) currentHealth -= 0.5f;
+        }
+        else currentHealth -= 0.5f;
+
+        // 피격 효과
         isDamaged = true;
         GameManager.instance.ui.isChanged = true;
 
+        // 투명도 50% 후 1초 후 복구
         Color color = spriteRenderer.color;
         color.a = 0.5f;
         spriteRenderer.color = color;

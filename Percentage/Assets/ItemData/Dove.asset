@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32604d45279a1bd48bf17f2fac615799, type: 3}
+  m_Name: Dove
+  m_EditorClassIdentifier: 
+  itemType: 1
+  itemId: 8
+  itemName: "\uD3C9\uD654\uC758 \uBE44\uB458\uAE30"
+  itemPrice: 30
+  itemDesc: "\uB0A0\uC544\uC624\uB974\uB77C!"
+  itemCoolTime: 0
+  itemDuringTime: 0
+  itemImage: {fileID: 21300000, guid: 77cb008b562bfa946bcc934848f3a4eb, type: 3}
+  itemSpeed: 0
+  itemAttackSpeed: 0
+  itemDamage: 0
+  itemStaticDamage: 0
+  itemHealth: 0
+  itemCurrentHealth: 0

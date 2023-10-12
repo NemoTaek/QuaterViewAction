@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32604d45279a1bd48bf17f2fac615799, type: 3}
-  m_Name: Item2
+  m_Name: Magic Mush
   m_EditorClassIdentifier: 
   itemType: 1
-  itemId: 2
-  itemName: "\uB2EC\uB7EC"
-  itemPrice: 10
-  itemDesc: "\uB3C8\uC774 \uBCF5\uC0AC\uAC00 \uB41C\uB2E4\uACE0?"
+  itemId: 3
+  itemName: "\uBC84\uC12F"
+  itemPrice: 20
+  itemDesc: "\uBB34\uB7ED \uBB34\uB7ED \uBB34\uB7ED"
   itemCoolTime: 0
   itemDuringTime: 0
-  itemImage: {fileID: 21300000, guid: d653733a8ef0c7b4599fe94740910802, type: 3}
+  itemImage: {fileID: 21300000, guid: 3c89b062d34ccf54ca71c31e6581ad7b, type: 3}
+  itemSpeed: -0.3
+  itemAttackSpeed: 1
+  itemDamage: 1
+  itemStaticDamage: 1
+  itemHealth: 1
+  itemCurrentHealth: 1

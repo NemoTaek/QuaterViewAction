@@ -84,30 +84,21 @@ public class Item : MonoBehaviour
 
     public IEnumerator UseItem(int id)
     {
+        int bullets = GameManager.instance.bulletPool.bullets.Length;
+
+        // 스탯 외의 다른 효과가 있으면 추가적으로 작성
         switch (id)
         {
-            // 밴드
-            case 1:
-                player.health++;
-                player.currentHealth++;
-                break;
             // 달러
             case 2:
                 GameManager.instance.coin += 20;
                 break;
             // 버섯
             case 3:
-                player.powerUp += 3;
-                player.speed -= 0.5f;
-                player.attackSpeedUp += 1;
-                player.health += 1;
-                player.currentHealth += 1;
                 player.transform.localScale += Vector3.one * 0.25f;
                 break;
             // 미니버섯
             case 4:
-                player.speed += 0.5f;
-                player.attackSpeedUp += 1;
                 player.transform.localScale -= Vector3.one * 0.25f;
                 break;
             // 스테로이드
@@ -130,6 +121,34 @@ public class Item : MonoBehaviour
                         else if (i == 3) player.attackSpeedUp = status[i];
                     }
                     
+                }
+                break;
+            // 동전주머니
+            case 6:
+                // 플레이어 뒤에 주머니 따라다니도록 추가
+                // 일정 수의 적 저치 혹은 일정 수의 방을 클리어 했을 시 1원 드랍
+                break;
+            // 큐피드의 화살
+            case 7:
+                
+                for(int i=0; i<bullets; i++)
+                {
+                    GameManager.instance.bulletPool.bullets[i].isPenetrate = true;
+                }
+                break;
+            // 비둘기
+            case 8:
+                GameManager.instance.player.isFly = true;
+                break;
+            // 성의
+            case 11:
+                GameManager.instance.player.isScapular = true;
+                break;
+            // 물린 거미
+            case 12:
+                for (int i = 0; i < bullets; i++)
+                {
+                    GameManager.instance.bulletPool.bullets[i].isSlow = true;
                 }
                 break;
         }

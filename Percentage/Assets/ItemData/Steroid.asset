@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32604d45279a1bd48bf17f2fac615799, type: 3}
-  m_Name: Item3
+  m_Name: Steroid
   m_EditorClassIdentifier: 
   itemType: 1
-  itemId: 3
-  itemName: "\uBC84\uC12F"
-  itemPrice: 20
-  itemDesc: "\uBB34\uB7ED \uBB34\uB7ED \uBB34\uB7ED"
+  itemId: 5
+  itemName: "\uC2A4\uD14C\uB85C\uC774\uB4DC"
+  itemPrice: 5
+  itemDesc: "\uBA39\uC73C\uBA74 \uC5B4\uB5BB\uAC8C \uB420\uAE4C\uC694?"
   itemCoolTime: 0
   itemDuringTime: 0
-  itemImage: {fileID: 21300000, guid: 3c89b062d34ccf54ca71c31e6581ad7b, type: 3}
+  itemImage: {fileID: 21300000, guid: db4ec3f65cb117146bd5a33880868c1d, type: 3}

@@ -54,7 +54,7 @@ public class Hand : MonoBehaviour
         if (!isUsableSkill) return;
 
         // 애니메이터 속도 기본값. 전사 돌진에서 속도를 5로 사용하기 때문에 기본값이 필요
-        if (GameManager.instance.player.role != 3) animator.speed = 1;
+        if (GameManager.instance.player.role != 3) animator.speed = 5;
 
         if (skillIndex == 0)
         {

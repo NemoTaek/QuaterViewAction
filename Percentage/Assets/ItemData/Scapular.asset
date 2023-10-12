@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32604d45279a1bd48bf17f2fac615799, type: 3}
-  m_Name: Item1
+  m_Name: Scapular
   m_EditorClassIdentifier: 
   itemType: 1
-  itemId: 1
-  itemName: "\uBC34\uB4DC"
-  itemPrice: 10
-  itemDesc: "\uC0C1\uCC98\uB97C \uCE58\uB8CC\uD574 \uCCB4\uB825\uC774 \uC88B\uC544\uC9D1\uB2C8\uB2E4."
+  itemId: 11
+  itemName: "\uC131\uC758"
+  itemPrice: 30
+  itemDesc: "\uB9DE\uC558\uB294\uB370 \uC548\uB9DE\uC558\uC744\uC218\uB3C4?"
   itemCoolTime: 0
   itemDuringTime: 0
-  itemImage: {fileID: 21300000, guid: 0ef0d08421029da4d9a39e126fe201a5, type: 3}
+  itemImage: {fileID: 21300000, guid: 9fa8060cc54be9c438f665c1434f109b, type: 3}
+  itemSpeed: 0
+  itemAttackSpeed: 0
+  itemDamage: 0
+  itemStaticDamage: 0
+  itemHealth: 0
+  itemCurrentHealth: 0
