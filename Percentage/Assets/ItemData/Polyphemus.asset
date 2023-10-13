@@ -16,7 +16,7 @@ MonoBehaviour:
   itemId: 10
   itemName: "\uD3F4\uB9AC\uD398\uBB34\uC2A4"
   itemPrice: 30
-  itemDesc: "\uC9E7\uACE0 \uAC00\uB298\uAC8C"
+  itemDesc: "\uD06C\uACE0 \uBB34\uAC81\uAC8C"
   itemCoolTime: 0
   itemDuringTime: 0
   itemImage: {fileID: 21300000, guid: d0d68bac20f741646876d70f03a1219d, type: 3}

@@ -36,14 +36,14 @@ public class Enemy : MonoBehaviour
         room = gameObject.GetComponentInParent<Room>();
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         // 적 상태 초기화
         isLive = true;
         health = maxHealth;
     }
 
-    void Start()
+    protected virtual void Start()
     {
         // 스폰되고 1초 후 이동 시작
         StartCoroutine(MoveOneSecondAfter());
@@ -78,10 +78,10 @@ public class Enemy : MonoBehaviour
                 animator.SetTrigger("Hit");
 
                 // 투과 효과를 먹지 않았다면 넉백효과
-                if (!collision.gameObject.GetComponent<Bullet>().isPenetrate)    StartCoroutine(KnockBack(knockbackAmount));
+                if (!collision.gameObject.GetComponent<Bullet>().isPenetrate || !collision.gameObject.GetComponent<Weapon>().isPenetrate)    StartCoroutine(KnockBack(knockbackAmount));
 
                 // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
-                if (!collision.gameObject.GetComponent<Bullet>().isSlow && !enemySlow) StartCoroutine(MoveSlow());
+                if ((!collision.gameObject.GetComponent<Bullet>().isSlow || !collision.gameObject.GetComponent<Weapon>().isSlow) && !enemySlow) StartCoroutine(MoveSlow());
             }
             else
             {

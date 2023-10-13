@@ -1391,6 +1391,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b05206d48ae3eb14d99eae0658622f9f, type: 2}
   - {fileID: 11400000, guid: 53ed45c0d20cd2145a6091a5922db37a, type: 2}
   - {fileID: 11400000, guid: 6c70fccf2f8f2f147ae6a2e2f6ceacfd, type: 2}
+  - {fileID: 11400000, guid: d39161cd746986b439594568c39df8f4, type: 2}
+  - {fileID: 11400000, guid: 22273a7e9063cef409f47bdaabf2f121, type: 2}
+  - {fileID: 11400000, guid: 5d3010b06c9324f48a2ad6a3d8790938, type: 2}
+  - {fileID: 11400000, guid: 323c472931e4f8146bd7506b367452e9, type: 2}
+  - {fileID: 11400000, guid: fba7b19c7b3679a4698b0dc40f0b82e6, type: 2}
+  - {fileID: 11400000, guid: cd4fb92dcc15dfd4299ee474678e79e6, type: 2}
+  - {fileID: 11400000, guid: e27aac1027f367a4089412121060097d, type: 2}
+  - {fileID: 11400000, guid: b7c4401ac06dbc5428f3ad9023055a19, type: 2}
+  - {fileID: 11400000, guid: 181508709cd55ad4ba5dbb0a3121f736, type: 2}
   itemPricePool: {fileID: 714128833}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
@@ -3373,6 +3382,15 @@ MonoBehaviour:
   - {fileID: 208748470448235730, guid: 9f4820ad6a98a7e4386581bff7b16c35, type: 3}
   - {fileID: 3108526399049202771, guid: e0134707b0f9be344ac9307b4def322f, type: 3}
   - {fileID: 3722117145731678117, guid: df20a5ef2527ae047a4230e5eab9de6d, type: 3}
+  - {fileID: 1406261801211300704, guid: d451177c70a4e6f47844c3a0140c60fa, type: 3}
+  - {fileID: 1853977598396370072, guid: 5dcf7181ce8f136459c2b5bc3c194be0, type: 3}
+  - {fileID: 9105344871849354651, guid: e245f8206cfa06c4088186c58910e55f, type: 3}
+  - {fileID: 5693433774462702614, guid: 953d1ebe6e1e80e4e8153705f1558291, type: 3}
+  - {fileID: 2431470117024038832, guid: 44bc60baa5e19104c9d403c495165e11, type: 3}
+  - {fileID: 6985113458314404780, guid: 2325741a9de55e1449c7e2d5cf360aa9, type: 3}
+  - {fileID: 257297595924295840, guid: 30285285388345e49955db6ada225224, type: 3}
+  - {fileID: 5033373485305881414, guid: d058ce29a0ba19040bf70ab06225901d, type: 3}
+  - {fileID: 6504199920030574041, guid: 31731a7597943c945aa93c9017c69250, type: 3}
 --- !u!4 &509478443
 Transform:
   m_ObjectHideFlags: 0

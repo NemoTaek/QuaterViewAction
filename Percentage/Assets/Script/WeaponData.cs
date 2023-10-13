@@ -13,6 +13,8 @@ public class WeaponData : ScriptableObject
     public string weaponName;
     public string weaponDesc;
     public Sprite weaponIcon;
+    public bool isPenetrate;
+    public bool isSlow;
 
     [Header("----- Level Data -----")]
     public float baseDamage;

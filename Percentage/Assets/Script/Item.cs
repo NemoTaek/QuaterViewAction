@@ -12,6 +12,13 @@ public class Item : MonoBehaviour
     public float duringTime;
     public Sprite image;
 
+    float itemSpeed;
+    float itemAttackSpeed;
+    float itemDamage;
+    float itemStaticDamage;
+    float itemHealth;
+    float itemCurrentHealth;
+
     public bool isInShop;
     public bool isPurchased;
     Player player;
@@ -30,6 +37,13 @@ public class Item : MonoBehaviour
         coolTime = data.itemCoolTime;
         duringTime = data.itemDuringTime;
         image = data.itemImage;
+
+        itemSpeed = data.itemSpeed;
+        itemAttackSpeed = data.itemAttackSpeed;
+        itemDamage = data.itemDamage;
+        itemStaticDamage = data.itemStaticDamage;
+        itemHealth = data.itemHealth;
+        itemCurrentHealth = data.itemCurrentHealth;
     }
 
     void Start()
@@ -84,7 +98,17 @@ public class Item : MonoBehaviour
 
     public IEnumerator UseItem(int id)
     {
-        int bullets = GameManager.instance.bulletPool.bullets.Length;
+        Bullet[] bullets = GameManager.instance.bulletPool.bullets;
+        Bullet[] existedBullet = GameManager.instance.bulletPool.GetComponentsInChildren<Bullet>(true);
+        Weapon[] weapons = GameManager.instance.weapon;
+
+        // 스탯 올라가는 것들은 공통 적용 (스탯 변동 없어도 0이니까 적용해도 똑같다)
+        player.speed += itemSpeed;
+        player.attackSpeed += itemAttackSpeed;
+        player.powerUp += itemDamage;
+        player.staticPower += itemStaticDamage;
+        player.health += itemHealth;
+        player.currentHealth += itemCurrentHealth;
 
         // 스탯 외의 다른 효과가 있으면 추가적으로 작성
         switch (id)
@@ -130,10 +154,17 @@ public class Item : MonoBehaviour
                 break;
             // 큐피드의 화살
             case 7:
-                
-                for(int i=0; i<bullets; i++)
+                for(int i=0; i<bullets.Length; i++)
                 {
-                    GameManager.instance.bulletPool.bullets[i].isPenetrate = true;
+                    bullets[i].isPenetrate = true;
+                }
+                foreach(Bullet bullet in existedBullet)
+                {
+                    bullet.isPenetrate = true;
+                }
+                for (int i = 0; i < weapons.Length; i++)
+                {
+                    if(weapons[i])  weapons[i].isPenetrate = true;
                 }
                 break;
             // 비둘기
@@ -146,9 +177,17 @@ public class Item : MonoBehaviour
                 break;
             // 물린 거미
             case 12:
-                for (int i = 0; i < bullets; i++)
+                for (int i = 0; i < bullets.Length; i++)
                 {
-                    GameManager.instance.bulletPool.bullets[i].isSlow = true;
+                    bullets[i].isSlow = true;
+                }
+                foreach (Bullet bullet in existedBullet)
+                {
+                    bullet.isPenetrate = true;
+                }
+                for (int i = 0; i < weapons.Length; i++)
+                {
+                    if (weapons[i]) weapons[i].isSlow = true;
                 }
                 break;
         }

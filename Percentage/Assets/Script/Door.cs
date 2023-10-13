@@ -22,7 +22,7 @@ public class Door : MonoBehaviour
             if (doorTag == "TopDoor")
             {
                 cameraPosition += Vector3.up * 12f;
-                GameManager.instance.player.transform.position = playerPosition + Vector3.up * 6f;
+                GameManager.instance.player.transform.position = playerPosition + Vector3.up * 5f;
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.upRoom;
@@ -32,7 +32,7 @@ public class Door : MonoBehaviour
             if (doorTag == "BottomDoor")
             {
                 cameraPosition += Vector3.down * 12f;
-                GameManager.instance.player.transform.position = playerPosition + Vector3.down * 6f;
+                GameManager.instance.player.transform.position = playerPosition + Vector3.down * 5f;
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.downRoom;
@@ -42,7 +42,7 @@ public class Door : MonoBehaviour
             if (doorTag == "LeftDoor")
             {
                 cameraPosition += Vector3.left * 20f;
-                GameManager.instance.player.transform.position = playerPosition + Vector3.left * 6f;
+                GameManager.instance.player.transform.position = playerPosition + Vector3.left * 5f;
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.leftRoom;
@@ -52,7 +52,7 @@ public class Door : MonoBehaviour
             if (doorTag == "RightDoor")
             {
                 cameraPosition += Vector3.right * 20f;
-                GameManager.instance.player.transform.position = playerPosition + Vector3.right * 6f;
+                GameManager.instance.player.transform.position = playerPosition + Vector3.right * 5f;
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.rightRoom;

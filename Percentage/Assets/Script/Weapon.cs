@@ -19,6 +19,9 @@ public class Weapon : MonoBehaviour
     BoxCollider2D col;
     Rigidbody2D rigid;
 
+    public bool isPenetrate;
+    public bool isSlow;
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

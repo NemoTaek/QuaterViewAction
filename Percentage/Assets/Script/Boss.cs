@@ -7,9 +7,16 @@ public class Boss : Enemy
     bool isPatternPlaying;
     bool isTrace;
 
-    void Start()
+    protected override void OnEnable()
     {
-        
+        base.OnEnable();
+        Debug.Log("보스 초기화");
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        Debug.Log("보스 시작");
     }
 
     void FixedUpdate()
