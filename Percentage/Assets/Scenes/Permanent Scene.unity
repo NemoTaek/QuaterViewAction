@@ -9444,7 +9444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121f6ea6dbc83c8479835caa5170fead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullets:
+  playerBullets:
   - {fileID: 6650827889419815577, guid: 7b9737a4f22c14f4f82985ac3d5e6cab, type: 3}
   - {fileID: 912655136422607676, guid: 2f5c2247f6e41b24bae0fa949ba9a8bd, type: 3}
   - {fileID: -895656100866494772, guid: 346a49007c4d8fb438cea6dde0489fc2, type: 3}
@@ -9456,6 +9456,7 @@ MonoBehaviour:
   - {fileID: 8419689193975322714, guid: b752247061c3e5648b08f90b1ff1099d, type: 3}
   - {fileID: -450998334187178505, guid: 871bfc6a515e63047b5f81efc317011b, type: 3}
   - {fileID: 7530406234427405972, guid: c778740778c39174cb00419670042d3d, type: 3}
+  enemyBullets:
   - {fileID: -4730728600186790228, guid: b043c73cdd81bd14fa149e3a6e0552a8, type: 3}
 --- !u!4 &1240806996
 Transform:

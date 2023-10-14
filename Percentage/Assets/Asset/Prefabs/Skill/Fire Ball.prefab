@@ -138,6 +138,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  type: 0
+  isPenetrate: 0
+  isSlow: 0
 --- !u!114 &-3415368054863616326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  type: 0
+  isPenetrate: 0
+  isSlow: 0

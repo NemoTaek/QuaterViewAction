@@ -92,6 +92,13 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(price.gameObject);
         }
+
+        // 전 플레이에서 먹은 속성들 모두 초기화
+        foreach(Bullet bullet in bulletPool.playerBullets)
+        {
+            bullet.isPenetrate = false;
+            bullet.isSlow = false;
+        }
     }
 
     void InputKeyboard()

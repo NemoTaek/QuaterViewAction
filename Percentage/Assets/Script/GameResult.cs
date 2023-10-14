@@ -38,7 +38,8 @@ public class GameResult : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("Stage1");
+            SceneManager.LoadScene("Permanent Scene");
+            SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         }
     }
 

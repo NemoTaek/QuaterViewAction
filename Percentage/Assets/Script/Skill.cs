@@ -124,7 +124,7 @@ public class Skill : MonoBehaviour
                     // 지속시간 안에 플레이어가 피격당했으면 1초간 충격파 발생
                     if (player.isDamaged)
                     {
-                        SkillBullet shockWave = GameManager.instance.bulletPool.Get(4).GetComponent<SkillBullet>();
+                        SkillBullet shockWave = GameManager.instance.bulletPool.Get(0, 4).GetComponent<SkillBullet>();
                         shockWave.transform.position = player.transform.position;
 
                         yield return new WaitForSeconds(skillDuringTime);
@@ -167,7 +167,7 @@ public class Skill : MonoBehaviour
                 SkillBullet[] meteors = new SkillBullet[10];
                 for(int i=0; i<10; i++)
                 {
-                    SkillBullet meteor = GameManager.instance.bulletPool.Get(5).GetComponent<SkillBullet>();
+                    SkillBullet meteor = GameManager.instance.bulletPool.Get(0, 5).GetComponent<SkillBullet>();
                     float randomX = Random.Range(-6.5f, 7.5f);
                     float randomY = Random.Range(-2.5f, 3.5f);
 
@@ -196,7 +196,7 @@ public class Skill : MonoBehaviour
                 break;
             // 마법사 인페르노라이즈
             case 9:
-                SkillBullet infernorize = GameManager.instance.bulletPool.Get(8).GetComponent<SkillBullet>();
+                SkillBullet infernorize = GameManager.instance.bulletPool.Get(0, 8).GetComponent<SkillBullet>();
                 infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
 
                 yield return new WaitForSeconds(2f);
@@ -248,19 +248,19 @@ public class Skill : MonoBehaviour
                 // 설정한 위치에 지뢰 설치
                 for (int i = 0; i < 8; i++)
                 {
-                    mines[i] = GameManager.instance.bulletPool.Get(6).GetComponent<SkillBullet>();
+                    mines[i] = GameManager.instance.bulletPool.Get(0, 6).GetComponent<SkillBullet>();
                     mines[i].transform.position = minePosition[i];
                 }
                 break;
             // 도적 암살
             case 14:
                 // 1타
-                SkillBullet assassination1 = GameManager.instance.bulletPool.Get(9).GetComponent<SkillBullet>();
+                SkillBullet assassination1 = GameManager.instance.bulletPool.Get(0, 9).GetComponent<SkillBullet>();
                 assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 yield return new WaitForSeconds(0.5f);
 
                 // 2타
-                SkillBullet assassination2 = GameManager.instance.bulletPool.Get(9).GetComponent<SkillBullet>();
+                SkillBullet assassination2 = GameManager.instance.bulletPool.Get(0, 9).GetComponent<SkillBullet>();
                 assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 assassination2.transform.rotation = Quaternion.Euler(0, 0, 90);
                 yield return new WaitForSeconds(1f);

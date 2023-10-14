@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
-    public Bullet[] bullets;
-    List<Bullet>[] pools;
+    public Bullet[] playerBullets;
+    public Bullet[] enemyBullets;
+    List<Bullet>[] playerBulletPools;
+    List<Bullet>[] enemyBulletPools;
 
     void Awake()
     {
-        pools = new List<Bullet>[bullets.Length];
-        for (int i = 0; i < pools.Length; i++)
+        playerBulletPools = new List<Bullet>[playerBullets.Length];
+        enemyBulletPools = new List<Bullet>[enemyBullets.Length];
+
+        for (int i = 0; i < playerBulletPools.Length; i++)
         {
-            pools[i] = new List<Bullet>();
+            playerBulletPools[i] = new List<Bullet>();
+        }
+        for (int i = 0; i < enemyBulletPools.Length; i++)
+        {
+            enemyBulletPools[i] = new List<Bullet>();
         }
     }
 
-    public Bullet Get(int index)
+    public Bullet Get(int type, int index)
     {
+        List<Bullet>[] pools = type == 0 ? playerBulletPools : enemyBulletPools;
+        Bullet[] bullets = type == 0 ? playerBullets : enemyBullets;
         Bullet select = null;
 
         foreach (Bullet bullet in pools[index])

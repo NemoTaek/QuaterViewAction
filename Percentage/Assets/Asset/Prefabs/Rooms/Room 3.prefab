@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7079034691021469103}
   - component: {fileID: 7079034691021469102}
   - component: {fileID: 7079034691021469101}
+  - component: {fileID: 2642520672648581802}
   m_Layer: 0
   m_Name: Rock (1)
   m_TagString: Object
@@ -164,6 +165,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2642520672648581802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079034691021469099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a5798cf7abacb419da0b7cca6b32f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
 --- !u!1 &7079034691145108835
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +676,7 @@ GameObject:
   - component: {fileID: 7079034691283703430}
   - component: {fileID: 7079034691283703429}
   - component: {fileID: 7079034691283703428}
+  - component: {fileID: 2707426872010313232}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Object
@@ -783,6 +798,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2707426872010313232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079034691283703426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a5798cf7abacb419da0b7cca6b32f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
 --- !u!1 &7079034691317816562
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +823,7 @@ GameObject:
   - component: {fileID: 7079034691317816566}
   - component: {fileID: 7079034691317816565}
   - component: {fileID: 7079034691317816564}
+  - component: {fileID: 3461696440782870438}
   m_Layer: 0
   m_Name: Rock (4)
   m_TagString: Object
@@ -916,6 +945,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &3461696440782870438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079034691317816562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a5798cf7abacb419da0b7cca6b32f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
 --- !u!1 &7079034691475890284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3467,6 +3509,7 @@ GameObject:
   - component: {fileID: 7079034691739014326}
   - component: {fileID: 7079034691739014325}
   - component: {fileID: 7079034691739014324}
+  - component: {fileID: 2650913507776729165}
   m_Layer: 0
   m_Name: Rock (2)
   m_TagString: Object
@@ -3588,6 +3631,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2650913507776729165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079034691739014322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a5798cf7abacb419da0b7cca6b32f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
 --- !u!1 &7079034691950457091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,6 +3692,7 @@ GameObject:
   - component: {fileID: 7079034692048972978}
   - component: {fileID: 7079034692048972977}
   - component: {fileID: 7079034692048972976}
+  - component: {fileID: 958483442542475677}
   m_Layer: 0
   m_Name: Rock (3)
   m_TagString: Object
@@ -3757,6 +3814,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &958483442542475677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079034692048972990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a5798cf7abacb419da0b7cca6b32f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 0}
 --- !u!1 &7079034692207019558
 GameObject:
   m_ObjectHideFlags: 0

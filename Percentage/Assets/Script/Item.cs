@@ -98,13 +98,13 @@ public class Item : MonoBehaviour
 
     public IEnumerator UseItem(int id)
     {
-        Bullet[] bullets = GameManager.instance.bulletPool.bullets;
+        Bullet[] bullets = GameManager.instance.bulletPool.playerBullets;
         Bullet[] existedBullet = GameManager.instance.bulletPool.GetComponentsInChildren<Bullet>(true);
         Weapon[] weapons = GameManager.instance.weapon;
 
         // 스탯 올라가는 것들은 공통 적용 (스탯 변동 없어도 0이니까 적용해도 똑같다)
         player.speed += itemSpeed;
-        player.attackSpeed += itemAttackSpeed;
+        player.attackSpeedUp += itemAttackSpeed;
         player.powerUp += itemDamage;
         player.staticPower += itemStaticDamage;
         player.health += itemHealth;
@@ -144,7 +144,6 @@ public class Item : MonoBehaviour
                         else if (i == 2) player.powerUp = status[i];
                         else if (i == 3) player.attackSpeedUp = status[i];
                     }
-                    
                 }
                 break;
             // 동전주머니
@@ -160,7 +159,7 @@ public class Item : MonoBehaviour
                 }
                 foreach(Bullet bullet in existedBullet)
                 {
-                    bullet.isPenetrate = true;
+                    if(bullet.type == 0)    bullet.isPenetrate = true;
                 }
                 for (int i = 0; i < weapons.Length; i++)
                 {
@@ -183,7 +182,7 @@ public class Item : MonoBehaviour
                 }
                 foreach (Bullet bullet in existedBullet)
                 {
-                    bullet.isPenetrate = true;
+                    if (bullet.type == 0) bullet.isSlow = true;
                 }
                 for (int i = 0; i < weapons.Length; i++)
                 {

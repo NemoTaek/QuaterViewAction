@@ -54,7 +54,7 @@ public class SkillBullet : Bullet
         gameObject.transform.localScale = Vector3.zero;
 
         // 瘤汾 磊府俊 气惯 捞棋飘 积己
-        Bullet explosion = GameManager.instance.bulletPool.Get(10);
+        Bullet explosion = GameManager.instance.bulletPool.Get(0, 10);
         explosion.transform.position = transform.position;
 
         // 0.5檬 饶 气惯

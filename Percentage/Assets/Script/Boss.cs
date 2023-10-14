@@ -7,16 +7,16 @@ public class Boss : Enemy
     bool isPatternPlaying;
     bool isTrace;
 
+    // override: 부모 스크립트에서 virtual 키워드를 가진 함수를 재정의 할 수 있게 하는 키워드
+    // 부모의 것을 사용하려면 base.함수명 이렇게 사용하면 된다.
     protected override void OnEnable()
     {
         base.OnEnable();
-        Debug.Log("보스 초기화");
     }
 
     protected override void Start()
     {
         base.Start();
-        Debug.Log("보스 시작");
     }
 
     void FixedUpdate()
@@ -103,7 +103,7 @@ public class Boss : Enemy
         int countPerCycle = 10;
         for (int i = 0; i < countPerCycle; i++)
         {
-            EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(11).GetComponent<EnemyBullet>();
+            EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
             Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
             bossBullet.transform.position = transform.position;
 
@@ -120,7 +120,7 @@ public class Boss : Enemy
 
     void Sniping()
     {
-        EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(11).GetComponent<EnemyBullet>();
+        EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
         Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
         bossBullet.transform.position = transform.position;
 

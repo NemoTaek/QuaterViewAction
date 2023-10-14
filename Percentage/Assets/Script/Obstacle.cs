@@ -20,9 +20,6 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
         // 플레이어가 비행능력을 얻으면 통과 가능하도록 설정
-        if(GameManager.instance.player.isFly)
-        {
-            col.isTrigger = true;
-        }
+        col.isTrigger = GameManager.instance.player.isFly;
     }
 }

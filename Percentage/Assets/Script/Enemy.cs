@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
         room = gameObject.GetComponentInParent<Room>();
     }
 
+    // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
+    // 따라오는 것중에 하나가 abstract 키워드인데 이는 자식 스크립트에서 반드시 재정의 해주어야 하는 함수에 쓰인다.
     protected virtual void OnEnable()
     {
         // 적 상태 초기화
@@ -78,10 +80,16 @@ public class Enemy : MonoBehaviour
                 animator.SetTrigger("Hit");
 
                 // 투과 효과를 먹지 않았다면 넉백효과
-                if (!collision.gameObject.GetComponent<Bullet>().isPenetrate || !collision.gameObject.GetComponent<Weapon>().isPenetrate)    StartCoroutine(KnockBack(knockbackAmount));
-
                 // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
-                if ((!collision.gameObject.GetComponent<Bullet>().isSlow || !collision.gameObject.GetComponent<Weapon>().isSlow) && !enemySlow) StartCoroutine(MoveSlow());
+                if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet")) {
+                    if (!collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) StartCoroutine(MoveSlow());
+                }
+                else if (collision.CompareTag("Weapon"))
+                {
+                    if (!collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) StartCoroutine(MoveSlow());
+                }
             }
             else
             {

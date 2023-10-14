@@ -78,7 +78,7 @@ public class Weapon : MonoBehaviour
 
     public void Shot(int bulletId, Vector2 dirVec, Vector3 shotPosition, float shotVelocity)
     {
-        SkillBullet bullet = GameManager.instance.bulletPool.Get(bulletId).GetComponent<SkillBullet>();
+        Bullet bullet = GameManager.instance.bulletPool.Get(0, bulletId).GetComponent<Bullet>();
 
         if (dirVec == Vector2.right)
         {

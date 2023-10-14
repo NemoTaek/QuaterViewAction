@@ -93,6 +93,7 @@ public class Map : Singleton<Map>
         int totalItemCount = GameManager.instance.itemPool.items.Length;
 
         // 중복이 안되도록 아이템 세팅
+        // 이미 획득한 아이템은 안나오도록 설정.... 하고싶은데 개수가 적어서 일단은 보류
         while (index < count)
         {
             int random = Random.Range(1, totalItemCount);

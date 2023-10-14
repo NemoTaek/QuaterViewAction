@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int id;
+    public int type;
     public bool isPenetrate;
     public bool isSlow;
 
