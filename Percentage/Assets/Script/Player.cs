@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public bool isSlashing;
     public int currentWeaponIndex;
     public int currentSkillIndex;
-    public bool isDarkSight;
+    public bool isOnObject;
     public bool isDamaged;
     public bool isDead;
     public float keydownTimer;
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     public float power;
     public float powerUp = 0;
     public float staticPower = 0;
+
     public bool isFly;
     public bool isScapular;
 
@@ -67,7 +68,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel || isDead || isGameClear) return;
+        // 플레이어 못움직이게하는 이유 참 많다 그죠?
+        // 로딩중, 스탯창, 상자 오픈, 아이템 습득, 사망, 게임 클리어
+        if (GameManager.instance.isLoading || GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel || isDead || isGameClear) return;
         PlayerMove();
     }
 
@@ -89,12 +92,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (isOnObject)
+        {
+            col.isTrigger = false;
+            isOnObject = false;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         // 적과 닿으면 체력 감소
         if (collision.collider.CompareTag("Enemy") && !isDamaged)
         {
             PlayerCollide();
+        }
+
+        // 적과 닿으면 체력 감소
+        if (isFly && collision.collider.CompareTag("Object"))
+        {
+            isOnObject = true;
+            col.isTrigger = true;
         }
     }
 

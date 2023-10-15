@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     public ItemPool itemPool;
     public ItemData[] itemData;
     public GameObject itemPricePool;
+    public Sprite[] statusEffectIcon;
 
     [Header("----- UI Component -----")]
     public Canvas uiCanvas;
@@ -43,6 +44,7 @@ public class GameManager : Singleton<GameManager>
     [Header("----- System Info -----")]
     public int stage;
     public int lastStageIndex;
+    public bool isLoading;
     public bool isOpenStatus;
     public bool isOpenBox;
     public bool isOpenItemPanel;

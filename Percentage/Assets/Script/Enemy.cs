@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D target;
     Collider2D col;
     Room room;
+    public SpriteRenderer statusEffect;
 
     [Header("----- Enemy Property -----")]
     public EnemyType enemyType;
@@ -79,16 +79,17 @@ public class Enemy : MonoBehaviour
             {
                 animator.SetTrigger("Hit");
 
-                // 투과 효과를 먹지 않았다면 넉백효과
+                // 투과 효과를 먹지 않았다면 넉백효과 (보스는 넉백 안먹히도록)
                 // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
-                if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet")) {
-                    if (!collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                    if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) StartCoroutine(MoveSlow());
+                if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
+                {
+                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
                 }
                 else if (collision.CompareTag("Weapon"))
                 {
-                    if (!collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                    if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) StartCoroutine(MoveSlow());
+                    if (enemyType != EnemyType.Boss&& !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
                 }
             }
             else
@@ -191,12 +192,24 @@ public class Enemy : MonoBehaviour
         rigid.AddForce(dirVec.normalized * knockbackAmount, ForceMode2D.Impulse);
     }
 
+    void SetSlowAttack()
+    {
+        // 일단 20% 확률로 슬로우 걸리기
+        int random = Random.Range(0, 10);
+        if(random < 2) StartCoroutine(MoveSlow());
+    }
+
     IEnumerator MoveSlow()
     {
         enemySlow = true;
 
+        // 적 머리 위에 슬로우 버프 표식 추가
+        statusEffect.sprite = GameManager.instance.statusEffectIcon[0];
         speed /= 2;
+
         yield return new WaitForSeconds(2.5f);
+
+        statusEffect.sprite = null;
         speed *= 2;
 
         enemySlow = false;

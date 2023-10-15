@@ -28,7 +28,7 @@ public class CameraMap : MonoBehaviour
         {
             float time = delta / moveTimer;
             transform.position = Vector3.Lerp(transform.position, destination, time);
-            delta += Time.deltaTime;
+            delta += Time.fixedDeltaTime;
             yield return null;
         }
     }

@@ -37,6 +37,8 @@ public class LoadingManager : MonoBehaviour
 
     IEnumerator LoadingScene()
     {
+        GameManager.instance.isLoading = true;
+
         // 로딩 중에는 UI가 보이면 안되므로 크기를 0으로 임시조정
         RectTransform ui = GameManager.instance.uiCanvas.GetComponentsInChildren<RectTransform>()[1];
         ui.localScale = Vector3.zero;
@@ -77,6 +79,9 @@ public class LoadingManager : MonoBehaviour
                 {
                     // 다 로딩이 되더라도 2초 후에 씬 전환
                     yield return new WaitForSeconds(2f);
+
+                    // 진짜 로딩 끝!
+                    GameManager.instance.isLoading = false;
 
                     // 전환된 씬을 보여주면서 UI도 같이 보이도록
                     operation.allowSceneActivation = true;
