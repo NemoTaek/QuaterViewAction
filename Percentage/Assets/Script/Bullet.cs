@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isPenetrate && (collision.CompareTag("Wall") || collision.CompareTag("Object")))
+        if (collision.CompareTag("Wall") || (!isPenetrate && collision.CompareTag("Object")))
         {
             gameObject.SetActive(false);
             transform.position = transform.parent.position;

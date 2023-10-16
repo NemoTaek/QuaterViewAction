@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1386433571624508187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3541614943206257779}
+  m_Layer: 0
+  m_Name: Familiar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3541614943206257779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386433571624508187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3055320546974436602}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3055320546974436607
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +72,7 @@ Transform:
   - {fileID: 3055320548931871806}
   - {fileID: 3055320547794826004}
   - {fileID: 3055320547397134162}
+  - {fileID: 3541614943206257779}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f98e1f8046bd9a44ae055c3c3afc566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   hand: []
   ui: {fileID: 0}
   rigid: {fileID: 0}
@@ -120,25 +151,31 @@ MonoBehaviour:
   inputVec: {x: 0, y: 0}
   fireVec: {x: 0, y: 0}
   isSlashing: 0
-  attackDelay: 0
   currentWeaponIndex: 0
   currentSkillIndex: 0
-  isDarkSight: 0
+  isOnObject: 0
   isDamaged: 0
+  isDead: 0
   keydownTimer: 0
   isKeydown: 0
   isChargeComplete: 0
+  isGameClear: 0
   role: 0
   roleName: 
-  acquireWeapons: 
-  acquireSkills: 
   getWeaponCount: 0
   getSkillCount: 0
   maxHealth: 10
+  currentHealth: 0
   health: 0
   speed: 3
   attackSpeed: 0
+  attackSpeedUp: 0
+  basePower: 0
   power: 0
+  powerUp: 0
+  staticPower: 0
+  isFly: 0
+  isScapular: 0
 --- !u!50 &3055320546974436605
 Rigidbody2D:
   serializedVersion: 4

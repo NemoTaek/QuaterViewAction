@@ -150,6 +150,9 @@ public class Item : MonoBehaviour
             case 6:
                 // 플레이어 뒤에 주머니 따라다니도록 추가
                 // 일정 수의 적 저치 혹은 일정 수의 방을 클리어 했을 시 1원 드랍
+                // 으악 아무 생각없이 아이템으로 만드니까 계속 아이템 먹은거 처리돼
+                //Item coinSack = GameManager.instance.itemPool.items[6];
+                //Instantiate(coinSack, player.familiar.transform);
                 break;
             // 큐피드의 화살
             case 7:

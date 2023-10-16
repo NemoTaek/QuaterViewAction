@@ -107,6 +107,8 @@ MonoBehaviour:
   maxLevel: 0
   desc: 
   icon: {fileID: 0}
+  isPenetrate: 0
+  isSlow: 0
 --- !u!61 &4291553370310395880
 BoxCollider2D:
   m_ObjectHideFlags: 0

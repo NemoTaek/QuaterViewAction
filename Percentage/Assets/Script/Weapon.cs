@@ -15,8 +15,8 @@ public class Weapon : MonoBehaviour
     public string desc; // 무기 설명
     public Sprite icon; // 무기 아이콘
 
-    SpriteRenderer spriteRenderer;
-    BoxCollider2D col;
+    SpriteRenderer sr;
+    PolygonCollider2D polygon;
     Rigidbody2D rigid;
 
     public bool isPenetrate;
@@ -24,13 +24,12 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        col = GetComponent<BoxCollider2D>();
-        rigid = GetComponent<Rigidbody2D>();
+
     }
 
     public void Init(WeaponData data)
     {
+        // 무기 기본 세팅
         id = data.weaponId;
         weaponName = data.weaponName;
         damage = data.baseDamage;
@@ -41,16 +40,18 @@ public class Weapon : MonoBehaviour
         icon = data.weaponIcon;
 
         transform.parent = GameManager.instance.player.hand[(int)data.weaponType].transform;
-        spriteRenderer.sprite = icon;
-        spriteRenderer.sortingOrder = -1;
+        sr = gameObject.AddComponent<SpriteRenderer>();
+        sr.sprite = icon;
+        sr.sortingOrder = -1;
 
+        // 무기가 피격범위에 닿아도 플레이어가 피격 처리되지 않도록
+        polygon = gameObject.AddComponent<PolygonCollider2D>();
+        rigid = gameObject.AddComponent<Rigidbody2D>();
         rigid.bodyType = RigidbodyType2D.Kinematic;
-
-        col.isTrigger = true;
-        col.size = new Vector2(0.31f, 0.26f);
+        polygon.isTrigger = true;
 
         // 용천권 이미지가 좀 그래서 뒤집어야 손잡이가 플레이어 쪽으로 옴...
-        if(id == 13)    spriteRenderer.flipX = true;
+        if(id == 13)    sr.flipX = true;
 
         // 직업별로 세세하게 위치가 다르기 때문에 설정
         transform.localScale = Vector3.one * 3;

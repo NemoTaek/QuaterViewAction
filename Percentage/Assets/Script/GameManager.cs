@@ -174,9 +174,9 @@ public class GameManager : Singleton<GameManager>
     public GameObject GenerateWeapon()
     {
         GameObject newWeapon = new GameObject();
-        newWeapon.AddComponent<SpriteRenderer>();
-        newWeapon.AddComponent<BoxCollider2D>();
-        newWeapon.AddComponent<Rigidbody2D>();
+        //newWeapon.AddComponent<SpriteRenderer>();
+        //newWeapon.AddComponent<PolygonCollider2D>();
+        //newWeapon.AddComponent<Rigidbody2D>();
         newWeapon.tag = "Weapon";
 
         return newWeapon;

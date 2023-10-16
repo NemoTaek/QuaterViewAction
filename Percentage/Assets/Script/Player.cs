@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     Animator animator;
     public Transform keydownGuage;
     public Transform guage;
+    public GameObject familiar;
 
     [Header("----- Player Property -----")]
     public Vector2 inputVec;
