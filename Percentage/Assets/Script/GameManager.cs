@@ -21,6 +21,7 @@ public class GameManager : Singleton<GameManager>
     public ItemData[] itemData;
     public GameObject itemPricePool;
     public Sprite[] statusEffectIcon;
+    public Familiar[] familiarPool;
 
     [Header("----- UI Component -----")]
     public Canvas uiCanvas;
@@ -55,6 +56,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         getItemList = new List<Sprite>();
+        GameInit();
     }
 
     void Update()
@@ -96,10 +98,13 @@ public class GameManager : Singleton<GameManager>
         }
 
         // 전 플레이에서 먹은 속성들 모두 초기화
-        foreach(Bullet bullet in bulletPool.playerBullets)
+        if(stage <= 1)
         {
-            bullet.isPenetrate = false;
-            bullet.isSlow = false;
+            foreach (Bullet bullet in bulletPool.playerBullets)
+            {
+                bullet.isPenetrate = false;
+                bullet.isSlow = false;
+            }
         }
     }
 

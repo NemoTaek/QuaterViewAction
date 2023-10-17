@@ -133,8 +133,8 @@ public class RoomReward : MonoBehaviour
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(randomWeaponData);
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].name = GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].weaponName;
                 GameManager.instance.player.getWeaponCount++;
-                GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
-                GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                //GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
+                //GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
 
                 // UI¿¡ Àû¿ë
                 GameManager.instance.ui.isChanged = true;

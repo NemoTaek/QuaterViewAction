@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public bool isKeydown;
     public bool isChargeComplete = false;
     public bool isGameClear;
+    public int killEnemyCount;
 
     public int role;
     public string roleName;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour
     {
         if (isOnObject)
         {
+            // ??? 무기 던지느라고 무기가 오브젝트 바깥으로 나가면 트리거 엑싯 판정나서 나도 같이 나가지네?? 망할...
             col.isTrigger = false;
             isOnObject = false;
         }
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
             PlayerCollide();
         }
 
-        // 적과 닿으면 체력 감소
+        // 비행 능력 획득 시 오브젝트와 충돌 시, 플레이어의 트리거가 해제되어 그 위를 지나다닐 수 있음
         if (isFly && collision.collider.CompareTag("Object"))
         {
             isOnObject = true;
@@ -135,6 +137,7 @@ public class Player : MonoBehaviour
         inputVec = value.Get<Vector2>();
         if(inputVec.x != 0)
         {
+            familiar.transform.localPosition = inputVec.x > 0 ? Vector3.left : Vector3.right;
             spriteRenderer.flipX = inputVec.x > 0 ? false : true;
         }
     }

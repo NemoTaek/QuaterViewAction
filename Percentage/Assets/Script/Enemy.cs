@@ -94,11 +94,13 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                // 몹 사망
                 isLive = false;
                 col.enabled = false;
                 rigid.simulated = false;
                 animator.SetBool("Dead", true);
                 room.enemyCount--;
+                GameManager.instance.player.killEnemyCount++;
 
                 // 보스가 죽으면 보스 체력 UI 비활성화
                 if(room.roomType == Room.RoomType.Boss)
@@ -217,6 +219,16 @@ public class Enemy : MonoBehaviour
 
     void DeadAnimation()
     {
+        // 동전주머니 패밀리어가 있으면 발동
+        Familiar[] familiars = GameManager.instance.player.familiar.GetComponentsInChildren<Familiar>();
+        if(familiars.Length > 0)
+        {
+            foreach(Familiar fam in familiars)
+            {
+                if(fam.id == 0) fam.DropCoin();
+            }
+        }
+
         gameObject.SetActive(false);
 
         int random = Random.Range(0, 10);

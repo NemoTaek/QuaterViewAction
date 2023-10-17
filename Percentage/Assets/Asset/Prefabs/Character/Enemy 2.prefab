@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
   target: {fileID: 0}
-  statusEffect: {fileID: 0}
+  statusEffect: {fileID: 5400130943806043884}
   enemyType: 1
   speed: 2
   health: 0

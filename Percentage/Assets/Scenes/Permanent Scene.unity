@@ -1403,6 +1403,8 @@ MonoBehaviour:
   itemPricePool: {fileID: 714128833}
   statusEffectIcon:
   - {fileID: 21300000, guid: 66bdd2885e64a7f45ab68573793663cf, type: 3}
+  familiarPool:
+  - {fileID: 1099495482714526572, guid: ed4675a3a21b0c349a33b9e8dd8d0f4e, type: 3}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}
@@ -1421,7 +1423,7 @@ MonoBehaviour:
   isUltimateLeftAttack: 0
   isUltimateUpAttack: 0
   isUltimateDownAttack: 0
-  stage: 1
+  stage: 0
   lastStageIndex: 2
   isLoading: 0
   isOpenStatus: 0
