@@ -152,7 +152,10 @@ public class Item : MonoBehaviour
                 // 일정 수의 적 저치 혹은 일정 수의 방을 클리어 했을 시 1원 드랍
                 // 있던 아이템을 그대로 재활용하면 계속 아이템 먹은거 처리되는 오류가 발생하므로
                 // 새로 패밀리어 오브젝트를 만들어 사용
-                Instantiate(GameManager.instance.familiarPool[0], player.familiar.transform);
+                Familiar fam = Instantiate(GameManager.instance.familiarPool[0], player.familiar.transform);
+                Familiar[] haveFamiliars = player.GetComponentsInChildren<Familiar>();
+                // flipX가 true면 (오른쪽 기준)반대방향을 보고 있단 말이니까 왼쪽을 보고있다. 그러므로 패밀리어는 오른쪽으로 늘어나야 한다.
+                fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
                 break;
             // 큐피드의 화살
             case 7:

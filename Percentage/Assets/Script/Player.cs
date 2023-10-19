@@ -96,9 +96,10 @@ public class Player : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isOnObject)
+        if (isOnObject && collision.CompareTag("Object"))
         {
-            // ??? 무기 던지느라고 무기가 오브젝트 바깥으로 나가면 트리거 엑싯 판정나서 나도 같이 나가지네?? 망할...
+            // collision 태그를 검사 안하고 하면 collision이 발사체 혹은 무기가 되는데 공격하면 이들이 플레이어를 떠나서 가게되므로 트리거 엑싯 판정이 났던것이었다.
+            // 그래서 피충돌체를 장애물(Object)로 한정시켜 장애물에서 나갈 때만 트리거를 원상복귀 시키는 것으로 했다.
             col.isTrigger = false;
             isOnObject = false;
         }
@@ -137,7 +138,6 @@ public class Player : MonoBehaviour
         inputVec = value.Get<Vector2>();
         if(inputVec.x != 0)
         {
-            familiar.transform.localPosition = inputVec.x > 0 ? Vector3.left : Vector3.right;
             spriteRenderer.flipX = inputVec.x > 0 ? false : true;
         }
     }
