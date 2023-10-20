@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
     public int id;
+    public ItemData.ItemType type;
     public string itemName;
     public int price;
     public string desc;
     public float coolTime;
     public float duringTime;
     public Sprite image;
+    public int activeGuage;
+    public int currentGuage;
 
     float itemSpeed;
     float itemAttackSpeed;
@@ -21,6 +25,7 @@ public class Item : MonoBehaviour
 
     public bool isInShop;
     public bool isPurchased;
+    public bool isSpecialItem;
     Player player;
 
     void Awake()
@@ -31,12 +36,15 @@ public class Item : MonoBehaviour
     public void Init(ItemData data)
     {
         id = data.itemId;
+        type = data.itemType;
         itemName = data.itemName;
         price = data.itemPrice;
         desc = data.itemDesc;
         coolTime = data.itemCoolTime;
         duringTime = data.itemDuringTime;
         image = data.itemImage;
+        activeGuage = data.itemActiveGuage;
+        currentGuage = 0;
 
         itemSpeed = data.itemSpeed;
         itemAttackSpeed = data.itemAttackSpeed;
@@ -82,8 +90,22 @@ public class Item : MonoBehaviour
         GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
 
         // 구매한 아이템 적용
-        StartCoroutine(UseItem(id));
-        GameManager.instance.getItemList.Add(image);
+        // 패시브면 획득 아이템 리스트에 넣고 바로 적용하고
+        // 액티브면 액티브 아이템 칸에 추가 (이미 있다면 교체)
+        if (type == ItemData.ItemType.Passive)
+        {
+            GameManager.instance.getItemList.Add(image);
+            StartCoroutine(UseItem(id));
+        }
+        else
+        {
+            GameManager.instance.ui.activeItem.SetActive(true);
+            GameManager.instance.ui.activeItemImage.sprite = image;
+            Image[] guage = GameManager.instance.ui.activeItemGuage.GetComponentsInChildren<Image>();
+            if (activeGuage == 0) guage[1].gameObject.SetActive(false);
+            else guage[1].fillAmount = (float)currentGuage / activeGuage;
+            player.activeItem = this;
+        }
 
         // 스탯 변화가 있다면 스탯 창 UI 갱신
         GameManager.instance.ui.isChanged = true;

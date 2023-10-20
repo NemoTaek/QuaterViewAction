@@ -17,6 +17,10 @@ public class UserInterface : MonoBehaviour
     public Image coin;
     public Text coinText;
 
+    public GameObject activeItem;
+    public Image activeItemImage;
+    public Image activeItemGuage;
+
     public Image[] gameWeaponArea;
     public Image[] gameSkillArea;
 

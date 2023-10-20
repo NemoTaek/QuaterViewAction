@@ -21,6 +21,8 @@ public class Room : MonoBehaviour
     [Header("----- Room Object -----")]
     public Button[] buttons;
     public GameObject roomReward;
+    public Item[] bossDropItems;
+    public ItemData[] bossDropItemDatas;
 
     [Header("----- Room Property -----")]
     public RoomType roomType;
@@ -225,11 +227,23 @@ public class Room : MonoBehaviour
             portal.transform.position = transform.position;
 
             // 보스 리워드 생성
-            //GameObject bossReward = GameManager.instance.objectPool.Get(5);
-            //portal.transform.position = transform.position + Vector3.down;
+            // 위치: 짝수면 -1, 1, -2, 2, -3, 3 .... / 홀수면 0, -1, 1, -2, 2 ....
+            Vector3 itemStartPosition = Vector3.left * (bossDropItems.Length % 2 == 0 ? bossDropItems.Length / 2 + 0.5f : (int)(bossDropItems.Length / 2));
+            for (int i = 0; i < bossDropItems.Length; i++)
+            {
+                Item item = Instantiate(bossDropItems[i], transform);
+                item.transform.position = transform.position + Vector3.down + itemStartPosition + Vector3.right * i;
+                item.Init(bossDropItemDatas[i]);
+            }
         }
         else
         {
+            // 액티브 아이템이 있고 다 차있지 않다면 액티브 게이지 증가
+            if (GameManager.instance.player.activeItem && GameManager.instance.player.activeItem.currentGuage != GameManager.instance.player.activeItem.activeGuage)
+            {
+                GameManager.instance.player.activeItem.currentGuage++;
+            }
+
             // 보상 획득 (0: 성공, 1: 실패)
             int successOrFail = Random.Range(0, 2);
             GameObject reward;

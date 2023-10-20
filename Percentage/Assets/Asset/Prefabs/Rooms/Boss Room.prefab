@@ -2284,6 +2284,12 @@ MonoBehaviour:
   leftRoom: {fileID: 0}
   buttons: []
   roomReward: {fileID: 1060484846650218855}
+  bossDropItems:
+  - {fileID: 5635536724974092863, guid: e9064dd6219272648905edd916f4787a, type: 3}
+  - {fileID: -1097075055592919552, guid: 18d5862ab12441f48aeba4ffbf042b92, type: 3}
+  bossDropItemDatas:
+  - {fileID: 11400000, guid: 2df23d7e25ed71d4da6cf8fcccfb443b, type: 2}
+  - {fileID: 11400000, guid: 9110c40371f0634489954385383b2033, type: 2}
   roomType: 6
   isVisited: 0
   isBattle: 0
