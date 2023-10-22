@@ -156,6 +156,14 @@ public class GameManager : Singleton<GameManager>
                 ui.isChanged = true;
             }
         }
+
+        // 액티브 아이템 사용 입력
+        // 액티브 아이템을 가지고 있고, 게이지가 모두 차있을 때 스페이스바를 누르면 사용
+        if (Input.GetKeyDown(KeyCode.Space) && player.activeItem && player.activeItem.currentGuage == player.activeItem.activeGuage)
+        {
+            player.activeItem.UseItem(player.activeItem.id);
+            player.activeItem.currentGuage = 0;
+        }
     }
 
     public void CloseStatusPanel()

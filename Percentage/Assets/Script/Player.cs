@@ -262,6 +262,12 @@ public class Player : MonoBehaviour
         {
             hand[role].Attack(dirVec, currentSkillIndex);
         }
+
+        Familiar[] haveFamiliars = familiar.GetComponentsInChildren<Familiar>();
+        foreach(Familiar familiar in haveFamiliars)
+        {
+            if (familiar.canAttack && !familiar.isDelay) StartCoroutine(familiar.FamiliarShot(dirVec));
+        }
     }
 
     void ChargingWeapon(bool directionKey)

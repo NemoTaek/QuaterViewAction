@@ -44,7 +44,7 @@ public class Item : MonoBehaviour
         duringTime = data.itemDuringTime;
         image = data.itemImage;
         activeGuage = data.itemActiveGuage;
-        currentGuage = 0;
+        currentGuage = data.itemActiveGuage;
 
         itemSpeed = data.itemSpeed;
         itemAttackSpeed = data.itemAttackSpeed;
@@ -216,6 +216,12 @@ public class Item : MonoBehaviour
                 {
                     if (weapons[i]) weapons[i].isSlow = true;
                 }
+                break;
+            // 브라더 바비
+            case 15:
+                fam = Instantiate(GameManager.instance.familiarPool[1], player.familiar.transform);
+                haveFamiliars = player.GetComponentsInChildren<Familiar>();
+                fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
                 break;
         }
 

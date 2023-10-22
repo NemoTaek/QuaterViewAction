@@ -1400,11 +1400,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e27aac1027f367a4089412121060097d, type: 2}
   - {fileID: 11400000, guid: b7c4401ac06dbc5428f3ad9023055a19, type: 2}
   - {fileID: 11400000, guid: 181508709cd55ad4ba5dbb0a3121f736, type: 2}
+  - {fileID: 11400000, guid: fcd26852c7a97354ab825184081d0794, type: 2}
   itemPricePool: {fileID: 714128833}
   statusEffectIcon:
   - {fileID: 21300000, guid: 66bdd2885e64a7f45ab68573793663cf, type: 3}
   familiarPool:
   - {fileID: 1099495482714526572, guid: ed4675a3a21b0c349a33b9e8dd8d0f4e, type: 3}
+  - {fileID: 3015571823132736865, guid: c776ac1cb82e633459db65e29d2e7536, type: 3}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}
@@ -3396,6 +3398,7 @@ MonoBehaviour:
   - {fileID: 257297595924295840, guid: 30285285388345e49955db6ada225224, type: 3}
   - {fileID: 5033373485305881414, guid: d058ce29a0ba19040bf70ab06225901d, type: 3}
   - {fileID: 6504199920030574041, guid: 31731a7597943c945aa93c9017c69250, type: 3}
+  - {fileID: 599081541434817931, guid: f0c4594a2f6c3e04c8337bcd697f90a3, type: 3}
 --- !u!4 &509478443
 Transform:
   m_ObjectHideFlags: 0
