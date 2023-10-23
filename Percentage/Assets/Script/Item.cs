@@ -223,6 +223,10 @@ public class Item : MonoBehaviour
                 haveFamiliars = player.GetComponentsInChildren<Familiar>();
                 fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
                 break;
+            // 맛있는 심장
+            case 16:
+                player.currentHealth++;
+                break;
         }
 
         yield return null;

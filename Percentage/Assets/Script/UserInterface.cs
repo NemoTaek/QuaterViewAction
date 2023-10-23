@@ -100,6 +100,14 @@ public class UserInterface : MonoBehaviour
             if (GameManager.instance.player.currentSkillIndex == i) gameSkillArea[i].GetComponentsInParent<Image>()[1].color = new Color32(255, 201, 87, 255);
             else gameSkillArea[i].GetComponentsInParent<Image>()[1].color = Color.white;
         }
+
+        // 액티브 아이템이 있다면 사용하거나 방 클리어 했을 때 게이지 세팅
+        if (activeItem.activeSelf)
+        {
+            Image[] guage = activeItemGuage.GetComponentsInChildren<Image>();
+            guage[1].fillAmount = (float)GameManager.instance.player.activeItem.currentGuage / GameManager.instance.player.activeItem.activeGuage;
+        }
+
         isChanged = false;
     }
 

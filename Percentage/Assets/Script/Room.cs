@@ -238,12 +238,6 @@ public class Room : MonoBehaviour
         }
         else
         {
-            // 액티브 아이템이 있고 다 차있지 않다면 액티브 게이지 증가
-            if (GameManager.instance.player.activeItem && GameManager.instance.player.activeItem.currentGuage != GameManager.instance.player.activeItem.activeGuage)
-            {
-                GameManager.instance.player.activeItem.currentGuage++;
-            }
-
             // 보상 획득 (0: 성공, 1: 실패)
             int successOrFail = Random.Range(0, 2);
             GameObject reward;
@@ -301,6 +295,13 @@ public class Room : MonoBehaviour
                 reward = Instantiate(GameManager.instance.objectPool.prefabs[randomObject], roomReward.transform);
                 reward.transform.position = transform.position + pos;
             }
+        }
+
+        // 액티브 아이템이 있다면 게이지 1칸 증가
+        if(GameManager.instance.player.activeItem && GameManager.instance.player.activeItem.currentGuage < GameManager.instance.player.activeItem.activeGuage)
+        {
+            GameManager.instance.player.activeItem.currentGuage++;
+            GameManager.instance.ui.isChanged = true;
         }
 
         // 전투가 끝났다면 감지되지는 위치의 문을 오픈

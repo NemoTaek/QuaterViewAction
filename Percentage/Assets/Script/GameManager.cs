@@ -161,8 +161,9 @@ public class GameManager : Singleton<GameManager>
         // 액티브 아이템을 가지고 있고, 게이지가 모두 차있을 때 스페이스바를 누르면 사용
         if (Input.GetKeyDown(KeyCode.Space) && player.activeItem && player.activeItem.currentGuage == player.activeItem.activeGuage)
         {
-            player.activeItem.UseItem(player.activeItem.id);
+            StartCoroutine(player.activeItem.UseItem(player.activeItem.id));
             player.activeItem.currentGuage = 0;
+            ui.isChanged = true;
         }
     }
 

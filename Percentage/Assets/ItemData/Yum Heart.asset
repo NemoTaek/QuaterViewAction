@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32604d45279a1bd48bf17f2fac615799, type: 3}
+  m_Name: Yum Heart
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemId: 16
+  itemName: "\uB9DB\uC788\uB294 \uC2EC\uC7A5"
+  itemPrice: 10
+  itemDesc: "\uB9C8\uC2DC\uC368!!!"
+  itemCoolTime: 0
+  itemDuringTime: 0
+  itemImage: {fileID: 21300000, guid: d7c4945c48fcb7347842b13af7e6865d, type: 3}
+  itemActiveGuage: 4
+  itemSpeed: 0
+  itemAttackSpeed: 0
+  itemDamage: 0
+  itemStaticDamage: 0
+  itemHealth: 0
+  itemCurrentHealth: 0

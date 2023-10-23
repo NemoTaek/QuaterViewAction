@@ -1401,6 +1401,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7c4401ac06dbc5428f3ad9023055a19, type: 2}
   - {fileID: 11400000, guid: 181508709cd55ad4ba5dbb0a3121f736, type: 2}
   - {fileID: 11400000, guid: fcd26852c7a97354ab825184081d0794, type: 2}
+  - {fileID: 11400000, guid: 633c54eba7a04f14eab95abf70063394, type: 2}
   itemPricePool: {fileID: 714128833}
   statusEffectIcon:
   - {fileID: 21300000, guid: 66bdd2885e64a7f45ab68573793663cf, type: 3}
@@ -3399,6 +3400,7 @@ MonoBehaviour:
   - {fileID: 5033373485305881414, guid: d058ce29a0ba19040bf70ab06225901d, type: 3}
   - {fileID: 6504199920030574041, guid: 31731a7597943c945aa93c9017c69250, type: 3}
   - {fileID: 599081541434817931, guid: f0c4594a2f6c3e04c8337bcd697f90a3, type: 3}
+  - {fileID: 8865154193213391486, guid: b531090da638634449e52b4d0e17c9ff, type: 3}
 --- !u!4 &509478443
 Transform:
   m_ObjectHideFlags: 0
@@ -12365,7 +12367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1598099162
 RectTransform:
   m_ObjectHideFlags: 0

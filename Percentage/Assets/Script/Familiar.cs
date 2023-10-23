@@ -30,6 +30,10 @@ public class Familiar : MonoBehaviour
         {
             transform.localPosition = GameManager.instance.player.inputVec.x > 0 ? transform.localPosition.magnitude * Vector3.left : transform.localPosition.magnitude * Vector3.right;
         }
+        if (GameManager.instance.player.inputVec.y != 0)
+        {
+            transform.localPosition = GameManager.instance.player.inputVec.y > 0 ? transform.localPosition.magnitude * Vector3.down : transform.localPosition.magnitude * Vector3.up;
+        }
     }
 
     // 동전주머니 능력: 적 10마리 처치 시 1원 드랍
