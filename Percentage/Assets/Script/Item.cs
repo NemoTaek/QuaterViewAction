@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Item : MonoBehaviour
 {
@@ -114,15 +116,19 @@ public class Item : MonoBehaviour
         isPurchased = true;
 
         // 상점에서 아이템 갱신
-        Map.instance.currentRoom.isItemSet = false;
-        gameObject.SetActive(false);
+        //Map.instance.currentRoom.isItemSet = false;
+        //gameObject.SetActive(false);
+        gameObject.transform.localScale = Vector3.zero;
     }
 
     public IEnumerator UseItem(int id)
     {
-        Bullet[] bullets = GameManager.instance.bulletPool.playerBullets;
-        Bullet[] existedBullet = GameManager.instance.bulletPool.GetComponentsInChildren<Bullet>(true);
-        Weapon[] weapons = GameManager.instance.weapon;
+        Bullet[] bullets;
+        Bullet[] existedBullet;
+        Weapon[] weapons;
+        Enemy[] enemies;
+        Vector3 pos;
+        GameObject reward;
 
         // 스탯 올라가는 것들은 공통 적용 (스탯 변동 없어도 0이니까 적용해도 똑같다)
         player.speed += itemSpeed;
@@ -172,16 +178,15 @@ public class Item : MonoBehaviour
             case 6:
                 // 플레이어 뒤에 주머니 따라다니도록 추가
                 // 일정 수의 적 저치 혹은 일정 수의 방을 클리어 했을 시 1원 드랍
-                // 있던 아이템을 그대로 재활용하면 계속 아이템 먹은거 처리되는 오류가 발생하므로
-                // 새로 패밀리어 오브젝트를 만들어 사용
-                Familiar fam = Instantiate(GameManager.instance.familiarPool[0], player.familiar.transform);
-                Familiar[] haveFamiliars = player.GetComponentsInChildren<Familiar>();
-                // flipX가 true면 (오른쪽 기준)반대방향을 보고 있단 말이니까 왼쪽을 보고있다. 그러므로 패밀리어는 오른쪽으로 늘어나야 한다.
-                fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
+                GenerateFamiliar(0);
                 break;
             // 큐피드의 화살
             case 7:
-                for(int i=0; i<bullets.Length; i++)
+                bullets = GameManager.instance.bulletPool.playerBullets;
+                existedBullet = GameManager.instance.bulletPool.GetComponentsInChildren<Bullet>(true);
+                weapons = GameManager.instance.weapon;
+
+                for (int i=0; i<bullets.Length; i++)
                 {
                     bullets[i].isPenetrate = true;
                 }
@@ -204,6 +209,10 @@ public class Item : MonoBehaviour
                 break;
             // 물린 거미
             case 12:
+                bullets = GameManager.instance.bulletPool.playerBullets;
+                existedBullet = GameManager.instance.bulletPool.GetComponentsInChildren<Bullet>(true);
+                weapons = GameManager.instance.weapon;
+
                 for (int i = 0; i < bullets.Length; i++)
                 {
                     bullets[i].isSlow = true;
@@ -219,16 +228,71 @@ public class Item : MonoBehaviour
                 break;
             // 브라더 바비
             case 15:
-                fam = Instantiate(GameManager.instance.familiarPool[1], player.familiar.transform);
-                haveFamiliars = player.GetComponentsInChildren<Familiar>();
-                fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
+                GenerateFamiliar(1);
                 break;
             // 맛있는 심장
             case 16:
                 player.currentHealth++;
                 break;
+            // 모래시계
+            case 17:
+                // 해당 방의 적 8초간 둔화
+                enemies = Map.instance.currentRoom.GetComponentsInChildren<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    StartCoroutine(enemy.MoveSlow(8f));
+                }
+                break;
+            // 유니콘의 뿔
+            case 18:
+                // 6초간 이동속도 0.28이 증가하고 무적이 된다.
+                player.speed += 0.28f;
+                StartCoroutine(player.PlayerInvincibility(6f));
+                player.speed -= 0.28f;
+                break;
+            // 헌혈백
+            case 19:
+                // 체력 0.5를 소모하여 동전 드랍
+                player.currentHealth -= 0.5f;
+
+                pos = GameManager.instance.CheckAround(player.transform.position);
+                reward = Instantiate(GameManager.instance.objectPool.prefabs[1], Map.instance.currentRoom.roomReward.transform);
+                reward.transform.position = player.transform.position + pos;
+                break;
+            // 피의 권리
+            case 20:
+                // 체력 1을 소모하여 해당 방의 적에게 40의 데미지
+                player.currentHealth--;
+                enemies = Map.instance.currentRoom.GetComponentsInChildren<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.EnemyDamaged(40);
+                }
+                break;
+            // 나무 동전
+            case 21:
+                // 반반의 확률로 동전 드랍
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                {
+                    pos = GameManager.instance.CheckAround(player.transform.position);
+                    reward = Instantiate(GameManager.instance.objectPool.prefabs[1], Map.instance.currentRoom.roomReward.transform);
+                    reward.transform.position = player.transform.position + pos;
+                }
+                break;
         }
 
         yield return null;
+    }
+
+    void GenerateFamiliar(int familiarIndex)
+    {
+        // 있던 아이템을 그대로 재활용하면 계속 아이템 먹은거 처리되는 오류가 발생하므로
+        // 새로 패밀리어 오브젝트를 만들어 사용
+        Familiar fam = Instantiate(GameManager.instance.familiarPool[familiarIndex], player.familiar.transform);
+        Familiar[] haveFamiliars = player.GetComponentsInChildren<Familiar>();
+
+        // flipX가 true면 (오른쪽 기준)반대방향을 보고 있단 말이니까 왼쪽을 보고있다. 그러므로 패밀리어는 오른쪽으로 늘어나야 한다.
+        fam.transform.localPosition = (player.spriteRenderer.flipX ? Vector3.right : Vector3.left) * haveFamiliars.Length;
     }
 }

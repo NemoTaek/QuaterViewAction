@@ -105,7 +105,15 @@ public class UserInterface : MonoBehaviour
         if (activeItem.activeSelf)
         {
             Image[] guage = activeItemGuage.GetComponentsInChildren<Image>();
-            guage[1].fillAmount = (float)GameManager.instance.player.activeItem.currentGuage / GameManager.instance.player.activeItem.activeGuage;
+
+            // 액티브 게이지가 -1이면 무한 사용 가능을 의미하므로 게이지 바를 안보이게 하고
+            // 그 외면 게이지 바 세팅
+            if (GameManager.instance.player.activeItem.activeGuage == -1) guage[0].gameObject.SetActive(false);
+            else
+            {
+                guage[0].gameObject.SetActive(true);
+                guage[1].fillAmount = (float)GameManager.instance.player.activeItem.currentGuage / GameManager.instance.player.activeItem.activeGuage;
+            }
         }
 
         isChanged = false;

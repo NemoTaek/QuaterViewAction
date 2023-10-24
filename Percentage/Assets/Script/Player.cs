@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public int currentSkillIndex;
     public bool isOnObject;
     public bool isDamaged;
+    public bool isInvincible;
     public bool isDead;
     public float keydownTimer;
     public bool isKeydown;
@@ -79,19 +80,21 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // 적의 총알에 맞으면 체력 감소
-        if (collision.CompareTag("EnemyBullet") && !isDamaged)
+        // 무적이 아닌 상태에서 적의 총알에 맞으면 체력 감소
+        if (collision.CompareTag("EnemyBullet") && !isDamaged && !isInvincible)
         {
             // 적의 총알 삭제
             collision.gameObject.SetActive(false);
 
-            PlayerCollide();
+            //PlayerCollide();
+            StartCoroutine(PlayerDamaged());
         }
 
         // 피격시 무적 1초와 비행효과 있을 경우를 제외하면 피격
-        if (collision.CompareTag("Spike") && !isDamaged && !isFly)
+        if (collision.CompareTag("Spike") && !isDamaged && !isInvincible && !isFly)
         {
-            PlayerCollide();
+            //PlayerCollide();
+            StartCoroutine(PlayerDamaged());
         }
     }
 
@@ -108,10 +111,11 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // 적과 닿으면 체력 감소
-        if (collision.collider.CompareTag("Enemy") && !isDamaged)
+        // 무적이 아닌 상태에서 적과 닿으면 체력 감소
+        if (collision.collider.CompareTag("Enemy") && !isDamaged && !isInvincible)
         {
-            PlayerCollide();
+            //PlayerCollide();
+            StartCoroutine(PlayerDamaged());
         }
 
         // 비행 능력 획득 시 오브젝트와 충돌 시, 플레이어의 트리거가 해제되어 그 위를 지나다닐 수 있음
@@ -154,13 +158,13 @@ public class Player : MonoBehaviour
     void PlayerCollide()
     {
         // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-            animator.SetTrigger("dead");
-            StartCoroutine(GameManager.instance.GameResult());
-        }
-        else StartCoroutine(PlayerDamaged());
+        //if (currentHealth <= 0)
+        //{
+        //    isDead = true;
+        //    animator.SetTrigger("dead");
+        //    StartCoroutine(GameManager.instance.GameResult());
+        //}
+        //else StartCoroutine(PlayerDamaged());
     }
 
     IEnumerator PlayerDamaged()
@@ -188,6 +192,22 @@ public class Player : MonoBehaviour
 
         color.a = 1f;
         spriteRenderer.color = color;
+    }
+
+    public IEnumerator PlayerInvincibility(float time)
+    {
+        isInvincible = true;
+
+        Color color = spriteRenderer.color;
+        color.a = 0.5f;
+        spriteRenderer.color = color;
+
+        yield return new WaitForSeconds(time);
+
+        color.a = 1f;
+        spriteRenderer.color = color;
+
+        isInvincible = false;
     }
 
     public void PlayerAttack()
@@ -396,5 +416,13 @@ public class Player : MonoBehaviour
 
         // 현재 체력(currentHealth)은 플레이어의 최대 체력(health)을 넘을 수 없다.
         if (health < currentHealth) currentHealth = health;
+
+        // 체력이 0 이하라면 사망 처리
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            animator.SetTrigger("dead");
+            StartCoroutine(GameManager.instance.GameResult());
+        }
     }
 }

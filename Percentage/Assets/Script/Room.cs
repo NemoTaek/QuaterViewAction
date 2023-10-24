@@ -243,44 +243,7 @@ public class Room : MonoBehaviour
             GameObject reward;
 
             // 보상이 떨어지는 자리에 오브젝트가 있으면 헷갈리므로 있으면 다른곳에 놓도록 설정
-            float distance = 0.1f;
-            RaycastHit2D rayCast = Physics2D.Raycast(transform.position, Vector2.up, distance, LayerMask.GetMask("Object"));
-            Vector3 pos = Vector3.zero;
-
-            // 가운데 자리에 무언가 있으면 사방을 한번 둘러본다. 없으면 위에 초기화 한대로 가운데에 떨어질것이다.
-            if (rayCast.collider)
-            {
-                while (true)
-                {
-                    RaycastHit2D upObjectRayCast = Physics2D.Raycast(transform.position + Vector3.up, Vector2.up, distance, LayerMask.GetMask("Object"));
-                    if (!upObjectRayCast.collider)
-                    {
-                        pos = Vector3.up * (distance + 1);
-                        break;
-                    }
-                    RaycastHit2D rightObjectRayCast = Physics2D.Raycast(transform.position + Vector3.right, Vector2.right, distance, LayerMask.GetMask("Object"));
-                    if (!rightObjectRayCast.collider)
-                    {
-                        pos = Vector3.right * (distance + 1);
-                        break;
-                    }
-                    RaycastHit2D downObjectRayCast = Physics2D.Raycast(transform.position + Vector3.down, Vector2.down, distance, LayerMask.GetMask("Object"));
-                    if (!downObjectRayCast.collider)
-                    {
-                        pos = Vector3.down * (distance + 1);
-                        break;
-                    }
-                    RaycastHit2D leftObjectRayCast = Physics2D.Raycast(transform.position + Vector3.left, Vector2.left, distance, LayerMask.GetMask("Object"));
-                    if (!leftObjectRayCast.collider)
-                    {
-                        pos = Vector3.left * (distance + 1);
-                        break;
-                    }
-
-                    // 여기까지 왔으면 사방에 무언가 있는것이므로 거리를 늘려 다시 재본다.
-                    distance++;
-                }
-            }
+            Vector3 pos = GameManager.instance.CheckAround(transform.position);
 
             if (successOrFail == 0)
             {

@@ -73,40 +73,19 @@ public class Enemy : MonoBehaviour
             // 기본적으로 몬스터에 들어가는 데미지는 플레이어의 공격력에 따른다. 공격력 공식은 플레이어 스크립트에 있다.
             // 무기 데미지를 추가되는 공격력으로 넣고, 스킬 데미지는 플레이어의 공격력에 x% 데미지로 들어간다.
             float finalDamage = GameManager.instance.player.power * ((skill.damage + skill.upgradeDamage[skill.level]) / 100);
-            health -= finalDamage;
+            EnemyDamaged(finalDamage);
 
-            if (health > 0)
+            // 투과 효과를 먹지 않았다면 넉백효과 (보스는 넉백 안먹히도록)
+            // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
+            if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
             {
-                animator.SetTrigger("Hit");
-
-                // 투과 효과를 먹지 않았다면 넉백효과 (보스는 넉백 안먹히도록)
-                // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
-                if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
-                {
-                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                    if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
-                }
-                else if (collision.CompareTag("Weapon"))
-                {
-                    if (enemyType != EnemyType.Boss&& !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                    if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
-                }
+                if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
             }
-            else
+            else if (collision.CompareTag("Weapon"))
             {
-                // 몹 사망
-                isLive = false;
-                col.enabled = false;
-                rigid.simulated = false;
-                animator.SetBool("Dead", true);
-                room.enemyCount--;
-                GameManager.instance.player.killEnemyCount++;
-
-                // 보스가 죽으면 보스 체력 UI 비활성화
-                if(room.roomType == Room.RoomType.Boss)
-                {
-                    GameManager.instance.ui.bossUI.SetActive(false);
-                }
+                if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
             }
         }
     }
@@ -184,6 +163,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void EnemyDamaged(float damage)
+    {
+        health -= damage;
+
+        if (health > 0)
+        {
+            animator.SetTrigger("Hit");
+        }
+        else
+        {
+            // 몹 사망
+            isLive = false;
+            col.enabled = false;
+            rigid.simulated = false;
+            animator.SetBool("Dead", true);
+            room.enemyCount--;
+            GameManager.instance.player.killEnemyCount++;
+
+            // 보스가 죽으면 보스 체력 UI 비활성화
+            if (room.roomType == Room.RoomType.Boss)
+            {
+                GameManager.instance.ui.bossUI.SetActive(false);
+            }
+        }
+    }
+
     IEnumerator KnockBack(float knockbackAmount)
     {
         // 하나의 물리 프레임 딜레이
@@ -198,10 +203,10 @@ public class Enemy : MonoBehaviour
     {
         // 일단 20% 확률로 슬로우 걸리기
         int random = Random.Range(0, 10);
-        if(random < 2) StartCoroutine(MoveSlow());
+        if(random < 2) StartCoroutine(MoveSlow(2.5f));
     }
 
-    IEnumerator MoveSlow()
+    public IEnumerator MoveSlow(float time)
     {
         enemySlow = true;
 
@@ -209,7 +214,7 @@ public class Enemy : MonoBehaviour
         statusEffect.sprite = GameManager.instance.statusEffectIcon[0];
         speed /= 2;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(time);
 
         statusEffect.sprite = null;
         speed *= 2;
