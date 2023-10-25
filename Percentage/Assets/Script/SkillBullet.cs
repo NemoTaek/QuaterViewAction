@@ -31,9 +31,6 @@ public class SkillBullet : Bullet
             {
                 StartCoroutine(ExplodeMine());
             }
-
-            gameObject.SetActive(false);
-            transform.position = transform.parent.position;
         }
     }
 

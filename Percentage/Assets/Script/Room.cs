@@ -114,7 +114,7 @@ public class Room : MonoBehaviour
                     Map.instance.itemPrice[i].transform.position = Camera.main.WorldToScreenPoint(itemPoint[i].transform.position);
 
                     // 구매한 아이템은 비활성화
-                    Map.instance.itemPrice[i].gameObject.SetActive(!Map.instance.itemPrefab[i].isPurchased);
+                    Map.instance.itemPrice[i].gameObject.SetActive(!Map.instance.itemPrefab[i].getItem);
                 }
             }
 

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Item : MonoBehaviour
 {
+    SpriteRenderer itemSpriteRenderer;
+
     public int id;
     public ItemData.ItemType type;
     public string itemName;
@@ -26,13 +26,14 @@ public class Item : MonoBehaviour
     float itemCurrentHealth;
 
     public bool isInShop;
-    public bool isPurchased;
+    public bool getItem;
     public bool isSpecialItem;
     Player player;
 
     void Awake()
     {
         player = GameManager.instance.player;
+        itemSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Init(ItemData data)
@@ -66,7 +67,7 @@ public class Item : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             // 상점에 있고, 아이템 가격보다 많은 돈을 가지고 있다면 돈 차감
-            if(isInShop)
+            if(isInShop && !getItem)
             {
                 if(price < GameManager.instance.coin)
                 {
@@ -92,33 +93,72 @@ public class Item : MonoBehaviour
         GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
 
         // 구매한 아이템 적용
-        // 패시브면 획득 아이템 리스트에 넣고 바로 적용하고
+        // 패시브면 획득 아이템 리스트에 넣고 바로 적용하고 아이템 삭제
         // 액티브면 액티브 아이템 칸에 추가 (이미 있다면 교체)
         if (type == ItemData.ItemType.Passive)
         {
             GameManager.instance.getItemList.Add(image);
             StartCoroutine(UseItem(id));
+
+            // SetActive(false) 하면 활성화 되어있지 않는 오브젝트는 코루틴을 실행할 수 없기 때문에 크기를 0으로 설정하여 안보이는것 처럼 설정
+            gameObject.transform.localScale = Vector3.zero;
         }
         else
         {
-            GameManager.instance.ui.activeItem.SetActive(true);
-            GameManager.instance.ui.activeItemImage.sprite = image;
-            Image[] guage = GameManager.instance.ui.activeItemGuage.GetComponentsInChildren<Image>();
-            if (activeGuage == 0) guage[1].gameObject.SetActive(false);
-            else guage[1].fillAmount = (float)currentGuage / activeGuage;
-            player.activeItem = this;
+            // 일단 2가지 경우의 수가 있다. 지금 가지고있는 액티브 아이템이 있는가 없는가
+            // 없으면 그냥 획득 로직을 타고, 있다면 교체해야 한다.
+            if (player.activeItem)
+            {
+                // 먼저 가지고 있는 액티브 아이템을 임시로 저장
+                int tempItemId = player.activeItem.id;
+
+                // 아이템 획득
+                SetActiveItem();
+
+                // 지금 이 방에 있는 아이템을 임시 저장한 아이템으로 교체
+                // 플레이어가 가진 아이템 id의 인덱스에 해당하는 아이템 데이터로 현재 방의 아이템을 다시 세팅
+                // 인덱스의 아이템 데이터니까 +1 되어 들어가서 오류가 발생했던 것.
+                // 이미지도 바꿔주자
+                Init(GameManager.instance.itemData[tempItemId - 1]);
+                itemSpriteRenderer.sprite = image;
+            }
+            else
+            {
+                // UI의 액티브 칸을 활성화
+                GameManager.instance.ui.activeItem.SetActive(true);
+
+                // 아이템 획득
+                SetActiveItem();
+
+                // SetActive(false) 하면 활성화 되어있지 않는 오브젝트는 코루틴을 실행할 수 없기 때문에 크기를 0으로 설정하여 안보이는것 처럼 설정
+                gameObject.transform.localScale = Vector3.zero;
+            }
         }
 
         // 스탯 변화가 있다면 스탯 창 UI 갱신
         GameManager.instance.ui.isChanged = true;
 
-        // 판매 완료 처리
-        isPurchased = true;
+        // 획득 완료 처리
+        getItem = true;
+    }
 
-        // 상점에서 아이템 갱신
-        //Map.instance.currentRoom.isItemSet = false;
-        //gameObject.SetActive(false);
-        gameObject.transform.localScale = Vector3.zero;
+    void SetActiveItem()
+    {
+        // 이미지와 게이지를 세팅
+        GameManager.instance.ui.activeItemImage.sprite = image;
+
+        // 플레이어에 귀속되는 아이템 데이터를 저장
+        if (player.activeItem)
+        {
+            player.activeItem.Init(GameManager.instance.itemData[id - 1]);
+        }
+        else
+        {
+            player.activeItem = this;
+        }
+
+        // 액티브 아이템 UI 갱신
+        GameManager.instance.ui.isChanged = true;
     }
 
     public IEnumerator UseItem(int id)
