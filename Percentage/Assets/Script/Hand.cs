@@ -14,7 +14,8 @@ public class Hand : MonoBehaviour
     
 
     [Header("----- Common -----")]
-    public bool isChanged;
+    public bool isWeaponChanged;
+    public bool isSkillChanged;
 
     //[Header("----- role -----")]
 
@@ -37,11 +38,15 @@ public class Hand : MonoBehaviour
 
     void Update()
     {
-        if (isChanged)
+        if (isWeaponChanged)
         {
             haveWeapons = GetComponentsInChildren<Weapon>(true);
-            haveSkills = GetComponentsInChildren<Skill>(true);
             SwapWeapon(GameManager.instance.player.currentWeaponIndex);
+        }
+        else if (isSkillChanged)
+        {
+            haveSkills = GetComponentsInChildren<Skill>(true);
+            isSkillChanged = false;
         }
     }
 
@@ -94,6 +99,10 @@ public class Hand : MonoBehaviour
             }
         }
         haveWeapons[index].gameObject.SetActive(true);
-        isChanged = false;
+
+        // 교체했으면 그만큼 공격력이 바뀌어야 한다.
+        GameManager.instance.player.powerUp += GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[GameManager.instance.player.currentWeaponIndex].damage;
+
+        isWeaponChanged = false;
     }
 }

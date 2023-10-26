@@ -27,6 +27,7 @@ public class Door : MonoBehaviour
 
                 Map.instance.currentRoom = Map.instance.currentRoom.upRoom;
                 Map.instance.currentRoom.isVisited = true;
+                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition -= 1;
             }
             if (doorTag == "BottomDoor")
@@ -37,6 +38,7 @@ public class Door : MonoBehaviour
 
                 Map.instance.currentRoom = Map.instance.currentRoom.downRoom;
                 Map.instance.currentRoom.isVisited = true;
+                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition += 1;
             }
             if (doorTag == "LeftDoor")
@@ -47,6 +49,7 @@ public class Door : MonoBehaviour
 
                 Map.instance.currentRoom = Map.instance.currentRoom.leftRoom;
                 Map.instance.currentRoom.isVisited = true;
+                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition += 9;
             }
             if (doorTag == "RightDoor")
@@ -57,6 +60,7 @@ public class Door : MonoBehaviour
 
                 Map.instance.currentRoom = Map.instance.currentRoom.rightRoom;
                 Map.instance.currentRoom.isVisited = true;
+                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition -= 9;
             }
         }

@@ -61,10 +61,10 @@ public class RoomReward : MonoBehaviour
                     upgradeText[0].gameObject.SetActive(true);
                     upgradeText[1].gameObject.SetActive(true);
 
-                    // 레벨 증가
-                    randomWeapon.level++;
                     upgradeText[0].text = "장비 " + randomWeapon.name + " 강화에 성공하셨습니다.";
                     upgradeText[1].text = "강화에 성공하여 장비 공격력이 " + randomWeapon.upgradeDamage[randomWeapon.level] + " 상승하였습니다.";
+
+                    randomWeapon.level++;
                     randomWeapon.damage += randomWeapon.upgradeDamage[randomWeapon.level];
 
                     // 현재 착용중인 무기가 강화에 성공했다면 무기 교체 시 공격력 변화에 오류가 없도록 공격력 증가에 바로 반영
@@ -76,14 +76,16 @@ public class RoomReward : MonoBehaviour
                     if(randomWeapon.level > 0)
                     {
                         failedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 단계가 하락합니다.";
+
+                        // 현재 착용중인 무기의 단계가 하락했다면 무기 교체 시 공격력 변화에 오류가 없도록 공격력 감소에 바로 반영
                         randomWeapon.damage -= randomWeapon.upgradeDamage[randomWeapon.level];
+                        if (i == GameManager.instance.player.currentWeaponIndex) GameManager.instance.player.powerUp -= randomWeapon.upgradeDamage[randomWeapon.level];
                         randomWeapon.level--;
                     }
                     else
                     {
                         failedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하였습니다.";
                     }
-
                 }
                 else
                 {
@@ -92,16 +94,20 @@ public class RoomReward : MonoBehaviour
                     {
                         destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.";
 
-                        // 무기 개수 감소, 장착 무기를 기본무기로 변경
+                        // 파괴된 무기 공격력만큼 감소
+                        GameManager.instance.player.powerUp -= randomWeapon.damage;
+
+                        // 무기 개수 감소, 장착 무기를 기본무기로 변경 후 공격력 증가
                         GameManager.instance.player.getWeaponCount--;
                         GameManager.instance.player.currentWeaponIndex = 0;
+                        //GameManager.instance.player.powerUp += GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[0].damage;
 
                         // 오브젝트 파괴, 무기 리스트에서 삭제
                         GameObject destoryWeapon = GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[i].gameObject;
                         Destroy(destoryWeapon);
 
                         // 손에 든 무기 업데이트, UI 적용
-                        GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                        GameManager.instance.player.hand[GameManager.instance.player.role].isWeaponChanged = true;
                         GameManager.instance.ui.isChanged = true;
                     }
 
@@ -126,15 +132,20 @@ public class RoomReward : MonoBehaviour
             // 뽑은 무기가 내 직업이 낄 수 있다면 넣고, 아니면 반환
             if(GameManager.instance.player.role == (int)randomWeaponData.weaponType)
             {
+                // 우선 현재 보유한 무기 비활성화 후 해당 무기의 공격력만큼 감소
+                GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[GameManager.instance.player.currentWeaponIndex].gameObject.SetActive(false);
+                GameManager.instance.player.powerUp -= GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[GameManager.instance.player.currentWeaponIndex].damage;
 
-                // 무기 생성 후 획득한 무기로 스위칭
+                // 무기 생성
                 GameObject newWeapon = GameManager.instance.GenerateWeapon();
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount] = newWeapon.AddComponent<Weapon>();
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].Init(randomWeaponData);
                 GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].name = GameManager.instance.weapon[GameManager.instance.player.getWeaponCount].weaponName;
+
+                // 획득한 무기로 스위칭 후 공격력 증가
                 GameManager.instance.player.getWeaponCount++;
-                //GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
-                //GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                GameManager.instance.player.currentWeaponIndex = GameManager.instance.player.getWeaponCount - 1;
+                GameManager.instance.player.hand[GameManager.instance.player.role].isWeaponChanged = true;
 
                 // UI에 적용
                 GameManager.instance.ui.isChanged = true;
@@ -214,7 +225,7 @@ public class RoomReward : MonoBehaviour
                         Destroy(destorySkill);
 
                         // 손에 든 무기 업데이트, UI 적용
-                        GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                        GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
                         GameManager.instance.ui.isChanged = true;
                     }
 
@@ -246,7 +257,7 @@ public class RoomReward : MonoBehaviour
                 GameManager.instance.skill[GameManager.instance.player.getSkillCount].name = GameManager.instance.skill[GameManager.instance.player.getSkillCount].skillName;
                 GameManager.instance.player.getSkillCount++;
                 //GameManager.instance.player.currentSkillIndex = GameManager.instance.player.getSkillCount - 1;
-                GameManager.instance.player.hand[GameManager.instance.player.role].isChanged = true;
+                GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
 
                 // UI에 적용
                 GameManager.instance.ui.isChanged = true;

@@ -150,17 +150,17 @@ public class Room : MonoBehaviour
 
     void DrawMap()
     {
-        // 맵 UI에서 현재 위치한 방의 투명도는 0.75, 주변에 있는 방은 0.25로 설정
+        // 맵 UI에서 현재 위치한 방의 투명도는 1, 방문했던 방은 0.75, 주변에 있는 방은 0.25로 설정
         // 참고로 우측 상단이 1번째, 좌측 하단이 81번째. 생성 방향은 상->하, 우->좌
 
-        // 현재 위치는 찐하게 방문 표시
-        Map.instance.mapSquare[Map.instance.mapPosition].color = new Color(1, 1, 1, 0.75f);
+        // 현재 방의 위치는 찐하게 방문 표시
+        Map.instance.mapSquare[Map.instance.mapPosition].color = new Color(1, 1, 1, 1);
 
-        // 주변 방 옅게 표시
-        if (leftRoom && !leftRoom.isVisited)    ColorMap(leftRoom, 9);
-        if (rightRoom && !rightRoom.isVisited)  ColorMap(rightRoom, -9);
-        if (upRoom && !upRoom.isVisited)    ColorMap(upRoom, -1);
-        if (downRoom && !downRoom.isVisited)    ColorMap(downRoom, 1);
+        // 주변 방 색칠하기
+        if (leftRoom)   ColorMap(leftRoom, 9);
+        if (rightRoom)  ColorMap(rightRoom, -9);
+        if (upRoom)     ColorMap(upRoom, -1);
+        if (downRoom)   ColorMap(downRoom, 1);
 
         isMapDraw = true;
     }
@@ -169,7 +169,9 @@ public class Room : MonoBehaviour
     {
         int mapPosition = Map.instance.mapPosition;
         mapPosition += roomIndex;
-        Map.instance.mapSquare[mapPosition].color = new Color(1, 1, 1, 0.25f);
+
+        // 주변 방이 방문했던곳이 아니면 투명도 0.25, 방문 했었으면 0.75
+        Map.instance.mapSquare[mapPosition].color = !directionRoom.isVisited ? new Color(1, 1, 1, 0.25f) : new Color(1, 1, 1, 0.75f);
 
         // 특수방이라면 아이콘 추가
         SpecialRoom(directionRoom, Map.instance.mapSquare[mapPosition]);

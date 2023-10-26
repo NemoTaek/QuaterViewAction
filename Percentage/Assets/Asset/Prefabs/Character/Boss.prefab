@@ -166,7 +166,7 @@ MonoBehaviour:
   enemyType: 2
   speed: 2
   health: 0
-  maxHealth: 500
+  maxHealth: 1
   isLive: 0
   isObjectCollision: 0
   moveStart: 0

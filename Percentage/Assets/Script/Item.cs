@@ -176,7 +176,7 @@ public class Item : MonoBehaviour
         player.powerUp += itemDamage;
         player.staticPower += itemStaticDamage;
         player.health += itemHealth;
-        player.currentHealth += itemCurrentHealth;
+        player.currentHealth = Mathf.Min(player.currentHealth + itemCurrentHealth, player.health);
 
         // 스탯 외의 다른 효과가 있으면 추가적으로 작성
         switch (id)
@@ -272,7 +272,7 @@ public class Item : MonoBehaviour
                 break;
             // 맛있는 심장
             case 16:
-                player.currentHealth++;
+                player.currentHealth = Mathf.Min(player.currentHealth + 1, player.health);
                 break;
             // 모래시계
             case 17:

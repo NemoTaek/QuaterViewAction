@@ -81,10 +81,26 @@ public class Map : Singleton<Map>
         int totalItemCount = GameManager.instance.itemPool.items.Length;
         int random = Random.Range(1, totalItemCount);
 
-        // 아이템 생성 후 배치
-        Item goldenItem = GameManager.instance.itemPool.Get(random);
-        goldenItem.transform.position = room.itemPoint[0].transform.position;
-        goldenItem.Init(GameManager.instance.itemData[random - 1]);
+        // 이미 배치된 아이템은 다시 배치되면 안된다.
+        while (true)
+        {
+            int isInSetItemList = GameManager.instance.setItemList.Find(x => x == random);
+
+            if (isInSetItemList == 0)
+            {
+                GameManager.instance.setItemList.Add(random);
+
+                Item goldenItem = GameManager.instance.itemPool.Get(random);
+                goldenItem.transform.position = room.itemPoint[0].transform.position;
+                goldenItem.Init(GameManager.instance.itemData[random - 1]);
+                
+                break;
+            }
+            else
+            {
+                random = Random.Range(1, totalItemCount);
+            }
+        }
     }
 
     void SetShopItem(Room room, int count)
@@ -93,15 +109,18 @@ public class Map : Singleton<Map>
         int totalItemCount = GameManager.instance.itemPool.items.Length;
 
         // 중복이 안되도록 아이템 세팅
-        // 이미 획득한 아이템은 안나오도록 설정.... 하고싶은데 개수가 적어서 일단은 보류
+        // 이미 획득한 아이템은 안나오도록 설정
         while (index < count)
         {
             int random = Random.Range(1, totalItemCount);
             int isInItemList = itemsInShop.Find(x => x == random);
+            int isInSetItemList = GameManager.instance.setItemList.Find(x => x == random);
 
-            if (isInItemList == 0)
+            // 상점 내에는 중복이 안되고, 지금까지 배치된 적 없는 아이템으로 세팅
+            if (isInItemList == 0 && isInSetItemList == 0)
             {
                 itemsInShop.Add(random);
+                GameManager.instance.setItemList.Add(random);
 
                 // 아이템 생성 후 배치
                 itemPrefab[index] = GameManager.instance.itemPool.Get(random);

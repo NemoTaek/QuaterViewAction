@@ -376,25 +376,25 @@ public class Player : MonoBehaviour
         GameManager.instance.weapon[getWeaponCount] = newWeapon.AddComponent<Weapon>();
         GameManager.instance.weapon[getWeaponCount].Init(GameManager.instance.weaponData[role * 5]);
         GameManager.instance.weapon[getWeaponCount].name = GameManager.instance.weapon[getWeaponCount].weaponName;
-        hand[role].isChanged = true;
         getWeaponCount++;
         currentWeaponIndex = 0;
-        powerUp += (GameManager.instance.weapon[currentWeaponIndex].damage + GameManager.instance.weapon[currentWeaponIndex].upgradeDamage[GameManager.instance.weapon[currentWeaponIndex].level]);
+        hand[role].isWeaponChanged = true;
+        //powerUp += (GameManager.instance.weapon[currentWeaponIndex].damage + GameManager.instance.weapon[currentWeaponIndex].upgradeDamage[GameManager.instance.weapon[currentWeaponIndex].level]);
 
         // 스킬 생성 후 세팅
         GameManager.instance.skill[getSkillCount] = newSkill.AddComponent<Skill>();
         GameManager.instance.skill[getSkillCount].Init(GameManager.instance.skillData[role * 5]);
         GameManager.instance.skill[getSkillCount].name = GameManager.instance.skill[getSkillCount].skillName;
-        hand[role].isChanged = true;
         getSkillCount++;
         currentSkillIndex = 0;
+        hand[role].isSkillChanged = true;
 
         // ui 갱신
         GameManager.instance.ui.gameObject.SetActive(true);
         GameManager.instance.ui.isChanged = true;
     }
 
-    public void CalculateStatus(int a=0)
+    public void CalculateStatus()
     {
         // 스탯에 관련한 공식은 아이작을 따른다.
         // 공격력: 플레이어 기본 공격력 * sqrt(게임 중 획득한 공격력 수치 * 1.2 + 1) + 고정으로 올려주는 데미지
