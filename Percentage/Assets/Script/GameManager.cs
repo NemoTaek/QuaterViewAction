@@ -51,12 +51,12 @@ public class GameManager : Singleton<GameManager>
     public bool isOpenItemPanel;
     public int coin;
     public float elapsedTime = 0;
-    public List<Sprite> getItemList;
+    public List<Item> getItemList;
     public List<int> setItemList;
 
     void Start()
     {
-        getItemList = new List<Sprite>();
+        getItemList = new List<Item>();
         setItemList = new List<int>();
         GameInit();
     }

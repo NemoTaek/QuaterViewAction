@@ -230,11 +230,14 @@ public class Room : MonoBehaviour
 
             // 보스 리워드 생성
             // 위치: 짝수면 -1, 1, -2, 2, -3, 3 .... / 홀수면 0, -1, 1, -2, 2 ....
-            Vector3 itemStartPosition = Vector3.left * (bossDropItems.Length % 2 == 0 ? bossDropItems.Length / 2 + 0.5f : (int)(bossDropItems.Length / 2));
+            //Vector3 itemStartPosition = Vector3.left * (bossDropItems.Length % 2 == 0 ? bossDropItems.Length / 2 + 0.5f : (int)(bossDropItems.Length / 2));
+
+            // 어짜피 지금은 2개니까 위치를 숫자로 박아넣자
+            Vector3 itemStartPosition = Vector3.left * 2;
             for (int i = 0; i < bossDropItems.Length; i++)
             {
                 Item item = Instantiate(bossDropItems[i], transform);
-                item.transform.position = transform.position + Vector3.down + itemStartPosition + Vector3.right * i;
+                item.transform.position = transform.position + Vector3.down * 2 + itemStartPosition + Vector3.right * i * 4;
                 item.Init(bossDropItemDatas[i]);
             }
         }
@@ -290,5 +293,14 @@ public class Room : MonoBehaviour
             if (!buttons[i].isPressed) return false;
         }
         return true;
+    }
+
+    public void DeleteItem()
+    {
+        Item[] rewardItems = GetComponentsInChildren<Item>();
+        foreach(Item item in rewardItems)
+        {
+            Destroy(item.gameObject);
+        }
     }
 }

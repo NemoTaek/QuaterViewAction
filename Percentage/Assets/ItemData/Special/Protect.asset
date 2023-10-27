@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Protect
   m_EditorClassIdentifier: 
   itemType: 1
-  itemId: 0
+  itemId: 22
   itemName: "\uD30C\uAD34 \uBC29\uC9C0 \uC8FC\uBB38\uC11C"
   itemPrice: 0
   itemDesc: "\uAC15\uD654 \uC2E4\uD328 \uC2DC, \uC7A5\uBE44 \uBC0F \uC2A4\uD0AC\uC774
@@ -22,6 +22,7 @@ MonoBehaviour:
   itemCoolTime: 0
   itemDuringTime: 0
   itemImage: {fileID: 21300000, guid: f9c65a4488ea3234ab79197afb299312, type: 3}
+  itemActiveGuage: 0
   itemSpeed: 0
   itemAttackSpeed: 0
   itemDamage: 0

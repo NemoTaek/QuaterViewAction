@@ -1407,6 +1407,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a51c98a590d9af543ba9259d9bf820df, type: 2}
   - {fileID: 11400000, guid: a3332a59d534ac147b578e33f68385eb, type: 2}
   - {fileID: 11400000, guid: 6e32c12d3e1e85c4b90e4dc3bf184862, type: 2}
+  - {fileID: 11400000, guid: 9110c40371f0634489954385383b2033, type: 2}
+  - {fileID: 11400000, guid: 2df23d7e25ed71d4da6cf8fcccfb443b, type: 2}
   itemPricePool: {fileID: 714128833}
   statusEffectIcon:
   - {fileID: 21300000, guid: 66bdd2885e64a7f45ab68573793663cf, type: 3}
@@ -1440,6 +1442,7 @@ MonoBehaviour:
   coin: 99999
   elapsedTime: 0
   getItemList: []
+  setItemList: 
 --- !u!4 &197463308
 Transform:
   m_ObjectHideFlags: 0

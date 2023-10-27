@@ -61,10 +61,9 @@ public class RoomReward : MonoBehaviour
                     upgradeText[0].gameObject.SetActive(true);
                     upgradeText[1].gameObject.SetActive(true);
 
+                    randomWeapon.level++;
                     upgradeText[0].text = "장비 " + randomWeapon.name + " 강화에 성공하셨습니다.";
                     upgradeText[1].text = "강화에 성공하여 장비 공격력이 " + randomWeapon.upgradeDamage[randomWeapon.level] + " 상승하였습니다.";
-
-                    randomWeapon.level++;
                     randomWeapon.damage += randomWeapon.upgradeDamage[randomWeapon.level];
 
                     // 현재 착용중인 무기가 강화에 성공했다면 무기 교체 시 공격력 변화에 오류가 없도록 공격력 증가에 바로 반영
@@ -92,6 +91,13 @@ public class RoomReward : MonoBehaviour
                     destroyedText.gameObject.SetActive(true);
                     if (random != GameManager.instance.player.role * 5)
                     {
+                        // 만약 파괴 방지권이 있다면? 로직 추가하기
+                        Item isInGetItemList = GameManager.instance.getItemList.Find(x => x.id == 22);
+                        if (isInGetItemList)
+                        {
+
+                        }
+
                         destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.";
 
                         // 파괴된 무기 공격력만큼 감소

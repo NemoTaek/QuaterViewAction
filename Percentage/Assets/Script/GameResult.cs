@@ -45,10 +45,10 @@ public class GameResult : MonoBehaviour
 
     IEnumerator PrintGetItems()
     {
-        foreach(Sprite item in GameManager.instance.getItemList)
+        foreach(Item item in GameManager.instance.getItemList)
         {
             itemImage = Instantiate(itemImageCase, itemImageContainer.transform);
-            itemImage.sprite = item;
+            itemImage.sprite = item.image;
             yield return new WaitForSeconds(0.2f);
         }
     }

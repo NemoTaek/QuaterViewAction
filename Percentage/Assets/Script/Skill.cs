@@ -104,12 +104,12 @@ public class Skill : MonoBehaviour
             // 전사 집중
             case 2:
                 player.buffSprite.sprite = icon;
-                player.powerUp += upgradeDamage[level];
+                player.powerUp += (damage + upgradeDamage[level]);
 
                 yield return new WaitForSeconds(skillDuringTime);
 
                 player.buffSprite.sprite = null;
-                player.powerUp -= upgradeDamage[level];
+                player.powerUp -= (damage + upgradeDamage[level]);
                 break;
             // 전사 가드어택
             case 3:
@@ -154,12 +154,12 @@ public class Skill : MonoBehaviour
             // 마법사 명상
             case 7:
                 player.buffSprite.sprite = icon;
-                player.powerUp += upgradeDamage[level];
+                player.powerUp += (damage + upgradeDamage[level]);
 
                 yield return new WaitForSeconds(skillDuringTime);
 
                 player.buffSprite.sprite = null;
-                player.powerUp -= upgradeDamage[level];
+                player.powerUp -= (damage + upgradeDamage[level]);
                 break;
             // 마법사 메테오
             case 8:
@@ -220,12 +220,12 @@ public class Skill : MonoBehaviour
             // 도적 헤이스트
             case 12:
                 player.buffSprite.sprite = icon;
-                player.speed += upgradeDamage[level];
+                player.speed += (damage + upgradeDamage[level]);
 
                 yield return new WaitForSeconds(skillDuringTime);
 
                 player.buffSprite.sprite = null;
-                player.speed -= upgradeDamage[level];
+                player.speed -= (damage + upgradeDamage[level]);
                 break;
             // 도적 지뢰
             case 13:
@@ -285,20 +285,20 @@ public class Skill : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        player.attackSpeedUp += damage + upgradeDamage[level];
+                        player.attackSpeedUp += (damage + upgradeDamage[level]);
                         yield return new WaitForSeconds(skillDuringTime);
-                        player.attackSpeedUp -= damage + upgradeDamage[level];
+                        player.attackSpeedUp -= (damage + upgradeDamage[level]);
                         break;
                     case 2:
                         // 이동속도의 경우에는 조금만 높아도 휙휙 변해서 반만 적용
-                        player.speed += (damage + upgradeDamage[level]) / 2;
+                        player.speed += ((damage + upgradeDamage[level]) / 2);
                         yield return new WaitForSeconds(skillDuringTime);
-                        player.speed -= (damage + upgradeDamage[level]) / 2;
+                        player.speed -= ((damage + upgradeDamage[level]) / 2);
                         break;
                     case 3:
-                        player.powerUp += damage + upgradeDamage[level];
+                        player.powerUp += (damage + upgradeDamage[level]);
                         yield return new WaitForSeconds(skillDuringTime);
-                        player.powerUp -= damage + upgradeDamage[level];
+                        player.powerUp -= (damage + upgradeDamage[level]);
                         break;
                 }
 

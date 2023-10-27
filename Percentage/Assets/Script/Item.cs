@@ -97,7 +97,7 @@ public class Item : MonoBehaviour
         // 액티브면 액티브 아이템 칸에 추가 (이미 있다면 교체)
         if (type == ItemData.ItemType.Passive)
         {
-            GameManager.instance.getItemList.Add(image);
+            GameManager.instance.getItemList.Add(this);
             StartCoroutine(UseItem(id));
 
             // SetActive(false) 하면 활성화 되어있지 않는 오브젝트는 코루틴을 실행할 수 없기 때문에 크기를 0으로 설정하여 안보이는것 처럼 설정
@@ -132,6 +132,9 @@ public class Item : MonoBehaviour
 
                 // SetActive(false) 하면 활성화 되어있지 않는 오브젝트는 코루틴을 실행할 수 없기 때문에 크기를 0으로 설정하여 안보이는것 처럼 설정
                 gameObject.transform.localScale = Vector3.zero;
+                // 이대로 두면 스테이지가 바뀌면 사라지기 때문에 귀속하도록 플레이어에 넣는다.
+                // 2번째 매개변수가 true면 이전과 동일한 위치, 각도, 크기를 유지하도록 상대적으로 조절된다.
+                gameObject.transform.SetParent(GameManager.instance.player.transform, false);
             }
         }
 
@@ -319,6 +322,37 @@ public class Item : MonoBehaviour
                     reward = Instantiate(GameManager.instance.objectPool.prefabs[1], Map.instance.currentRoom.roomReward.transform);
                     reward.transform.position = player.transform.position + pos;
                 }
+                break;
+            // 파괴 방지
+            case 22:
+                // 22랑 23이랑 둘중 하나만 먹을 수 있도록 해야하는데...
+                yield return new WaitForSeconds(0.1f);
+                GetComponentInParent<Room>().DeleteItem();
+                break;
+            // 강화
+            case 23:
+                // 습득 후 0.5초 간격을 두고 강화
+                yield return new WaitForSeconds(0.5f);
+
+                GameManager.instance.isOpenBox = true;
+                GameManager.instance.rewardBoxPanel.gameObject.SetActive(true);
+                RoomReward roomReward = GameManager.instance.rewardBoxPanel.GetComponent<RoomReward>();
+
+                // 현재 지니고 있는 무기와 선택한 스킬을 강화 (파괴돼도 난 모름)
+                int currentWeaponId = GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].id;
+                roomReward.AcquireOrUpgrade(currentWeaponId, GameManager.instance.weaponData[currentWeaponId]);
+
+                yield return new WaitForSeconds(0.5f);
+
+                GameManager.instance.isOpenBox = true;
+                GameManager.instance.rewardBoxPanel.gameObject.SetActive(true);
+                roomReward = GameManager.instance.rewardBoxPanel.GetComponent<RoomReward>();
+
+                int currentSkillId = GameManager.instance.skill[GameManager.instance.player.currentSkillIndex].id;
+                roomReward.AcquireOrUpgrade(currentSkillId, GameManager.instance.skillData[currentSkillId]);
+
+                yield return new WaitForSeconds(0.1f);
+                GetComponentInParent<Room>().DeleteItem();
                 break;
         }
 
