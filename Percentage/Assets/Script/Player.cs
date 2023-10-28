@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public Transform keydownGuage;
     public Transform guage;
     public GameObject familiar;
+    public GameObject getItems;
     public Item activeItem;
 
     [Header("----- Player Property -----")]

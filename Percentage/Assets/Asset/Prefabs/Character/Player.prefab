@@ -73,6 +73,7 @@ Transform:
   - {fileID: 3055320547794826004}
   - {fileID: 3055320547397134162}
   - {fileID: 3541614943206257779}
+  - {fileID: 4615841711145408898}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -148,6 +149,9 @@ MonoBehaviour:
   col: {fileID: 0}
   keydownGuage: {fileID: 3055320547181063945}
   guage: {fileID: 3055320548261150948}
+  familiar: {fileID: 1386433571624508187}
+  getItems: {fileID: 5060563480686472660}
+  activeItem: {fileID: 0}
   inputVec: {x: 0, y: 0}
   fireVec: {x: 0, y: 0}
   isSlashing: 0
@@ -155,11 +159,13 @@ MonoBehaviour:
   currentSkillIndex: 0
   isOnObject: 0
   isDamaged: 0
+  isInvincible: 0
   isDead: 0
   keydownTimer: 0
   isKeydown: 0
   isChargeComplete: 0
   isGameClear: 0
+  killEnemyCount: 0
   role: 0
   roleName: 
   getWeaponCount: 0
@@ -480,7 +486,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   haveWeapons: []
   haveSkills: []
-  isChanged: 0
+  isWeaponChanged: 0
+  isSkillChanged: 0
 --- !u!1 &3055320547794826005
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +557,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   haveWeapons: []
   haveSkills: []
-  isChanged: 0
+  isWeaponChanged: 0
+  isSkillChanged: 0
 --- !u!1 &3055320548261150949
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +712,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   haveWeapons: []
   haveSkills: []
-  isChanged: 0
+  isWeaponChanged: 0
+  isSkillChanged: 0
 --- !u!1 &3055320548551284621
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,4 +867,36 @@ MonoBehaviour:
   animator: {fileID: 0}
   haveWeapons: []
   haveSkills: []
-  isChanged: 0
+  isWeaponChanged: 0
+  isSkillChanged: 0
+--- !u!1 &5060563480686472660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4615841711145408898}
+  m_Layer: 0
+  m_Name: Get Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4615841711145408898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060563480686472660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3055320546974436602}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

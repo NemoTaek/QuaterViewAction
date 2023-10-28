@@ -97,11 +97,18 @@ public class Item : MonoBehaviour
         // 액티브면 액티브 아이템 칸에 추가 (이미 있다면 교체)
         if (type == ItemData.ItemType.Passive)
         {
+            // 획득한 아이템 리스트에 추가 후 안보이도록 설정하고 플레이어에 귀속
             GameManager.instance.getItemList.Add(this);
-            StartCoroutine(UseItem(id));
-
+            
             // SetActive(false) 하면 활성화 되어있지 않는 오브젝트는 코루틴을 실행할 수 없기 때문에 크기를 0으로 설정하여 안보이는것 처럼 설정
             gameObject.transform.localScale = Vector3.zero;
+
+            // 이대로 두면 스테이지가 바뀌면 사라지기 때문에 귀속하도록 플레이어에 넣는다.
+            // 2번째 매개변수가 true면 이전과 동일한 위치, 각도, 크기를 유지하도록 상대적으로 조절된다.
+            gameObject.transform.SetParent(GameManager.instance.player.getItems.transform, false);
+
+            // 그리고 사용
+            StartCoroutine(UseItem(id));
         }
         else
         {
@@ -134,7 +141,7 @@ public class Item : MonoBehaviour
                 gameObject.transform.localScale = Vector3.zero;
                 // 이대로 두면 스테이지가 바뀌면 사라지기 때문에 귀속하도록 플레이어에 넣는다.
                 // 2번째 매개변수가 true면 이전과 동일한 위치, 각도, 크기를 유지하도록 상대적으로 조절된다.
-                gameObject.transform.SetParent(GameManager.instance.player.transform, false);
+                gameObject.transform.SetParent(GameManager.instance.player.getItems.transform, false);
             }
         }
 
@@ -327,7 +334,7 @@ public class Item : MonoBehaviour
             case 22:
                 // 22랑 23이랑 둘중 하나만 먹을 수 있도록 해야하는데...
                 yield return new WaitForSeconds(0.1f);
-                GetComponentInParent<Room>().DeleteItem();
+                Map.instance.currentRoom.DeleteItem();
                 break;
             // 강화
             case 23:
@@ -352,7 +359,7 @@ public class Item : MonoBehaviour
                 roomReward.AcquireOrUpgrade(currentSkillId, GameManager.instance.skillData[currentSkillId]);
 
                 yield return new WaitForSeconds(0.1f);
-                GetComponentInParent<Room>().DeleteItem();
+                Map.instance.currentRoom.DeleteItem();
                 break;
         }
 

@@ -50,8 +50,8 @@ public class RoomReward : MonoBehaviour
                 // 최고 레벨인 경우 그의 공로를 인정하여 더는 강화하지 않도록 설정
                 if(randomWeapon.level == randomWeapon.maxLevel)
                 {
-                    AcquireOrUpgrade(random, randomWeaponData);
-                    break;
+                    upgradeText[0].gameObject.SetActive(true);
+                    upgradeText[0].text = "장비 " + randomWeapon.name + "이(가) 이미 최고 레벨입니다.\n더이상 강화되지 않습니다.";
                 }
 
                 // 강화로직 구현
@@ -91,30 +91,44 @@ public class RoomReward : MonoBehaviour
                     destroyedText.gameObject.SetActive(true);
                     if (random != GameManager.instance.player.role * 5)
                     {
-                        // 만약 파괴 방지권이 있다면? 로직 추가하기
+                        // 만약 파괴 방지권이 있다면 해당 아이템을 제거하고 파괴를 막는다.
                         Item isInGetItemList = GameManager.instance.getItemList.Find(x => x.id == 22);
                         if (isInGetItemList)
                         {
+                            destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴... 될 뻔 했지만\n" +
+                                "파괴 방지 아이템이 있어 파괴되지 않았습니다.";
 
+                            GameManager.instance.getItemList.Remove(isInGetItemList);
+                            Item[] playerItems = GameManager.instance.player.getItems.GetComponentsInChildren<Item>();
+                            foreach (Item item in playerItems)
+                            {
+                                if (item.id == 22)
+                                {
+                                    Destroy(item.gameObject);
+                                    break;
+                                }
+                            }
                         }
+                        else
+                        {
+                            destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.";
 
-                        destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.";
+                            // 파괴된 무기 공격력만큼 감소
+                            GameManager.instance.player.powerUp -= randomWeapon.damage;
 
-                        // 파괴된 무기 공격력만큼 감소
-                        GameManager.instance.player.powerUp -= randomWeapon.damage;
+                            // 무기 개수 감소, 장착 무기를 기본무기로 변경 후 공격력 증가
+                            GameManager.instance.player.getWeaponCount--;
+                            GameManager.instance.player.currentWeaponIndex = 0;
+                            //GameManager.instance.player.powerUp += GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[0].damage;
 
-                        // 무기 개수 감소, 장착 무기를 기본무기로 변경 후 공격력 증가
-                        GameManager.instance.player.getWeaponCount--;
-                        GameManager.instance.player.currentWeaponIndex = 0;
-                        //GameManager.instance.player.powerUp += GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[0].damage;
+                            // 오브젝트 파괴, 무기 리스트에서 삭제
+                            GameObject destoryWeapon = GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[i].gameObject;
+                            Destroy(destoryWeapon);
 
-                        // 오브젝트 파괴, 무기 리스트에서 삭제
-                        GameObject destoryWeapon = GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[i].gameObject;
-                        Destroy(destoryWeapon);
-
-                        // 손에 든 무기 업데이트, UI 적용
-                        GameManager.instance.player.hand[GameManager.instance.player.role].isWeaponChanged = true;
-                        GameManager.instance.ui.isChanged = true;
+                            // 손에 든 무기 업데이트, UI 적용
+                            GameManager.instance.player.hand[GameManager.instance.player.role].isWeaponChanged = true;
+                            GameManager.instance.ui.isChanged = true;
+                        }
                     }
 
                     // 기본무기면 파괴 안되도록. 다시 로직 돌리자
@@ -183,8 +197,8 @@ public class RoomReward : MonoBehaviour
                 // 최고 레벨인 경우 그의 공로를 인정하여 더는 강화하지 않도록 설정
                 if (randomSkill.level == randomSkill.maxLevel)
                 {
-                    AcquireOrUpgrade(random, randomSkillData);
-                    break;
+                    upgradeText[0].gameObject.SetActive(true);
+                    upgradeText[0].text = "스킬 " + randomSkill.name + "이(가) 이미 최고 레벨입니다.\n더이상 강화되지 않습니다.";
                 }
 
                 // 강화로직 구현
@@ -218,21 +232,43 @@ public class RoomReward : MonoBehaviour
                 else
                 {
                     destroyedText.gameObject.SetActive(true);
+
                     if (random != GameManager.instance.player.role * 5)
                     {
-                        destroyedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴되었습니다.";
+                        // 만약 파괴 방지권이 있다면 해당 아이템을 제거하고 파괴를 막는다.
+                        Item isInGetItemList = GameManager.instance.getItemList.Find(x => x.id == 22);
+                        if (isInGetItemList)
+                        {
+                            destroyedText.text = "장비 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴... 될 뻔 했지만\n" +
+                                "파괴 방지 아이템이 있어 파괴되지 않았습니다.";
 
-                        // 무기 개수 감소, 장착 무기를 기본무기로 변경
-                        GameManager.instance.player.getSkillCount--;
-                        GameManager.instance.player.currentSkillIndex = 0;
+                            GameManager.instance.getItemList.Remove(isInGetItemList);
+                            Item[] playerItems = GameManager.instance.player.getItems.GetComponentsInChildren<Item>();
+                            foreach (Item item in playerItems)
+                            {
+                                if (item.id == 22)
+                                {
+                                    Destroy(item.gameObject);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            destroyedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴되었습니다.";
 
-                        // 오브젝트 파괴, 무기 리스트에서 삭제
-                        GameObject destorySkill = GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[i].gameObject;
-                        Destroy(destorySkill);
+                            // 무기 개수 감소, 장착 무기를 기본무기로 변경
+                            GameManager.instance.player.getSkillCount--;
+                            GameManager.instance.player.currentSkillIndex = 0;
 
-                        // 손에 든 무기 업데이트, UI 적용
-                        GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
-                        GameManager.instance.ui.isChanged = true;
+                            // 오브젝트 파괴, 무기 리스트에서 삭제
+                            GameObject destorySkill = GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[i].gameObject;
+                            Destroy(destorySkill);
+
+                            // 손에 든 무기 업데이트, UI 적용
+                            GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
+                            GameManager.instance.ui.isChanged = true;
+                        }
                     }
 
                     // 기본스킬이면 파괴 안되도록. 다시 로직 돌리자
