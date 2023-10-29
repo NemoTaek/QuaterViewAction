@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool isSlashing;
     public int currentWeaponIndex;
     public int currentSkillIndex;
+    public bool isRoomMove;
     public bool isOnObject;
     public bool isDamaged;
     public bool isInvincible;

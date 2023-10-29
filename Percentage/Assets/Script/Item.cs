@@ -92,7 +92,7 @@ public class Item : MonoBehaviour
         GameManager.instance.getItemPanel.gameObject.SetActive(true);
         GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
 
-        // 구매한 아이템 적용
+        // 획득한 아이템 적용
         // 패시브면 획득 아이템 리스트에 넣고 바로 적용하고 아이템 삭제
         // 액티브면 액티브 아이템 칸에 추가 (이미 있다면 교체)
         if (type == ItemData.ItemType.Passive)
@@ -106,6 +106,12 @@ public class Item : MonoBehaviour
             // 이대로 두면 스테이지가 바뀌면 사라지기 때문에 귀속하도록 플레이어에 넣는다.
             // 2번째 매개변수가 true면 이전과 동일한 위치, 각도, 크기를 유지하도록 상대적으로 조절된다.
             gameObject.transform.SetParent(GameManager.instance.player.getItems.transform, false);
+
+            // 또한 스탯창에도 획득한 아이템을 볼 수 있도록 추가
+            GameObject itemImageObject = new GameObject("Item");
+            Image itemImage = itemImageObject.AddComponent<Image>();
+            itemImage.sprite = image;
+            itemImageObject.transform.SetParent(GameManager.instance.statusPanel.getItemsArea.transform, false);
 
             // 그리고 사용
             StartCoroutine(UseItem(id));
@@ -338,8 +344,8 @@ public class Item : MonoBehaviour
                 break;
             // 강화
             case 23:
-                // 습득 후 0.5초 간격을 두고 강화
-                yield return new WaitForSeconds(0.5f);
+                // 습득 후 0.1초 간격을 두고 강화
+                yield return new WaitForSeconds(0.1f);
 
                 GameManager.instance.isOpenBox = true;
                 GameManager.instance.rewardBoxPanel.gameObject.SetActive(true);
@@ -349,7 +355,7 @@ public class Item : MonoBehaviour
                 int currentWeaponId = GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].id;
                 roomReward.AcquireOrUpgrade(currentWeaponId, GameManager.instance.weaponData[currentWeaponId]);
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.1f);
 
                 GameManager.instance.isOpenBox = true;
                 GameManager.instance.rewardBoxPanel.gameObject.SetActive(true);

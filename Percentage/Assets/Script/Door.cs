@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
         Vector3 cameraPosition = GameManager.instance.cam.transform.position;
         Vector3 playerPosition = GameManager.instance.player.transform.position;
 
-        if(collision.CompareTag("Player"))
+        if(!GameManager.instance.player.isRoomMove && collision.CompareTag("Player"))
         {
             // 맵 이동
             if (doorTag == "TopDoor")
@@ -63,6 +63,19 @@ public class Door : MonoBehaviour
                 Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition -= 9;
             }
+
+            GameManager.instance.player.isRoomMove = true;
+        }
+    }
+
+    // isRoomMove(방을 이동했는가의 bool 형 변수) 를 설정하지 않으면 정말 딱 콜라이더 크기만큼 이동했을 경우
+    // 양쪽 방에서 계속 triggerEnter 판정이 나면서 왔다갔다 하는 오류가 있었다.
+    // 그래서 이동 후에도 콜라이더가 문에도 겹쳤다면 판정이 일어나지 않고 한번 나와야 다시 들어갈 수 있는 로직으로 수정했다.
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (GameManager.instance.player.isRoomMove && collision.CompareTag("Player"))
+        {
+            GameManager.instance.player.isRoomMove = false;
         }
     }
 }
