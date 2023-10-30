@@ -174,28 +174,28 @@ public class Room : MonoBehaviour
         Map.instance.mapSquare[mapPosition].color = !directionRoom.isVisited ? new Color(1, 1, 1, 0.25f) : new Color(1, 1, 1, 0.75f);
 
         // 특수방이라면 아이콘 추가
-        SpecialRoom(directionRoom, Map.instance.mapSquare[mapPosition]);
+        if (directionRoom.roomType == RoomType.Boss || directionRoom.roomType == RoomType.Golden || directionRoom.roomType == RoomType.Shop)
+        {
+            SpecialRoom(directionRoom, Map.instance.mapSquare[mapPosition]);
+        }
     }
 
     void SpecialRoom(Room room, Image mapSqure)
     {
-        if(room.roomType == RoomType.Boss)
+        Image[] roomIcon = mapSqure.GetComponentsInChildren<Image>(true);
+        roomIcon[1].gameObject.SetActive(true);
+
+        if (room.roomType == RoomType.Boss)
         {
-            mapSqure.gameObject.SetActive(true);
-            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
-            roomIcon.sprite = GameManager.instance.roomIcon[0];
+            roomIcon[1].sprite = GameManager.instance.roomIcon[0];
         }
         else if (room.roomType == RoomType.Golden)
         {
-            mapSqure.gameObject.SetActive(true);
-            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
-            roomIcon.sprite = GameManager.instance.roomIcon[1];
+            roomIcon[1].sprite = GameManager.instance.roomIcon[1];
         }
         else if (room.roomType == RoomType.Shop)
         {
-            mapSqure.gameObject.SetActive(true);
-            Image roomIcon = mapSqure.GetComponentInChildren<Image>();
-            roomIcon.sprite = GameManager.instance.roomIcon[2];
+            roomIcon[1].sprite = GameManager.instance.roomIcon[2];
         }
     }
 

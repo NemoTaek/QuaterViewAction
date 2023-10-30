@@ -77,15 +77,18 @@ public class Enemy : MonoBehaviour
 
             // 투과 효과를 먹지 않았다면 넉백효과 (보스는 넉백 안먹히도록)
             // 슬로우 효과를 먹었다면 확률적으로 느리게 움직이도록
-            if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
+            if(isLive)
             {
-                if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
-            }
-            else if (collision.CompareTag("Weapon"))
-            {
-                if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
-                if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
+                if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
+                {
+                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
+                }
+                else if (collision.CompareTag("Weapon"))
+                {
+                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
+                }
             }
         }
     }

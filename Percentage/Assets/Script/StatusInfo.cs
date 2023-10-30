@@ -66,11 +66,5 @@ public class StatusInfo : MonoBehaviour
             skillText[4 + (i * 4)].text = i < GameManager.instance.player.getSkillCount ? 
                 string.Format(GameManager.instance.skill[i].desc.ToString(), GameManager.instance.skill[i].damage) : "";
         }
-
-        // 획득한 아이템 이미지 세팅
-        //foreach(Item items in GameManager.instance.getItemList)
-        //{
-
-        //}
     }
 }

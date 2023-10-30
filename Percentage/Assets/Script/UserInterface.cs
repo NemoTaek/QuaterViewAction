@@ -45,7 +45,7 @@ public class UserInterface : MonoBehaviour
     void Start()
     {
         MakeMapBoard();
-        ClearMapBoard();
+        //ClearMapBoard();
     }
 
     void Update()
@@ -136,9 +136,18 @@ public class UserInterface : MonoBehaviour
 
     public void ClearMapBoard()
     {
-        for (int i = 0; i < 81; i++)
+        for (int i = 1; i < 82; i++)
         {
-            if(roomIcons[i] != null)    roomIcons[i].GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            // 모든 방을 다시 안본 상태로 설정
+            Map.instance.mapSquare[i].GetComponent<Image>().color = new Color(1, 1, 1, 0);
+
+            // 이전 스테이지에서 아이콘을 설정한 것이 있으면 초기화
+            Image[] roomIcon = Map.instance.mapSquare[i].GetComponentsInChildren<Image>(true);
+            if (roomIcon[1].gameObject.activeSelf)
+            {
+                roomIcon[1].sprite = null;
+                roomIcon[1].gameObject.SetActive(false);
+            }
         }
     }
 }

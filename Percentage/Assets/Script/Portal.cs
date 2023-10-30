@@ -30,6 +30,7 @@ public class Portal : MonoBehaviour
             }
             else
             {
+                GameManager.instance.ui.ClearMapBoard();
                 StartCoroutine(LoadScene());
                 StartCoroutine(UnloadScene());
                 GameManager.instance.GameInit();
