@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigid;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer buffSprite;
-    public Collider2D col;
+    public CapsuleCollider2D col;
     Animator animator;
     public Transform keydownGuage;
     public Transform guage;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        col = GetComponent<Collider2D>();
+        col = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         hand = GetComponentsInChildren<Hand>(true);
     }

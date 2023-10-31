@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public enum EnemyType { Trace, Random, Boss };
+    public enum EnemyType { Trace, Random, Stand, Boss };
 
     [Header("----- Component -----")]
     public Rigidbody2D rigid;
@@ -81,12 +81,12 @@ public class Enemy : MonoBehaviour
             {
                 if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
                 {
-                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (enemyType != EnemyType.Boss && enemyType != EnemyType.Stand && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
                     if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
                 }
                 else if (collision.CompareTag("Weapon"))
                 {
-                    if (enemyType != EnemyType.Boss && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (enemyType != EnemyType.Boss && enemyType != EnemyType.Stand && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
                     if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
                 }
             }

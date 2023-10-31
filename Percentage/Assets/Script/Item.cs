@@ -203,11 +203,13 @@ public class Item : MonoBehaviour
                 break;
             // 버섯
             case 3:
-                player.transform.localScale += Vector3.one * 0.25f;
+                player.transform.localScale *= 1.25f;
+                player.col.size /= 1.25f;
                 break;
             // 미니버섯
             case 4:
-                player.transform.localScale -= Vector3.one * 0.25f;
+                player.transform.localScale /= 1.25f;
+                player.col.size *= 1.25f;
                 break;
             // 스테로이드
             case 5:

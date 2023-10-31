@@ -219,42 +219,42 @@ public class GameManager : Singleton<GameManager>
 
     public Vector3 CheckAround(Vector3 position)
     {
-        float distance = 0.1f;
-        RaycastHit2D rayCast = Physics2D.Raycast(position, Vector2.up, distance, LayerMask.GetMask("Object"));
+        RaycastHit2D rayCast = Physics2D.Raycast(position, Vector2.up, 0.1f, LayerMask.GetMask("Object"));
         Vector3 resultPosition = Vector3.zero;
 
         // 가운데 자리에 무언가 있으면 사방을 한번 둘러본다. 없으면 위에 초기화 한대로 가운데에 떨어질것이다.
         if (rayCast.collider)
         {
-            while (true)
+            int count = 1;
+            while (count < 5)
             {
-                RaycastHit2D upObjectRayCast = Physics2D.Raycast(position + Vector3.up, Vector2.up, distance, LayerMask.GetMask("Object"));
+                RaycastHit2D upObjectRayCast = Physics2D.Raycast(position + Vector3.up * count, Vector2.up, 0.1f, LayerMask.GetMask("Object"));
                 if (!upObjectRayCast.collider)
                 {
-                    resultPosition = Vector3.up * (distance + 1);
+                    resultPosition = Vector3.up * count;
                     break;
                 }
-                RaycastHit2D rightObjectRayCast = Physics2D.Raycast(position + Vector3.right, Vector2.right, distance, LayerMask.GetMask("Object"));
+                RaycastHit2D rightObjectRayCast = Physics2D.Raycast(position + Vector3.right * count, Vector2.right, 0.1f, LayerMask.GetMask("Object"));
                 if (!rightObjectRayCast.collider)
                 {
-                    resultPosition = Vector3.right * (distance + 1);
+                    resultPosition = Vector3.right * count;
                     break;
                 }
-                RaycastHit2D downObjectRayCast = Physics2D.Raycast(position + Vector3.down, Vector2.down, distance, LayerMask.GetMask("Object"));
+                RaycastHit2D downObjectRayCast = Physics2D.Raycast(position + Vector3.down * count, Vector2.down, 0.1f, LayerMask.GetMask("Object"));
                 if (!downObjectRayCast.collider)
                 {
-                    resultPosition = Vector3.down * (distance + 1);
+                    resultPosition = Vector3.down * count;
                     break;
                 }
-                RaycastHit2D leftObjectRayCast = Physics2D.Raycast(position + Vector3.left, Vector2.left, distance, LayerMask.GetMask("Object"));
+                RaycastHit2D leftObjectRayCast = Physics2D.Raycast(position + Vector3.left * count, Vector2.left, 0.1f, LayerMask.GetMask("Object"));
                 if (!leftObjectRayCast.collider)
                 {
-                    resultPosition = Vector3.left * (distance + 1);
+                    resultPosition = Vector3.left * count;
                     break;
                 }
 
                 // 여기까지 왔으면 사방에 무언가 있는것이므로 거리를 늘려 다시 재본다.
-                distance++;
+                count++;
             }
         }
 
