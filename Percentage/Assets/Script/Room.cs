@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
-    public enum RoomType { Start, Clear, Battle, Arcade, Golden, Shop, Boss };
+    public enum RoomType { Start, Clear, Battle, Arcade, Quiz, Golden, Shop, Boss };
 
     [Header("----- Component -----")]
     public Enemy enemy;
@@ -32,6 +32,8 @@ public class Room : MonoBehaviour
     public bool isClear;
     public bool isItemSet;
     public bool isMapDraw;
+    public bool isQuizSet;
+    bool quizAnswer;
 
     void Awake()
     {
@@ -87,25 +89,73 @@ public class Room : MonoBehaviour
             // 스폰 포인트가 있으면 전투방
             if (spawnPoint.Length > 0)
             {
+                // 보스방이면 보스 체력 UI 활성화
+                if (roomType == RoomType.Boss)
+                {
+                    Boss boss = GetComponentInChildren<Boss>();
+                    if (boss)
+                    {
+                        if (boss.isLive && !GameManager.instance.ui.bossUI.activeSelf) GameManager.instance.ui.bossUI.SetActive(true);
+                        float currentBossHealth = boss.health;
+                        GameManager.instance.ui.bossHealth.sizeDelta = new Vector2(currentBossHealth / boss.maxHealth * 500, 100);
+                    }
+                }
+
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
 
                 // 전투중인데 적을 모두 처치했다면 전투 종료
                 else if (!isClear && isBattle)
                 {
-                    if (enemyCount <= 0) BattleEnd();
+                    if (enemyCount <= 0) BattleEnd(Random.Range(0, 2));
                 }
             }
 
             // 버튼이 있으면 아케이드방
-            else if (buttons.Length > 0)
+            else if (roomType == RoomType.Arcade)
             {
                 // 버튼을 모두 누르면 방 클리어
-                if (!isClear && IsAllButtonPressed()) BattleEnd();
+                if (!isClear && IsAllButtonPressed()) BattleEnd(Random.Range(0, 2));
+            }
+
+            // 퀴즈방
+            else if (roomType == RoomType.Quiz && !isClear)
+            {
+                // 어떻게 할거냐? 우선 내 계획은...
+                // 1. 문제가 안보일정도로 아주 흐릿흐릿하게 문제를 낸다.
+                // 2. OX 퀴즈로 왼쪽은 O, 오른쪽은 X 버튼을 누르게 한다.
+                // 3. 정답을 맞추면 빡스를, 틀리면 배틀을 하게 한다.
+
+                // 퀴즈 UI 세팅 ON
+                if(!isQuizSet)
+                {
+                    quizAnswer = SetQuiz();
+                }
+
+                if (buttons[0].isPressed)
+                {
+                    // 퀴즈 UI 비활성화
+                    GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+
+                    // O를 선택했고, 답이 O라면 성공
+                    if (quizAnswer) BattleEnd(0);
+                    // 답이 X라면 실패
+                    else BattleEnd(1);
+                }
+                else if (buttons[1].isPressed)
+                {
+                    // 퀴즈 UI 비활성화
+                    GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+
+                    // X를 선택했고, 답이 O라면 실패
+                    // 답이 X라면 성공
+                    if (quizAnswer) BattleEnd(1);
+                    else BattleEnd(0);
+                }
             }
 
             // 상점방에 들어가면 숨겼던 아이템 가격 다시 활성화
-            if (roomType == RoomType.Shop && Map.instance.isItemSet)
+            else if (roomType == RoomType.Shop && Map.instance.isItemSet)
             {
                 for (int i = 0; i < Map.instance.itemPrice.Length; i++)
                 {
@@ -115,18 +165,6 @@ public class Room : MonoBehaviour
 
                     // 구매한 아이템은 비활성화
                     Map.instance.itemPrice[i].gameObject.SetActive(!Map.instance.itemPrefab[i].getItem);
-                }
-            }
-
-            // 보스방이면 보스 체력 UI 활성화
-            if (roomType == RoomType.Boss)
-            {
-                Boss boss = GetComponentInChildren<Boss>();
-                if (boss)
-                {
-                    if (boss.isLive && !GameManager.instance.ui.bossUI.activeSelf) GameManager.instance.ui.bossUI.SetActive(true);
-                    float currentBossHealth = boss.health;
-                    GameManager.instance.ui.bossHealth.sizeDelta = new Vector2(currentBossHealth / boss.maxHealth * 500, 100);
                 }
             }
         }
@@ -220,7 +258,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    void BattleEnd()
+    void BattleEnd(int successOrFail)
     {
         if(roomType == RoomType.Boss)
         {
@@ -244,7 +282,6 @@ public class Room : MonoBehaviour
         else
         {
             // 보상 획득 (0: 성공, 1: 실패)
-            int successOrFail = Random.Range(0, 2);
             GameObject reward;
 
             // 보상이 떨어지는 자리에 오브젝트가 있으면 헷갈리므로 있으면 다른곳에 놓도록 설정
@@ -302,5 +339,29 @@ public class Room : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+    }
+
+    public bool SetQuiz()
+    {
+        // 퀴즈 문제 부분을 블러 처리 하고싶다
+        // 그래서 standard assets를 다운받아서 블러처리 하면 된다고 한다.
+        // standard assets - effects - imageEffects 에 가면 블러가 있다고 한다. 근데 봤는데 없다.
+        // 거기있는 reademe를 읽어보니 deprecated 되었다고 한다... post-processing 을 사용하라고 한다...
+
+
+        // 퀴즈 UI 오픈 하고
+        Canvas canvas = GetComponentInChildren<Canvas>(true);
+        canvas.gameObject.SetActive(true);
+
+        // 랜덤으로 퀴즈 골라서 텍스트와 답 세팅
+        Image quizBox = GetComponentInChildren<Image>();
+        Text quizText = quizBox.GetComponentInChildren<Text>();
+        int random = Random.Range(0, GameManager.instance.quizList.Count);
+        KeyValuePair<string, bool> quiz = GameManager.instance.quizList.ElementAt(random);
+        quizText.text = quiz.Key;
+
+        isQuizSet = true;
+
+        return quiz.Value;
     }
 }

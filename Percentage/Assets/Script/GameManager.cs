@@ -53,12 +53,14 @@ public class GameManager : Singleton<GameManager>
     public float elapsedTime = 0;
     public List<Item> getItemList;
     public List<int> setItemList;
+    public Dictionary<string, bool> quizList;
 
     void Start()
     {
         getItemList = new List<Item>();
         setItemList = new List<int>();
         GameInit();
+        SetQuizList();
     }
 
     void Update()
@@ -259,6 +261,14 @@ public class GameManager : Singleton<GameManager>
         }
 
         return resultPosition;
+    }
+
+    public void SetQuizList()
+    {
+        quizList = new Dictionary<string, bool>()
+        {
+            { "2 + 2 * 2 = 8", false },
+        };
     }
 
     void GamePause()

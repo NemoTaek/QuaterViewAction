@@ -390,7 +390,9 @@ MonoBehaviour:
   leftRoom: {fileID: 0}
   buttons: []
   roomReward: {fileID: 4347188415737671880}
-  roomType: 4
+  bossDropItems: []
+  bossDropItemDatas: []
+  roomType: 5
   isVisited: 0
   isBattle: 0
   enemyCount: 0
