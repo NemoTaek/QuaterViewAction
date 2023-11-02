@@ -268,6 +268,11 @@ public class GameManager : Singleton<GameManager>
         quizList = new Dictionary<string, bool>()
         {
             { "2 + 2 * 2 = 8", false },
+            { "2 + 2 * 2 = 6", true },
+            { "남극에는 우편번호가 없다.", true },
+            { "남극에는 우편번호가 있다.", false },
+            { "새는 뒤로도 날 수 있다.", true },
+            { "새는 뒤로 날 수 없다.", false },
         };
     }
 

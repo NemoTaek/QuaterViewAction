@@ -33,6 +33,8 @@ public class Room : MonoBehaviour
     public bool isItemSet;
     public bool isMapDraw;
     public bool isQuizSet;
+    public bool isSelectAnswer;
+    Text quizText;
     bool quizAnswer;
 
     void Awake()
@@ -132,25 +134,10 @@ public class Room : MonoBehaviour
                     quizAnswer = SetQuiz();
                 }
 
-                if (buttons[0].isPressed)
+                if (!isSelectAnswer && (buttons[0].isPressed || buttons[1].isPressed))
                 {
-                    // 퀴즈 UI 비활성화
-                    GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-
-                    // O를 선택했고, 답이 O라면 성공
-                    if (quizAnswer) BattleEnd(0);
-                    // 답이 X라면 실패
-                    else BattleEnd(1);
-                }
-                else if (buttons[1].isPressed)
-                {
-                    // 퀴즈 UI 비활성화
-                    GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-
-                    // X를 선택했고, 답이 O라면 실패
-                    // 답이 X라면 성공
-                    if (quizAnswer) BattleEnd(1);
-                    else BattleEnd(0);
+                    isSelectAnswer = true;
+                    StartCoroutine(OpenQuiz());
                 }
             }
 
@@ -355,7 +342,7 @@ public class Room : MonoBehaviour
 
         // 랜덤으로 퀴즈 골라서 텍스트와 답 세팅
         Image quizBox = GetComponentInChildren<Image>();
-        Text quizText = quizBox.GetComponentInChildren<Text>();
+        quizText = quizBox.GetComponentInChildren<Text>();
         int random = Random.Range(0, GameManager.instance.quizList.Count);
         KeyValuePair<string, bool> quiz = GameManager.instance.quizList.ElementAt(random);
         quizText.text = quiz.Key;
@@ -363,5 +350,30 @@ public class Room : MonoBehaviour
         isQuizSet = true;
 
         return quiz.Value;
+    }
+
+    IEnumerator OpenQuiz()
+    {
+        quizText.material = null;
+
+        yield return new WaitForSeconds(5);
+
+        // 퀴즈 UI 비활성화
+        GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+
+        if (buttons[0].isPressed)
+        {
+            // O를 선택했고, 답이 O라면 성공
+            if (quizAnswer) BattleEnd(0);
+            // 답이 X라면 실패
+            else BattleEnd(1);
+        }
+        else if (buttons[1].isPressed)
+        {
+            // X를 선택했고, 답이 O라면 실패
+            // 답이 X라면 성공
+            if (quizAnswer) BattleEnd(1);
+            else BattleEnd(0);
+        }
     }
 }
