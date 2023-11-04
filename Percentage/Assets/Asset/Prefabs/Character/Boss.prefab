@@ -163,11 +163,13 @@ MonoBehaviour:
   rigid: {fileID: 0}
   target: {fileID: 0}
   statusEffect: {fileID: 2586013109376391659}
-  enemyType: 2
+  type: 0
+  id: 3
   speed: 2
   health: 0
   maxHealth: 500
   isLive: 0
+  isPatternPlaying: 0
   isObjectCollision: 0
   moveStart: 0
   enemySlow: 0

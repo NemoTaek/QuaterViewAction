@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Boss : Enemy
 {
-    bool isPatternPlaying;
     bool isTrace;
 
     // override: 부모 스크립트에서 virtual 키워드를 가진 함수를 재정의 할 수 있게 하는 키워드
@@ -39,7 +38,7 @@ public class Boss : Enemy
         {
             // 1초 돌진
             case 0:
-                Rush();
+                patterns.Rush();
                 yield return new WaitForSeconds(2f);
                 break;
 
@@ -47,7 +46,7 @@ public class Boss : Enemy
             case 1:
                 for (int i = 0; i < 5; i++)
                 {
-                    SpreadFire();
+                    patterns.SpreadFire();
                     yield return new WaitForSeconds(0.5f);
                 }
                 break;
@@ -56,7 +55,7 @@ public class Boss : Enemy
             case 2:
                 for (int i = 0; i < 3; i++)
                 {
-                    Sniping();
+                    patterns.Sniping(target);
                     yield return new WaitForSeconds(1f);
                 }
                 break;
@@ -73,59 +72,6 @@ public class Boss : Enemy
 
 
         isPatternPlaying = false;
-    }
-
-    void Rush()
-    {
-        int dirRandom = Random.Range(0, 4);
-        Vector2 rushDir = Vector2.zero;
-        switch (dirRandom)
-        {
-            case 0:
-                rushDir = Vector2.up;
-                break;
-            case 1:
-                rushDir = Vector2.right;
-                break;
-            case 2:
-                rushDir = Vector2.down;
-                break;
-            case 3:
-                rushDir = Vector2.left;
-                break;
-        }
-
-        rigid.velocity = rushDir * 5f;
-    }
-
-    void SpreadFire()
-    {
-        int countPerCycle = 10;
-        for (int i = 0; i < countPerCycle; i++)
-        {
-            EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
-            Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
-            bossBullet.transform.position = transform.position;
-
-            // 해당 총알이 원 둘레에서 어느 위치에 있는가
-            float bulletIndex = Mathf.PI * 2 * i / countPerCycle;
-
-            // x좌표는 cos, y좌표는 sin
-            Vector2 spreadDir = new Vector2(Mathf.Cos(bulletIndex), Mathf.Sin(bulletIndex));
-            spreadDir.Normalize();
-
-            bulletRigid.velocity = spreadDir * 3f;
-        }
-    }
-
-    void Sniping()
-    {
-        EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
-        Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
-        bossBullet.transform.position = transform.position;
-
-        Vector2 dirVec = target.position - rigid.position;
-        bulletRigid.velocity = dirVec.normalized * 10f;
     }
 
     void StopPattern()

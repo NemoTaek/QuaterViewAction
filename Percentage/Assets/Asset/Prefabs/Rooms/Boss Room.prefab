@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 3729714250780382269, guid: 96e4943ba9ba17d48ad95381db7da689, type: 3}
 --- !u!1 &9185452440900828515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,7 +2275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e555dc9ef2b8c42a1ad616e3656003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 3729714250780382269, guid: 96e4943ba9ba17d48ad95381db7da689, type: 3}
   spawnPoint: []
   itemPoint: []
   doors: []
@@ -2297,6 +2297,8 @@ MonoBehaviour:
   isClear: 0
   isItemSet: 0
   isMapDraw: 0
+  isQuizSet: 0
+  isSelectAnswer: 0
 --- !u!1 &9185452442012403507
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,17 +14,21 @@ public class Enemy : MonoBehaviour
     Collider2D col;
     Room room;
     public SpriteRenderer statusEffect;
+    public Patterns patterns;
 
     [Header("----- Enemy Property -----")]
-    public EnemyType enemyType;
+    public EnemyData.EnemyType type;
+    public int id;
     public float speed;
     public float health;
     public float maxHealth;
+
     public bool isLive;
+    public bool isPatternPlaying;
     public bool isObjectCollision;
     public bool moveStart;
-
     public bool enemySlow;
+    public Vector2 moveDirection;
 
     void Awake()
     {
@@ -34,6 +38,18 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         room = gameObject.GetComponentInParent<Room>();
+
+        patterns = new Patterns();
+        patterns.rigid = rigid;
+        patterns.transform = transform;
+    }
+
+    public void Init(EnemyData data)
+    {
+        id = data.enemyId;
+        type = data.enemyType;
+        speed = data.enemySpeed;
+        maxHealth = data.enemyMaxHealth;
     }
 
     // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
@@ -49,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         // 스폰되고 1초 후 이동 시작
         StartCoroutine(MoveOneSecondAfter());
-        if (enemyType == EnemyType.Random) StartCoroutine(SetRandomMove());
+        if (type == EnemyData.EnemyType.Random) StartCoroutine(SetRandomMove());
     }
 
     void FixedUpdate()
@@ -58,7 +74,9 @@ public class Enemy : MonoBehaviour
         // 게임오버 시에도 못움직이도록 설정
         if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || GameManager.instance.player.isDead) return;
 
-        if (enemyType == EnemyType.Trace && moveStart)   TraceMove();
+        if (type == EnemyData.EnemyType.Trace && moveStart)   TraceMove();
+
+        if (!isPatternPlaying) StartCoroutine(EnemyPattern());
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -81,12 +99,12 @@ public class Enemy : MonoBehaviour
             {
                 if (collision.CompareTag("Bullet") || collision.CompareTag("SkillBullet"))
                 {
-                    if (enemyType != EnemyType.Boss && enemyType != EnemyType.Stand && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (type != EnemyData.EnemyType.Boss && type != EnemyData.EnemyType.Stand && !collision.gameObject.GetComponent<Bullet>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
                     if (!enemySlow && collision.gameObject.GetComponent<Bullet>().isSlow) SetSlowAttack();
                 }
                 else if (collision.CompareTag("Weapon"))
                 {
-                    if (enemyType != EnemyType.Boss && enemyType != EnemyType.Stand && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
+                    if (type != EnemyData.EnemyType.Boss && type != EnemyData.EnemyType.Stand && !collision.gameObject.GetComponent<Weapon>().isPenetrate) StartCoroutine(KnockBack(knockbackAmount));
                     if (!enemySlow && collision.gameObject.GetComponent<Weapon>().isSlow) SetSlowAttack();
                 }
             }
@@ -97,7 +115,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag("Object") || collision.collider.CompareTag("Wall"))
         {
-            if (enemyType == EnemyType.Random)
+            if (type == EnemyData.EnemyType.Random)
             {
                 StopCoroutine(SetRandomMove());
                 StartCoroutine(SetRandomMove());
@@ -125,6 +143,7 @@ public class Enemy : MonoBehaviour
     public void TraceMove()
     {
         Vector2 dirVec = target.position - rigid.position;
+        moveDirection = dirVec;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
@@ -159,6 +178,7 @@ public class Enemy : MonoBehaviour
                     break;
             }
 
+            moveDirection = moveDir;
             rigid.AddForce(moveDir);
             rigid.velocity = moveDir * speed;
 
@@ -245,5 +265,34 @@ public class Enemy : MonoBehaviour
             GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], room.roomReward.transform);
             coin.transform.position = transform.position;
         }
+    }
+
+    IEnumerator EnemyPattern()
+    {
+        isPatternPlaying = true;
+        
+        switch(id)
+        {
+            case 0:
+                // 기본적으로 나를 따라오는 몹
+                // 패턴은 따로 없다.
+                break;
+            case 1:
+                // 기본적으로 랜덤으로 이동하는 몹
+                // 패턴은 따로 없다.
+                break;
+            case 2:
+                // 기본적으로 가만히 있는 몹
+                // 패턴은 따로 없다.
+                break;
+            case 4:
+                patterns.EnemyShot(moveDirection, 2);
+                yield return new WaitForSeconds(2);
+                break;
+        }
+
+        isPatternPlaying = false;
+
+        yield return null;
     }
 }

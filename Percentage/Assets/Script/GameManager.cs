@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject itemPricePool;
     public Sprite[] statusEffectIcon;
     public Familiar[] familiarPool;
+    public EnemyData[] enemyData;
 
     [Header("----- UI Component -----")]
     public Canvas uiCanvas;

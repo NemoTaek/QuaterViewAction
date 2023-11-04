@@ -561,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: 8dc9872fa2faacf4aae483378745423e, type: 3}
 --- !u!1 &5968767795165343265
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: 8dc9872fa2faacf4aae483378745423e, type: 3}
 --- !u!1 &5968767795734030706
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: a6ec89022a722704eacad2c1435310b0, type: 3}
 --- !u!1 &5968767795932101799
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,7 +3498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e555dc9ef2b8c42a1ad616e3656003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5982171723621263273, guid: 8dc9872fa2faacf4aae483378745423e, type: 3}
   spawnPoint: []
   itemPoint: []
   doors: []
@@ -3505,6 +3507,8 @@ MonoBehaviour:
   leftRoom: {fileID: 0}
   buttons: []
   roomReward: {fileID: 3481868679320355976}
+  bossDropItems: []
+  bossDropItemDatas: []
   roomType: 2
   isVisited: 0
   isBattle: 0
@@ -3512,6 +3516,8 @@ MonoBehaviour:
   isClear: 0
   isItemSet: 0
   isMapDraw: 0
+  isQuizSet: 0
+  isSelectAnswer: 0
 --- !u!1 &5968767796690738227
 GameObject:
   m_ObjectHideFlags: 0

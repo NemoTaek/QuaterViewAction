@@ -1415,6 +1415,12 @@ MonoBehaviour:
   familiarPool:
   - {fileID: 1099495482714526572, guid: ed4675a3a21b0c349a33b9e8dd8d0f4e, type: 3}
   - {fileID: 3015571823132736865, guid: c776ac1cb82e633459db65e29d2e7536, type: 3}
+  enemyData:
+  - {fileID: 11400000, guid: 11748a8e7f8bd0f4398b13fc1b85d59f, type: 2}
+  - {fileID: 11400000, guid: b76e3f3e5e6cc5e4cacbc44352fff4aa, type: 2}
+  - {fileID: 11400000, guid: 928f553b03531d94bb46d32ff2daae59, type: 2}
+  - {fileID: 11400000, guid: 52016a6e2c616ab4f9d5956b8161a3eb, type: 2}
+  - {fileID: 11400000, guid: 429ef61f1efc0094bb2b2ba681fbec46, type: 2}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}

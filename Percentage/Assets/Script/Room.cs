@@ -9,7 +9,6 @@ public class Room : MonoBehaviour
     public enum RoomType { Start, Clear, Battle, Arcade, Quiz, Golden, Shop, Boss };
 
     [Header("----- Component -----")]
-    public Enemy enemy;
     public SpawnPoint[] spawnPoint;
     public GameObject[] itemPoint;
     public Door[] doors;
@@ -239,7 +238,8 @@ public class Room : MonoBehaviour
         {
             for (int i = 0; i < spawnPoint.Length; i++)
             {
-                Instantiate(enemy, spawnPoint[i].transform);
+                Enemy spawnEnemy = Instantiate(spawnPoint[i].enemy, spawnPoint[i].transform);
+                spawnEnemy.Init(GameManager.instance.enemyData[spawnPoint[i].enemy.id]);
                 enemyCount++;
             }
         }
@@ -356,7 +356,7 @@ public class Room : MonoBehaviour
     {
         quizText.material = null;
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         // 퀴즈 UI 비활성화
         GetComponentInChildren<Canvas>().gameObject.SetActive(false);

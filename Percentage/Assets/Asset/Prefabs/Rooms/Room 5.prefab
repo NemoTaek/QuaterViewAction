@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
 --- !u!1 &7079034691145108835
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
 --- !u!1 &7079034691476267579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,6 +3102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
 --- !u!1 &7079034691950457091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3214,7 +3217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e555dc9ef2b8c42a1ad616e3656003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
   spawnPoint: []
   itemPoint: []
   doors: []
@@ -3233,6 +3235,8 @@ MonoBehaviour:
   isClear: 0
   isItemSet: 0
   isMapDraw: 0
+  isQuizSet: 0
+  isSelectAnswer: 0
 --- !u!1 &7079034692272233454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3277,6 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63e0a803b01c843b4e1c53ee5603ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 5982171723621263273, guid: b03bfc39c946d154c8a3cd5fdbdb5242, type: 3}
 --- !u!1 &7079034692386992070
 GameObject:
   m_ObjectHideFlags: 0
