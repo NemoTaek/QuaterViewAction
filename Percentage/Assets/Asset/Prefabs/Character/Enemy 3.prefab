@@ -247,18 +247,18 @@ MonoBehaviour:
   rigid: {fileID: 0}
   target: {fileID: 0}
   statusEffect: {fileID: 2235245800940508672}
-  patterns: {fileID: 0}
   type: 0
   id: 4
   speed: 1
   health: 0
-  maxHealth: 50
+  maxHealth: 0
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
   moveStart: 0
   enemySlow: 0
   moveDirection: {x: 0, y: 0}
+  isTrace: 0
 --- !u!1 &7352236061911734089
 GameObject:
   m_ObjectHideFlags: 0

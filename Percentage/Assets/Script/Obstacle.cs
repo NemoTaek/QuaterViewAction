@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class Obstacle : MonoBehaviour
 {
-    public Collider2D col;
-
     void Awake()
     {
-        col = GetComponent<Collider2D>();
+
     }
 
     void Start()
@@ -17,14 +16,21 @@ public class Obstacle : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    // 장애물과 플레이어가 트리거 하면 트리거된 장애물 카운트 세팅
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.collider.CompareTag("Player") && GameManager.instance.player.isFly) col.isTrigger = true;
+        if (collision.CompareTag("Player"))
+        {
+            GameManager.instance.player.isOnObjectCount++;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        //col.isTrigger = false;
+        if (collision.CompareTag("Player"))
+        {
+            GameManager.instance.player.isOnObjectCount--;
+        }
     }
 
     void Update()

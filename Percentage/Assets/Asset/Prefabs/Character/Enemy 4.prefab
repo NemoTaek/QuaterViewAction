@@ -335,9 +335,11 @@ MonoBehaviour:
   id: 2
   speed: 0
   health: 0
-  maxHealth: 1000
+  maxHealth: 0
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
   moveStart: 0
   enemySlow: 0
+  moveDirection: {x: 0, y: 0}
+  isTrace: 0

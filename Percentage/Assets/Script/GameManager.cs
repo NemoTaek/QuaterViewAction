@@ -277,6 +277,11 @@ public class GameManager : Singleton<GameManager>
         };
     }
 
+    public IEnumerator WaitSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
+
     void GamePause()
     {
         Time.timeScale = 0;

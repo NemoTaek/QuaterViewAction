@@ -88,13 +88,16 @@ public class Room : MonoBehaviour
             if (!isMapDraw) DrawMap();
 
             // 스폰 포인트가 있으면 전투방
-            if (spawnPoint.Length > 0)
+            if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
             {
+                // 전투 시작중이 아니라면 전투 시작
+                if (!isClear && !isBattle) BattleStart();
+
                 // 보스방이면 보스 체력 UI 활성화
                 if (roomType == RoomType.Boss)
                 {
-                    Boss boss = GetComponentInChildren<Boss>();
-                    if (boss)
+                    Enemy boss = GetComponentInChildren<Enemy>();
+                    if (boss && boss.type == EnemyData.EnemyType.Boss)
                     {
                         if (boss.isLive && !GameManager.instance.ui.bossUI.activeSelf) GameManager.instance.ui.bossUI.SetActive(true);
                         float currentBossHealth = boss.health;
@@ -102,11 +105,8 @@ public class Room : MonoBehaviour
                     }
                 }
 
-                // 전투 시작중이 아니라면 전투 시작
-                if (!isClear && !isBattle) BattleStart();
-
                 // 전투중인데 적을 모두 처치했다면 전투 종료
-                else if (!isClear && isBattle)
+                if (!isClear && isBattle)
                 {
                     if (enemyCount <= 0) BattleEnd(Random.Range(0, 2));
                 }
@@ -115,6 +115,9 @@ public class Room : MonoBehaviour
             // 버튼이 있으면 아케이드방
             else if (roomType == RoomType.Arcade)
             {
+                // 아케이드 방에도 충분히 적이 있을 수 있다.
+                if (!isClear && !isBattle) BattleStart();
+
                 // 버튼을 모두 누르면 방 클리어
                 if (!isClear && IsAllButtonPressed()) BattleEnd(Random.Range(0, 2));
             }
@@ -223,18 +226,10 @@ public class Room : MonoBehaviour
         }
     }
 
-    void BattleStart()
+    void InitEnemies()
     {
-        isBattle = true;
-
-        // 전투 시작 시 문 폐쇄
-        //for (int i = 0; i < doors.Length; i++)
-        //{
-        //    doors[i].gameObject.SetActive(false);
-        //}
-
         // 소환 지점이 있다면 몬스터 소환
-        if(spawnPoint.Length > 0)
+        if (spawnPoint.Length > 0)
         {
             for (int i = 0; i < spawnPoint.Length; i++)
             {
@@ -243,6 +238,12 @@ public class Room : MonoBehaviour
                 enemyCount++;
             }
         }
+    }
+
+    void BattleStart()
+    {
+        isBattle = true;
+        InitEnemies();
     }
 
     void BattleEnd(int successOrFail)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 154087104203379137}
   - component: {fileID: 4583383361022046217}
   - component: {fileID: 9067315394585443663}
-  - component: {fileID: 3729714250780382269}
+  - component: {fileID: 4170390054126892971}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -148,7 +148,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9375, y: 0.875}
   m_Direction: 0
---- !u!114 &3729714250780382269
+--- !u!114 &4170390054126892971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,22 +157,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3482542510697800589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a67eaa611d05b0542a01a24184ff1f59, type: 3}
+  m_Script: {fileID: 11500000, guid: ab16d3cc9fe05904d8e39ec85121f220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
   target: {fileID: 0}
   statusEffect: {fileID: 2586013109376391659}
-  type: 0
+  type: 3
   id: 3
-  speed: 2
+  speed: 0
   health: 0
-  maxHealth: 500
+  maxHealth: 0
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
   moveStart: 0
   enemySlow: 0
+  moveDirection: {x: 0, y: 0}
+  isTrace: 0
 --- !u!1 &4574496521356233229
 GameObject:
   m_ObjectHideFlags: 0

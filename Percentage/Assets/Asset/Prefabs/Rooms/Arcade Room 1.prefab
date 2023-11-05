@@ -845,7 +845,7 @@ GameObject:
   - component: {fileID: 23136037589516315}
   - component: {fileID: 23136037589516314}
   - component: {fileID: 6615414709483344755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (35)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -908,12 +908,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -957,8 +957,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -992,7 +992,7 @@ GameObject:
   - component: {fileID: 23136037648188110}
   - component: {fileID: 23136037648188109}
   - component: {fileID: 7439997272738336712}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (22)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -1055,12 +1055,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1104,8 +1104,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 23136037680964161}
   - component: {fileID: 23136037680964160}
   - component: {fileID: 7228977137033478813}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (19)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -1202,12 +1202,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1251,8 +1251,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -1286,7 +1286,7 @@ GameObject:
   - component: {fileID: 23136037692020784}
   - component: {fileID: 23136037692020799}
   - component: {fileID: 683567470817367923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (13)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -1349,12 +1349,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1398,8 +1398,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 23136037722245433}
   - component: {fileID: 23136037722245432}
   - component: {fileID: 4268649628666366446}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (28)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -1496,12 +1496,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1545,8 +1545,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -1580,7 +1580,7 @@ GameObject:
   - component: {fileID: 23136037796982660}
   - component: {fileID: 23136037796982659}
   - component: {fileID: 1115182318394254667}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -1643,12 +1643,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1692,8 +1692,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3179,7 +3179,7 @@ GameObject:
   - component: {fileID: 23136037807232903}
   - component: {fileID: 23136037807232902}
   - component: {fileID: 5905605904017136161}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (16)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -3242,12 +3242,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3291,8 +3291,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3326,7 +3326,7 @@ GameObject:
   - component: {fileID: 23136037828892703}
   - component: {fileID: 23136037828892702}
   - component: {fileID: 6302803500568538530}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (5)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -3389,12 +3389,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3438,8 +3438,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3473,7 +3473,7 @@ GameObject:
   - component: {fileID: 23136037849925042}
   - component: {fileID: 23136037849925041}
   - component: {fileID: 6776013518996495526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (6)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -3536,12 +3536,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3585,8 +3585,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3620,7 +3620,7 @@ GameObject:
   - component: {fileID: 23136037871646290}
   - component: {fileID: 23136037871646289}
   - component: {fileID: 2848679591464075058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (23)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -3683,12 +3683,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3732,8 +3732,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3767,7 +3767,7 @@ GameObject:
   - component: {fileID: 23136037955478542}
   - component: {fileID: 23136037955478541}
   - component: {fileID: 7151086503569658832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (32)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -3830,12 +3830,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3879,8 +3879,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4114,7 +4114,7 @@ GameObject:
   - component: {fileID: 23136038061403165}
   - component: {fileID: 23136038061403164}
   - component: {fileID: 5392443230417820339}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (26)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4177,12 +4177,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4226,8 +4226,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4261,7 +4261,7 @@ GameObject:
   - component: {fileID: 23136038075987089}
   - component: {fileID: 23136038075987088}
   - component: {fileID: 3149486120388534816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (4)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4324,12 +4324,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4373,8 +4373,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4408,7 +4408,7 @@ GameObject:
   - component: {fileID: 23136038090259780}
   - component: {fileID: 23136038090259779}
   - component: {fileID: 6744368319052510086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (31)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4471,12 +4471,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4520,8 +4520,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4555,7 +4555,7 @@ GameObject:
   - component: {fileID: 23136038166374853}
   - component: {fileID: 23136038166374852}
   - component: {fileID: 4523921688076809488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (24)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4618,12 +4618,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4667,8 +4667,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4702,7 +4702,7 @@ GameObject:
   - component: {fileID: 23136038178527999}
   - component: {fileID: 23136038178527998}
   - component: {fileID: 1077297765188480081}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (29)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4765,12 +4765,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4814,8 +4814,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4849,7 +4849,7 @@ GameObject:
   - component: {fileID: 23136038219450884}
   - component: {fileID: 23136038219450883}
   - component: {fileID: 1161789416980099109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (21)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -4912,12 +4912,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4961,8 +4961,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5057,7 +5057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e555dc9ef2b8c42a1ad616e3656003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
   spawnPoint: []
   itemPoint: []
   doors: []
@@ -5076,6 +5075,8 @@ MonoBehaviour:
   isClear: 0
   isItemSet: 0
   isMapDraw: 0
+  isQuizSet: 0
+  isSelectAnswer: 0
 --- !u!1 &23136038238998625
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,7 +5090,7 @@ GameObject:
   - component: {fileID: 23136038238998628}
   - component: {fileID: 23136038238998627}
   - component: {fileID: 5796467083216251033}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (20)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -5152,12 +5153,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5201,8 +5202,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5479,7 +5480,7 @@ GameObject:
   - component: {fileID: 23136038345418281}
   - component: {fileID: 23136038345418280}
   - component: {fileID: 989103629241694143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (17)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -5542,12 +5543,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5591,8 +5592,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5626,7 +5627,7 @@ GameObject:
   - component: {fileID: 23136038360751014}
   - component: {fileID: 23136038360751013}
   - component: {fileID: 2205568594813401727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (7)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -5689,12 +5690,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5738,8 +5739,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5773,7 +5774,7 @@ GameObject:
   - component: {fileID: 23136038431522400}
   - component: {fileID: 23136038431522415}
   - component: {fileID: 7919608145516403110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (9)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -5836,12 +5837,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5885,8 +5886,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5920,7 +5921,7 @@ GameObject:
   - component: {fileID: 23136038516730964}
   - component: {fileID: 23136038516730963}
   - component: {fileID: 3836649289912771240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (15)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -5983,12 +5984,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6032,8 +6033,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6067,7 +6068,7 @@ GameObject:
   - component: {fileID: 23136038590453933}
   - component: {fileID: 23136038590453932}
   - component: {fileID: 1937064323229997227}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (8)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -6130,12 +6131,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6179,8 +6180,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6214,7 +6215,7 @@ GameObject:
   - component: {fileID: 23136038665730588}
   - component: {fileID: 23136038665730587}
   - component: {fileID: 6154283573830600147}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (18)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -6277,12 +6278,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6326,8 +6327,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6361,7 +6362,7 @@ GameObject:
   - component: {fileID: 23136038686369128}
   - component: {fileID: 23136038686369143}
   - component: {fileID: 7540486153218090853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (33)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -6424,12 +6425,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6473,8 +6474,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -7348,7 +7349,7 @@ GameObject:
   - component: {fileID: 23136038849422131}
   - component: {fileID: 23136038849422130}
   - component: {fileID: 1890491102473278654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (25)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -7411,12 +7412,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7460,8 +7461,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -7981,7 +7982,7 @@ GameObject:
   - component: {fileID: 23136038887851205}
   - component: {fileID: 23136038887851204}
   - component: {fileID: 3738415215767338407}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (11)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -8044,12 +8045,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8093,8 +8094,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -8440,7 +8441,7 @@ GameObject:
   - component: {fileID: 23136039058738385}
   - component: {fileID: 23136039058738384}
   - component: {fileID: 4781776686764733779}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (30)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -8503,12 +8504,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8552,8 +8553,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -8587,7 +8588,7 @@ GameObject:
   - component: {fileID: 23136039059272920}
   - component: {fileID: 23136039059272935}
   - component: {fileID: 5528769942699658997}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (27)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -8650,12 +8651,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8699,8 +8700,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -8734,7 +8735,7 @@ GameObject:
   - component: {fileID: 23136039251602602}
   - component: {fileID: 23136039251602601}
   - component: {fileID: 4490062255723907917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (3)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -8797,12 +8798,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8846,8 +8847,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -8881,7 +8882,7 @@ GameObject:
   - component: {fileID: 23136039275471900}
   - component: {fileID: 23136039275471899}
   - component: {fileID: 1554841518880693126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (10)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -8944,12 +8945,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8993,8 +8994,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9028,7 +9029,7 @@ GameObject:
   - component: {fileID: 23136039375107453}
   - component: {fileID: 23136039375107452}
   - component: {fileID: 5590993356446019752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (14)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -9091,12 +9092,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9140,8 +9141,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9175,7 +9176,7 @@ GameObject:
   - component: {fileID: 23136039378801882}
   - component: {fileID: 23136039378801881}
   - component: {fileID: 7985642041510384000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (1)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -9238,12 +9239,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9287,8 +9288,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9322,7 +9323,7 @@ GameObject:
   - component: {fileID: 23136039399740134}
   - component: {fileID: 23136039399740133}
   - component: {fileID: 7269904361160208846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (12)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -9385,12 +9386,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9434,8 +9435,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9469,7 +9470,7 @@ GameObject:
   - component: {fileID: 23136039479311794}
   - component: {fileID: 23136039479311793}
   - component: {fileID: 4862892749008865257}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (2)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -9532,12 +9533,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9581,8 +9582,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9616,7 +9617,7 @@ GameObject:
   - component: {fileID: 23136039499364979}
   - component: {fileID: 23136039499364978}
   - component: {fileID: 718987341945572177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock (34)
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -9679,12 +9680,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
+  m_Sprite: {fileID: 1778878429, guid: ea6537bda25fa9f4d96587b08826ecf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.78, y: 0.76}
+  m_Size: {x: 0.54, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9728,8 +9729,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.76}
-    newSize: {x: 0.78, y: 0.76}
+    oldSize: {x: 0.54, y: 0.52}
+    newSize: {x: 0.54, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

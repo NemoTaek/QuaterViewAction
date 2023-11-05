@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     public bool moveStart;
     public bool enemySlow;
     public Vector2 moveDirection;
+    public bool isTrace;
 
     void Awake()
     {
@@ -50,21 +51,20 @@ public class Enemy : MonoBehaviour
         type = data.enemyType;
         speed = data.enemySpeed;
         maxHealth = data.enemyMaxHealth;
-    }
 
-    // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
-    // 따라오는 것중에 하나가 abstract 키워드인데 이는 자식 스크립트에서 반드시 재정의 해주어야 하는 함수에 쓰인다.
-    protected virtual void OnEnable()
-    {
         // 적 상태 초기화
         isLive = true;
         health = maxHealth;
     }
 
+    // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
+    // 따라오는 것중에 하나가 abstract 키워드인데 이는 자식 스크립트에서 반드시 재정의 해주어야 하는 함수에 쓰인다.
     protected virtual void Start()
     {
         // 스폰되고 1초 후 이동 시작
         StartCoroutine(MoveOneSecondAfter());
+
+        if (type == EnemyData.EnemyType.Trace) isTrace = true;
         if (type == EnemyData.EnemyType.Random) StartCoroutine(SetRandomMove());
     }
 
@@ -72,9 +72,9 @@ public class Enemy : MonoBehaviour
     {
         // 죽었거나, 맞을때는 넉백 효과를 위해 앞으로 못가도록 설정
         // 게임오버 시에도 못움직이도록 설정
-        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || GameManager.instance.player.isDead) return;
+        if (!isLive || !moveStart || (type != EnemyData.EnemyType.Boss && animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) || GameManager.instance.player.isDead) return;
 
-        if (type == EnemyData.EnemyType.Trace && moveStart)   TraceMove();
+        if (type == EnemyData.EnemyType.Trace || isTrace)   TraceMove();
 
         if (!isPatternPlaying) StartCoroutine(EnemyPattern());
     }
@@ -245,6 +245,17 @@ public class Enemy : MonoBehaviour
         enemySlow = false;
     }
 
+    void DropEnemyReward()
+    {
+        int random = Random.Range(0, 10);
+        if (random >= 0 && random < 3)
+        {
+            Vector3 spreadPosition = new Vector3(Random.Range(-1, 1),  Random.Range(-1, 1));
+            GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], room.roomReward.transform);
+            coin.transform.position = transform.position + spreadPosition;
+        }
+    }
+
     void DeadAnimation()
     {
         // 동전주머니 패밀리어가 있으면 발동
@@ -259,12 +270,12 @@ public class Enemy : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        int random = Random.Range(0, 10);
-        if(random >= 0 && random < 3)
+        // 보스면 보스 리워드 10회 수행, 아니면 1번만 수행
+        if (type == EnemyData.EnemyType.Boss)
         {
-            GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], room.roomReward.transform);
-            coin.transform.position = transform.position;
+            for (int i = 0; i < 9; i++) DropEnemyReward();
         }
+        DropEnemyReward();
     }
 
     IEnumerator EnemyPattern()
@@ -284,6 +295,44 @@ public class Enemy : MonoBehaviour
             case 2:
                 // 기본적으로 가만히 있는 몹
                 // 패턴은 따로 없다.
+                break;
+            case 3:
+                // 1탄 보스
+                int patternRandom = Random.Range(0, 3);
+                if (patternRandom == 0)
+                {
+                    // 1초 돌진
+                    patterns.Rush();
+                    yield return new WaitForSeconds(2f);
+                }
+                else if (patternRandom == 1)
+                {
+                    // 5회 흩뿌리기
+                    for (int i = 0; i < 5; i++)
+                    {
+                        patterns.SpreadFire();
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                }
+                else if (patternRandom == 2)
+                {
+                    // 스나이핑 3번
+                    for (int i = 0; i < 3; i++)
+                    {
+                        patterns.Sniping(target);
+                        yield return new WaitForSeconds(1f);
+                    }
+                }
+
+                // 패턴 본 후 0.5초 정지
+                rigid.velocity = Vector3.zero;
+                rigid.MovePosition(rigid.position);
+                yield return new WaitForSeconds(0.5f);
+
+                isTrace = true;
+                yield return new WaitForSeconds(2f);
+                isTrace = false;
+
                 break;
             case 4:
                 patterns.EnemyShot(moveDirection, 2);

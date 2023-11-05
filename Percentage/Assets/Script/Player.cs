@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class Player : MonoBehaviour
     public int currentWeaponIndex;
     public int currentSkillIndex;
     public bool isRoomMove;
-    public bool isOnObject;
+    public int isOnObjectCount;
     public bool isDamaged;
     public bool isInvincible;
     public bool isDead;
@@ -77,7 +76,11 @@ public class Player : MonoBehaviour
         // 플레이어 못움직이게하는 이유 참 많다 그죠?
         // 로딩중, 스탯창, 상자 오픈, 아이템 습득, 사망, 게임 클리어
         if (GameManager.instance.isLoading || GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel || isDead || isGameClear) return;
+
         PlayerMove();
+
+        // 비행능력을 얻었다면 플레이어의 트리거 여부 설정
+        if (isFly) CheckFly();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -88,26 +91,13 @@ public class Player : MonoBehaviour
             // 적의 총알 삭제
             collision.gameObject.SetActive(false);
 
-            //PlayerCollide();
             StartCoroutine(PlayerDamaged());
         }
 
         // 피격시 무적 1초와 비행효과 있을 경우를 제외하면 피격
         if (collision.CompareTag("Spike") && !isDamaged && !isInvincible && !isFly)
         {
-            //PlayerCollide();
             StartCoroutine(PlayerDamaged());
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (isOnObject && collision.CompareTag("Object"))
-        {
-            // collision 태그를 검사 안하고 하면 collision이 발사체 혹은 무기가 되는데 공격하면 이들이 플레이어를 떠나서 가게되므로 트리거 엑싯 판정이 났던것이었다.
-            // 그래서 피충돌체를 장애물(Object)로 한정시켜 장애물에서 나갈 때만 트리거를 원상복귀 시키는 것으로 했다.
-            col.isTrigger = false;
-            isOnObject = false;
         }
     }
 
@@ -116,14 +106,13 @@ public class Player : MonoBehaviour
         // 무적이 아닌 상태에서 적과 닿으면 체력 감소
         if (collision.collider.CompareTag("Enemy") && !isDamaged && !isInvincible)
         {
-            //PlayerCollide();
             StartCoroutine(PlayerDamaged());
         }
 
-        // 비행 능력 획득 시 오브젝트와 충돌 시, 플레이어의 트리거가 해제되어 그 위를 지나다닐 수 있음
+        // 비행 능력 획득 후 최초로 오브젝트와 충돌 시, 플레이어의 트리거가 해제되어 그 위를 지나다닐 수 있음
         if (isFly && collision.collider.CompareTag("Object"))
         {
-            isOnObject = true;
+            isOnObjectCount++;
             col.isTrigger = true;
         }
     }
@@ -155,18 +144,6 @@ public class Player : MonoBehaviour
         //rigid.AddForce(inputVec);
         //rigid.velocity = inputVec;
         rigid.MovePosition(rigid.position + nextVec);
-    }
-
-    void PlayerCollide()
-    {
-        // 플레이어의 최대 체력 or 현재 체력이 0 이하가 되면 사망
-        //if (currentHealth <= 0)
-        //{
-        //    isDead = true;
-        //    animator.SetTrigger("dead");
-        //    StartCoroutine(GameManager.instance.GameResult());
-        //}
-        //else StartCoroutine(PlayerDamaged());
     }
 
     IEnumerator PlayerDamaged()
@@ -426,5 +403,11 @@ public class Player : MonoBehaviour
             animator.SetTrigger("dead");
             StartCoroutine(GameManager.instance.GameResult());
         }
+    }
+
+    void CheckFly()
+    {
+        if (isOnObjectCount > 0) col.isTrigger = true;
+        else col.isTrigger = false;
     }
 }
