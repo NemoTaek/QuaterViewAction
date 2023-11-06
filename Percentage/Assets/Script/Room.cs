@@ -283,10 +283,13 @@ public class Room : MonoBehaviour
             else
             {
                 // 상자 얻기에 실패하면 돈이나 하트 생성
-                // 0: 1원, 1: 하트 반쪽, 2: 온전한 하트
-                int randomObject = Random.Range(1, 4);
-                reward = Instantiate(GameManager.instance.objectPool.prefabs[randomObject], roomReward.transform);
-                reward.transform.position = transform.position + pos;
+                // 0: 꽝, 1: 1원, 2: 하트 반쪽, 3: 온전한 하트
+                int randomObject = Random.Range(0, 4);
+                if (randomObject != 0)
+                {
+                    reward = Instantiate(GameManager.instance.objectPool.prefabs[randomObject], roomReward.transform);
+                    reward.transform.position = transform.position + pos;
+                }
             }
         }
 

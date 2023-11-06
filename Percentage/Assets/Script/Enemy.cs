@@ -245,14 +245,13 @@ public class Enemy : MonoBehaviour
         enemySlow = false;
     }
 
-    void DropEnemyReward()
+    void DropEnemyReward(Vector3 dropPos)
     {
         int random = Random.Range(0, 10);
         if (random >= 0 && random < 3)
         {
-            Vector3 spreadPosition = new Vector3(Random.Range(-1, 1),  Random.Range(-1, 1));
             GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], room.roomReward.transform);
-            coin.transform.position = transform.position + spreadPosition;
+            coin.transform.position = transform.position + dropPos;
         }
     }
 
@@ -273,9 +272,13 @@ public class Enemy : MonoBehaviour
         // 보스면 보스 리워드 10회 수행, 아니면 1번만 수행
         if (type == EnemyData.EnemyType.Boss)
         {
-            for (int i = 0; i < 9; i++) DropEnemyReward();
+            for (int i = 0; i < 10; i++)
+            {
+                Vector3 spreadPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+                DropEnemyReward(spreadPosition);
+            }
         }
-        DropEnemyReward();
+        else DropEnemyReward(Vector3.zero);
     }
 
     IEnumerator EnemyPattern()

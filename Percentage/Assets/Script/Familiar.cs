@@ -41,7 +41,9 @@ public class Familiar : MonoBehaviour
     {
         if (GameManager.instance.player.killEnemyCount % 10 == 0)
         {
-            Instantiate(GameManager.instance.objectPool.prefabs[1], GameManager.instance.player.familiar.transform);
+            GameObject coin = Instantiate(GameManager.instance.objectPool.prefabs[1], transform);
+            coin.transform.SetParent(Map.instance.currentRoom.transform);
+            coin.transform.localScale = Vector3.one;
         }
     }
 
