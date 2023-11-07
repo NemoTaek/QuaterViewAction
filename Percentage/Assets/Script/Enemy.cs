@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
 
         patterns = new Patterns();
         patterns.rigid = rigid;
-        patterns.transform = transform;
+        patterns.tr = transform;
     }
 
     public void Init(EnemyData data)
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
         // 게임오버 시에도 못움직이도록 설정
         if (!isLive || !moveStart || (type != EnemyData.EnemyType.Boss && animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) || GameManager.instance.player.isDead) return;
 
-        if (type == EnemyData.EnemyType.Trace || isTrace)   TraceMove();
+        if (isTrace)   TraceMove();
 
         if (!isPatternPlaying) StartCoroutine(EnemyPattern());
     }
@@ -341,6 +341,17 @@ public class Enemy : MonoBehaviour
                 patterns.EnemyShot(moveDirection, 2);
                 yield return new WaitForSeconds(2);
                 break;
+            case 5:
+                if (moveDirection.magnitude < 1.5)
+                {
+                    isTrace = false;
+                    patterns.enemy = this;
+                    StartCoroutine(patterns.JumpAttack());
+                    yield return new WaitForSeconds(3);
+                    isTrace = true;
+                }
+                break;
+                // 플레이어 주변에 오면 점프공격 하기
         }
 
         isPatternPlaying = false;

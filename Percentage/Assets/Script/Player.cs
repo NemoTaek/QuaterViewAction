@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    IEnumerator PlayerDamaged()
+    public IEnumerator PlayerDamaged()
     {
         // 성의 아이템을 먹으면 30% 확률로 노피격 판정
         if (isScapular)
