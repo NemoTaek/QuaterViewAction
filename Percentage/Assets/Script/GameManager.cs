@@ -158,6 +158,7 @@ public class GameManager : Singleton<GameManager>
             if (player.currentSkillIndex != i && i < player.getSkillCount && Input.GetKeyDown((KeyCode)(49 + i)))
             {
                 player.currentSkillIndex = i;
+                player.hand[player.role].isSkillChanged = true;
                 ui.isChanged = true;
             }
         }

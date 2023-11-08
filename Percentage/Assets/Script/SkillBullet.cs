@@ -29,11 +29,14 @@ public class SkillBullet : Bullet
         {
             if(id == 8)
             {
+                StopCoroutine(LandMine());
                 StartCoroutine(ExplodeMine());
             }
-
-            gameObject.SetActive(false);
-            transform.position = transform.parent.position;
+            else
+            {
+                gameObject.SetActive(false);
+                transform.position = transform.parent.position;
+            }
         }
     }
 

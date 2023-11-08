@@ -101,7 +101,7 @@ public class Hand : MonoBehaviour
         haveWeapons[index].gameObject.SetActive(true);
 
         // 교체했으면 그만큼 공격력이 바뀌어야 한다.
-        GameManager.instance.player.powerUp += GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[GameManager.instance.player.currentWeaponIndex].damage;
+        GameManager.instance.player.powerUp += GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].damage;
 
         isWeaponChanged = false;
     }

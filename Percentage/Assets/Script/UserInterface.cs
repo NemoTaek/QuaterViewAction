@@ -54,6 +54,22 @@ public class UserInterface : MonoBehaviour
         {
             SetInventory();
         }
+
+        // ½ºÅ³ ÄðÅ¸ÀÓ UI
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < GameManager.instance.player.getSkillCount)
+            {
+                if (GameManager.instance.skill[i].coolTimeTimer > 0)
+                {
+                    gameSkillArea[i].GetComponentsInChildren<Image>()[1].fillAmount = GameManager.instance.skill[i].coolTimeTimer / GameManager.instance.skill[i].skillCoolTime;
+                }
+            }
+            else
+            {
+                gameSkillArea[i].GetComponentsInChildren<Image>()[1].fillAmount = 0;
+            }
+        }
     }
 
     public void SetInventory()
