@@ -1498,6 +1498,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52016a6e2c616ab4f9d5956b8161a3eb, type: 2}
   - {fileID: 11400000, guid: 429ef61f1efc0094bb2b2ba681fbec46, type: 2}
   - {fileID: 11400000, guid: 68605c423ea6ac24ea3ea082910643b8, type: 2}
+  - {fileID: 11400000, guid: 803826939e7392e4186e354f4505bea9, type: 2}
+  - {fileID: 11400000, guid: 25f4139abc7b09c4abe1080dc722c371, type: 2}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}

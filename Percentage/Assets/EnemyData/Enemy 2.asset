@@ -16,3 +16,5 @@ MonoBehaviour:
   enemyId: 2
   enemySpeed: 0
   enemyMaxHealth: 1000
+  enemyImage: {fileID: 172626504, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
+  enemyAnimator: {fileID: 22100000, guid: 25f7a818644b68042bb0c0c2a28d1550, type: 2}

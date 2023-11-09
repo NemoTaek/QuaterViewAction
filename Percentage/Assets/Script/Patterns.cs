@@ -77,20 +77,37 @@ public class Patterns
         Vector3 jumpPosition = currentPosition;
         while (jumpPosition.y < currentPosition.y + 1f)
         {
-            jumpPosition += Vector3.up * 0.01f;
+            jumpPosition += Vector3.up * 0.05f;
             tr.position = jumpPosition;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
 
         while (jumpPosition.y > currentPosition.y)
         {
-            jumpPosition -= Vector3.up * 0.01f;
+            jumpPosition -= Vector3.up * 0.05f;
             tr.position = jumpPosition;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
 
         // 점프가 끝났을 때 거리가 2 이내에 있으면 데미지 주기
         Vector3 distance = enemy.target.position - rigid.position;
         if (distance.magnitude < 1.5) enemy.StartCoroutine(GameManager.instance.player.PlayerDamaged());
+    }
+
+    public void RandomFire()
+    {
+        EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
+
+        // 발사 방향 랜덤 세팅
+        float shotDirX = Random.Range(-1.0f, 1.0f);
+        float shotDirY = Random.Range(-1.0f, 1.0f);
+        Vector2 shotDir = new Vector2(shotDirX, shotDirY).normalized;
+
+        // 랜덤 방향 발사
+        // Atan2(y, x): y / x 계산하여 라디안 값을 리턴. 그 후 각도로 변환
+        float shotDeg = Mathf.Atan2(shotDir.y, shotDir.x) * Mathf.Rad2Deg - 90;
+        bossBullet.transform.position = tr.position;
+        bossBullet.transform.rotation = Quaternion.Euler(0, 0, shotDeg);
+        bossBullet.GetComponent<Rigidbody2D>().velocity = shotDir * 2;
     }
 }

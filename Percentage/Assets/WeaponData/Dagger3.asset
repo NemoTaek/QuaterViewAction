@@ -17,6 +17,8 @@ MonoBehaviour:
   weaponName: "\uCC28"
   weaponDesc: "\uB0A0\uC774 3\uAC1C \uB2EC\uB9B0 \uB2E8\uAC80\uC774\uB2E4."
   weaponIcon: {fileID: 21300000, guid: 983605f835fd77348b912cb89156670c, type: 3}
+  isPenetrate: 0
+  isSlow: 0
   baseDamage: 30
   upgradeDamage:
   - 0
@@ -25,6 +27,5 @@ MonoBehaviour:
   - 6
   - 6
   - 7
-  - 7
   level: 0
-  maxLevel: 6
+  maxLevel: 5

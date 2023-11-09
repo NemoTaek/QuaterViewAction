@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float health;
     public float maxHealth;
+    public Sprite image;
 
     public bool isLive;
     public bool isPatternPlaying;
@@ -30,6 +31,9 @@ public class Enemy : MonoBehaviour
     public bool enemySlow;
     public Vector2 moveDirection;
     public bool isTrace;
+
+    [Header("----- Boss Property -----")]
+    public bool isSpawnSubEnemy;
 
     void Awake()
     {
@@ -51,6 +55,8 @@ public class Enemy : MonoBehaviour
         type = data.enemyType;
         speed = data.enemySpeed;
         maxHealth = data.enemyMaxHealth;
+        image = data.enemyImage;
+        animator.runtimeAnimatorController = data.enemyAnimator;
 
         // 적 상태 초기화
         isLive = true;
@@ -219,7 +225,10 @@ public class Enemy : MonoBehaviour
 
         Vector3 playerPosition = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPosition;
+        rigid.drag = 5;
         rigid.AddForce(dirVec.normalized * knockbackAmount, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.5f);
+        rigid.drag = 0;
     }
 
     void SetSlowAttack()
@@ -342,6 +351,7 @@ public class Enemy : MonoBehaviour
                 yield return new WaitForSeconds(2);
                 break;
             case 5:
+                // 플레이어 주변에 오면 점프공격 하기
                 if (moveDirection.magnitude < 1.5)
                 {
                     isTrace = false;
@@ -351,7 +361,54 @@ public class Enemy : MonoBehaviour
                     isTrace = true;
                 }
                 break;
-                // 플레이어 주변에 오면 점프공격 하기
+            case 6:
+                // 중간 보스(?)
+                // 허수아비: 체력 많고 체력이 반피 이하로 내려가면 주변에 나무인형을 소환
+                // 기본 패턴: 피 100% ~ 50%: 스나이핑, 50% ~ 0%: 짚 흩뿌리기
+
+                if (health / maxHealth >= 0.5f)
+                {
+                    patterns.Sniping(target);
+                    yield return new WaitForSeconds(3);
+                }
+                else
+                {
+                    if (!isSpawnSubEnemy)
+                    {
+                        // 주변에 나무인형 소환
+                        // 플레이어 주변 8방향 설정
+                        Vector3[] subEnemyPosition = new Vector3[8];
+                        int index = 0;
+                        for (float dx = -1f; dx < 2; dx++)
+                        {
+                            for (float dy = -1f; dy < 2; dy++)
+                            {
+                                if (dx == 0 && dy == 0) continue;
+                                subEnemyPosition[index] = new Vector3(transform.position.x + dx, transform.position.y + dy, 1);
+                                index++;
+                            }
+                        }
+                        for (int i = 0; i < 8; i++)
+                        {
+                            Enemy spawnEnemy = Instantiate(room.spawnPoint[0].enemy, room.spawnPoint[0].transform);
+                            spawnEnemy.transform.position = subEnemyPosition[i];
+                            spawnEnemy.Init(GameManager.instance.enemyData[id + 1]);
+                            room.enemyCount++;
+                        }
+
+                        isSpawnSubEnemy = true;
+                    }
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        patterns.RandomFire();
+                        yield return new WaitForSeconds(0.1f);
+                    }
+
+                    yield return new WaitForSeconds(5f);
+                }
+                
+                break;
         }
 
         isPatternPlaying = false;

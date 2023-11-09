@@ -12,4 +12,6 @@ public class EnemyData : ScriptableObject
     public int enemyId;
     public float enemySpeed;
     public float enemyMaxHealth;
+    public Sprite enemyImage;
+    public RuntimeAnimatorController enemyAnimator;
 }
