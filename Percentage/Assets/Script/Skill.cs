@@ -171,7 +171,7 @@ public class Skill : MonoBehaviour
                     float randomX = Random.Range(-6.5f, 7.5f);
                     float randomY = Random.Range(-2.5f, 3.5f);
 
-                    meteor.transform.position = new Vector2(randomX, randomY);
+                    meteor.transform.position = Map.instance.currentRoom.transform.position + new Vector3(randomX, randomY, 1);
                     meteors[i] = meteor;
                 }
 

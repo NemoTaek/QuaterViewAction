@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3039023729871690775}
   - component: {fileID: 3039023729871690772}
   - component: {fileID: 3039023729871690773}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uB098\uBB34\uC778\uD615"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3039023729871690769}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 3039023731479333576}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3039023729871690771
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -252,6 +252,7 @@ MonoBehaviour:
   speed: 0
   health: 0
   maxHealth: 0
+  image: {fileID: 0}
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
@@ -270,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3039023731479333576}
   - component: {fileID: 3039023731479333579}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -234,7 +234,7 @@ public class Room : MonoBehaviour
             for (int i = 0; i < spawnPoint.Length; i++)
             {
                 Enemy spawnEnemy = Instantiate(spawnPoint[i].enemy, spawnPoint[i].transform);
-                spawnEnemy.Init(GameManager.instance.enemyData[spawnPoint[i].enemy.id]);
+                spawnEnemy.Init(GameManager.instance.enemyData[spawnPoint[i].enemyId]);
                 enemyCount++;
             }
         }

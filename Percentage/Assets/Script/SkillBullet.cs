@@ -32,11 +32,11 @@ public class SkillBullet : Bullet
                 StopCoroutine(LandMine());
                 StartCoroutine(ExplodeMine());
             }
-            else
-            {
-                gameObject.SetActive(false);
-                transform.position = transform.parent.position;
-            }
+            //else
+            //{
+            //    gameObject.SetActive(false);
+            //    transform.position = transform.parent.position;
+            //}
         }
     }
 

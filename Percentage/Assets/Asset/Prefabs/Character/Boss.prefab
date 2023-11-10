@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4583383361022046217}
   - component: {fileID: 9067315394585443663}
   - component: {fileID: 4170390054126892971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3482542510697800589}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 1103874346403803966}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7783113049911586963
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -168,6 +168,7 @@ MonoBehaviour:
   speed: 0
   health: 0
   maxHealth: 0
+  image: {fileID: 0}
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
@@ -175,6 +176,7 @@ MonoBehaviour:
   enemySlow: 0
   moveDirection: {x: 0, y: 0}
   isTrace: 0
+  isSpawnSubEnemy: 0
 --- !u!1 &4574496521356233229
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1103874346403803966}
   - component: {fileID: 2946171845294825624}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

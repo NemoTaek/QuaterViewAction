@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     public Enemy enemy;
+    public int enemyId;
 
     void Start()
     {
