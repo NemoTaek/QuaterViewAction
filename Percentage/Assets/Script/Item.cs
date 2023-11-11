@@ -47,7 +47,7 @@ public class Item : MonoBehaviour
         duringTime = data.itemDuringTime;
         image = data.itemImage;
         activeGuage = data.itemActiveGuage;
-        currentGuage = data.itemActiveGuage;
+        currentGuage = data.itemCurrentGuage;
 
         itemSpeed = data.itemSpeed;
         itemAttackSpeed = data.itemAttackSpeed;
@@ -124,6 +124,7 @@ public class Item : MonoBehaviour
             {
                 // 먼저 가지고 있는 액티브 아이템을 임시로 저장
                 int tempItemId = player.activeItem.id;
+                int tempItemGuage = player.activeItem.currentGuage;
 
                 // 아이템 획득
                 SetActiveItem();
@@ -133,7 +134,8 @@ public class Item : MonoBehaviour
                 // 인덱스의 아이템 데이터니까 +1 되어 들어가서 오류가 발생했던 것.
                 // 이미지도 바꿔주자
                 Init(GameManager.instance.itemData[tempItemId - 1]);
-                itemSpriteRenderer.sprite = image;
+                //itemSpriteRenderer.sprite = image;
+                currentGuage = tempItemGuage;
             }
             else
             {
@@ -167,6 +169,7 @@ public class Item : MonoBehaviour
         if (player.activeItem)
         {
             player.activeItem.Init(GameManager.instance.itemData[id - 1]);
+            player.activeItem.currentGuage = currentGuage;
         }
         else
         {

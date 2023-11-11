@@ -115,6 +115,7 @@ public class Skill : MonoBehaviour
             case 3:
                 // 스킬을 사용했다는 것을 알리고
                 player.buffSprite.sprite = icon;
+                player.isGuard = true;
 
                 float guardTimer = skillDuringTime;
                 while (guardTimer > 0)
@@ -131,6 +132,7 @@ public class Skill : MonoBehaviour
 
                         player.buffSprite.sprite = null;
                         shockWave.gameObject.SetActive(false);
+                        player.isGuard = false;
                         break;
                     }
 
@@ -139,6 +141,7 @@ public class Skill : MonoBehaviour
 
                 // 지속시간 내에 발동되지 않았으면 아이콘 off
                 player.buffSprite.sprite = null;
+                player.isGuard = false;
                 break;
             // 전사 검기
             case 4:
@@ -197,7 +200,7 @@ public class Skill : MonoBehaviour
             // 마법사 인페르노라이즈
             case 9:
                 SkillBullet infernorize = GameManager.instance.bulletPool.Get(0, 8).GetComponent<SkillBullet>();
-                infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3 + dirVec.y * 2, 1);
+                infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3, dirVec.y * 2, 1);
 
                 yield return new WaitForSeconds(2f);
 

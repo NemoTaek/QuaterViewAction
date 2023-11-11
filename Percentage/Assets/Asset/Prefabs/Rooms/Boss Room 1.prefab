@@ -2168,7 +2168,7 @@ GameObject:
   - component: {fileID: 1681536416299413695}
   - component: {fileID: 1681536416299413692}
   m_Layer: 6
-  m_Name: Boss Room
+  m_Name: Boss Room 1
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
 
     public bool isFly;
     public bool isScapular;
+    public bool isGuard;
 
     void Awake()
     {
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // 무적이 아닌 상태에서 적의 총알에 맞으면 체력 감소
-        if (collision.CompareTag("EnemyBullet") && !isDamaged && !isInvincible)
+        if (collision.CompareTag("EnemyBullet") && !isInvincible)
         {
             // 적의 총알 삭제
             collision.gameObject.SetActive(false);
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
         }
 
         // 피격시 무적 1초와 비행효과 있을 경우를 제외하면 피격
-        if (collision.CompareTag("Spike") && !isDamaged && !isInvincible && !isFly)
+        if (collision.CompareTag("Spike") && !isInvincible && !isFly)
         {
             StartCoroutine(PlayerDamaged());
         }
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // 무적이 아닌 상태에서 적과 닿으면 체력 감소
-        if (collision.collider.CompareTag("Enemy") && !isDamaged && !isInvincible)
+        if (collision.collider.CompareTag("Enemy") && !isInvincible)
         {
             StartCoroutine(PlayerDamaged());
         }
@@ -148,17 +149,27 @@ public class Player : MonoBehaviour
 
     public IEnumerator PlayerDamaged()
     {
-        // 성의 아이템을 먹으면 30% 확률로 노피격 판정
-        if (isScapular)
+        // 피격 후 1초는 무적
+        if (isDamaged) yield break;
+
+        // 가드어택 사용중이 아닐 때 실제 피격
+        if (!isGuard)
         {
-            int random = Random.Range(0, 10);
-            if (random > 3) currentHealth -= 0.5f;
+            // 성의 아이템을 먹으면 30% 확률로 노피격 판정
+            if (!isScapular)
+            {
+                int random = Random.Range(0, 10);
+                if (random > 3) currentHealth -= 0.5f;
+            }
+            else currentHealth -= 0.5f;
         }
-        else currentHealth -= 0.5f;
 
         // 피격 효과
         isDamaged = true;
         GameManager.instance.ui.isChanged = true;
+
+        // 가드어택 사용중이면 피격 했다는 표시만 받고 바로 종료
+        if (isGuard) yield break;
 
         // 투명도 50% 후 1초 후 복구
         Color color = spriteRenderer.color;

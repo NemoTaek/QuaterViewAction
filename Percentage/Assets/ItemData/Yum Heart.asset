@@ -21,6 +21,7 @@ MonoBehaviour:
   itemDuringTime: 0
   itemImage: {fileID: 21300000, guid: d7c4945c48fcb7347842b13af7e6865d, type: 3}
   itemActiveGuage: 4
+  itemCurrentGuage: 4
   itemSpeed: 0
   itemAttackSpeed: 0
   itemDamage: 0

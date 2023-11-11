@@ -21,17 +21,20 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Wall") || (!isPenetrate && collision.CompareTag("Object")) || collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Wall") || (!isPenetrate && collision.CompareTag("Object")))
+        {
+            if (gameObject.CompareTag("Bullet") || gameObject.CompareTag("EnemyBullet")) gameObject.SetActive(false);
+            else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
+        }
+        if (collision.CompareTag("Enemy"))
         {
             if (gameObject.CompareTag("Bullet")) gameObject.SetActive(false);
             else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
-            transform.position = transform.parent.position;
         }
     }
 
     IEnumerator SetActiveFalseBullet()
     {
-        Debug.Log("나는 스킬불렛");
         yield return new WaitForSeconds(10);
         if (gameObject.activeSelf) gameObject.SetActive(false);
     }

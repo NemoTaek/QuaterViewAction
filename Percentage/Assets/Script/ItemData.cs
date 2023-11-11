@@ -17,6 +17,7 @@ public class ItemData : ScriptableObject
     public float itemDuringTime;
     public Sprite itemImage;
     public int itemActiveGuage;
+    public int itemCurrentGuage;
 
     [Header("----- Item Status -----")]
     public float itemSpeed;
