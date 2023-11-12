@@ -226,16 +226,28 @@ public class Room : MonoBehaviour
         }
     }
 
-    void InitEnemies()
+    public void InstallSpawnPoint(Transform parentTransform, Vector3 spawnPointPosition)
+    {
+        SpawnPoint spawn = Instantiate(Map.instance.spawnPoint, parentTransform);
+        spawn.transform.position = spawnPointPosition;
+
+        // 설치 후 스폰포인트 배열 갱신
+        spawnPoint = GetComponentsInChildren<SpawnPoint>();
+    }
+
+    public void InitEnemies(int spawnEnemyId)
     {
         // 소환 지점이 있다면 몬스터 소환
         if (spawnPoint.Length > 0)
         {
             for (int i = 0; i < spawnPoint.Length; i++)
             {
+                if (spawnPoint[i].isSpawn) continue;
+
                 Enemy spawnEnemy = Instantiate(spawnPoint[i].enemy, spawnPoint[i].transform);
-                spawnEnemy.Init(GameManager.instance.enemyData[spawnPoint[i].enemyId]);
+                spawnEnemy.Init(GameManager.instance.enemyData[spawnEnemyId]);
                 enemyCount++;
+                spawnPoint[i].isSpawn = true;
             }
         }
     }
@@ -243,7 +255,14 @@ public class Room : MonoBehaviour
     void BattleStart()
     {
         isBattle = true;
-        InitEnemies();
+        if (spawnPoint.Length > 0)
+        {
+            for (int i = 0; i < spawnPoint.Length; i++)
+            {
+                InitEnemies(spawnPoint[i].enemyId);
+            }
+        }
+        
     }
 
     void BattleEnd(int successOrFail)

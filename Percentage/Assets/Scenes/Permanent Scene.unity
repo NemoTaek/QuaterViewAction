@@ -1500,6 +1500,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 68605c423ea6ac24ea3ea082910643b8, type: 2}
   - {fileID: 11400000, guid: 803826939e7392e4186e354f4505bea9, type: 2}
   - {fileID: 11400000, guid: 25f4139abc7b09c4abe1080dc722c371, type: 2}
+  - {fileID: 11400000, guid: f24ab3b71d399e841bed647c1ec6e3b1, type: 2}
   uiCanvas: {fileID: 751628429}
   ui: {fileID: 567039577}
   statusPanel: {fileID: 1711601258}

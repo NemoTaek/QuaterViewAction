@@ -14,4 +14,7 @@ public class EnemyData : ScriptableObject
     public float enemyMaxHealth;
     public Sprite enemyImage;
     public RuntimeAnimatorController enemyAnimator;
+
+    [Header("----- Property Info -----")]
+    public bool isFly;
 }

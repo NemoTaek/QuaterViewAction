@@ -6,6 +6,7 @@ public class SpawnPoint : MonoBehaviour
 {
     public Enemy enemy;
     public int enemyId;
+    public bool isSpawn;
 
     void Start()
     {

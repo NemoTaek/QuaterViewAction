@@ -168,9 +168,6 @@ public class Player : MonoBehaviour
         isDamaged = true;
         GameManager.instance.ui.isChanged = true;
 
-        // 가드어택 사용중이면 피격 했다는 표시만 받고 바로 종료
-        if (isGuard) yield break;
-
         // 투명도 50% 후 1초 후 복구
         Color color = spriteRenderer.color;
         color.a = 0.5f;

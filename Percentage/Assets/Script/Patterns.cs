@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Patterns
 {
     public Enemy enemy;
-    public Rigidbody2D rigid;
-    public Transform tr;
 
     public void Rush()
     {
@@ -29,7 +26,7 @@ public class Patterns
                 break;
         }
 
-        rigid.velocity = rushDir * 5f;
+        enemy.rigid.velocity = rushDir * 5f;
     }
 
     public void SpreadFire()
@@ -39,7 +36,7 @@ public class Patterns
         {
             EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
             Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
-            bossBullet.transform.position = tr.position;
+            bossBullet.transform.position = enemy.transform.position;
 
             // 해당 총알이 원 둘레에서 어느 위치에 있는가
             float bulletIndex = Mathf.PI * 2 * i / countPerCycle;
@@ -56,9 +53,9 @@ public class Patterns
     {
         EnemyBullet bossBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
         Rigidbody2D bulletRigid = bossBullet.GetComponent<Rigidbody2D>();
-        bossBullet.transform.position = tr.position;
+        bossBullet.transform.position = enemy.transform.position;
 
-        Vector2 dirVec = target.position - rigid.position;
+        Vector2 dirVec = target.position - enemy.rigid.position;
         bulletRigid.velocity = dirVec.normalized * 10f;
     }
 
@@ -66,31 +63,31 @@ public class Patterns
     {
         EnemyBullet enemyBullet = GameManager.instance.bulletPool.Get(1, 0).GetComponent<EnemyBullet>();
         Rigidbody2D bulletRigid = enemyBullet.GetComponent<Rigidbody2D>();
-        enemyBullet.transform.position = tr.position;
+        enemyBullet.transform.position = enemy.transform.position;
 
         bulletRigid.velocity = shotDir.normalized * shotSpeed;
     }
 
     public IEnumerator JumpAttack()
     {
-        Vector3 currentPosition = tr.position;
+        Vector3 currentPosition = enemy.transform.position;
         Vector3 jumpPosition = currentPosition;
         while (jumpPosition.y < currentPosition.y + 1f)
         {
             jumpPosition += Vector3.up * 0.05f;
-            tr.position = jumpPosition;
+            enemy.transform.position = jumpPosition;
             yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
 
         while (jumpPosition.y > currentPosition.y)
         {
             jumpPosition -= Vector3.up * 0.05f;
-            tr.position = jumpPosition;
+            enemy.transform.position = jumpPosition;
             yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
 
         // 점프가 끝났을 때 거리가 2 이내에 있으면 데미지 주기
-        Vector3 distance = enemy.target.position - rigid.position;
+        Vector3 distance = enemy.target.position - enemy.rigid.position;
         if (distance.magnitude < 1.5) enemy.StartCoroutine(GameManager.instance.player.PlayerDamaged());
     }
 
@@ -106,8 +103,33 @@ public class Patterns
         // 랜덤 방향 발사
         // Atan2(y, x): y / x 계산하여 라디안 값을 리턴. 그 후 각도로 변환
         float shotDeg = Mathf.Atan2(shotDir.y, shotDir.x) * Mathf.Rad2Deg - 90;
-        bossBullet.transform.position = tr.position;
+        bossBullet.transform.position = enemy.transform.position;
         bossBullet.transform.rotation = Quaternion.Euler(0, 0, shotDeg);
         bossBullet.GetComponent<Rigidbody2D>().velocity = shotDir * 2;
+    }
+
+    public void SpawnSubEnemy(int spawnEnemyId)
+    {
+        // 플레이어 주변 8방향 설정
+        Vector3[] subEnemyPosition = new Vector3[8];
+        int index = 0;
+        for (float dx = -1f; dx <= 1; dx += 1)
+        {
+            for (float dy = -1f; dy <= 1; dy += 1)
+            {
+                if (dx == 0 && dy == 0) continue;
+                subEnemyPosition[index] = new Vector3(enemy.transform.position.x + dx, enemy.transform.position.y + dy, 1);
+                index++;
+            }
+        }
+
+        // 스폰포인트 8방향에 설치
+        for (int i = 0; i < 8; i++)
+        {
+            enemy.room.InstallSpawnPoint(enemy.room.transform, subEnemyPosition[i]);
+        }
+
+        // 적 소환
+        enemy.room.InitEnemies(spawnEnemyId);
     }
 }

@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     public Rigidbody2D target;
     Collider2D col;
-    Room room;
+    public Room room;
     public SpriteRenderer statusEffect;
     public Patterns patterns;
 
@@ -45,8 +45,6 @@ public class Enemy : MonoBehaviour
         room = gameObject.GetComponentInParent<Room>();
 
         patterns = new Patterns();
-        patterns.rigid = rigid;
-        patterns.tr = transform;
     }
 
     public void Init(EnemyData data)
@@ -61,6 +59,7 @@ public class Enemy : MonoBehaviour
         // 적 상태 초기화
         isLive = true;
         health = maxHealth;
+        col.isTrigger = data.isFly;
     }
 
     // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
@@ -81,6 +80,14 @@ public class Enemy : MonoBehaviour
         if (!isLive || !moveStart || (type != EnemyData.EnemyType.Boss && animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) || GameManager.instance.player.isDead) return;
 
         if (isTrace)   TraceMove();
+        if (type == EnemyData.EnemyType.Random)
+        {
+            if (transform.position.x < -7 || transform.position.x > 7 || transform.position.y < -3 || transform.position.y > 3)
+            {
+                StopCoroutine(SetRandomMove());
+                StartCoroutine(SetRandomMove());
+            }
+        }
 
         if (!isPatternPlaying) StartCoroutine(EnemyPattern());
     }
@@ -115,6 +122,15 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+
+        if (collision.CompareTag("Wall"))
+        {
+            if (type == EnemyData.EnemyType.Random)
+            {
+                StopCoroutine(SetRandomMove());
+                StartCoroutine(SetRandomMove());
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -123,6 +139,7 @@ public class Enemy : MonoBehaviour
         {
             if (type == EnemyData.EnemyType.Random)
             {
+                Debug.Log("비행 적 벽 충돌");
                 StopCoroutine(SetRandomMove());
                 StartCoroutine(SetRandomMove());
             }
@@ -293,8 +310,9 @@ public class Enemy : MonoBehaviour
     IEnumerator EnemyPattern()
     {
         isPatternPlaying = true;
-        
-        switch(id)
+        patterns.enemy = this;
+
+        switch (id)
         {
             case 0:
                 // 기본적으로 나를 따라오는 몹
@@ -355,7 +373,6 @@ public class Enemy : MonoBehaviour
                 if (moveDirection.magnitude < 1.5)
                 {
                     isTrace = false;
-                    patterns.enemy = this;
                     StartCoroutine(patterns.JumpAttack());
                     yield return new WaitForSeconds(3);
                     isTrace = true;
@@ -376,26 +393,7 @@ public class Enemy : MonoBehaviour
                     if (!isSpawnSubEnemy)
                     {
                         // 주변에 나무인형 소환
-                        // 플레이어 주변 8방향 설정
-                        Vector3[] subEnemyPosition = new Vector3[8];
-                        int index = 0;
-                        for (float dx = -1f; dx < 2; dx++)
-                        {
-                            for (float dy = -1f; dy < 2; dy++)
-                            {
-                                if (dx == 0 && dy == 0) continue;
-                                subEnemyPosition[index] = new Vector3(transform.position.x + dx, transform.position.y + dy, 1);
-                                index++;
-                            }
-                        }
-                        for (int i = 0; i < 8; i++)
-                        {
-                            Enemy spawnEnemy = Instantiate(room.spawnPoint[0].enemy, room.spawnPoint[0].transform);
-                            spawnEnemy.transform.position = subEnemyPosition[i];
-                            spawnEnemy.Init(GameManager.instance.enemyData[id + 1]);
-                            room.enemyCount++;
-                        }
-
+                        patterns.SpawnSubEnemy(7);
                         isSpawnSubEnemy = true;
                     }
 

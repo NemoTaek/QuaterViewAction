@@ -1656,6 +1656,7 @@ MonoBehaviour:
   currentRoom: {fileID: 0}
   mapPosition: 0
   mapSquare: []
+  spawnPoint: {fileID: 9146816372082988929, guid: 420b1ef2029a89549b956688b6435d59, type: 3}
   itemsInShop: 
   itemPrefab: []
   itemPrice: []

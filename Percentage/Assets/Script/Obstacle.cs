@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Obstacle : MonoBehaviour
 {

@@ -11,6 +11,7 @@ public class Map : Singleton<Map>
     public Room currentRoom;
     public int mapPosition;
     public Image[] mapSquare;
+    public SpawnPoint spawnPoint;
 
     [Header("----- Shop Setting -----")]
     public List<int> itemsInShop;
