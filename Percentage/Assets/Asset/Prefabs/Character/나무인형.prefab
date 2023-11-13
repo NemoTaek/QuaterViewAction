@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 3039023729871690773}
   m_Layer: 7
   m_Name: "\uB098\uBB34\uC778\uD615"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
   target: {fileID: 0}
+  room: {fileID: 0}
   statusEffect: {fileID: 3039023729771928154}
   type: 2
   id: 7
@@ -256,10 +257,12 @@ MonoBehaviour:
   isLive: 0
   isPatternPlaying: 0
   isObjectCollision: 0
+  stopRandomMove: 0
   moveStart: 0
   enemySlow: 0
   moveDirection: {x: 0, y: 0}
   isTrace: 0
+  isFly: 0
   isSpawnSubEnemy: 0
 --- !u!1 &3039023731479333577
 GameObject:

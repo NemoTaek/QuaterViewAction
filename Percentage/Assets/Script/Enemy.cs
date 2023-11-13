@@ -27,10 +27,12 @@ public class Enemy : MonoBehaviour
     public bool isLive;
     public bool isPatternPlaying;
     public bool isObjectCollision;
+    public bool stopRandomMove;
     public bool moveStart;
     public bool enemySlow;
     public Vector2 moveDirection;
     public bool isTrace;
+    public bool isFly;
 
     [Header("----- Boss Property -----")]
     public bool isSpawnSubEnemy;
@@ -59,7 +61,7 @@ public class Enemy : MonoBehaviour
         // 적 상태 초기화
         isLive = true;
         health = maxHealth;
-        col.isTrigger = data.isFly;
+        isFly = data.isFly;
     }
 
     // virtual: 상속받는 자식 스크립트에서 오버라이딩 할 수 있도록 허락해주는 키워드
@@ -80,16 +82,21 @@ public class Enemy : MonoBehaviour
         if (!isLive || !moveStart || (type != EnemyData.EnemyType.Boss && animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) || GameManager.instance.player.isDead) return;
 
         if (isTrace)   TraceMove();
-        if (type == EnemyData.EnemyType.Random)
-        {
-            if (transform.position.x < -7 || transform.position.x > 7 || transform.position.y < -3 || transform.position.y > 3)
-            {
-                StopCoroutine(SetRandomMove());
-                StartCoroutine(SetRandomMove());
-            }
-        }
 
         if (!isPatternPlaying) StartCoroutine(EnemyPattern());
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 비행 몬스터인데 장애물과 충돌할 때는 충돌 무시, 그 외에는 충돌 처리
+        if (isFly && collision.collider.CompareTag("Object"))
+        {
+            Physics2D.IgnoreLayerCollision(7, 8, true);
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(7, 8, false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -123,27 +130,26 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (collision.CompareTag("Wall"))
-        {
-            if (type == EnemyData.EnemyType.Random)
-            {
-                StopCoroutine(SetRandomMove());
-                StartCoroutine(SetRandomMove());
-            }
-        }
-    }
+        //if (col.isTrigger)
+        //{
+        //    if (collision.CompareTag("Wall"))
+        //    {
+        //        if (type == EnemyData.EnemyType.Random)
+        //        {
+        //            // 멈춰!
+        //            stopRandomMove = true;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Object") || collision.collider.CompareTag("Wall"))
-        {
-            if (type == EnemyData.EnemyType.Random)
-            {
-                Debug.Log("비행 적 벽 충돌");
-                StopCoroutine(SetRandomMove());
-                StartCoroutine(SetRandomMove());
-            }
-        }
+        //            // 충돌한 반대방향으로 다시 돌아가
+        //            moveDirection *= -1;
+        //            rigid.AddForce(moveDirection);
+        //            rigid.velocity = moveDirection * speed;
+
+        //            // 다시 랜덤 시작
+        //            StartCoroutine(SetRandomMove());
+        //        }
+        //    }
+        //}
+        
     }
 
     void Update()
@@ -181,8 +187,9 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Vector2 moveDir = Vector2.zero;
+        stopRandomMove = false;
 
-        while (true)
+        while (!stopRandomMove)
         {
             int dirRandom = Random.Range(0, 4);
             switch (dirRandom)
