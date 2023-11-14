@@ -88,15 +88,17 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // 비행 몬스터인데 장애물과 충돌할 때는 충돌 무시, 그 외에는 충돌 처리
-        if (isFly && collision.collider.CompareTag("Object"))
+        // 장애물과 충돌할 때 비행속성이면 충돌 무시, 그 외에는 충돌 처리
+        if (collision.collider.CompareTag("Object"))
         {
-            Physics2D.IgnoreLayerCollision(7, 8, true);
+            if (isFly)  Physics2D.IgnoreLayerCollision(7, 8, true);
+            else
+            {
+                Physics2D.IgnoreLayerCollision(7, 8, false);
+                stopRandomMove = true;
+            }
         }
-        else
-        {
-            Physics2D.IgnoreLayerCollision(7, 8, false);
-        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -129,27 +131,6 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-
-        //if (col.isTrigger)
-        //{
-        //    if (collision.CompareTag("Wall"))
-        //    {
-        //        if (type == EnemyData.EnemyType.Random)
-        //        {
-        //            // 멈춰!
-        //            stopRandomMove = true;
-
-        //            // 충돌한 반대방향으로 다시 돌아가
-        //            moveDirection *= -1;
-        //            rigid.AddForce(moveDirection);
-        //            rigid.velocity = moveDirection * speed;
-
-        //            // 다시 랜덤 시작
-        //            StartCoroutine(SetRandomMove());
-        //        }
-        //    }
-        //}
-        
     }
 
     void Update()
