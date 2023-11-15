@@ -46,7 +46,7 @@ public class LoadingManager : MonoBehaviour
         // 0: 인트로1, 1: 인트로2, 2: 로딩 씬, 3: 파괴되면 안되는 오브젝트 모음 씬
         // 4부터가 스테이지 1, 2, 3
         stage = GameManager.instance.stage;
-        AsyncOperation operation = SceneManager.LoadSceneAsync(stage + 3, LoadSceneMode.Additive);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(stage + 2, LoadSceneMode.Additive);
 
         // 씬 로딩이 완료되어도 장면이 전환되지 않도록 설정
         operation.allowSceneActivation = false;
@@ -88,13 +88,9 @@ public class LoadingManager : MonoBehaviour
                     if (ui != null) ui.localScale = Vector3.one;
 
                     // 전에 있던 씬 unload
-                    if (SceneManager.GetSceneByName("Intro1").IsValid())
+                    if (SceneManager.GetSceneByName("Intro").IsValid())
                     {
-                        yield return SceneManager.UnloadSceneAsync("Intro1");
-                    }
-                    if (SceneManager.GetSceneByName("Intro2").IsValid())
-                    {
-                        yield return SceneManager.UnloadSceneAsync("Intro2");
+                        yield return SceneManager.UnloadSceneAsync("Intro");
                     }
                     yield return SceneManager.UnloadSceneAsync("Loading");
 

@@ -14,6 +14,7 @@ public class Coin : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             GameManager.instance.coin++;
+            AudioManager.instance.EffectPlay(AudioManager.Effect.GetCoin);
             gameObject.SetActive(false);
         }
     }

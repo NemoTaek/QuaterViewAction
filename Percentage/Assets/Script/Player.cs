@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     public float keydownTimer;
     public bool isKeydown;
     public bool isChargeComplete = false;
-    public bool isGameClear;
+    public bool stopMove;
     public int killEnemyCount;
 
     public int role;
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
     {
         // 플레이어 못움직이게하는 이유 참 많다 그죠?
         // 로딩중, 스탯창, 상자 오픈, 아이템 습득, 사망, 게임 클리어
-        if (GameManager.instance.isLoading || GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel || isDead || isGameClear) return;
+        if (GameManager.instance.isLoading || GameManager.instance.isOpenStatus || GameManager.instance.isOpenBox || GameManager.instance.isOpenItemPanel || isDead || stopMove) return;
 
         PlayerMove();
 
@@ -159,9 +159,17 @@ public class Player : MonoBehaviour
             if (!isScapular)
             {
                 int random = Random.Range(0, 10);
-                if (random > 3) currentHealth -= 0.5f;
+                if (random > 3)
+                {
+                    currentHealth -= 0.5f;
+                    AudioManager.instance.EffectPlay(AudioManager.Effect.Damaged);
+                }
             }
-            else currentHealth -= 0.5f;
+            else
+            {
+                currentHealth -= 0.5f;
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Damaged);
+            }
         }
 
         // 피격 효과

@@ -91,6 +91,7 @@ public class Item : MonoBehaviour
         GameManager.instance.isOpenItemPanel = true;
         GameManager.instance.getItemPanel.gameObject.SetActive(true);
         GameManager.instance.getItemPanel.SetItemPanel(itemName, desc, image);
+        AudioManager.instance.EffectPlay(AudioManager.Effect.GetItem);
 
         // 획득한 아이템 적용
         // 패시브면 획득 아이템 리스트에 넣고 바로 적용하고 아이템 삭제

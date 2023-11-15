@@ -10,7 +10,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 
     public static T instance = null;
 
-    public void Awake()
+    protected virtual void Awake()
     {
         //if (instance == null)
         //{

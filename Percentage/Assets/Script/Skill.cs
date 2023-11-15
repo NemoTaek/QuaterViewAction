@@ -100,9 +100,12 @@ public class Skill : MonoBehaviour
                 player.hand[player.role].animator.speed = 5;
 
                 player.rigid.AddForce(dirVec * 0.5f);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.KnightAttack);
                 break;
             // 전사 집중
             case 2:
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Buff);
+
                 player.buffSprite.sprite = icon;
                 player.powerUp += (damage + upgradeDamage[level]);
 
@@ -125,6 +128,8 @@ public class Skill : MonoBehaviour
                     // 지속시간 안에 플레이어가 피격당했으면 1초간 충격파 발생
                     if (player.isDamaged)
                     {
+                        AudioManager.instance.EffectPlay(AudioManager.Effect.GuardAttack);
+
                         SkillBullet shockWave = GameManager.instance.bulletPool.Get(0, 4).GetComponent<SkillBullet>();
                         shockWave.transform.position = player.transform.position;
 
@@ -147,15 +152,19 @@ public class Skill : MonoBehaviour
             case 4:
                 player.hand[player.role].animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
                 GameManager.instance.weapon[player.currentWeaponIndex].Shot(7, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.SwardAura);
                 break;
 
             // 마법사 파이어 블로우
             case 6:
                 GameManager.instance.weapon[player.currentWeaponIndex].Shot(2, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 GameManager.instance.weapon[player.currentWeaponIndex].Shot(2, -dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.WizardShot);
                 break;
             // 마법사 명상
             case 7:
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Buff);
+
                 player.buffSprite.sprite = icon;
                 player.powerUp += (damage + upgradeDamage[level]);
 
@@ -166,6 +175,8 @@ public class Skill : MonoBehaviour
                 break;
             // 마법사 메테오
             case 8:
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Meteor);
+
                 // 메테오 랜덤 위치에 배치
                 SkillBullet[] meteors = new SkillBullet[10];
                 for(int i=0; i<10; i++)
@@ -201,14 +212,16 @@ public class Skill : MonoBehaviour
             case 9:
                 SkillBullet infernorize = GameManager.instance.bulletPool.Get(0, 8).GetComponent<SkillBullet>();
                 infernorize.transform.position = player.transform.position + new Vector3(dirVec.x * 3, dirVec.y * 2, 1);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Infernorize);
 
                 yield return new WaitForSeconds(2f);
 
                 infernorize.gameObject.SetActive(false);
                 break;
-
             // 도적 은신
             case 11:
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Buff);
+
                 Color color = player.spriteRenderer.color;
                 color.a = 0.5f;
                 player.spriteRenderer.color = color;
@@ -222,6 +235,8 @@ public class Skill : MonoBehaviour
                 break;
             // 도적 헤이스트
             case 12:
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Buff);
+
                 player.buffSprite.sprite = icon;
                 player.speed += (damage + upgradeDamage[level]);
 
@@ -254,18 +269,22 @@ public class Skill : MonoBehaviour
                     mines[i] = GameManager.instance.bulletPool.Get(0, 6).GetComponent<SkillBullet>();
                     mines[i].transform.position = minePosition[i];
                 }
+
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Timer);
                 break;
             // 도적 암살
             case 14:
                 // 1타
                 SkillBullet assassination1 = GameManager.instance.bulletPool.Get(0, 9).GetComponent<SkillBullet>();
                 assassination1.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Assasination);
                 yield return new WaitForSeconds(0.5f);
 
                 // 2타
                 SkillBullet assassination2 = GameManager.instance.bulletPool.Get(0, 9).GetComponent<SkillBullet>();
                 assassination2.transform.position = player.transform.position + new Vector3(dirVec.x * 2, dirVec.y * 2, 1);
                 assassination2.transform.rotation = Quaternion.Euler(0, 0, 90);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Assasination);
                 yield return new WaitForSeconds(1f);
 
                 assassination1.gameObject.SetActive(false);
@@ -276,11 +295,12 @@ public class Skill : MonoBehaviour
             case 16:
                 GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 player.rigid.AddForce(dirVec * (-0.3f));
+                AudioManager.instance.EffectPlay(AudioManager.Effect.GunnerShot);
                 break;
             // 거너 다이스
             case 17:
                 int randomStatus = Random.Range(0, 4);
-
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Buff);
                 player.buffSprite.sprite = icon;
 
                 switch (randomStatus)
@@ -306,13 +326,12 @@ public class Skill : MonoBehaviour
                 }
 
                 player.buffSprite.sprite = null;
-
                 break;
             // 거너 불릿파티
             case 18:
                 // 플레이어 위치 기준으로 랜덤 방향으로 지속시간동안 스킬불렛 발사
+                AudioManager.instance.EffectPlay(AudioManager.Effect.BulletParty);
                 float timer = skillDuringTime;
-
                 while(timer > 0)
                 {
                     // 발사 방향 랜덤 세팅
@@ -330,6 +349,7 @@ public class Skill : MonoBehaviour
             // 거너 헤드샷
             case 19:
                 GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.HeadShot);
                 break;
         }
 

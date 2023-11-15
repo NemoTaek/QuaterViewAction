@@ -111,6 +111,9 @@ public class GameManager : Singleton<GameManager>
                 bullet.isSlow = false;
             }
         }
+
+        // 사운드 추가
+        AudioManager.instance.BGMPlay(AudioManager.BGM.bgm2);
     }
 
     void InputKeyboard()
@@ -130,6 +133,7 @@ public class GameManager : Singleton<GameManager>
         {
             isOpenStatus = !isOpenStatus;
             statusPanel.gameObject.SetActive(isOpenStatus);
+            AudioManager.instance.EffectPlay(AudioManager.Effect.PanelOpen);
         }
 
         // 상자 창 닫기 입력
@@ -148,6 +152,7 @@ public class GameManager : Singleton<GameManager>
             //player.powerUp += weapon[player.currentWeaponIndex].damage;
             player.hand[player.role].isWeaponChanged = true;
             ui.isChanged = true;
+            AudioManager.instance.EffectPlay(AudioManager.Effect.Swap);
         }
 
         // 스킬 장착 입력

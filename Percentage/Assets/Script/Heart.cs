@@ -18,6 +18,7 @@ public class Heart : MonoBehaviour
         {
             GameManager.instance.player.currentHealth += recovery;
             GameManager.instance.ui.isChanged = true;
+            AudioManager.instance.EffectPlay(AudioManager.Effect.GetHealth);
             gameObject.SetActive(false);
         }
     }

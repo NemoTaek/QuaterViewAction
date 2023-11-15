@@ -21,8 +21,19 @@ public class GameResult : MonoBehaviour
 
     void OnEnable()
     {
-        result.text = GameManager.instance.player.isDead ? "플레이어 사망" : "행운의 플레이어";
-        resultImage.sprite = GameManager.instance.player.isDead ? bannerImage[0] : bannerImage[1];
+        if (GameManager.instance.player.isDead)
+        {
+            result.text = "플레이어 사망";
+            resultImage.sprite = bannerImage[0];
+            AudioManager.instance.EffectPlay(AudioManager.Effect.Dead);
+        }
+        else
+        {
+            result.text = "행운의 플레이어";
+            resultImage.sprite = bannerImage[1];
+            AudioManager.instance.EffectPlay(AudioManager.Effect.Victory);
+        }
+
         role.text = GameManager.instance.player.roleName;
         stage.text = GameManager.instance.stage.ToString();
         time.text = TimeSpan.FromSeconds(GameManager.instance.elapsedTime).ToString("mm\\:ss\\:ff");
@@ -34,7 +45,7 @@ public class GameResult : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Intro1");
+            SceneManager.LoadScene("Intro");
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {

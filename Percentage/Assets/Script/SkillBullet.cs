@@ -32,11 +32,6 @@ public class SkillBullet : Bullet
                 StopCoroutine(LandMine());
                 StartCoroutine(ExplodeMine());
             }
-            //else
-            //{
-            //    gameObject.SetActive(false);
-            //    transform.position = transform.parent.position;
-            //}
         }
     }
 
@@ -59,6 +54,7 @@ public class SkillBullet : Bullet
         // Áö·Ú ÀÚ¸®¿¡ Æø¹ß ÀÌÆåÆ® »ý¼º
         Bullet explosion = GameManager.instance.bulletPool.Get(0, 10);
         explosion.transform.position = transform.position;
+        AudioManager.instance.EffectPlay(AudioManager.Effect.Bomb);
 
         // 0.5ÃÊ ÈÄ Æø¹ß
         yield return new WaitForSeconds(0.5f);

@@ -70,16 +70,28 @@ public class Hand : MonoBehaviour
             if (GameManager.instance.player.role != 3) animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
 
             // 지팡이와 총은 각각 마법과 총알을 발사
-            if (GameManager.instance.player.role == 1)
+            if (GameManager.instance.player.role == 0)
+            {
+                AudioManager.instance.EffectPlay(AudioManager.Effect.KnightAttack);
+            }
+            else if (GameManager.instance.player.role == 1)
             {
                 // 불릿 id, 발사 방향, 발사 위치, 발사 속도
                 GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(0, dirVec, transform.position, 5);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.WizardShot);
+            }
+            else if (GameManager.instance.player.role == 2)
+            {
+                AudioManager.instance.EffectPlay(AudioManager.Effect.ThiefAttack);
             }
             else if (GameManager.instance.player.role == 3)
             {
                 // 불릿 id, 발사 방향, 발사 위치, 발사 속도
                 GameManager.instance.weapon[GameManager.instance.player.currentWeaponIndex].Shot(1, dirVec, transform.position, 5);
+                AudioManager.instance.EffectPlay(AudioManager.Effect.GunnerShot);
             }
+
+
         }
         else
         {
