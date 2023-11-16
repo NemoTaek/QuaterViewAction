@@ -135,7 +135,7 @@ public class Item : MonoBehaviour
                 // 인덱스의 아이템 데이터니까 +1 되어 들어가서 오류가 발생했던 것.
                 // 이미지도 바꿔주자
                 Init(GameManager.instance.itemData[tempItemId - 1]);
-                //itemSpriteRenderer.sprite = image;
+                itemSpriteRenderer.sprite = image;
                 currentGuage = tempItemGuage;
             }
             else

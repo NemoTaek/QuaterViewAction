@@ -20,7 +20,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public enum BGM {bgm1, bgm2};
     public enum Effect {ButtonClick, PanelOpen, GetCoin, GetHealth, GetItem, Damaged, Swap, Success, Fail, Destroyed, Portal, Victory, Dead, 
-    Buff, KnightAttack, GuardAttack, SwardAura, WizardShot, Meteor, Infernorize, ThiefAttack, Timer, Bomb, Assasination, GunnerShot, BulletParty, HeadShot};
+    Buff, KnightAttack, GuardAttack, SwardAura, WizardShot, Meteor, Infernorize, ThiefAttack, LandMine, Timer, Bomb, Assasination, GunnerShot, BulletParty, HeadShot};
 
     protected override void Awake()
     {

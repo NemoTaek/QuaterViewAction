@@ -20,6 +20,7 @@ TagManager:
   - EnemyBullet
   - Portal
   - Spike
+  - Pit
   layers:
   - Default
   - TransparentFX

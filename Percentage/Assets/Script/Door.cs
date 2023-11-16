@@ -64,6 +64,12 @@ public class Door : MonoBehaviour
                 Map.instance.mapPosition -= 9;
             }
 
+            // 플라잉 적이 있어서 장애물과 충돌 해제를 했다면 방 이동 시 충돌 설정
+            if (Physics2D.GetIgnoreLayerCollision(7, 8))
+            {
+                Physics2D.IgnoreLayerCollision(7, 8, false);
+            }
+
             GameManager.instance.player.isRoomMove = true;
         }
     }

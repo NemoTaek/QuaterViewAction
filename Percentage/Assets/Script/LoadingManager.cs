@@ -43,8 +43,8 @@ public class LoadingManager : MonoBehaviour
         RectTransform ui = GameManager.instance.uiCanvas.GetComponentsInChildren<RectTransform>()[1];
         ui.localScale = Vector3.zero;
 
-        // 0: 인트로1, 1: 인트로2, 2: 로딩 씬, 3: 파괴되면 안되는 오브젝트 모음 씬
-        // 4부터가 스테이지 1, 2, 3
+        // 0: 인트로, 1: 로딩 씬, 2: 파괴되면 안되는 오브젝트 모음 씬
+        // 3부터가 스테이지 1, 2, 3
         stage = GameManager.instance.stage;
         AsyncOperation operation = SceneManager.LoadSceneAsync(stage + 2, LoadSceneMode.Additive);
 

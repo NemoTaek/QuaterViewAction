@@ -25,6 +25,7 @@ public class Portal : MonoBehaviour
 
     IEnumerator UsePortal()
     {
+        GameManager.instance.player.stopMove = true;
         AudioManager.instance.BGMStop();
         AudioManager.instance.EffectPlay(AudioManager.Effect.Portal);
         yield return new WaitForSeconds(5);
@@ -40,7 +41,6 @@ public class Portal : MonoBehaviour
         int nextSceneIndex = GameManager.instance.stage + 3;
         if (nextSceneIndex > GameManager.instance.lastStageIndex + 2)
         {
-            GameManager.instance.player.stopMove = true;
             StartCoroutine(GameManager.instance.GameResult());
         }
         else
@@ -61,9 +61,9 @@ public class Portal : MonoBehaviour
 
     IEnumerator UnloadScene()
     {
-        if(SceneManager.GetSceneByBuildIndex(GameManager.instance.stage + 3).IsValid())
+        if(SceneManager.GetSceneByBuildIndex(GameManager.instance.stage + 2).IsValid())
         {
-            yield return SceneManager.UnloadSceneAsync(GameManager.instance.stage + 3);
+            yield return SceneManager.UnloadSceneAsync(GameManager.instance.stage + 2);
         }
     }
 }

@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         }
 
         // 비행 능력 획득 후 최초로 오브젝트와 충돌 시, 플레이어의 트리거가 해제되어 그 위를 지나다닐 수 있음
-        if (isFly && collision.collider.CompareTag("Object"))
+        if (isFly && (collision.collider.CompareTag("Object") || collision.collider.CompareTag("Pit")))
         {
             isOnObjectCount++;
             col.isTrigger = true;
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
         if (!isGuard)
         {
             // 성의 아이템을 먹으면 30% 확률로 노피격 판정
-            if (!isScapular)
+            if (isScapular)
             {
                 int random = Random.Range(0, 10);
                 if (random > 3)

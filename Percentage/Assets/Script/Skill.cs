@@ -188,6 +188,7 @@ public class Skill : MonoBehaviour
                     meteor.transform.position = Map.instance.currentRoom.transform.position + new Vector3(randomX, randomY, 1);
                     meteors[i] = meteor;
                 }
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Meteor);
 
                 yield return new WaitForSeconds(0.5f);
 
@@ -202,6 +203,7 @@ public class Skill : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
 
                 // 0.5초 후 사라짐
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Infernorize);
                 for (int i = 0; i < 10; i++)
                 {
                     meteors[i].gameObject.SetActive(false);
@@ -270,6 +272,8 @@ public class Skill : MonoBehaviour
                     mines[i].transform.position = minePosition[i];
                 }
 
+                AudioManager.instance.EffectPlay(AudioManager.Effect.LandMine);
+                yield return new WaitForSeconds(0.3f);
                 AudioManager.instance.EffectPlay(AudioManager.Effect.Timer);
                 break;
             // 도적 암살
@@ -348,7 +352,7 @@ public class Skill : MonoBehaviour
                 break;
             // 거너 헤드샷
             case 19:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 10);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 15);
                 AudioManager.instance.EffectPlay(AudioManager.Effect.HeadShot);
                 break;
         }
