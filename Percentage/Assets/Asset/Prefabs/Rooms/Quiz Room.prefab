@@ -2559,7 +2559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e555dc9ef2b8c42a1ad616e3656003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
   spawnPoint: []
   itemPoint: []
   doors: []
@@ -2581,6 +2580,7 @@ MonoBehaviour:
   isItemSet: 0
   isMapDraw: 0
   isQuizSet: 0
+  isSelectAnswer: 0
 --- !u!1 &23136038278628352
 GameObject:
   m_ObjectHideFlags: 0

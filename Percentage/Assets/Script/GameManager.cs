@@ -32,6 +32,8 @@ public class GameManager : Singleton<GameManager>
     public GetItemPanel getItemPanel;
     public GameResult gameResultPanel;
     public Sprite[] roomIcon;
+    public Image blur;
+    public Image fade;
 
     [Header("----- Key Input -----")]
     public bool isRightAttack;
@@ -85,6 +87,15 @@ public class GameManager : Singleton<GameManager>
         // 스테이지 업
         stage++;
 
+        // 스테이지 이동 시 blur와 fade 다시 초기화
+        Color blurColor = blur.color;
+        blurColor.a = 0;
+        blur.color = blurColor;
+        blur.rectTransform.localScale = Vector3.one;
+        Color fadeColor = fade.color;
+        fadeColor.a = 0;
+        fade.color = fadeColor;
+
         // 플레이어, 카메라 위치 초기화
         player.transform.position = Vector3.forward;
         cam.transform.position = Vector3.back;
@@ -114,6 +125,9 @@ public class GameManager : Singleton<GameManager>
 
         // 사운드 추가
         AudioManager.instance.BGMPlay(AudioManager.BGM.bgm2);
+
+        // 다시 플레이어 움직임 활성화
+        player.stopMove = false;
     }
 
     void InputKeyboard()
@@ -286,6 +300,28 @@ public class GameManager : Singleton<GameManager>
     public IEnumerator WaitSeconds(float time)
     {
         yield return new WaitForSeconds(time);
+    }
+
+    public IEnumerator Blur()
+    {
+        // 모자이크 된 것처럼 블러 처리 하고 점점 확대
+        Color blurColor = blur.color;
+        for (float i = 0f; i <= 1f; i += 0.01f)
+        {
+            blurColor.a = i;
+            blur.color = blurColor;
+            blur.rectTransform.localScale += new Vector3(i / 5, i / 5, 0);
+            yield return new WaitForSeconds(0.02f);
+        }
+
+        // 확대 후 화면 점점 어둡게
+        Color fadeColor = fade.color;
+        for (float i = 0f; i <= 1f; i += 0.01f)
+        {
+            fadeColor.a = i;
+            fade.color = fadeColor;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     void GamePause()

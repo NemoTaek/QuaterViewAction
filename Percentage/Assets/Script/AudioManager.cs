@@ -7,9 +7,9 @@ public class AudioManager : Singleton<AudioManager>
     [Header("----- BGM -----")]
     public AudioClip[] bgmClip;
     public float bgmVolume;
-    AudioSource[] bgmSource;
-    public int bgmChannel;
-    int bgmChannelIndex;
+    AudioSource bgmSource;
+    //public int bgmChannel;
+    //int bgmChannelIndex;
 
     [Header("----- Effect -----")]
     public AudioClip[] effectClip;
@@ -33,14 +33,18 @@ public class AudioManager : Singleton<AudioManager>
         // BGM
         GameObject bgmObject = new GameObject("bgm");
         bgmObject.transform.parent = transform;
-        bgmSource = new AudioSource[bgmChannel];
-        for (int i = 0; i < bgmSource.Length; i++)
-        {
-            bgmSource[i] = bgmObject.AddComponent<AudioSource>();
-            bgmSource[i].playOnAwake = false;
-            bgmSource[i].loop = true;
-            bgmSource[i].volume = bgmVolume;
-        }
+        bgmSource = bgmObject.AddComponent<AudioSource>();
+        bgmSource.playOnAwake = false;
+        bgmSource.loop = true;
+        bgmSource.volume = bgmVolume;
+        //bgmSource = new AudioSource[bgmChannel];
+        //for (int i = 0; i < bgmSource.Length; i++)
+        //{
+        //    bgmSource[i] = bgmObject.AddComponent<AudioSource>();
+        //    bgmSource[i].playOnAwake = false;
+        //    bgmSource[i].loop = true;
+        //    bgmSource[i].volume = bgmVolume;
+        //}
 
         // Effect
         GameObject effectObject = new GameObject("effect");
@@ -56,25 +60,29 @@ public class AudioManager : Singleton<AudioManager>
 
     public void BGMPlay(BGM bgm)
     {
-        for (int i = 0; i < bgmSource.Length; i++)
-        {
-            // 앞에서부터 돌면서 재생중이 아닌 오디오 소스를 찾는다
-            int index = (i + bgmChannelIndex) % bgmSource.Length;
+        bgmSource.clip = bgmClip[(int)bgm];
+        if (bgm == BGM.bgm2) bgmSource.volume = 0.5f;
+        bgmSource.Play();
+        //for (int i = 0; i < bgmSource.Length; i++)
+        //{
+        //    // 앞에서부터 돌면서 재생중이 아닌 오디오 소스를 찾는다
+        //    int index = (i + bgmChannelIndex) % bgmSource.Length;
 
-            // 찾으면 인덱스를 바꾸고 오디오를 설정하고 재생한다
-            if (!bgmSource[index].isPlaying)
-            {
-                bgmChannelIndex = index;
-                bgmSource[index].clip = bgmClip[(int)bgm];
-                bgmSource[index].Play();
-                break;
-            }
-        }
+        //    // 찾으면 인덱스를 바꾸고 오디오를 설정하고 재생한다
+        //    if (!bgmSource[index].isPlaying)
+        //    {
+        //        bgmChannelIndex = index;
+        //        bgmSource[index].clip = bgmClip[(int)bgm];
+        //        bgmSource[index].Play();
+        //        break;
+        //    }
+        //}
     }
 
     public void BGMStop()
     {
-        bgmSource[bgmChannelIndex].Stop();
+        bgmSource.Stop();
+        //bgmSource[bgmChannelIndex].Stop();
     }
 
     public void EffectPlay(Effect effect)
@@ -97,6 +105,6 @@ public class AudioManager : Singleton<AudioManager>
 
     public void ButtonClickEffectPlay()
     {
-        AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+        EffectPlay(Effect.ButtonClick);
     }
 }

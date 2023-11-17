@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Portal : MonoBehaviour
 {
@@ -25,9 +27,13 @@ public class Portal : MonoBehaviour
 
     IEnumerator UsePortal()
     {
+        // 포탈 타면 플레이어의 움직임, bgm을 멈추고 이동하는 효과음 재생
+        // 그 후 뭔가 서서히 뿌옇게 되면서 이동하는 효과를 주면 좋을 것 같음
         GameManager.instance.player.stopMove = true;
         AudioManager.instance.BGMStop();
         AudioManager.instance.EffectPlay(AudioManager.Effect.Portal);
+        StartCoroutine(GameManager.instance.Blur());
+
         yield return new WaitForSeconds(5);
 
         // 다음 스테이지로 가거나 게임 클리어거나
@@ -53,6 +59,8 @@ public class Portal : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+
 
     IEnumerator LoadScene()
     {

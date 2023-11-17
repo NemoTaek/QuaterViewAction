@@ -297,7 +297,7 @@ public class Skill : MonoBehaviour
 
             // ∞≈≥  πÈΩ∫≈‹º¶
             case 16:
-                GameManager.instance.weapon[player.currentWeaponIndex].Shot(3, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
+                GameManager.instance.weapon[player.currentWeaponIndex].Shot(1, dirVec, GameManager.instance.weapon[player.currentWeaponIndex].transform.position, 5);
                 player.rigid.AddForce(dirVec * (-0.3f));
                 AudioManager.instance.EffectPlay(AudioManager.Effect.GunnerShot);
                 break;

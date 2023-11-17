@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 193279445775684377}
   - component: {fileID: -3130325856640038504}
   m_Layer: 0
-  m_Name: Back Step Bullet
+  m_Name: HeadShot Bullet
   m_TagString: SkillBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,8 +123,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.15, y: 0.35}
-  m_Direction: 1
+  m_Size: {x: 0.1, y: 0.33}
+  m_Direction: 0
 --- !u!114 &193279445775684377
 MonoBehaviour:
   m_ObjectHideFlags: 0
