@@ -28,13 +28,10 @@ public class Portal : MonoBehaviour
     IEnumerator UsePortal()
     {
         // 포탈 타면 플레이어의 움직임, bgm을 멈추고 이동하는 효과음 재생
-        // 그 후 뭔가 서서히 뿌옇게 되면서 이동하는 효과를 주면 좋을 것 같음
         GameManager.instance.player.stopMove = true;
         AudioManager.instance.BGMStop();
         AudioManager.instance.EffectPlay(AudioManager.Effect.Portal);
-        StartCoroutine(GameManager.instance.Blur());
-
-        yield return new WaitForSeconds(5);
+        
 
         // 다음 스테이지로 가거나 게임 클리어거나
         // 현재 스테이지는 +2, 다음 스테이지는 +3
@@ -47,10 +44,16 @@ public class Portal : MonoBehaviour
         int nextSceneIndex = GameManager.instance.stage + 3;
         if (nextSceneIndex > GameManager.instance.lastStageIndex + 2)
         {
+            // 마지막 스테이지면 결과창 출력
+            yield return new WaitForSeconds(2);
             StartCoroutine(GameManager.instance.GameResult());
         }
         else
         {
+            // 다음 스테이지가 있으면 블러 및 페이드 효과 적용 후 로딩
+            StartCoroutine(GameManager.instance.Blur());
+            yield return new WaitForSeconds(5);
+
             GameManager.instance.ui.ClearMapBoard();
             StartCoroutine(LoadScene());
             StartCoroutine(UnloadScene());

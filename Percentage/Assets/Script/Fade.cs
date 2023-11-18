@@ -19,7 +19,7 @@ public class Fade : MonoBehaviour
     void Start()
     {
         // 사운드 추가
-        AudioManager.instance.BGMPlay(AudioManager.BGM.bgm1);
+        AudioManager.instance.BGMPlay(0);
 
         StartCoroutine(FadeIn());
     }

@@ -124,7 +124,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         // 사운드 추가
-        AudioManager.instance.BGMPlay(AudioManager.BGM.bgm2);
+        AudioManager.instance.BGMPlay(Random.Range(1, 15));
 
         // 다시 플레이어 움직임 활성화
         player.stopMove = false;

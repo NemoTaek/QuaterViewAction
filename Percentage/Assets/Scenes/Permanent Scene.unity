@@ -15880,6 +15880,19 @@ MonoBehaviour:
   bgmClip:
   - {fileID: 8300000, guid: 5851706a4c97b374ea5bb9390ae6be0d, type: 3}
   - {fileID: 8300000, guid: 79de69333097a084096039770ec79c21, type: 3}
+  - {fileID: 8300000, guid: feccbe2e24ba9f540bdba5c6cf73323e, type: 3}
+  - {fileID: 8300000, guid: bca4f1730268d1b409c06697f3033ab2, type: 3}
+  - {fileID: 8300000, guid: b5a2105a6345ca1408725ff99c30c9c2, type: 3}
+  - {fileID: 8300000, guid: 2843d38fa9ed73c46824734e63af0db3, type: 3}
+  - {fileID: 8300000, guid: fd13fa2be7e4f44489737e14b92dc2fb, type: 3}
+  - {fileID: 8300000, guid: 6f93c02743949de4582f3062ee9d0d75, type: 3}
+  - {fileID: 8300000, guid: 140a9066919486d44863654330120073, type: 3}
+  - {fileID: 8300000, guid: 9105d6e2feb46144fb76cdd2311ef268, type: 3}
+  - {fileID: 8300000, guid: e4856089b9ef8e34dae9280965dc56c0, type: 3}
+  - {fileID: 8300000, guid: 7384cf6d6ccfd89489a3f9ccc410c279, type: 3}
+  - {fileID: 8300000, guid: 5510a2e139f99604c90248f1042f598a, type: 3}
+  - {fileID: 8300000, guid: f47072a515807c14fb6c2a368c57ae91, type: 3}
+  - {fileID: 8300000, guid: 668c5537626737d47b25e75138887ee7, type: 3}
   bgmVolume: 1
   effectClip:
   - {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}

@@ -18,7 +18,7 @@ public class AudioManager : Singleton<AudioManager>
     public int effectChannel;
     int effectChannelIndex;
 
-    public enum BGM {bgm1, bgm2};
+    public enum BGM {Intro, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6, bgm7, bgm8, bgm9, bgm10, bgm11, bgm12, bgm13, bgm14};
     public enum Effect {ButtonClick, PanelOpen, GetCoin, GetHealth, GetItem, Damaged, Swap, Success, Fail, Destroyed, Portal, Victory, Dead, 
     Buff, KnightAttack, GuardAttack, SwardAura, WizardShot, Meteor, Infernorize, ThiefAttack, LandMine, Timer, Bomb, Assasination, GunnerShot, BulletParty, HeadShot};
 
@@ -58,10 +58,10 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void BGMPlay(BGM bgm)
+    public void BGMPlay(int bgmIndex)
     {
-        bgmSource.clip = bgmClip[(int)bgm];
-        if (bgm == BGM.bgm2) bgmSource.volume = 0.5f;
+        bgmSource.clip = bgmClip[bgmIndex];
+        if (bgmIndex == 1) bgmSource.volume = 0.5f;
         bgmSource.Play();
         //for (int i = 0; i < bgmSource.Length; i++)
         //{

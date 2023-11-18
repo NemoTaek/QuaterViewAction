@@ -330,7 +330,7 @@ public class Player : MonoBehaviour
                 // 기본 스탯 설정
                 health = 4;
                 speed = 2.5f;
-                attackSpeed = 0;
+                attackSpeed = -0.5f;
                 basePower = 3.5f;
                 break;
             case 1:
@@ -340,8 +340,8 @@ public class Player : MonoBehaviour
                 // 기본 스탯 설정
                 health = 3;
                 speed = 3;
-                attackSpeed = 0;
-                basePower = 3f;
+                attackSpeed = -0.5f;
+                basePower = 3.5f;
                 break;
             case 2:
                 roleName = "도적";
