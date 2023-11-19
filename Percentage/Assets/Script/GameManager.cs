@@ -82,11 +82,8 @@ public class GameManager : Singleton<GameManager>
         else GameResume();
     }
 
-    public void GameInit()
+    void ScreenInit()
     {
-        // 스테이지 업
-        stage++;
-
         // 스테이지 이동 시 blur와 fade 다시 초기화
         Color blurColor = blur.color;
         blurColor.a = 0;
@@ -99,7 +96,10 @@ public class GameManager : Singleton<GameManager>
         // 플레이어, 카메라 위치 초기화
         player.transform.position = Vector3.forward;
         cam.transform.position = Vector3.back;
+    }
 
+    void ItemInit()
+    {
         // 전 스테이지의 아이템 삭제
         itemPool.ClearItemList();
         Item[] items = itemPool.GetComponentsInChildren<Item>(true);
@@ -112,15 +112,29 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(price.gameObject);
         }
+    }
 
-        // 전 플레이에서 먹은 속성들 모두 초기화
+    void PropertyInit()
+    {
+        foreach (Bullet bullet in bulletPool.playerBullets)
+        {
+            bullet.isPenetrate = false;
+            bullet.isSlow = false;
+        }
+    }
+
+    public void GameInit()
+    {
+        // 스테이지 업
+        stage++;
+
+        ScreenInit();
+        ItemInit();
+
+        // 1스테이지면 처음 시작하는 것이므로 전 플레이에서 먹은 속성들 모두 초기화
         if(stage <= 1)
         {
-            foreach (Bullet bullet in bulletPool.playerBullets)
-            {
-                bullet.isPenetrate = false;
-                bullet.isSlow = false;
-            }
+            PropertyInit();
         }
 
         // 사운드 추가
