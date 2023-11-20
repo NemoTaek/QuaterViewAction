@@ -1527,7 +1527,7 @@ MonoBehaviour:
   isOpenStatus: 0
   isOpenBox: 0
   isOpenItemPanel: 0
-  coin: 99999
+  coin: 0
   elapsedTime: 0
   getItemList: []
   setItemList: 
@@ -10083,6 +10083,8 @@ MonoBehaviour:
   - {fileID: 7530406234427405972, guid: c778740778c39174cb00419670042d3d, type: 3}
   enemyBullets:
   - {fileID: -4730728600186790228, guid: b043c73cdd81bd14fa149e3a6e0552a8, type: 3}
+  familiarBullets:
+  - {fileID: -4730728600186790228, guid: 963e470460713cc4d9942010c7e60a6d, type: 3}
 --- !u!4 &1240806996
 Transform:
   m_ObjectHideFlags: 0

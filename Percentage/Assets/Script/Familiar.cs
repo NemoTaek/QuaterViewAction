@@ -8,6 +8,7 @@ public class Familiar : MonoBehaviour
     public bool canAttack;
     public float attackDelay;
     public bool isDelay;
+    public float familiarDamage;
 
     void Start()
     {
@@ -48,9 +49,9 @@ public class Familiar : MonoBehaviour
     }
 
     // 공격형 패밀리어는 플레이어가 공격하는 방향으로 탄환을 발사
-    public IEnumerator FamiliarShot(Vector2 dirVec)
+    public IEnumerator FamiliarShot(Vector2 dirVec, float damage)
     {
-        Bullet bullet = GameManager.instance.bulletPool.Get(0, 0).GetComponent<Bullet>();
+        Bullet bullet = GameManager.instance.bulletPool.Get(2, 0).GetComponent<Bullet>();
         bullet.transform.position = transform.position;
 
         if (dirVec == Vector2.right)
@@ -71,6 +72,7 @@ public class Familiar : MonoBehaviour
         }
 
         bullet.GetComponent<Rigidbody2D>().velocity = dirVec * 5;
+        bullet.damage = damage;
 
         isDelay = true;
         yield return new WaitForSeconds(attackDelay);

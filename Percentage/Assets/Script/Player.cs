@@ -281,7 +281,7 @@ public class Player : MonoBehaviour
         Familiar[] haveFamiliars = familiar.GetComponentsInChildren<Familiar>();
         foreach(Familiar familiar in haveFamiliars)
         {
-            if (familiar.canAttack && !familiar.isDelay) StartCoroutine(familiar.FamiliarShot(dirVec));
+            if (familiar.canAttack && !familiar.isDelay) StartCoroutine(familiar.FamiliarShot(dirVec, familiar.familiarDamage));
         }
     }
 

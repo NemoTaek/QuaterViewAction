@@ -21,6 +21,7 @@ TagManager:
   - Portal
   - Spike
   - Pit
+  - FamiliarBullet
   layers:
   - Default
   - TransparentFX

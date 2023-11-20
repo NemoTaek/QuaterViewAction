@@ -134,6 +134,11 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+
+        if (collision.CompareTag("FamiliarBullet"))
+        {
+            EnemyDamaged(collision.GetComponent<Bullet>().damage);
+        }
     }
 
     void Update()
