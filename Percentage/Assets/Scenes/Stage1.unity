@@ -185,8 +185,9 @@ MonoBehaviour:
   - {fileID: 7112357999968604676, guid: 12fc09b089ebc9141a6976007dbcab95, type: 3}
   - {fileID: 7112357999968604676, guid: c28d84d36bb4e5b4ebcd5a530a706686, type: 3}
   - {fileID: 7112357999968604676, guid: ecbecee073681f14ea7b5ba9484f9fe7, type: 3}
-  - {fileID: 5968767796536835311, guid: d6a34042dd68fe64490b77513dd81c5d, type: 3}
   rooms: []
+  completeArrangeRooms: 0
+  completeSettingRooms: 0
   startRoom: {fileID: 0}
   currentRoom: {fileID: 0}
   mapPosition: 41

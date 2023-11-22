@@ -50,16 +50,15 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        // 현재 있는 방에서 주위에 방이 있는지 탐색
-        CheckAroundRoom();
+        
     }
 
     void Update()
     {
-        SettingRooms();
+        if (Map.instance.completeSettingRooms) SettingRooms();
     }
 
-    void CheckAroundRoom()
+    public void CheckAroundRoom()
     {
         // 레이어 마스크는 레이어를 비트로 판단하기 때문에 비트 연산자를 사용하여 작성해야 한한다.
         // 그냥 레이어 자리에 6 이렇게 쓰니까 안먹히더라..
@@ -79,7 +78,7 @@ public class Room : MonoBehaviour
         if (downRoomRayCast) downRoom = downRoomRayCast.collider.gameObject.GetComponent<Room>();
     }
 
-    void SettingRooms()
+    public void SettingRooms()
     {
         // 현재 있는 방만 검사
         if (Map.instance.currentRoom.gameObject == gameObject)

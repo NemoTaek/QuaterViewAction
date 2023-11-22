@@ -7,10 +7,14 @@ public class Map : Singleton<Map>
 {
     [Header("----- Map Setting -----")]
     int[] roomCount = { 0, 10, 15, 20, 25 };
-    public List<int> roomList;
-    public List<int> selectRoomArray;
+    Queue<int> roomQueue;
+    List<int> selectRoomArray;
+    Vector3[] roomPositionArray;
+    List<int> installedRoomArray;
     public Room[] roomPrefabs;
     public Room[] rooms;
+    public bool completeArrangeRooms;
+    public bool completeSettingRooms;
     public Room startRoom;
     public Room currentRoom;
     public int mapPosition;
@@ -28,27 +32,15 @@ public class Map : Singleton<Map>
     {
         base.Awake();
 
-        roomList = new List<int>();
-        selectRoomArray = new List<int>();
+        // 방 설치 변수 초기화
+        RoomVariableInit();
 
-        // 맵 정중앙은 41번
-        mapPosition = 41;
-        shopItemCount = 3;
-        itemsInShop = new List<int>();
-        itemPrefab = new Item[shopItemCount];
-
-        // 방 랜덤 배치
-        roomList.Add(41);
+        // 방 설치
         for (int i = 0; i < roomCount[GameManager.instance.stage]; i++)
         {
-            selectRoomArray.Clear();
-            rooms = GetComponentsInChildren<Room>();
             ArrangeMap();
         }
-
-        // 맵 세팅
-        mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
-        MapInit();
+        completeArrangeRooms = true;
     }
 
     void Start()
@@ -58,22 +50,77 @@ public class Map : Singleton<Map>
 
     void Update()
     {
-        
+        if (completeArrangeRooms && !completeSettingRooms)
+        {
+            // 맵 세팅
+            rooms = GetComponentsInChildren<Room>();
+            mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
+            MapInit();
+        }
+    }
+
+    void RoomVariableInit()
+    {
+        // 맵 정중앙은 41번
+        roomQueue = new Queue<int>();
+        selectRoomArray = new List<int>();
+        roomPositionArray = new Vector3[81];
+        installedRoomArray = new List<int>();
+        mapPosition = 41;
+        roomPositionArray[40] = Vector3.zero;
+
+        // 상점방, 아이템방 관련 리스트
+        shopItemCount = 3;
+        itemsInShop = new List<int>();
+        itemPrefab = new Item[shopItemCount];
+
+        // 방 랜덤 배치        
+        // 처음 뻗어나갈 때 몇가지 방향으로 뻗어나갈건지 세팅
+        installedRoomArray.Add(41);
+        int branch = Random.Range(1, 5);
+        int[] firstRoomIndex = { 40, 42, 32, 50 };
+        while (roomQueue.Count < branch)
+        {
+            int choiceRoom = firstRoomIndex[Random.Range(0, 4)];
+            if (installedRoomArray.Find(x => x == choiceRoom) == 0)
+            {
+                Room randomRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], transform);
+                if (choiceRoom == 40)
+                {
+                    randomRoom.transform.position = Vector3.up * 12;
+                }
+                else if (choiceRoom == 42)
+                {
+                    randomRoom.transform.position = Vector3.down * 12;
+                }
+                else if (choiceRoom == 32)
+                {
+                    randomRoom.transform.position = Vector3.right * 20;
+                }
+                else if (choiceRoom == 50)
+                {
+                    randomRoom.transform.position = Vector3.left * 20;
+                }
+                roomQueue.Enqueue(choiceRoom);
+                roomPositionArray[choiceRoom - 1] = randomRoom.transform.position;
+                installedRoomArray.Add(choiceRoom);
+            }
+        }
     }
 
     void ArrangeMap()
     {
         // 위: -1, 아래: +1, 좌: +9, 우: -9
-        int nextMapPosition = roomList[roomList.Count - 1];
+        int nextMapPosition = roomQueue.Dequeue();
         int upRoomIndex = nextMapPosition - 1;
         int downRoomIndex = nextMapPosition + 1;
         int leftRoomIndex = nextMapPosition + 9;
         int rightRoomIndex = nextMapPosition - 9;
         int weight = 0;
 
-        // 사방을 보면서 비어있으면(룸 리스트에 없다면) 해당 방향으로 가중치만큼 배열에 개수 추가
-        int isExistUpRoom = roomList.Find(x => x == upRoomIndex);
-        if (isExistUpRoom == 0)
+        // 사방을 보면서 비어있으면(룸 큐에 없다면) 해당 방향으로 가중치만큼 배열에 개수 추가
+        bool isExistUpRoom = installedRoomArray.Find(x => x == upRoomIndex) != 0;
+        if (!isExistUpRoom)
         {
             weight = (nextMapPosition % 9) - 1;
             for(int i=0; i<weight; i++)
@@ -81,8 +128,8 @@ public class Map : Singleton<Map>
                 selectRoomArray.Add(upRoomIndex);
             }
         }
-        int isExistDownRoom = roomList.Find(x => x == downRoomIndex);
-        if (isExistDownRoom == 0)
+        bool isExistDownRoom = installedRoomArray.Find(x => x == downRoomIndex) != 0;
+        if (!isExistDownRoom)
         {
             weight = 9 - (nextMapPosition % 9);
             for (int i = 0; i < weight; i++)
@@ -90,8 +137,8 @@ public class Map : Singleton<Map>
                 selectRoomArray.Add(downRoomIndex);
             }
         }
-        int isExistLeftRoom = roomList.Find(x => x == leftRoomIndex);
-        if (isExistLeftRoom == 0)
+        bool isExistLeftRoom = installedRoomArray.Find(x => x == leftRoomIndex) != 0;
+        if (!isExistLeftRoom)
         {
             weight = 8 - (nextMapPosition / 9);
             for (int i = 0; i < weight; i++)
@@ -99,8 +146,8 @@ public class Map : Singleton<Map>
                 selectRoomArray.Add(leftRoomIndex);
             }
         }
-        int isExistRightRoom = roomList.Find(x => x == rightRoomIndex);
-        if (isExistRightRoom == 0)
+        bool isExistRightRoom = installedRoomArray.Find(x => x == rightRoomIndex) != 0;
+        if (!isExistRightRoom)
         {
             weight = nextMapPosition / 9;
             for (int i = 0; i < weight; i++)
@@ -116,21 +163,28 @@ public class Map : Singleton<Map>
         int selectRoomIndex = Random.Range(0, selectRoomArray.Count);
         if (selectRoomArray[selectRoomIndex] == upRoomIndex)
         {
-            randomRoom.transform.position = (rooms[rooms.Length - 1].transform.position + Vector3.up * 12);
+            randomRoom.transform.position = (roomPositionArray[nextMapPosition - 1] + Vector3.up * 12);
         }
         else if (selectRoomArray[selectRoomIndex] == downRoomIndex)
         {
-            randomRoom.transform.position = (rooms[rooms.Length - 1].transform.position + Vector3.down * 12);
+            randomRoom.transform.position = (roomPositionArray[nextMapPosition - 1] + Vector3.down * 12);
         }
         else if (selectRoomArray[selectRoomIndex] == leftRoomIndex)
         {
-            randomRoom.transform.position = (rooms[rooms.Length - 1].transform.position + Vector3.left * 20);
+            randomRoom.transform.position = (roomPositionArray[nextMapPosition - 1] + Vector3.left * 20);
         }
         else if (selectRoomArray[selectRoomIndex] == rightRoomIndex)
         {
-            randomRoom.transform.position = (rooms[rooms.Length - 1].transform.position + Vector3.right * 20);
+            randomRoom.transform.position = (roomPositionArray[nextMapPosition - 1] + Vector3.right * 20);
         }
-        roomList.Add(selectRoomArray[selectRoomIndex]);
+
+        // 방 큐와 위치 배열에에 설치한 방 정보추가
+        roomQueue.Enqueue(selectRoomArray[selectRoomIndex]);
+        roomPositionArray[selectRoomArray[selectRoomIndex] - 1] = randomRoom.transform.position;
+        installedRoomArray.Add(selectRoomArray[selectRoomIndex]);
+
+        // 가중치 배열 초기화
+        selectRoomArray.Clear();
     }
 
     public void MapInit()
@@ -141,6 +195,9 @@ public class Map : Singleton<Map>
         // 각 방마다 설정값 세팅
         foreach (Room room in rooms)
         {
+            // 현재 있는 방에서 주위에 방이 있는지 탐색
+            room.CheckAroundRoom();
+
             // 시작 방이면 현재 방을 시작 방으로 설정
             if (room.roomType == Room.RoomType.Start)
             {
@@ -170,6 +227,8 @@ public class Map : Singleton<Map>
                 }
             }
         }
+
+        completeSettingRooms = true;
     }
 
     void SetGoldenItem(Room room)
