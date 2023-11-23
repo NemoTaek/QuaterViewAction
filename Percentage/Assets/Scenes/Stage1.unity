@@ -185,6 +185,10 @@ MonoBehaviour:
   - {fileID: 7112357999968604676, guid: 12fc09b089ebc9141a6976007dbcab95, type: 3}
   - {fileID: 7112357999968604676, guid: c28d84d36bb4e5b4ebcd5a530a706686, type: 3}
   - {fileID: 7112357999968604676, guid: ecbecee073681f14ea7b5ba9484f9fe7, type: 3}
+  specialroomPrefabs:
+  - {fileID: 6898856697258561657, guid: d73ca6a55315294439f547165ac4e559, type: 3}
+  - {fileID: 6898856697258561657, guid: e0cce10b4f7d0d646a59fd3c7e19e5ff, type: 3}
+  - {fileID: 1681536416299413692, guid: a6fb46e26096317408339a5dc37e818b, type: 3}
   rooms: []
   completeArrangeRooms: 0
   completeSettingRooms: 0
