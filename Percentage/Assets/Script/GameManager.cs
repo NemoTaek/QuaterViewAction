@@ -47,7 +47,6 @@ public class GameManager : Singleton<GameManager>
 
     [Header("----- System Info -----")]
     public int stage;
-    public int lastStageIndex;
     public bool isLoading;
     public bool isOpenStatus;
     public bool isOpenBox;

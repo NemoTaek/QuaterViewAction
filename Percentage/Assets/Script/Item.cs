@@ -69,7 +69,7 @@ public class Item : MonoBehaviour
             // 상점에 있고, 아이템 가격보다 많은 돈을 가지고 있다면 돈 차감
             if(isInShop && !getItem)
             {
-                if(price < GameManager.instance.coin)
+                if(price <= GameManager.instance.coin)
                 {
                     GameManager.instance.coin -= price;
                     GetItem();

@@ -31,7 +31,7 @@ public class Portal : MonoBehaviour
         GameManager.instance.player.stopMove = true;
         AudioManager.instance.BGMStop();
         AudioManager.instance.EffectPlay(AudioManager.Effect.Portal);
-        
+
 
         // 다음 스테이지로 가거나 게임 클리어거나
         // 현재 스테이지는 +2, 다음 스테이지는 +3
@@ -39,10 +39,11 @@ public class Portal : MonoBehaviour
         // GetSceneByBuildIndex(n): 빌드된 씬의 n번째 신을 가져오는 함수. 그래서 한번로 로딩되지 않은 씬도 있으면 가져올 수 있다.
         // 근데 인덱스에 벗어난 씬을 가져오려 하면 에러를 뱉는다. 쓰면 안되겠지...?
 
-        // 다음 씬 인덱스가 마지막 스테이지 씬 인덱스보다 크면 게임 클리어
-        // 아니면 다음 스테이지 입장
+        // SceneManager.sceneCountInBuildSettings : Build Settings에 등록되어있는 씬의 개수
+        // 현재 스테이지 + 3이 빌드 세팅에 등록되어있는 씬의 개수 이상이면 게임 종료
+        // 아니면 다음 스테이지로 이동
         int nextSceneIndex = GameManager.instance.stage + 3;
-        if (nextSceneIndex > GameManager.instance.lastStageIndex + 2)
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
             // 마지막 스테이지면 결과창 출력
             yield return new WaitForSeconds(2);

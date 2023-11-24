@@ -40,7 +40,6 @@ public class Fade : MonoBehaviour
             fadePanel.color = color;
             yield return new WaitForSeconds(0.01f);
         }
-
         fadePanel.gameObject.SetActive(false);
     }
 

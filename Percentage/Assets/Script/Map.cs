@@ -8,7 +8,7 @@ public class Map : Singleton<Map>
     [Header("----- Map Init Setting -----")]
     int[] roomCount = { 0, 10, 15, 20, 25 };
     Queue<int> roomQueue;
-    List<int> selectRoomArray;
+    List<int> roomWeightList;
     Dictionary<int, Room> settingRooms;
     Dictionary<int, Vector3> settingRoomPositions;
     public Room[] roomPrefabs;
@@ -74,7 +74,7 @@ public class Map : Singleton<Map>
     {
         // 맵 정중앙은 41번
         roomQueue = new Queue<int>();
-        selectRoomArray = new List<int>();
+        roomWeightList = new List<int>();
         settingRooms = new Dictionary<int, Room>();
         settingRoomPositions = new Dictionary<int, Vector3>();
         mapPosition = 41;
@@ -86,6 +86,7 @@ public class Map : Singleton<Map>
 
         // 일반방 랜덤 배치        
         // 처음 뻗어나갈 때 몇가지 방향으로 뻗어나갈건지 세팅
+        settingRooms.Add(41, null);
         settingRoomPositions.Add(41, Vector3.zero);
         int branch = Random.Range(1, 5);
         int[] firstRoomIndex = { 40, 42, 32, 50 };
@@ -140,7 +141,7 @@ public class Map : Singleton<Map>
             weight = (nextMapPosition - 1) % 9;
             for(int i=0; i<weight; i++)
             {
-                selectRoomArray.Add(upRoomIndex);
+                roomWeightList.Add(upRoomIndex);
             }
         }
         bool isExistDownRoom = settingRooms.ContainsKey(downRoomIndex);
@@ -149,7 +150,7 @@ public class Map : Singleton<Map>
             weight = 8 - ((nextMapPosition - 1) % 9);
             for (int i = 0; i < weight; i++)
             {
-                selectRoomArray.Add(downRoomIndex);
+                roomWeightList.Add(downRoomIndex);
             }
         }
         bool isExistLeftRoom = settingRooms.ContainsKey(leftRoomIndex);
@@ -158,7 +159,7 @@ public class Map : Singleton<Map>
             weight = 8 - (nextMapPosition / 9);
             for (int i = 0; i < weight; i++)
             {
-                selectRoomArray.Add(leftRoomIndex);
+                roomWeightList.Add(leftRoomIndex);
             }
         }
         bool isExistRightRoom = settingRooms.ContainsKey(rightRoomIndex);
@@ -167,37 +168,37 @@ public class Map : Singleton<Map>
             weight = nextMapPosition / 9;
             for (int i = 0; i < weight; i++)
             {
-                selectRoomArray.Add(rightRoomIndex);
+                roomWeightList.Add(rightRoomIndex);
             }
         }
 
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
-        int selectRoomIndex = Random.Range(0, selectRoomArray.Count);
+        int selectRoomIndex = Random.Range(0, roomWeightList.Count);
         Vector3 randomRoomPosition = Vector3.zero;
-        if (selectRoomArray[selectRoomIndex] == upRoomIndex)
+        if (roomWeightList[selectRoomIndex] == upRoomIndex)
         {
             randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.up * 12);
         }
-        else if (selectRoomArray[selectRoomIndex] == downRoomIndex)
+        else if (roomWeightList[selectRoomIndex] == downRoomIndex)
         {
             randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.down * 12);
         }
-        else if (selectRoomArray[selectRoomIndex] == leftRoomIndex)
+        else if (roomWeightList[selectRoomIndex] == leftRoomIndex)
         {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.left * 12);
+            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.left * 20);
         }
-        else if (selectRoomArray[selectRoomIndex] == rightRoomIndex)
+        else if (roomWeightList[selectRoomIndex] == rightRoomIndex)
         {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.right * 12);
+            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.right * 20);
         }
 
         // 큐, 방, 방 위치에 추가
-        roomQueue.Enqueue(selectRoomArray[selectRoomIndex]);
-        settingRooms.Add(selectRoomArray[selectRoomIndex], roomPrefabs[Random.Range(0, roomPrefabs.Length)]);
-        settingRoomPositions.Add(selectRoomArray[selectRoomIndex], randomRoomPosition);
+        roomQueue.Enqueue(roomWeightList[selectRoomIndex]);
+        settingRooms.Add(roomWeightList[selectRoomIndex], roomPrefabs[Random.Range(0, roomPrefabs.Length)]);
+        settingRoomPositions.Add(roomWeightList[selectRoomIndex], randomRoomPosition);
 
         // 가중치 배열 초기화
-        selectRoomArray.Clear();
+        roomWeightList.Clear();
     }
 
     void ArrangeSpecialRoom()
@@ -241,10 +242,13 @@ public class Map : Singleton<Map>
         Room room = null;
 
         // 앞에서 설정한 위치에 설정한 방을 생성
-        foreach (KeyValuePair<int, Room> installedRoom in settingRooms)
+        foreach (KeyValuePair<int, Room> installRoom in settingRooms)
         {
-            room = Instantiate(installedRoom.Value, transform);
-            room.transform.position = settingRoomPositions[installedRoom.Key];
+            if (installRoom.Value != null)
+            {
+                room = Instantiate(installRoom.Value, transform);
+                room.transform.position = settingRoomPositions[installRoom.Key];
+            }
         }
     }
 
