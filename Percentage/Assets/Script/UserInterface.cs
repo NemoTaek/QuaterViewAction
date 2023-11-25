@@ -159,7 +159,7 @@ public class UserInterface : MonoBehaviour
 
             // 이전 스테이지에서 아이콘을 설정한 것이 있으면 초기화
             Image[] roomIcon = Map.instance.mapSquare[i].GetComponentsInChildren<Image>(true);
-            if (roomIcon[1].gameObject.activeSelf)
+            if (roomIcon[1].gameObject.activeSelf)  // R키 누르면 오류
             {
                 roomIcon[1].sprite = null;
                 roomIcon[1].gameObject.SetActive(false);

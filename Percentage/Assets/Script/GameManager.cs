@@ -44,6 +44,8 @@ public class GameManager : Singleton<GameManager>
     public bool isUltimateLeftAttack;
     public bool isUltimateUpAttack;
     public bool isUltimateDownAttack;
+    public bool isInputRKey;
+    public float rKeyTimer;
 
     [Header("----- System Info -----")]
     public int stage;
@@ -61,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     {
         getItemList = new List<Item>();
         setItemList = new List<int>();
+
         GameInit();
         SetQuizList();
     }
@@ -124,9 +127,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GameInit()
     {
-        // 스테이지 업
         stage++;
-
         ScreenInit();
         ItemInit();
 
@@ -203,6 +204,23 @@ public class GameManager : Singleton<GameManager>
             StartCoroutine(player.activeItem.UseItem(player.activeItem.id));
             player.activeItem.currentGuage = 0;
             ui.isChanged = true;
+        }
+
+        // 다시시작 키 입력
+        isInputRKey = Input.GetKey(KeyCode.R);
+        if (isInputRKey)
+        {
+            rKeyTimer += Time.deltaTime;
+            if (rKeyTimer >= 3f)
+            {
+                rKeyTimer = 0;
+                isInputRKey = false;
+                StartCoroutine(GameRestart());
+            }
+        }
+        else
+        {
+            rKeyTimer = 0;
         }
     }
 
@@ -313,9 +331,32 @@ public class GameManager : Singleton<GameManager>
     public IEnumerator WaitSeconds(float time)
     {
         yield return new WaitForSeconds(time);
+        ScreenInit();
     }
 
     public IEnumerator Blur()
+    {
+        // 모자이크 된 것처럼 블러 처리 하고 점점 확대
+        Color blurColor = blur.color;
+        for (float i = 0f; i <= 1f; i += 0.01f)
+        {
+            blurColor.a = i;
+            blur.color = blurColor;
+            blur.rectTransform.localScale += new Vector3(i / 5, i / 5, 0);
+            yield return new WaitForSeconds(0.02f);
+        }
+
+        // 확대 후 화면 점점 어둡게
+        Color fadeColor = fade.color;
+        for (float i = 0f; i <= 1f; i += 0.01f)
+        {
+            fadeColor.a = i;
+            fade.color = fadeColor;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    public IEnumerator Sharpen()
     {
         // 모자이크 된 것처럼 블러 처리 하고 점점 확대
         Color blurColor = blur.color;
@@ -354,5 +395,25 @@ public class GameManager : Singleton<GameManager>
         gameResultPanel.gameObject.SetActive(true);
 
         GamePause();
+    }
+
+    IEnumerator GameRestart()
+    {
+        // 블러처리
+        StartCoroutine(Blur());
+
+        // 아이템 및 속성 초기화
+        ItemInit();
+        PropertyInit();
+
+        // 맵 재구조화
+        Map.instance.MapClear();
+        Map.instance.MapSetting();
+
+        // 5초 쉬고 BGM 재생, 다시 화면 보여주고 움직일 수 있도록 설정
+        yield return new WaitForSeconds(5f);
+        AudioManager.instance.BGMPlay(Random.Range(1, 15));
+        ScreenInit();
+        player.stopMove = false;
     }
 }

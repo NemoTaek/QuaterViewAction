@@ -163,6 +163,7 @@ public class Room : MonoBehaviour
             {
                 for (int i = 0; i < Map.instance.itemsInShop.Count; i++)
                 {
+                    // R키 누르면 오류
                     Item itemPrice = Map.instance.itemPrice[i];
                     if(itemPrice != null)
                     {

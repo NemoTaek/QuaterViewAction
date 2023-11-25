@@ -35,6 +35,32 @@ public class Map : Singleton<Map>
     {
         base.Awake();
 
+        // 맵 초기화
+        MapSetting();
+    }
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        if (completeArrangeRooms && !completeSettingRooms)
+        {
+            // 맵 세팅
+            
+            rooms = GetComponentsInChildren<Room>();
+            mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
+            MapInit();
+        }
+    }
+
+    public void MapSetting()
+    {
+        completeArrangeRooms = false;
+        completeSettingRooms = false;
+
         // 방 설치 변수 초기화
         RoomVariableInit();
 
@@ -52,22 +78,6 @@ public class Map : Singleton<Map>
 
         // 방 설치 완료
         completeArrangeRooms = true;
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        if (completeArrangeRooms && !completeSettingRooms)
-        {
-            // 맵 세팅
-            rooms = GetComponentsInChildren<Room>();
-            mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
-            MapInit();
-        }
     }
 
     void RoomVariableInit()
@@ -175,6 +185,9 @@ public class Map : Singleton<Map>
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
         int selectRoomIndex = Random.Range(0, roomWeightList.Count);
         Vector3 randomRoomPosition = Vector3.zero;
+        Debug.Log(selectRoomIndex);
+        Debug.Log(roomWeightList.Count);
+        Debug.Log(roomWeightList[0]);
         if (roomWeightList[selectRoomIndex] == upRoomIndex)
         {
             randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.up * 12);
@@ -363,10 +376,19 @@ public class Map : Singleton<Map>
             priceText.GetComponent<Text>().text = "$ " + itemPrefab[i].price.ToString();
             itemPrice[i] = priceText;
             itemPrice[i].transform.SetParent(GameManager.instance.itemCanvas.transform);
-
+            
             //Item priceText = Instantiate(GameManager.instance.itemPool.items[0], GameManager.instance.itemCanvas.transform);
             //priceText.GetComponent<Text>().text = "$ " + itemPrefab[i].price.ToString();
             //itemPrice[i] = priceText;
         }
+    }
+
+    public void MapClear()
+    {
+        for(int i = 1; i<rooms.Length; i++)
+        {
+            Destroy(rooms[i].gameObject);
+        }
+        Debug.Log("방 숫자: " + rooms.Length);
     }
 }
