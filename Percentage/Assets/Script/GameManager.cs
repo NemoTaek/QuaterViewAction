@@ -216,6 +216,7 @@ public class GameManager : Singleton<GameManager>
                 rKeyTimer = 0;
                 isInputRKey = false;
                 StartCoroutine(GameRestart());
+                //GameRestart();
             }
         }
         else
@@ -399,21 +400,59 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator GameRestart()
     {
-        // 블러처리
-        StartCoroutine(Blur());
+        //// 블러처리
+        //StartCoroutine(Blur());
 
-        // 아이템 및 속성 초기화
-        ItemInit();
-        PropertyInit();
+        //// 아이템 및 속성 초기화
+        //Map.instance.isItemSet = false;
+        //Map.instance.MapClear();
+        //ItemInit();
+        //PropertyInit();
 
-        // 맵 재구조화
-        Map.instance.MapClear();
-        Map.instance.MapSetting();
+        //// 맵 재구조화
+        //Map.instance.MapSetting();
 
-        // 5초 쉬고 BGM 재생, 다시 화면 보여주고 움직일 수 있도록 설정
-        yield return new WaitForSeconds(5f);
-        AudioManager.instance.BGMPlay(Random.Range(1, 15));
-        ScreenInit();
-        player.stopMove = false;
+        //// 5초 쉬고 BGM 재생, 다시 화면 보여주고 움직일 수 있도록 설정
+        //yield return new WaitForSeconds(5f);
+        //AudioManager.instance.BGMPlay(Random.Range(1, 15));
+        //ScreenInit();
+        //player.stopMove = false;
+
+        // 수정의 수정을 거듭한 결과 바로 첫 스테이지에서 리스타트를 해서 정상 결과에 나오는 것은 성공했습니다.
+        // 하지만 다음 스테이지로 넘어가서 다시 첫 스테이지로 시작하는 것이 지금 스테이지가 씬 단위로 나뉘어 있어 불가능 하다는 것을 알았습니다.
+        // 그래서 일단은 portal로 스테이지를 이동하는 로직을 사용하여 첫 스테이지로 돌아가는 로직을 사용하였습니다.
+        // 추가 : 플레이어의 모든것을 초기화해야함 (획득 무기/스킬, 아이템, 액티브아이템, 스탯들 이런거 전부다)
+        ui.ClearMapBoard();
+        StartCoroutine(UnloadCurrentStageScene());
+        StartCoroutine(LoadStageScene(1));
+        stage = 0;
+        GameInit();
+
+        // 확대 후 화면 점점 밝게
+        Color fadeColor = fade.color;
+        for (float i = 1f; i >= 0f; i -= 0.05f)
+        {
+            fadeColor.a = i;
+            fade.color = fadeColor;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public IEnumerator LoadStageScene(int loadStage)
+    {
+        yield return SceneManager.LoadSceneAsync(loadStage + 2, LoadSceneMode.Additive);
+    }
+
+    public IEnumerator LoadLoadingScene()
+    {
+        yield return SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
+    }
+
+    public IEnumerator UnloadCurrentStageScene()
+    {
+        if (SceneManager.GetSceneByBuildIndex(stage + 2).IsValid())
+        {
+            yield return SceneManager.UnloadSceneAsync(stage + 2);
+        }
     }
 }

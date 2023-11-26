@@ -32,7 +32,6 @@ public class Portal : MonoBehaviour
         AudioManager.instance.BGMStop();
         AudioManager.instance.EffectPlay(AudioManager.Effect.Portal);
 
-
         // 다음 스테이지로 가거나 게임 클리어거나
         // 현재 스테이지는 +2, 다음 스테이지는 +3
         // 아하.. GetSceneAt(n)은 씬 매니저에 로딩된(한번 이상 로딩 된) 씬에 한해서 n번째 씬을 가져오는 함수였다...
@@ -56,26 +55,11 @@ public class Portal : MonoBehaviour
             yield return new WaitForSeconds(5);
 
             GameManager.instance.ui.ClearMapBoard();
-            StartCoroutine(LoadScene());
-            StartCoroutine(UnloadScene());
+            StartCoroutine(GameManager.instance.LoadLoadingScene());
+            StartCoroutine(GameManager.instance.UnloadCurrentStageScene());
             GameManager.instance.GameInit();
 
             gameObject.SetActive(false);
-        }
-    }
-
-
-
-    IEnumerator LoadScene()
-    {
-        yield return SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
-    }
-
-    IEnumerator UnloadScene()
-    {
-        if(SceneManager.GetSceneByBuildIndex(GameManager.instance.stage + 2).IsValid())
-        {
-            yield return SceneManager.UnloadSceneAsync(GameManager.instance.stage + 2);
         }
     }
 }

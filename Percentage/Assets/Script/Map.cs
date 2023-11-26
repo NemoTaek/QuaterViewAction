@@ -14,8 +14,6 @@ public class Map : Singleton<Map>
     public Room[] roomPrefabs;
     public Room[] specialroomPrefabs;
     public Room[] rooms;
-    public bool completeArrangeRooms;
-    public bool completeSettingRooms;
 
     [Header("----- Map Setting -----")]
     public Room startRoom;
@@ -46,21 +44,11 @@ public class Map : Singleton<Map>
 
     void Update()
     {
-        if (completeArrangeRooms && !completeSettingRooms)
-        {
-            // 맵 세팅
-            
-            rooms = GetComponentsInChildren<Room>();
-            mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
-            MapInit();
-        }
+
     }
 
     public void MapSetting()
     {
-        completeArrangeRooms = false;
-        completeSettingRooms = false;
-
         // 방 설치 변수 초기화
         RoomVariableInit();
 
@@ -76,8 +64,8 @@ public class Map : Singleton<Map>
         // 방 설치
         InstallRoom();
 
-        // 방 설치 완료
-        completeArrangeRooms = true;
+        // 각 방마다 세팅값 설정
+        MapInit();
     }
 
     void RoomVariableInit()
@@ -96,8 +84,9 @@ public class Map : Singleton<Map>
 
         // 일반방 랜덤 배치        
         // 처음 뻗어나갈 때 몇가지 방향으로 뻗어나갈건지 세팅
-        settingRooms.Add(41, null);
+        settingRooms.Add(41, startRoom);
         settingRoomPositions.Add(41, Vector3.zero);
+
         int branch = Random.Range(1, 5);
         int[] firstRoomIndex = { 40, 42, 32, 50 };
         Vector3 firstRoomPosition = Vector3.zero;
@@ -185,9 +174,7 @@ public class Map : Singleton<Map>
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
         int selectRoomIndex = Random.Range(0, roomWeightList.Count);
         Vector3 randomRoomPosition = Vector3.zero;
-        Debug.Log(selectRoomIndex);
-        Debug.Log(roomWeightList.Count);
-        Debug.Log(roomWeightList[0]);
+
         if (roomWeightList[selectRoomIndex] == upRoomIndex)
         {
             randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.up * 12);
@@ -267,46 +254,33 @@ public class Map : Singleton<Map>
 
     public void MapInit()
     {
+        // 방과 미니맵 연결
+        rooms = GetComponentsInChildren<Room>();
+        mapSquare = GameManager.instance.ui.mapBoard.GetComponentsInChildren<Image>();
+
         // 우측 상단 맵 초기화
         GameManager.instance.ui.ClearMapBoard();
+
+        // 첫 시작 방 설정
+        currentRoom = rooms[0];
+        currentRoom.isVisited = true;
 
         // 각 방마다 설정값 세팅
         foreach (Room room in rooms)
         {
-            // 현재 있는 방에서 주위에 방이 있는지 탐색
-            room.CheckAroundRoom();
-
-            // 시작 방이면 현재 방을 시작 방으로 설정
-            if (room.roomType == Room.RoomType.Start)
+            // 상점방과 황금방에는 아이템 깔아두기
+            if (room.roomType == Room.RoomType.Shop)
             {
-                startRoom = room;
-                currentRoom = room;
-                currentRoom.isVisited = true;
-                room.DoorOpen();
+                SetShopItem(room, shopItemCount);
+                SetShopItemPrice();
             }
-
-            // 비 전투방에서는 문 열어놓기
-            if (room.roomType == Room.RoomType.Clear || room.roomType == Room.RoomType.Golden || room.roomType == Room.RoomType.Shop)
+            else if (room.roomType == Room.RoomType.Golden)
             {
-                // 비 전투방에서는 문 열어놓기
-                room.DoorOpen();
-
-                // 상점방과 황금방에는 아이템 깔아두기
-                if (room.roomType == Room.RoomType.Shop)
-                {
-                    SetShopItem(room, shopItemCount);
-                    SetShopItemPrice();
-                    isItemSet = true;
-                }
-                else if (room.roomType == Room.RoomType.Golden)
-                {
-                    SetGoldenItem(room);
-                    isItemSet = true;
-                }
+                SetGoldenItem(room);
             }
         }
 
-        completeSettingRooms = true;
+        isItemSet = true;
     }
 
     void SetGoldenItem(Room room)
@@ -385,10 +359,20 @@ public class Map : Singleton<Map>
 
     public void MapClear()
     {
-        for(int i = 1; i<rooms.Length; i++)
+        for(int i = 0; i<rooms.Length; i++)
         {
             Destroy(rooms[i].gameObject);
         }
-        Debug.Log("방 숫자: " + rooms.Length);
+
+        // 여기서 GetComponentsInChildren의 길이를 호출하면 destroy 했음에도 불구하고 이 전에있던 개수를 그대로 불러온다.
+        // 왜그럴까???
+        // Destroy를 호출해도 오브젝트는 바로 파괴되지 않기 때문이다.
+        // 프레임 업데이트 후 OnDestroy가 호출되므로 제대로 참조하려면 1프레임을 기다려야 한다.
+        // R키를 누르고 모든 메소드가 쭈우우욱 연계되어서 실행되기 때문에 OnDestroy가 호출되지 않고 계속 남아있기 때문이다.
+
+        // 그래서 해결법은
+        // 이 파괴되는 오브젝트와 지금 맵 오브젝트와 분리하기 위해 DetachChildren() 메소드를 사용하여 분리시킨다.
+        // 이러면 파괴되는 오브젝트(리셋 전의 방)들은 더이상 이 맵의 자식이 아니기때문에 GetComponentsInChildren을 호출해도 불러오지 않게 된다.
+        transform.DetachChildren();
     }
 }

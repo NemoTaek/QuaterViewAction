@@ -55,7 +55,8 @@ public class Room : MonoBehaviour
 
     void Update()
     {
-        if (Map.instance.completeSettingRooms) SettingRooms();
+        CheckAroundRoom();
+        SettingRooms();
     }
 
     public void CheckAroundRoom()
@@ -86,8 +87,14 @@ public class Room : MonoBehaviour
             // 주변 맵 밝히기
             if (!isMapDraw) DrawMap();
 
+            // 시작 방이면 현재 방을 시작 방으로 설정
+            if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Golden)
+            {
+                DoorOpen();
+            }
+
             // 스폰 포인트가 있으면 전투방
-            if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
+            else if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
             {
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
@@ -154,6 +161,8 @@ public class Room : MonoBehaviour
                     // 구매한 아이템은 비활성화
                     Map.instance.itemPrice[i].gameObject.SetActive(!Map.instance.itemPrefab[i].getItem);
                 }
+
+                DoorOpen();
             }
         }
         else
@@ -163,7 +172,6 @@ public class Room : MonoBehaviour
             {
                 for (int i = 0; i < Map.instance.itemsInShop.Count; i++)
                 {
-                    // R키 누르면 오류
                     Item itemPrice = Map.instance.itemPrice[i];
                     if(itemPrice != null)
                     {
