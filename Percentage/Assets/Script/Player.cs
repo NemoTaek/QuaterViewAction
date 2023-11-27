@@ -311,7 +311,7 @@ public class Player : MonoBehaviour
         keydownGuage.localScale = Vector3.zero;
     }
 
-    void SetCharacterStatus()
+    public void SetCharacterStatus()
     {
         // 기본 세팅할 것
         // 직업, 스탯
@@ -425,5 +425,53 @@ public class Player : MonoBehaviour
     {
         if (isOnObjectCount > 0) col.isTrigger = true;
         else col.isTrigger = false;
+    }
+
+    public void CharacterInit()
+    {
+        // 패밀리어 삭제
+        foreach (Transform child in familiar.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // 아이템 삭제
+        GameManager.instance.setItemList.Clear();
+        GameManager.instance.getItemList.Clear();
+        activeItem = null;
+        foreach (Transform child in getItems.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in GameManager.instance.statusPanel.getItemsArea.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GameManager.instance.ui.activeItemImage.sprite = null;
+        GameManager.instance.ui.activeItem.SetActive(false);
+
+        // 무기/스킬, 스탯 초기화
+        currentWeaponIndex = 0;
+        getWeaponCount = 0;
+        currentSkillIndex = 0;
+        getSkillCount = 0;
+        killEnemyCount = 0;
+        attackSpeedUp = 0;
+        powerUp = 0;
+        foreach (Hand child in hand)
+        {
+            child.gameObject.SetActive(false);
+        }
+        for (int i=0; i<5; i++)
+        {
+            GameManager.instance.weapon[i] = null;
+            GameManager.instance.skill[i] = null;
+        }
+
+        // 코인 초기화
+        GameManager.instance.coin = 0;
+
+        // 플레이타임 초기화
+        GameManager.instance.elapsedTime = 0;
     }
 }

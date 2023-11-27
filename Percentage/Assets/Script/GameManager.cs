@@ -421,11 +421,16 @@ public class GameManager : Singleton<GameManager>
         // 수정의 수정을 거듭한 결과 바로 첫 스테이지에서 리스타트를 해서 정상 결과에 나오는 것은 성공했습니다.
         // 하지만 다음 스테이지로 넘어가서 다시 첫 스테이지로 시작하는 것이 지금 스테이지가 씬 단위로 나뉘어 있어 불가능 하다는 것을 알았습니다.
         // 그래서 일단은 portal로 스테이지를 이동하는 로직을 사용하여 첫 스테이지로 돌아가는 로직을 사용하였습니다.
-        // 추가 : 플레이어의 모든것을 초기화해야함 (획득 무기/스킬, 아이템, 액티브아이템, 스탯들 이런거 전부다)
         ui.ClearMapBoard();
         StartCoroutine(UnloadCurrentStageScene());
         StartCoroutine(LoadStageScene(1));
+
+        // 스테이지 및 플레이어 초기화
         stage = 0;
+        player.CharacterInit();
+        player.SetCharacterStatus();
+
+        // 게임 초기화
         GameInit();
 
         // 확대 후 화면 점점 밝게
