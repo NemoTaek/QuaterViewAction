@@ -81,4 +81,30 @@ public class Fade : MonoBehaviour
             SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         }
     }
+
+    public void ClickUpgradeGameStartButton()
+    {
+        // 효과음 재생
+        AudioManager.instance.ButtonClickEffectPlay();
+
+        StartCoroutine(UpgradeGameStart());
+    }
+
+    IEnumerator UpgradeGameStart()
+    {
+        // 1초간 점점 어두워지는 애니메이션 넣기
+        StartCoroutine(FadeOut());
+        yield return new WaitForSeconds(1f);
+
+        int isGameStart = Random.Range(0, 2);
+        if (isGameStart == 0)
+        {
+            StartCoroutine(FadeIn());
+        }
+        else
+        {
+            AudioManager.instance.BGMStop();
+            SceneManager.LoadScene("Upgrade");
+        }
+    }
 }

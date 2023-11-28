@@ -39,9 +39,9 @@ public class Portal : MonoBehaviour
         // 근데 인덱스에 벗어난 씬을 가져오려 하면 에러를 뱉는다. 쓰면 안되겠지...?
 
         // SceneManager.sceneCountInBuildSettings : Build Settings에 등록되어있는 씬의 개수
-        // 현재 스테이지 + 3이 빌드 세팅에 등록되어있는 씬의 개수 이상이면 게임 종료
+        // 현재 스테이지 + 4이 빌드 세팅에 등록되어있는 씬의 개수 이상이면 게임 종료
         // 아니면 다음 스테이지로 이동
-        int nextSceneIndex = GameManager.instance.stage + 3;
+        int nextSceneIndex = GameManager.instance.stage + 4;
         if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
             // 마지막 스테이지면 결과창 출력
