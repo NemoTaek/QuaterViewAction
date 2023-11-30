@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class Hand : MonoBehaviour

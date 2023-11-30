@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class UpgradeGame : MonoBehaviour
 {
-    int level;
+    public int level;
+    public long money;
     public Sprite[] swordImageSprite;
     int[] successPercentage;
     int[] destroyPercentage;
-    long upgradeCost;
-    long money;
+    long upgradeCost;    
     long sellCost;
-    Dictionary<string, int> haveMaterialDictionary;
-    List<string> needMaterial;
+    Dictionary<string, long> haveMaterialDictionary;
+    Dictionary<string, long> needMaterialDictionary;
 
     public Image swordImage;
     public Text levelText;
@@ -26,27 +26,57 @@ public class UpgradeGame : MonoBehaviour
     public GameObject upgradeMaterialArea;
     public GameObject haveMaterialArea;
     public Image upgradeResultPanel;
-    public Image WarningPanel;
+    public Image warningPanel;
+    public Button upgradeButton;
+    public Button sellButton;
+    public Button keepButton;
 
     void Awake()
     {
         successPercentage = new int[20] { 100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5 };
-        destroyPercentage = new int[20] { 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20 };
-        haveMaterialDictionary = new Dictionary<string, int>();
-        needMaterial = new List<string>();
+        destroyPercentage = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20 };
+        haveMaterialDictionary = new Dictionary<string, long>();
+        needMaterialDictionary = new Dictionary<string, long>();
 
         // 초기 자본금 100만원
-        money = 1000000;
+        //money = 100000000;
+        money = 100000000000;
+        haveMaterialDictionary.Add("강화석", 10000);
+        haveMaterialDictionary.Add("14강 검", 10000);
+        haveMaterialDictionary.Add("15강 검", 10000);
+        haveMaterialDictionary.Add("16강 검", 10000);
+        haveMaterialDictionary.Add("17강 검", 10000);
+        haveMaterialDictionary.Add("18강 검", 10000);
+        haveMaterialDictionary.Add("19강 검", 10000);
     }
 
     void Start()
     {
+        AudioManager.instance.BGMPlay(0);
         SetUpgradeInfo();
     }
 
     void Update()
     {
-        
+        if (upgradeResultPanel.gameObject.activeSelf || warningPanel.gameObject.activeSelf)
+        {
+            upgradeButton.interactable = false;
+            sellButton.interactable = false;
+            keepButton.interactable = false;
+        }   
+        else
+        {
+            upgradeButton.interactable = true;
+            sellButton.interactable = true;
+            keepButton.interactable = true;
+        }
+
+        // 상자 창 닫기 입력
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            upgradeResultPanel.gameObject.SetActive(false);
+            warningPanel.gameObject.SetActive(false);
+        }
     }
 
     void SetUpgradeInfo()
@@ -55,7 +85,7 @@ public class UpgradeGame : MonoBehaviour
         upgradeCost = Mathf.CeilToInt(1000 + (Mathf.Pow(100, 3) * Mathf.Pow(level, 2.7f) / 400));
 
         // 판매 비용 계산
-        sellCost = upgradeCost / 8 * level;
+        sellCost = upgradeCost / 5 * level;
 
         // 각종 텍스트 세팅
         swordImage.sprite = swordImageSprite[level];
@@ -69,39 +99,14 @@ public class UpgradeGame : MonoBehaviour
         // 강화 재료 세팅
         SetUpgradeCondition();
 
-        // 1개는 어짜피 강화 비용으로 있어야 되니까 그냥 넣고, 나머지는 필요하면 활성화 후 세팅, 불필요하면 비활성화
-        // 오류가 나지 않도록 부족한 만큼 미리 텍스트 생성
-        Text[] upgradeMaterialTexts = upgradeMaterialArea.GetComponentsInChildren<Text>(true);
-        if (needMaterial.Count >= upgradeMaterialTexts.Length)
-        {
-            int needTextCount = needMaterial.Count - upgradeMaterialTexts.Length + 1;
-            for (int i=0; i<needTextCount; i++)
-            {
-                Instantiate(textPrefab, upgradeMaterialArea.transform);
-            }
-            upgradeMaterialTexts = upgradeMaterialArea.GetComponentsInChildren<Text>(true);
-        }
-
-        for (int i=1; i<=needMaterial.Count; i++)
-        {
-            upgradeMaterialTexts[i].gameObject.SetActive(true);
-            upgradeMaterialTexts[i].text = needMaterial[i - 1];
-        }
-
-        // 세팅 후 넘치면 텍스트 비활성화
-        if (needMaterial.Count + 1 < upgradeMaterialTexts.Length)
-        {
-            for (int i = needMaterial.Count + 1; i < upgradeMaterialTexts.Length; i++)
-            {
-                upgradeMaterialTexts[i].gameObject.SetActive(false);
-            }
-        }
+        // 기존 보유 재료 세팅
+        SetHaveMaterial();
     }
 
     void SetUpgradeCondition()
     {
-        needMaterial.Clear();
-        needMaterial.Add(string.Format("{0:#,###}원", upgradeCost));
+        needMaterialDictionary.Clear();
+        needMaterialDictionary.Add("돈", upgradeCost);
 
         switch (level)
         {
@@ -110,36 +115,103 @@ public class UpgradeGame : MonoBehaviour
             case 12:
             case 13:
             case 14:
-                needMaterial.Add("강화석 x 1");
+                needMaterialDictionary.Add("강화석", 1);
                 break;
             case 15:
-                needMaterial.Add("강화석 x 2");
-                needMaterial.Add($"{level - 1}강 검 x 1");
+                needMaterialDictionary.Add("강화석", 2);
+                needMaterialDictionary.Add($"{level - 1}강 검", 1);
                 break;
             case 16:
-                needMaterial.Add("강화석 x 3");
-                needMaterial.Add($"{level - 1}강 검 x 1");
+                needMaterialDictionary.Add("강화석", 3);
+                needMaterialDictionary.Add($"{level - 1}강 검", 1);
                 break;
             case 17:
-                needMaterial.Add("강화석 x 4");
-                needMaterial.Add($"{level - 1}강 검 x 1");
+                needMaterialDictionary.Add("강화석", 4);
+                needMaterialDictionary.Add($"{level - 1}강 검", 1);
                 break;
             case 18:
-                needMaterial.Add("강화석 x 5");
-                needMaterial.Add($"{level - 1}강 검 x 1");
+                needMaterialDictionary.Add("강화석", 5);
+                needMaterialDictionary.Add($"{level - 1}강 검", 1);
                 break;
             case 19:
-                needMaterial.Add("강화석 x 6");
-                needMaterial.Add($"{level - 1}강 검 x 2");
+                needMaterialDictionary.Add("강화석", 6);
+                needMaterialDictionary.Add($"{level - 1}강 검", 2);
                 break;
+        }
+
+        // 1개는 어짜피 강화 비용으로 있어야 되니까 그냥 넣고, 나머지는 필요하면 활성화 후 세팅, 불필요하면 비활성화
+        // 오류가 나지 않도록 부족한 만큼 미리 텍스트 생성
+        Text[] upgradeMaterialTexts = upgradeMaterialArea.GetComponentsInChildren<Text>(true);
+        if (needMaterialDictionary.Count >= upgradeMaterialTexts.Length)
+        {
+            int needTextCount = needMaterialDictionary.Count - upgradeMaterialTexts.Length + 1;
+            for (int i = 0; i < needTextCount; i++)
+            {
+                Instantiate(textPrefab, upgradeMaterialArea.transform);
+            }
+            upgradeMaterialTexts = upgradeMaterialArea.GetComponentsInChildren<Text>(true);
+        }
+
+        int index = 1;
+        foreach (KeyValuePair<string, long> have in needMaterialDictionary)
+        {
+            upgradeMaterialTexts[index].gameObject.SetActive(true);
+            if (have.Key.Equals("돈"))
+            {
+                upgradeMaterialTexts[index].text = string.Format("{0:#,###}원", have.Value);
+            }
+            else
+            {
+                upgradeMaterialTexts[index].text = $"{have.Key} x {have.Value}";
+            }
+            index++;
+        }
+
+        // 세팅 후 넘치면 텍스트 비활성화
+        if (needMaterialDictionary.Count + 1 < upgradeMaterialTexts.Length)
+        {
+            for (int i = needMaterialDictionary.Count + 1; i < upgradeMaterialTexts.Length; i++)
+            {
+                upgradeMaterialTexts[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void SetHaveMaterial()
+    {
+        Text[] haveMaterialTexts = haveMaterialArea.GetComponentsInChildren<Text>(true);
+        if (haveMaterialDictionary.Count >= haveMaterialTexts.Length)
+        {
+            int haveTextCount = haveMaterialDictionary.Count - haveMaterialTexts.Length + 1;
+            for (int i=0; i<haveTextCount; i++)
+            {
+                Instantiate(textPrefab, haveMaterialArea.transform);
+            }
+            haveMaterialTexts = haveMaterialArea.GetComponentsInChildren<Text>(true);
+        }
+
+        int index = 1;
+        foreach (KeyValuePair<string, long> have in haveMaterialDictionary)
+        {
+            haveMaterialTexts[index].gameObject.SetActive(true);
+            haveMaterialTexts[index].text = $"{have.Key} x {have.Value}";
+            index++;
+        }
+
+        if (haveMaterialDictionary.Count + 1 < haveMaterialTexts.Length)
+        {
+            for (int i = haveMaterialDictionary.Count + 1; i < haveMaterialTexts.Length; i++)
+            {
+                haveMaterialTexts[i].gameObject.SetActive(false);
+            }
         }
     }
 
     bool CheckUpgradeCondition()
     {
         bool isAvailableUpgrade = false;
-        int upgradeStone = 0;
-        int materialSword = 0;
+        long upgradeStone = 0;
+        long materialSword = 0;
         if (haveMaterialDictionary.ContainsKey("강화석")) {
             upgradeStone = haveMaterialDictionary["강화석"];
         }
@@ -189,8 +261,22 @@ public class UpgradeGame : MonoBehaviour
 
         if (isAvailableUpgrade)
         {
-            // 강화 메소 소모
-            money -= upgradeCost;
+            // 강화 재료 소모
+            foreach (KeyValuePair<string, long> have in needMaterialDictionary)
+            {
+                if (have.Key.Equals("돈"))
+                {
+                    money -= have.Value;
+                }
+                else
+                {
+                    haveMaterialDictionary[have.Key] -= have.Value;
+                    if (haveMaterialDictionary[have.Key] <= 0)
+                    {
+                        haveMaterialDictionary.Remove(have.Key);
+                    }
+                }
+            }
 
             // 강화 결과창 세팅
             upgradeResultPanel.gameObject.SetActive(true);
@@ -204,6 +290,7 @@ public class UpgradeGame : MonoBehaviour
                 result[0].text = "SUCCESS";
                 result[0].color = new Color(235 / 255f, 192 / 255f, 78 / 255f);
                 result[1].text = "강화에 성공하여 한단계 상승합니다.";
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Success);
             }
             // 파괴
             else if (random < successPercentage[level] + destroyPercentage[level])
@@ -212,14 +299,25 @@ public class UpgradeGame : MonoBehaviour
                 result[0].text = "DESTROYED";
                 result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
                 result[1].text = "강화에 실패하여 장비가 파괴됩니다.";
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Destroyed);
             }
             // 나머지는 실패
             else
             {
-                level--;
                 result[0].text = "FAILED";
                 result[0].color = new Color(227 / 255f, 78 / 255f, 70 / 255f);
-                result[1].text = "강화에 실패하여 한단계 하락합니다.";
+
+                if (level % 5 != 0)
+                {
+                    level--;
+                    result[1].text = "강화에 실패하여 한단계 하락합니다.";
+                }
+                else
+                {
+                    result[1].text = "강화에 실패하였습니다.";
+                }
+                
+                AudioManager.instance.EffectPlay(AudioManager.Effect.Fail);
             }
 
             // 강화 후 정보 세팅
@@ -229,7 +327,7 @@ public class UpgradeGame : MonoBehaviour
         // 강화 재료가 부족할 경우 재료가 부족합니다 출력
         else
         {
-            WarningPanel.gameObject.SetActive(true);
+            warningPanel.gameObject.SetActive(true);
         }
     }
 
@@ -238,6 +336,7 @@ public class UpgradeGame : MonoBehaviour
         money += sellCost;
         level = 0;
         SetUpgradeInfo();
+        AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
     }
 
     public void Keep()
@@ -252,21 +351,8 @@ public class UpgradeGame : MonoBehaviour
             haveMaterialDictionary.Add($"{level}강 검", 1);
         }
 
-        // 기존 보유 재료 삭제
-        Text[] text = haveMaterialArea.GetComponentsInChildren<Text>();
-        foreach (Text t in text)
-        {
-            Destroy(t.gameObject);
-        }
-
-        // 기존 보유 재료 갱신
-        foreach (KeyValuePair<string, int> have in haveMaterialDictionary)
-        {
-            textPrefab.text = $"{have.Key} x {have.Value}";
-            Instantiate(textPrefab, haveMaterialArea.transform);
-        }
-
         level = 0;
         SetUpgradeInfo();
+        AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
     }
 }

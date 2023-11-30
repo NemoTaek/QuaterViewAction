@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class ArcadeButton : MonoBehaviour
 {
     public bool isPressed;
-    public Button button;
+    public ArcadeButton button;
     public GameObject pressedButton;
 
     void OnTriggerEnter2D(Collider2D collision)

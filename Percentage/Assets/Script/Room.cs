@@ -18,7 +18,7 @@ public class Room : MonoBehaviour
     public Room leftRoom;
 
     [Header("----- Room Object -----")]
-    public Button[] buttons;
+    public ArcadeButton[] buttons;
     public GameObject roomReward;
     public Item[] bossDropItems;
     public ItemData[] bossDropItemDatas;
@@ -40,7 +40,7 @@ public class Room : MonoBehaviour
     {
         spawnPoint = GetComponentsInChildren<SpawnPoint>();
         doors = GetComponentsInChildren<Door>(true);
-        buttons = GetComponentsInChildren<Button>();
+        buttons = GetComponentsInChildren<ArcadeButton>();
     }
 
     void OnEnable()

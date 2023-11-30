@@ -19,7 +19,7 @@ public class AudioManager : Singleton<AudioManager>
     int effectChannelIndex;
 
     public enum BGM {Intro, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6, bgm7, bgm8, bgm9, bgm10, bgm11, bgm12, bgm13, bgm14};
-    public enum Effect {ButtonClick, PanelOpen, GetCoin, GetHealth, GetItem, Damaged, Swap, Success, Fail, Destroyed, Portal, Victory, Dead, 
+    public enum Effect {ButtonClick, Success, Fail, Destroyed, PanelOpen, GetCoin, GetHealth, GetItem, Damaged, Swap, Portal, Victory, Dead, 
     Buff, KnightAttack, GuardAttack, SwardAura, WizardShot, Meteor, Infernorize, ThiefAttack, LandMine, Timer, Bomb, Assasination, GunnerShot, BulletParty, HeadShot};
 
     protected override void Awake()

@@ -1521,8 +1521,9 @@ MonoBehaviour:
   isUltimateLeftAttack: 0
   isUltimateUpAttack: 0
   isUltimateDownAttack: 0
+  isInputRKey: 0
+  rKeyTimer: 0
   stage: 0
-  lastStageIndex: 2
   isLoading: 0
   isOpenStatus: 0
   isOpenBox: 0
@@ -15898,15 +15899,15 @@ MonoBehaviour:
   bgmVolume: 1
   effectClip:
   - {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+  - {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+  - {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  - {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
   - {fileID: 8300000, guid: 9ef989f6bcd801b43acd6847ab308d98, type: 3}
   - {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
   - {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   - {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
   - {fileID: 8300000, guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7, type: 3}
   - {fileID: 8300000, guid: 02ac74f88b2316a409ce6b17647611f5, type: 3}
-  - {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
-  - {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
-  - {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
   - {fileID: 8300000, guid: 7784e7ab59ab376458c07be56b1a8d6f, type: 3}
   - {fileID: 8300000, guid: ece5e70eb61b9c24a94df0aad6ed5c80, type: 3}
   - {fileID: 8300000, guid: 5810ed80f1b1cb04fa05cb34f10a717e, type: 3}

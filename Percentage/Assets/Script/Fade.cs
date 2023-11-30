@@ -104,7 +104,7 @@ public class Fade : MonoBehaviour
         else
         {
             AudioManager.instance.BGMStop();
-            SceneManager.LoadScene("Upgrade");
+            SceneManager.LoadScene("Upgrade Game");
         }
     }
 }
