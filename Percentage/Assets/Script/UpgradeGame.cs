@@ -30,6 +30,7 @@ public class UpgradeGame : MonoBehaviour
     public Button upgradeButton;
     public Button sellButton;
     public Button keepButton;
+    Text warningText;
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class UpgradeGame : MonoBehaviour
         destroyPercentage = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20 };
         haveMaterialDictionary = new Dictionary<string, long>();
         needMaterialDictionary = new Dictionary<string, long>();
+        warningText = warningPanel.GetComponentInChildren<Text>();
 
         // 초기 자본금 100만원
         //money = 100000000;
@@ -205,6 +207,8 @@ public class UpgradeGame : MonoBehaviour
                 haveMaterialTexts[i].gameObject.SetActive(false);
             }
         }
+
+        moneyText.text = money == 0 ? "0" : string.Format("{0:#,###}", money);
     }
 
     bool CheckUpgradeCondition()
@@ -328,6 +332,7 @@ public class UpgradeGame : MonoBehaviour
         else
         {
             warningPanel.gameObject.SetActive(true);
+            warningText.text = "강화 재료가 부족합니다.";
         }
     }
 
@@ -354,5 +359,207 @@ public class UpgradeGame : MonoBehaviour
         level = 0;
         SetUpgradeInfo();
         AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+    }
+
+    public void BuyItem(int itemId)
+    {
+        bool isHaveStone = haveMaterialDictionary.ContainsKey("강화석");
+        bool isHave12Upgrade = haveMaterialDictionary.ContainsKey("12강 강화권");
+        bool isHave13Upgrade = haveMaterialDictionary.ContainsKey("13강 강화권");
+        bool isHave14Upgrade = haveMaterialDictionary.ContainsKey("14강 강화권");
+        bool isHave15Upgrade = haveMaterialDictionary.ContainsKey("15강 강화권");
+        bool isHaveProtect = haveMaterialDictionary.ContainsKey("파괴 방지권");
+        bool isHaveSwordFragment = haveMaterialDictionary.ContainsKey("검의 파편");
+
+        // 판매 아이템 id 별로 지불 재료(금액)은 차감하고, 상품을 얻는다.
+        switch (itemId)
+        {
+            case 0:
+                // 재료가 있다면
+                if (money >= 1000000)
+                {
+                    // 재료 차감
+                    money -= 1000000;
+
+                    // 이미 해당 상품이 있으면 얹고, 없으면 추가
+                    if (isHaveStone) haveMaterialDictionary["강화석"]++;
+                    else haveMaterialDictionary.Add("강화석", 1);
+                }
+                // 재료가 없으면 못산다 창 노출
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{1000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 1:
+                if (money >= 9000000)
+                {
+                    money -= 9000000;
+
+                    if (isHaveStone) haveMaterialDictionary["강화석"] += 10;
+                    else haveMaterialDictionary.Add("강화석", 10);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{9000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 2:
+                if (money >= 40000000)
+                {
+                    money -= 40000000;
+
+                    if (isHaveStone) haveMaterialDictionary["강화석"] += 50;
+                    else haveMaterialDictionary.Add("강화석", 50);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{40000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 3:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 5)
+                {
+                    haveMaterialDictionary["검의 파편"] -= 5;
+
+                    if (isHave12Upgrade) haveMaterialDictionary["12강 강화권"]++;
+                    else haveMaterialDictionary.Add("12강 강화권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {5 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 5개 부족합니다.";
+                }
+                break;
+            case 4:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 7)
+                {
+                    haveMaterialDictionary["검의 파편"] -= 7;
+
+                    if (isHave13Upgrade) haveMaterialDictionary["13강 강화권"]++;
+                    else haveMaterialDictionary.Add("13강 강화권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {7 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 7개가 부족합니다.";
+                }
+                break;
+            case 5:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 10)
+                {
+                    haveMaterialDictionary["검의 파편"] -= 10;
+
+                    if (isHave14Upgrade) haveMaterialDictionary["14강 강화권"]++;
+                    else haveMaterialDictionary.Add("14강 강화권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {10 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 10개가 부족합니다.";
+                }
+                break;
+            case 6:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 15) {
+                    haveMaterialDictionary["검의 파편"] -= 15;
+
+                    if (isHave15Upgrade) haveMaterialDictionary["15강 강화권"]++;
+                    else haveMaterialDictionary.Add("15강 강화권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {15 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 15개가 부족합니다.";
+                }
+                break;
+            case 7:
+                if (money >= 10000000)
+                {
+                    money -= 10000000;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"]++;
+                    else haveMaterialDictionary.Add("파괴 방지권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{10000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 8:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 5)
+                {
+                    haveMaterialDictionary["검의 파편"] -= 5;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"]++;
+                    else haveMaterialDictionary.Add("파괴 방지권", 1);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {5 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 5개가 부족합니다.";
+                }
+                break;
+            case 9:
+                if (money >= 45000000)
+                {
+                    money -= 45000000;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 5;
+                    else haveMaterialDictionary.Add("파괴 방지권", 5);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{45000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 10:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 22) {
+                    haveMaterialDictionary["검의 파편"] -= 22;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 5;
+                    else haveMaterialDictionary.Add("파괴 방지권", 5);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {22 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 22개가 부족합니다.";
+                }
+                break;
+            case 11:
+                if (money >= 80000000)
+                {
+                    money -= 80000000;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 10;
+                    else haveMaterialDictionary.Add("파괴 방지권", 10);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = $"{80000000 - money}원이 부족합니다.";
+                }
+                break;
+            case 12:
+                if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 40) {
+                    haveMaterialDictionary["검의 파편"] -= 40;
+
+                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 10;
+                    else haveMaterialDictionary.Add("파괴 방지권", 10);
+                }
+                else
+                {
+                    warningPanel.gameObject.SetActive(true);
+                    warningText.text = isHaveSwordFragment ? $"검의 파편 {40 - haveMaterialDictionary["검의 파편"]}개가 부족합니다." : "검의 파편 40개가 부족합니다.";
+                }
+                break;
+        }
+
+        // 보유 아이템 갱신
+        SetHaveMaterial();
     }
 }
