@@ -14,12 +14,15 @@ public class UpgradeGame : MonoBehaviour
     long sellCost;
     Dictionary<string, long> haveMaterialDictionary;
     Dictionary<string, long> needMaterialDictionary;
+    int[] useProtect;
+    int selectBuyItemId;
 
     public Image swordImage;
     public Text levelText;
     public Text successText;
     public Text failureText;
     public Text destroyText;
+    public Text needProtectText;
     public Text sellCostText;
     public Text moneyText;
     public Text textPrefab;
@@ -27,18 +30,22 @@ public class UpgradeGame : MonoBehaviour
     public GameObject haveMaterialArea;
     public Image upgradeResultPanel;
     public Image warningPanel;
+    public Image confirmBuyPanel;
     public Button upgradeButton;
     public Button sellButton;
     public Button keepButton;
     Text warningText;
+    Text confirmBuyText;
 
     void Awake()
     {
-        successPercentage = new int[20] { 100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5 };
+        successPercentage = new int[20] { 100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 30, 30, 30, 20, 20 };
         destroyPercentage = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20 };
+        useProtect = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20 };
         haveMaterialDictionary = new Dictionary<string, long>();
         needMaterialDictionary = new Dictionary<string, long>();
         warningText = warningPanel.GetComponentInChildren<Text>();
+        confirmBuyText = confirmBuyPanel.GetComponentInChildren<Text>();
 
         // 초기 자본금 100만원
         //money = 100000000;
@@ -68,7 +75,7 @@ public class UpgradeGame : MonoBehaviour
         }   
         else
         {
-            upgradeButton.interactable = true;
+            upgradeButton.interactable = level == 20 ? false : true;
             sellButton.interactable = true;
             keepButton.interactable = true;
         }
@@ -90,11 +97,32 @@ public class UpgradeGame : MonoBehaviour
         sellCost = upgradeCost / 5 * level;
 
         // 각종 텍스트 세팅
+        // 최종 레벨과 그 전 레벨로 분리
+        if (level == 20)
+        {
+            upgradeCost = 0;
+
+            needProtectText.gameObject.SetActive(false);
+            swordImage.sprite = swordImageSprite[level];
+            levelText.text = "최고 강화레벨 달성";
+            successText.text = "성공확률 : 0%";
+            failureText.text = "실패확률 : 0%";
+            destroyText.text = "파괴확률 : 0%";
+        }
+        else
+        {
+            if (level >= 10) needProtectText.gameObject.SetActive(true);
+            else needProtectText.gameObject.SetActive(false);
+
+            levelText.text = $"{level}강 > {level + 1}강";
+            successText.text = $"성공확률 : {successPercentage[level]}%";
+            failureText.text = $"실패확률 : {100 - successPercentage[level] - destroyPercentage[level]}%";
+            destroyText.text = $"파괴확률 : {destroyPercentage[level]}%";
+            needProtectText.text = $"필요 파괴 방지권 개수 : {useProtect[level]}";
+        }
+
+        // 공통 출력 텍스트
         swordImage.sprite = swordImageSprite[level];
-        levelText.text = $"{level}강 > {level + 1}강";
-        successText.text = $"성공확률 : {successPercentage[level]}%";
-        failureText.text = $"실패확률 : {100 - successPercentage[level] - destroyPercentage[level]}%";
-        destroyText.text = $"파괴확률 : {destroyPercentage[level]}%";
         sellCostText.text = sellCost == 0 ? "0" : string.Format("{0:#,###}", sellCost);
         moneyText.text = money == 0 ? "0" : string.Format("{0:#,###}", money);
 
@@ -160,7 +188,7 @@ public class UpgradeGame : MonoBehaviour
             upgradeMaterialTexts[index].gameObject.SetActive(true);
             if (have.Key.Equals("돈"))
             {
-                upgradeMaterialTexts[index].text = string.Format("{0:#,###}원", have.Value);
+                upgradeMaterialTexts[index].text = level == 20 ? "" : string.Format("{0:#,###}원", have.Value);
             }
             else
             {
@@ -209,6 +237,18 @@ public class UpgradeGame : MonoBehaviour
         }
 
         moneyText.text = money == 0 ? "0" : string.Format("{0:#,###}", money);
+    }
+
+    void AddMaterialDictionary(string item, int count)
+    {
+        if (haveMaterialDictionary.ContainsKey(item))
+        {
+            haveMaterialDictionary[item] += count;
+        }
+        else
+        {
+            haveMaterialDictionary.Add(item, count);
+        }
     }
 
     bool CheckUpgradeCondition()
@@ -299,11 +339,28 @@ public class UpgradeGame : MonoBehaviour
             // 파괴
             else if (random < successPercentage[level] + destroyPercentage[level])
             {
-                level = 0;
-                result[0].text = "DESTROYED";
-                result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
-                result[1].text = "강화에 실패하여 장비가 파괴됩니다.";
-                AudioManager.instance.EffectPlay(AudioManager.Effect.Destroyed);
+                // 파괴 방지권이 있다면 파괴 방지권을 사용하고 현재 상태 유지
+                bool isHaveProtect = haveMaterialDictionary.ContainsKey("파괴 방지권");
+                if (isHaveProtect && haveMaterialDictionary["파괴 방지권"] >= useProtect[level])
+                {
+                    haveMaterialDictionary["파괴 방지권"] -= useProtect[level];
+                    result[0].text = "FAILED";
+                    result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
+                    result[1].text = "파괴 방지권을 사용하여 검이 파괴되지 않습니다.";
+                    AudioManager.instance.EffectPlay(AudioManager.Effect.Fail);
+                }
+                // 파괴 방지권이 없거나 개수가 부족하면 파괴
+                else
+                {
+                    // 파괴 시 레벨에 따라 검의 파편 획득
+                    AddMaterialDictionary("검의 파편", destroyPercentage[level]);
+
+                    level = 0;
+                    result[0].text = "DESTROYED";
+                    result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
+                    result[1].text = "강화에 실패하여 장비가 파괴됩니다.";
+                    AudioManager.instance.EffectPlay(AudioManager.Effect.Destroyed);
+                }
             }
             // 나머지는 실패
             else
@@ -347,32 +404,67 @@ public class UpgradeGame : MonoBehaviour
     public void Keep()
     {
         // 보유 아이템 세팅
-        if (haveMaterialDictionary.ContainsKey($"{level}강 검"))
-        {
-            haveMaterialDictionary[$"{level}강 검"]++;
-        }
-        else
-        {
-            haveMaterialDictionary.Add($"{level}강 검", 1);
-        }
+        AddMaterialDictionary($"{level}강 검", 1);
 
         level = 0;
         SetUpgradeInfo();
         AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
     }
 
-    public void BuyItem(int itemId)
+    public void ConfirmBuyItem(int itemId)
     {
-        bool isHaveStone = haveMaterialDictionary.ContainsKey("강화석");
-        bool isHave12Upgrade = haveMaterialDictionary.ContainsKey("12강 강화권");
-        bool isHave13Upgrade = haveMaterialDictionary.ContainsKey("13강 강화권");
-        bool isHave14Upgrade = haveMaterialDictionary.ContainsKey("14강 강화권");
-        bool isHave15Upgrade = haveMaterialDictionary.ContainsKey("15강 강화권");
-        bool isHaveProtect = haveMaterialDictionary.ContainsKey("파괴 방지권");
+        selectBuyItemId = itemId;
+        string buyItem = "";
+        switch (itemId)
+        {
+            case 0:
+                buyItem = "강화석";
+                break;
+            case 1:
+                buyItem = "강화석 x 10";
+                break;
+            case 2:
+                buyItem = "강화석 x 50";
+                break;
+            case 3:
+                buyItem = "12강 강화권";
+                break;
+            case 4:
+                buyItem = "13강 강화권";
+                break;
+            case 5:
+                buyItem = "14강 강화권";
+                break;
+            case 6:
+                buyItem = "15강 강화권";
+                break;
+            case 7:
+            case 8:
+                buyItem = "파괴 방지권";
+                break;
+            case 9:
+            case 10:
+                buyItem = "파괴 방지권 x 5";
+                break;
+            case 11:
+            case 12:
+                buyItem = "파괴 방지권 x 10";
+                break;
+        }
+
+        confirmBuyPanel.gameObject.SetActive(true);
+        confirmBuyText.text = $"{buyItem}을(를)\n구매하시겠습니까?";
+
+        AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+    }
+
+    public void BuyItem()
+    {
+        bool isBuyComplete = false;
         bool isHaveSwordFragment = haveMaterialDictionary.ContainsKey("검의 파편");
 
         // 판매 아이템 id 별로 지불 재료(금액)은 차감하고, 상품을 얻는다.
-        switch (itemId)
+        switch (selectBuyItemId)
         {
             case 0:
                 // 재료가 있다면
@@ -382,8 +474,10 @@ public class UpgradeGame : MonoBehaviour
                     money -= 1000000;
 
                     // 이미 해당 상품이 있으면 얹고, 없으면 추가
-                    if (isHaveStone) haveMaterialDictionary["강화석"]++;
-                    else haveMaterialDictionary.Add("강화석", 1);
+                    AddMaterialDictionary("강화석", 1);
+
+                    // 구매 완료
+                    isBuyComplete = true;
                 }
                 // 재료가 없으면 못산다 창 노출
                 else
@@ -396,9 +490,8 @@ public class UpgradeGame : MonoBehaviour
                 if (money >= 9000000)
                 {
                     money -= 9000000;
-
-                    if (isHaveStone) haveMaterialDictionary["강화석"] += 10;
-                    else haveMaterialDictionary.Add("강화석", 10);
+                    AddMaterialDictionary("강화석", 10);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -410,9 +503,8 @@ public class UpgradeGame : MonoBehaviour
                 if (money >= 40000000)
                 {
                     money -= 40000000;
-
-                    if (isHaveStone) haveMaterialDictionary["강화석"] += 50;
-                    else haveMaterialDictionary.Add("강화석", 50);
+                    AddMaterialDictionary("강화석", 50);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -424,9 +516,8 @@ public class UpgradeGame : MonoBehaviour
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 5)
                 {
                     haveMaterialDictionary["검의 파편"] -= 5;
-
-                    if (isHave12Upgrade) haveMaterialDictionary["12강 강화권"]++;
-                    else haveMaterialDictionary.Add("12강 강화권", 1);
+                    AddMaterialDictionary("12강 강화권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -438,9 +529,8 @@ public class UpgradeGame : MonoBehaviour
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 7)
                 {
                     haveMaterialDictionary["검의 파편"] -= 7;
-
-                    if (isHave13Upgrade) haveMaterialDictionary["13강 강화권"]++;
-                    else haveMaterialDictionary.Add("13강 강화권", 1);
+                    AddMaterialDictionary("13강 강화권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -452,9 +542,8 @@ public class UpgradeGame : MonoBehaviour
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 10)
                 {
                     haveMaterialDictionary["검의 파편"] -= 10;
-
-                    if (isHave14Upgrade) haveMaterialDictionary["14강 강화권"]++;
-                    else haveMaterialDictionary.Add("14강 강화권", 1);
+                    AddMaterialDictionary("14강 강화권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -465,9 +554,8 @@ public class UpgradeGame : MonoBehaviour
             case 6:
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 15) {
                     haveMaterialDictionary["검의 파편"] -= 15;
-
-                    if (isHave15Upgrade) haveMaterialDictionary["15강 강화권"]++;
-                    else haveMaterialDictionary.Add("15강 강화권", 1);
+                    AddMaterialDictionary("15강 강화권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -479,9 +567,8 @@ public class UpgradeGame : MonoBehaviour
                 if (money >= 10000000)
                 {
                     money -= 10000000;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"]++;
-                    else haveMaterialDictionary.Add("파괴 방지권", 1);
+                    AddMaterialDictionary("파괴 방지권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -493,9 +580,8 @@ public class UpgradeGame : MonoBehaviour
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 5)
                 {
                     haveMaterialDictionary["검의 파편"] -= 5;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"]++;
-                    else haveMaterialDictionary.Add("파괴 방지권", 1);
+                    AddMaterialDictionary("파괴 방지권", 1);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -507,9 +593,8 @@ public class UpgradeGame : MonoBehaviour
                 if (money >= 45000000)
                 {
                     money -= 45000000;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 5;
-                    else haveMaterialDictionary.Add("파괴 방지권", 5);
+                    AddMaterialDictionary("파괴 방지권", 5);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -520,9 +605,8 @@ public class UpgradeGame : MonoBehaviour
             case 10:
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 22) {
                     haveMaterialDictionary["검의 파편"] -= 22;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 5;
-                    else haveMaterialDictionary.Add("파괴 방지권", 5);
+                    AddMaterialDictionary("파괴 방지권", 5);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -534,9 +618,8 @@ public class UpgradeGame : MonoBehaviour
                 if (money >= 80000000)
                 {
                     money -= 80000000;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 10;
-                    else haveMaterialDictionary.Add("파괴 방지권", 10);
+                    AddMaterialDictionary("파괴 방지권", 10);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -547,9 +630,8 @@ public class UpgradeGame : MonoBehaviour
             case 12:
                 if (isHaveSwordFragment && haveMaterialDictionary["검의 파편"] >= 40) {
                     haveMaterialDictionary["검의 파편"] -= 40;
-
-                    if (isHaveProtect) haveMaterialDictionary["파괴 방지권"] += 10;
-                    else haveMaterialDictionary.Add("파괴 방지권", 10);
+                    AddMaterialDictionary("파괴 방지권", 10);
+                    isBuyComplete = true;
                 }
                 else
                 {
@@ -561,5 +643,8 @@ public class UpgradeGame : MonoBehaviour
 
         // 보유 아이템 갱신
         SetHaveMaterial();
+
+        if (isBuyComplete) AudioManager.instance.EffectPlay(AudioManager.Effect.BuyItem);
+        else AudioManager.instance.EffectPlay(AudioManager.Effect.Fail);
     }
 }
