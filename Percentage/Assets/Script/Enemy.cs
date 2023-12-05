@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -299,6 +300,17 @@ public class Enemy : MonoBehaviour
                 Vector3 spreadPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
                 DropEnemyReward(spreadPosition);
             }
+
+            // 강화석 스테이지 수에 맞게 드랍
+            GameObject upgradeStone = Instantiate(GameManager.instance.objectPool.prefabs[5], room.roomReward.transform);
+            upgradeStone.transform.position = transform.position;
+
+            // 아이템 획득 UI 활성화
+            GameManager.instance.isOpenItemPanel = true;
+            GameManager.instance.getItemPanel.gameObject.SetActive(true);
+            GameManager.instance.getItemPanel.SetItemPanel("강화석", "검 강화하기에 사용되는 재료", GameManager.instance.objectPool.prefabs[5].GetComponent<Image>().sprite);
+            // 여기에 pref 강화석 재료 추가
+            AudioManager.instance.EffectPlay(AudioManager.Effect.GetItem);
         }
         else DropEnemyReward(Vector3.zero);
     }

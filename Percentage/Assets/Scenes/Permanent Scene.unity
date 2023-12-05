@@ -13010,6 +13010,7 @@ MonoBehaviour:
   - {fileID: 7033342677528514527, guid: dad402b5715bece42b40a6ef7d6d90bc, type: 3}
   - {fileID: 5074510831754480009, guid: 4bcce6eb30f35dc43be18f79d220998c, type: 3}
   - {fileID: 2506839687383465282, guid: 3ba8aaec05c4bc14e940cdba895589f5, type: 3}
+  - {fileID: 236921871680562803, guid: da5b69d082f1a16419283824d803640b, type: 3}
 --- !u!4 &1592833165
 Transform:
   m_ObjectHideFlags: 0
