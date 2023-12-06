@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class UpgradeGame : MonoBehaviour
 {
@@ -72,6 +72,9 @@ public class UpgradeGame : MonoBehaviour
         haveMaterialDictionary.Add("17강 검", 10000);
         haveMaterialDictionary.Add("18강 검", 10000);
         haveMaterialDictionary.Add("19강 검", 10000);
+
+        // 저장된 데이터가 있다면 로드
+        LoadData();
     }
 
     void Start()
@@ -442,6 +445,9 @@ public class UpgradeGame : MonoBehaviour
             warningPanel.gameObject.SetActive(true);
             warningText.text = "강화 재료가 부족합니다.";
         }
+
+        // 강화 후 저장
+        SaveData();
     }
 
     public void Sell()
@@ -450,6 +456,9 @@ public class UpgradeGame : MonoBehaviour
         level = 0;
         SetUpgradeInfo();
         AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+
+        // 판매 후 저장
+        SaveData();
     }
 
     public void Keep()
@@ -460,6 +469,9 @@ public class UpgradeGame : MonoBehaviour
         level = 0;
         SetUpgradeInfo();
         AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+
+        // 킵한 후 저장
+        SaveData();
     }
 
     public void ClickOKButton()
@@ -719,6 +731,9 @@ public class UpgradeGame : MonoBehaviour
 
         if (isBuyComplete) AudioManager.instance.EffectPlay(AudioManager.Effect.BuyItem);
         else AudioManager.instance.EffectPlay(AudioManager.Effect.Fail);
+
+        // 아이템 구매 후 저장
+        SaveData();
     }
 
     public void ConfirmUseItem(UpgradeUseItemButton itemButton)
@@ -814,5 +829,66 @@ public class UpgradeGame : MonoBehaviour
         SetHaveMaterial();
 
         AudioManager.instance.EffectPlay(AudioManager.Effect.ButtonClick);
+
+        // 아이템 사용 후 저장
+        SaveData();
+    }
+
+    void SaveData()
+    {
+        // 저장해야 할 데이터를 Dictionary에 추가 (보유 재료, 돈, 레벨)
+        Dictionary<string, long> saveData = new Dictionary<string, long>(haveMaterialDictionary);
+        saveData.Add("돈", money);
+        saveData.Add("레벨", level);
+        string saveDataJson = DataJson.DictionaryToJson(saveData);
+
+        // 지정 경로에 세이브파일 저장
+        // 경로가 없다면 생성
+        string path = Application.dataPath + "/Data";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        // File.WriteAllText(path, text): 새 파일을 만들고, 파일을 쓴 후 파일을 닫음. 이미 파일이 존재하면 덮어씀
+        File.WriteAllText(path + "/saveData.txt", saveDataJson);
+    }
+
+    void LoadData()
+    {
+        // 세이브파일 로드
+        string path = Application.dataPath + "/Data";
+
+        // File.Exists(path): 해당 경로에 파일이 있는지 확인
+        bool isExistsDataFile = File.Exists(path + "/saveData.txt");
+        if (isExistsDataFile)
+        {
+            // File.ReadAllText(path): 텍스트파일을 열고, 모든 텍스트를 읽은 후 파일을 닫음
+            string loadDataJson = File.ReadAllText(path + "/saveData.txt");
+
+            // 로드할 파일이 있으면 로드
+            if (loadDataJson != null && loadDataJson.Length > 0)
+            {
+                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(loadDataJson);
+
+                // 파싱한 Dictionary를 순회하며 money와 level 따로 저장 후 삭제
+                foreach (KeyValuePair<string, long> data in loadData)
+                {
+                    if (data.Key == "돈")
+                    {
+                        money = data.Value;
+                    }
+                    else if (data.Key == "레벨")
+                    {
+                        level = (int)data.Value;
+                    }
+                }
+                loadData.Remove("돈");
+                loadData.Remove("레벨");
+
+                // 나머지는 보유 재료 Dictionary로 설정
+                haveMaterialDictionary = loadData;
+            }
+        }
     }
 }

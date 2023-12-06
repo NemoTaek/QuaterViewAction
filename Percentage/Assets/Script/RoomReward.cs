@@ -168,6 +168,9 @@ public class RoomReward : MonoBehaviour
 
                                 // 손에 든 무기 업데이트, UI 적용
                                 GameManager.instance.ui.isChanged = true;
+
+                                // 파괴 시 검의 파편 아이템 획득
+
                             }
                         }
 
