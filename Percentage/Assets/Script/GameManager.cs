@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -458,6 +459,51 @@ public class GameManager : Singleton<GameManager>
         if (SceneManager.GetSceneByBuildIndex(stage + 2).IsValid())
         {
             yield return SceneManager.UnloadSceneAsync(stage + 2);
+        }
+    }
+
+    public void GameDataManage(string itemName, int itemCount)
+    {
+        // 세이브파일 로드
+        string path = Application.dataPath + "/Data";
+
+        // File.Exists(path): 해당 경로에 파일이 있는지 확인
+        bool isExistsDataFile = File.Exists(path + "/saveData.txt");
+        if (isExistsDataFile)
+        {
+            string loadDataJson = File.ReadAllText(path + "/saveData.txt");
+
+            if (loadDataJson != null && loadDataJson.Length > 0)
+            {
+                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(loadDataJson);
+
+                // 파싱한 Dictionary를 순회하며 검의 파편 아이템이 있다면 개수 증가
+                if (loadData.ContainsKey(itemName))
+                {
+                    loadData[itemName] += itemCount;
+                }
+                else
+                {
+                    loadData.Add(itemName, itemCount);
+                }
+
+                // 수정 후 다시 저장
+                string saveDataJson = DataJson.DictionaryToJson(loadData);
+                File.WriteAllText(path + "/saveData.txt", saveDataJson);
+            }
+        }
+        else
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            Dictionary<string, long> saveData = new Dictionary<string, long>();
+            saveData.Add(itemName, itemCount);
+
+            string saveDataJson = DataJson.DictionaryToJson(saveData);
+            File.WriteAllText(path + "/saveData.txt", saveDataJson);
         }
     }
 }

@@ -90,12 +90,18 @@ public class Room : MonoBehaviour
             // 시작 방이면 현재 방을 시작 방으로 설정
             if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Golden)
             {
+                // 탐험 보너스 추가
+                if (roomType == RoomType.Golden && !isVisited) GameManager.instance.gameResultPanel.resultScore += 30;
+
                 DoorOpen();
             }
 
             // 스폰 포인트가 있으면 전투방
             else if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
             {
+                // 탐험 보너스 추가
+                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
+
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
 
@@ -121,6 +127,9 @@ public class Room : MonoBehaviour
             // 버튼이 있으면 아케이드방
             else if (roomType == RoomType.Arcade)
             {
+                // 탐험 보너스 추가
+                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
+
                 // 아케이드 방에도 충분히 적이 있을 수 있다.
                 if (!isClear && !isBattle) BattleStart();
 
@@ -131,13 +140,11 @@ public class Room : MonoBehaviour
             // 퀴즈방
             else if (roomType == RoomType.Quiz && !isClear)
             {
-                // 어떻게 할거냐? 우선 내 계획은...
-                // 1. 문제가 안보일정도로 아주 흐릿흐릿하게 문제를 낸다.
-                // 2. OX 퀴즈로 왼쪽은 O, 오른쪽은 X 버튼을 누르게 한다.
-                // 3. 정답을 맞추면 빡스를, 틀리면 배틀을 하게 한다.
+                // 탐험 보너스 추가
+                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
 
                 // 퀴즈 UI 세팅 ON
-                if(!isQuizSet)
+                if (!isQuizSet)
                 {
                     quizAnswer = SetQuiz();
                 }
@@ -152,6 +159,9 @@ public class Room : MonoBehaviour
             // 상점방에 들어가면 숨겼던 아이템 가격 다시 활성화
             else if (roomType == RoomType.Shop && Map.instance.isItemSet)
             {
+                // 탐험 보너스 추가
+                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 30;
+
                 for (int i = 0; i < Map.instance.itemPrice.Length; i++)
                 {
                     // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅

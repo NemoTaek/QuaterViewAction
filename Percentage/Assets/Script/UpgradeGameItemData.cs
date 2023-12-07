@@ -6,7 +6,7 @@ using UnityEngine;
 public class UpgradeGameItemData : ScriptableObject
 {
     public int id;
-    public string name;
+    public string itemName;
     public Sprite sprite;
     public int count;
 }

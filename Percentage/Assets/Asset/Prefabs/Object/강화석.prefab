@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 960432790290031279}
   - component: {fileID: 7319260593103464742}
   - component: {fileID: 6534268978630768740}
+  - component: {fileID: -1213568016887239010}
   m_Layer: 0
   m_Name: "\uAC15\uD654\uC11D"
   m_TagString: Untagged
@@ -133,3 +134,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
+--- !u!114 &-1213568016887239010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236921871680562803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f676515410173084a9b419a3b441b195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -1
+  type: 1
+  itemName: "\uAC15\uD654\uC11D"
+  price: 0
+  desc: "\uAC80 \uAC15\uD654\uD558\uAE30\uC5D0 \uC0AC\uC6A9\uB418\uB294 \uC7AC\uB8CC"
+  coolTime: 0
+  duringTime: 0
+  image: {fileID: 21300000, guid: 9489bdb9060fe5c4a8b2c5774c49ebd7, type: 3}
+  activeGuage: 0
+  currentGuage: 0
+  isInShop: 0
+  getItem: 0
+  isSpecialItem: 0

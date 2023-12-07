@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         id = data.enemyId;
         type = data.enemyType;
         speed = data.enemySpeed;
-        maxHealth = data.enemyMaxHealth;
+        maxHealth = data.enemyMaxHealth * (1.5f * GameManager.instance.stage - 0.5f);
         image = data.enemyImage;
         animator.runtimeAnimatorController = data.enemyAnimator;
 
@@ -305,11 +305,6 @@ public class Enemy : MonoBehaviour
             GameObject upgradeStone = Instantiate(GameManager.instance.objectPool.prefabs[5], room.roomReward.transform);
             upgradeStone.transform.position = transform.position;
 
-            // 아이템 획득 UI 활성화
-            GameManager.instance.isOpenItemPanel = true;
-            GameManager.instance.getItemPanel.gameObject.SetActive(true);
-            GameManager.instance.getItemPanel.SetItemPanel("강화석", "검 강화하기에 사용되는 재료", GameManager.instance.objectPool.prefabs[5].GetComponent<Image>().sprite);
-            // 여기에 pref 강화석 재료 추가
             AudioManager.instance.EffectPlay(AudioManager.Effect.GetItem);
         }
         else DropEnemyReward(Vector3.zero);

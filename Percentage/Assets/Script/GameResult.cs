@@ -18,9 +18,12 @@ public class GameResult : MonoBehaviour
     public Image itemImageCase;
     Image itemImage;
     public Sprite[] bannerImage;
+    public float pickUpScore;
+    public int resultScore;
 
     void OnEnable()
     {
+        // 게임 결과 출력
         if (GameManager.instance.player.isDead)
         {
             result.text = "플레이어 사망";
@@ -38,6 +41,10 @@ public class GameResult : MonoBehaviour
         stage.text = GameManager.instance.stage.ToString();
         time.text = TimeSpan.FromSeconds(GameManager.instance.elapsedTime).ToString("mm\\:ss\\:ff");
 
+        // 플레이 결과에 따라서 강화게임 돈 지급하기
+        CalculateResultScore();
+
+        // 획득한 아이템 하나씩 보여주는 애니메이션
         StartCoroutine(PrintGetItems());
     }
 
@@ -52,6 +59,34 @@ public class GameResult : MonoBehaviour
             SceneManager.LoadScene("Permanent Scene");
             SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         }
+    }
+
+    void CalculateResultScore()
+    {
+        // 플탐, 킬 수, 무기/스킬 강화 결과, 코인, 획득 아이템 수, 스테이지 등
+        // 아이작 데일리런 스코어: 스테이지 보너스 + 탐험보너스 + 스웩(?)보너스 + 데미지 패널티 + 시간 패널티 + 아이템 패널티
+        // 스테이지 보너스: 층을 시작할 때 주어지는 고정 보너스. 500 / 1000 / 1500 과 같이 늘어난다. 이 점수는 맵 세팅 후 추가된다.
+        int stageScore = 0;
+        for (int i = 0; i < GameManager.instance.stage; i++)
+        {
+            stageScore += ((i + 1) * 500);
+        }
+        // 탐험 보너스: 일반방 = 10점, 보스방 = 10점 클리어시 + 100점, 상점방 = 30점, 아이템방 = 30점
+        // 또한 floor(ceil(킬수^0.2 * 5)) 점수가 더해진다.
+        int explorationScore = Mathf.FloorToInt(Mathf.CeilToInt(Mathf.Pow(GameManager.instance.player.killEnemyCount, 0.2f) * 5));
+        // 스웩 보너스: 한 게임에서 픽업을 수집한 보너스 = 여기서는 코인과 하트밖에 없다. 하트: 반칸당 1, 코인: 1원당 1. 이 점수는 습득 즉시 더해진다.
+        // 데미지 패널티: ceil(1 - e^(맞은 횟수 * log(0.8) / 12) * 탐험 보너스 * 0.8).
+        int damagePenalty = Mathf.CeilToInt((1 - Mathf.Exp(GameManager.instance.player.damagedCount * Mathf.Log10(0.8f) / 12)) * explorationScore * 0.8f);
+        // 시간 패널티: floor(ceil((스테이지 보너스 * 0.8) * (1 - e^(경과 시간 * (-0.22) / 스테이지 패널티))). 여기서 스테이지 패널티는 60 / 120 / 180 과 같이 늘어난다.
+        int timePenalty = Mathf.FloorToInt(Mathf.CeilToInt(stageScore * 0.8f * (1 - Mathf.Exp(((int)GameManager.instance.elapsedTime % 60) * -0.22f / 120))));
+        // 아이템 패널티: floor(ceil((스웩 보너스 * 0.8) * (1 - e^(획득 아이템 수 * (-0.22) / (엔딩 값 * 2.5))))). 여기서 엔딩 값은 각 스테이지 클리어 기준으로 0 / 1 / 2 와 같이 늘어난다.
+        int itemPenalty = Mathf.FloorToInt(Mathf.CeilToInt(pickUpScore * 0.8f * (1 - Mathf.Exp(GameManager.instance.getItemList.Count * -0.22f / (GameManager.instance.stage * 2.5f)))));
+
+        // 최종 점수
+        resultScore = stageScore + explorationScore - damagePenalty - timePenalty - itemPenalty;
+
+        // 최종 점수에 따라 강화게임 돈 추가
+        GameManager.instance.GameDataManage("돈", resultScore * 10000);
     }
 
     IEnumerator PrintGetItems()

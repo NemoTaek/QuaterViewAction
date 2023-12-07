@@ -66,6 +66,9 @@ public class Map : Singleton<Map>
 
         // 각 방마다 세팅값 설정
         MapInit();
+
+        // 게임 결과 스코어 점수 추가
+        GameManager.instance.gameResultPanel.resultScore += (500 * GameManager.instance.stage);
     }
 
     void RoomVariableInit()

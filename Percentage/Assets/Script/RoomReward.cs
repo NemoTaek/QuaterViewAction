@@ -122,7 +122,8 @@ public class RoomReward : MonoBehaviour
                             {
                                 AudioManager.instance.EffectPlay(AudioManager.Effect.Destroyed);
 
-                                destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.";
+                                destroyedText.text = "장비 " + randomWeaponData.weaponName + " 강화에 실패하여 장비가 파괴되었습니다.\n" +
+                                    "검의 파편 " + ((random % 5) + 1) + "개를 획득하였습니다."; ;
 
                                 /* 생각해보니 파괴될 때가 많이 복잡하다
                                 1. 방 클리어 보상으로 얻은 박스에서 우연히 내가 착용하지 않고 보유한 것 중 파괴되었다.
@@ -170,7 +171,7 @@ public class RoomReward : MonoBehaviour
                                 GameManager.instance.ui.isChanged = true;
 
                                 // 파괴 시 검의 파편 아이템 획득
-
+                                GameManager.instance.GameDataManage("검의 파편", (random % 5) + 1);
                             }
                         }
 
@@ -309,7 +310,8 @@ public class RoomReward : MonoBehaviour
                             else
                             {
                                 AudioManager.instance.EffectPlay(AudioManager.Effect.Destroyed);
-                                destroyedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴되었습니다.";
+                                destroyedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴되었습니다.\n" + 
+                                    "검의 파편 " + ((random % 5) + 1) + "개를 획득하였습니다.";
 
                                 if (i == GameManager.instance.player.currentSkillIndex)
                                 {
@@ -342,6 +344,9 @@ public class RoomReward : MonoBehaviour
                                 // 손에 든 무기 업데이트, UI 적용
                                 GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
                                 GameManager.instance.ui.isChanged = true;
+
+                                // 파괴 시 검의 파편 아이템 획득
+                                GameManager.instance.GameDataManage("검의 파편", (random % 5) + 1);
                             }
                         }
 

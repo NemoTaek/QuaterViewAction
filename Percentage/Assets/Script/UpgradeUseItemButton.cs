@@ -8,7 +8,7 @@ public class UpgradeUseItemButton : MonoBehaviour
 {
     public int id;
     Sprite sprite;
-    string name;
+    string itemName;
     public int count;
 
     Image image;
@@ -29,7 +29,7 @@ public class UpgradeUseItemButton : MonoBehaviour
     {
         id = data.id;
         sprite = data.sprite;
-        name = data.name;
+        name = data.itemName;
         count = data.count;
 
         image.sprite = sprite;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     public bool isChargeComplete = false;
     public bool stopMove;
     public int killEnemyCount;
+    public int damagedCount;
 
     public int role;
     public string roleName;
@@ -161,12 +163,14 @@ public class Player : MonoBehaviour
                 int random = Random.Range(0, 10);
                 if (random > 3)
                 {
+                    damagedCount++;
                     currentHealth -= 0.5f;
                     AudioManager.instance.EffectPlay(AudioManager.Effect.Damaged);
                 }
             }
             else
             {
+                damagedCount++;
                 currentHealth -= 0.5f;
                 AudioManager.instance.EffectPlay(AudioManager.Effect.Damaged);
             }
@@ -455,7 +459,6 @@ public class Player : MonoBehaviour
         getWeaponCount = 0;
         currentSkillIndex = 0;
         getSkillCount = 0;
-        killEnemyCount = 0;
         attackSpeedUp = 0;
         powerUp = 0;
         foreach (Hand child in hand)
@@ -467,6 +470,9 @@ public class Player : MonoBehaviour
             GameManager.instance.weapon[i] = null;
             GameManager.instance.skill[i] = null;
         }
+
+        // 적 처치 수 초기화
+        killEnemyCount = 0;
 
         // 코인 초기화
         GameManager.instance.coin = 0;

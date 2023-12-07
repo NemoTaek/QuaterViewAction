@@ -9298,7 +9298,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1307169352}
         m_TargetAssemblyTypeName: UpgradeGame, Assembly-CSharp
-        m_MethodName: Upgrade
+        m_MethodName: ExitUpgradeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

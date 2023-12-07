@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UpgradeGame : MonoBehaviour
@@ -63,15 +64,14 @@ public class UpgradeGame : MonoBehaviour
         upgradeUseItemButtons = new UpgradeUseItemButton[upgradeGameItemDatas.Length];
 
         // 초기 자본금 100만원
-        //money = 100000000;
-        money = 100000000000;
-        haveMaterialDictionary.Add("강화석", 10000);
-        haveMaterialDictionary.Add("14강 검", 10000);
-        haveMaterialDictionary.Add("15강 검", 10000);
-        haveMaterialDictionary.Add("16강 검", 10000);
-        haveMaterialDictionary.Add("17강 검", 10000);
-        haveMaterialDictionary.Add("18강 검", 10000);
-        haveMaterialDictionary.Add("19강 검", 10000);
+        //money = 100000000000;
+        //haveMaterialDictionary.Add("강화석", 10000);
+        //haveMaterialDictionary.Add("14강 검", 10000);
+        //haveMaterialDictionary.Add("15강 검", 10000);
+        //haveMaterialDictionary.Add("16강 검", 10000);
+        //haveMaterialDictionary.Add("17강 검", 10000);
+        //haveMaterialDictionary.Add("18강 검", 10000);
+        //haveMaterialDictionary.Add("19강 검", 10000);
 
         // 저장된 데이터가 있다면 로드
         LoadData();
@@ -285,7 +285,7 @@ public class UpgradeGame : MonoBehaviour
         moneyText.text = money == 0 ? "0" : string.Format("{0:#,###}", money);
     }
 
-    void AddMaterialDictionary(string item, int count)
+    void AddMaterialDictionary(string item, long count)
     {
         // 재료가 있으면 개수만큼 값 추가, 없으면 키와 값 추가
         // 추가 개수에 음수가 들어갈 수 있다. 만약 모두 사용해서 0 이하가 된다면 삭제
@@ -361,18 +361,8 @@ public class UpgradeGame : MonoBehaviour
             // 앞에서 강화 재료가 있는지 체크를 했으므로 아래 로직은 강화가 가능하다는 전제가 있음
             foreach (KeyValuePair<string, long> have in needMaterialDictionary)
             {
-                if (have.Key.Equals("돈"))
-                {
-                    money -= have.Value;
-                }
-                else
-                {
-                    haveMaterialDictionary[have.Key] -= have.Value;
-                    if (haveMaterialDictionary[have.Key] <= 0)
-                    {
-                        haveMaterialDictionary.Remove(have.Key);
-                    }
-                }
+                if (have.Key.Equals("돈")) money -= have.Value;
+                else AddMaterialDictionary(have.Key, have.Value * -1);
             }
 
             // 강화 결과창 세팅
@@ -396,7 +386,7 @@ public class UpgradeGame : MonoBehaviour
                 bool isHaveProtect = haveMaterialDictionary.ContainsKey("파괴 방지권");
                 if (isHaveProtect && haveMaterialDictionary["파괴 방지권"] >= useProtect[level])
                 {
-                    haveMaterialDictionary["파괴 방지권"] -= useProtect[level];
+                    AddMaterialDictionary("파괴 방지권", useProtect[level] * -1);
                     result[0].text = "FAILED";
                     result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
                     result[1].text = "파괴 방지권을 사용하여 검이 파괴되지 않습니다.";
@@ -407,7 +397,6 @@ public class UpgradeGame : MonoBehaviour
                 {
                     // 파괴 시 레벨에 따라 검의 파편 획득
                     AddMaterialDictionary("검의 파편", destroyPercentage[level]);
-
                     level = 0;
                     result[0].text = "DESTROYED";
                     result[0].color = new Color(200 / 255f, 198 / 255f, 196 / 255f);
@@ -890,5 +879,14 @@ public class UpgradeGame : MonoBehaviour
                 haveMaterialDictionary = loadData;
             }
         }
+    }
+
+    public void ExitUpgradeGame()
+    {
+        // 나가기 전 데이터 저장
+        SaveData();
+
+        AudioManager.instance.BGMStop();
+        SceneManager.LoadScene("Intro");
     }
 }

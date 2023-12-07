@@ -373,6 +373,10 @@ public class Item : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 Map.instance.currentRoom.DeleteItem();
                 break;
+            case -1:
+                // 마이너스 붙으면 모험 외에서 사용되는 아이템
+                GameManager.instance.GameDataManage("강화석", GameManager.instance.stage);
+                break;
         }
 
         yield return null;
