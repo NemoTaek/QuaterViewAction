@@ -20,26 +20,12 @@ public class GameResult : MonoBehaviour
     public Sprite[] bannerImage;
     public float pickUpScore;
     public int resultScore;
+    public Text resultScoreText;
 
     void OnEnable()
     {
         // 게임 결과 출력
-        if (GameManager.instance.player.isDead)
-        {
-            result.text = "플레이어 사망";
-            resultImage.sprite = bannerImage[0];
-            AudioManager.instance.EffectPlay(AudioManager.Effect.Dead);
-        }
-        else
-        {
-            result.text = "행운의 플레이어";
-            resultImage.sprite = bannerImage[1];
-            AudioManager.instance.EffectPlay(AudioManager.Effect.Victory);
-        }
-
-        role.text = GameManager.instance.player.roleName;
-        stage.text = GameManager.instance.stage.ToString();
-        time.text = TimeSpan.FromSeconds(GameManager.instance.elapsedTime).ToString("mm\\:ss\\:ff");
+        PrintResult();
 
         // 플레이 결과에 따라서 강화게임 돈 지급하기
         CalculateResultScore();
@@ -59,6 +45,26 @@ public class GameResult : MonoBehaviour
             SceneManager.LoadScene("Permanent Scene");
             SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         }
+    }
+
+    void PrintResult()
+    {
+        if (GameManager.instance.player.isDead)
+        {
+            result.text = "플레이어 사망";
+            resultImage.sprite = bannerImage[0];
+            AudioManager.instance.EffectPlay(AudioManager.Effect.Dead);
+        }
+        else
+        {
+            result.text = "행운의 플레이어";
+            resultImage.sprite = bannerImage[1];
+            AudioManager.instance.EffectPlay(AudioManager.Effect.Victory);
+        }
+
+        role.text = GameManager.instance.player.roleName;
+        stage.text = GameManager.instance.stage.ToString();
+        time.text = TimeSpan.FromSeconds(GameManager.instance.elapsedTime).ToString("mm\\:ss\\:ff");
     }
 
     void CalculateResultScore()
@@ -97,5 +103,9 @@ public class GameResult : MonoBehaviour
             itemImage.sprite = item.image;
             yield return new WaitForSeconds(0.2f);
         }
+
+        resultScoreText.gameObject.SetActive(true);
+        string scoreMoney = string.Format("{0:#,###}", resultScore * 10000);
+        resultScoreText.text = $"최종 점수 : {resultScore}점\n\n검 강화하기 게임 {scoreMoney}원 획득!";
     }
 }

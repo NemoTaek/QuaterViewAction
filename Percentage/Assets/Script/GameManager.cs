@@ -446,7 +446,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator LoadStageScene(int loadStage)
     {
-        yield return SceneManager.LoadSceneAsync(loadStage + 2, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(loadStage + 3, LoadSceneMode.Additive);
     }
 
     public IEnumerator LoadLoadingScene()
@@ -456,9 +456,9 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator UnloadCurrentStageScene()
     {
-        if (SceneManager.GetSceneByBuildIndex(stage + 2).IsValid())
+        if (SceneManager.GetSceneByBuildIndex(stage + 3).IsValid())
         {
-            yield return SceneManager.UnloadSceneAsync(stage + 2);
+            yield return SceneManager.UnloadSceneAsync(stage + 3);
         }
     }
 

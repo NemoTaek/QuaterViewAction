@@ -84,7 +84,8 @@ public class Fade : MonoBehaviour
 
     public void ClickUpgradeGameStartButton()
     {
-        // 효과음 재생
+        // 클릭 카운트 추가, 효과음 재생
+        clickCount++;
         AudioManager.instance.ButtonClickEffectPlay();
 
         StartCoroutine(UpgradeGameStart());

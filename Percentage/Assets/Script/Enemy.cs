@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         id = data.enemyId;
         type = data.enemyType;
         speed = data.enemySpeed;
-        maxHealth = data.enemyMaxHealth * (1.5f * GameManager.instance.stage - 0.5f);
+        maxHealth = data.enemyMaxHealth * (0.5f * GameManager.instance.stage + 0.5f);
         image = data.enemyImage;
         animator.runtimeAnimatorController = data.enemyAnimator;
 

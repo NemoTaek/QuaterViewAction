@@ -63,16 +63,6 @@ public class UpgradeGame : MonoBehaviour
         twoButtonText = twoButtonPanel.GetComponentInChildren<Text>();
         upgradeUseItemButtons = new UpgradeUseItemButton[upgradeGameItemDatas.Length];
 
-        // 초기 자본금 100만원
-        //money = 100000000000;
-        //haveMaterialDictionary.Add("강화석", 10000);
-        //haveMaterialDictionary.Add("14강 검", 10000);
-        //haveMaterialDictionary.Add("15강 검", 10000);
-        //haveMaterialDictionary.Add("16강 검", 10000);
-        //haveMaterialDictionary.Add("17강 검", 10000);
-        //haveMaterialDictionary.Add("18강 검", 10000);
-        //haveMaterialDictionary.Add("19강 검", 10000);
-
         // 저장된 데이터가 있다면 로드
         LoadData();
     }
@@ -126,7 +116,7 @@ public class UpgradeGame : MonoBehaviour
         upgradeCost = Mathf.CeilToInt(1000 + (Mathf.Pow(100, 3) * Mathf.Pow(level, 2.7f) / 400));
 
         // 판매 비용 계산
-        sellCost = upgradeCost / 5 * level;
+        sellCost = (upgradeCost / 5) * (5 * (level / 5) * 2 + (level % 5));
 
         // 각종 텍스트 세팅
         // 최종 레벨과 그 전 레벨로 분리
@@ -307,6 +297,8 @@ public class UpgradeGame : MonoBehaviour
     bool CheckUpgradeCondition()
     {
         bool isAvailableUpgrade = false;
+        upgradeStone = 0;
+        materialSword = 0;
         
         if (haveMaterialDictionary.ContainsKey("강화석")) {
             upgradeStone = haveMaterialDictionary["강화석"];
@@ -878,6 +870,12 @@ public class UpgradeGame : MonoBehaviour
                 // 나머지는 보유 재료 Dictionary로 설정
                 haveMaterialDictionary = loadData;
             }
+        }
+        else
+        {
+            // 기본 자산 10억
+            money = 1000000000;
+            SaveData();
         }
     }
 
