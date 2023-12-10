@@ -831,8 +831,14 @@ public class UpgradeGame : MonoBehaviour
             Directory.CreateDirectory(path);
         }
 
+        // 파일 쓰기 전에 암호화를 한번 해볼까?
+        // System.Text.Encoding.UTF8.GetBytes(string): 매개변수 문자열을 byte 배열로 인코딩하는 메소드
+        // System.Convert.ToBase64String(byte[]): 매개변수 바이트 배열을 인코딩된 base64문자열로 변환하는 메소드
+        byte[] byteData = System.Text.Encoding.UTF8.GetBytes(saveDataJson);
+        string encodedJson = System.Convert.ToBase64String(byteData);
+
         // File.WriteAllText(path, text): 새 파일을 만들고, 파일을 쓴 후 파일을 닫음. 이미 파일이 존재하면 덮어씀
-        File.WriteAllText(path + "/saveData.txt", saveDataJson);
+        File.WriteAllText(path + "/saveData.json", encodedJson);
     }
 
     void LoadData()
@@ -841,16 +847,22 @@ public class UpgradeGame : MonoBehaviour
         string path = Application.dataPath + "/Data";
 
         // File.Exists(path): 해당 경로에 파일이 있는지 확인
-        bool isExistsDataFile = File.Exists(path + "/saveData.txt");
+        bool isExistsDataFile = File.Exists(path + "/saveData.json");
         if (isExistsDataFile)
         {
             // File.ReadAllText(path): 텍스트파일을 열고, 모든 텍스트를 읽은 후 파일을 닫음
-            string loadDataJson = File.ReadAllText(path + "/saveData.txt");
+            string loadDataJson = File.ReadAllText(path + "/saveData.json");
+
+            // 마찬가지로 암호화된 파일을 해독해볼까?
+            // System.Convert.FromBase64String(string): 인코딩된 base64문자열로부터 byte 배열로 변환하는 메소드
+            // System.Text.Encoding.UTF8.GetString(byte[]): 매개변수 byte 배열에서 문자열로 인코딩하는 메소드
+            byte[] byteData = System.Convert.FromBase64String(loadDataJson);
+            string encodedJson = System.Text.Encoding.UTF8.GetString(byteData);
 
             // 로드할 파일이 있으면 로드
-            if (loadDataJson != null && loadDataJson.Length > 0)
+            if (encodedJson != null && encodedJson.Length > 0)
             {
-                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(loadDataJson);
+                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(encodedJson);
 
                 // 파싱한 Dictionary를 순회하며 money와 level 따로 저장 후 삭제
                 foreach (KeyValuePair<string, long> data in loadData)

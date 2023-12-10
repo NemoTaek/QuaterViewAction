@@ -468,14 +468,16 @@ public class GameManager : Singleton<GameManager>
         string path = Application.dataPath + "/Data";
 
         // File.Exists(path): 해당 경로에 파일이 있는지 확인
-        bool isExistsDataFile = File.Exists(path + "/saveData.txt");
+        bool isExistsDataFile = File.Exists(path + "/saveData.json");
         if (isExistsDataFile)
         {
-            string loadDataJson = File.ReadAllText(path + "/saveData.txt");
+            string loadDataJson = File.ReadAllText(path + "/saveData.json");
+            byte[] byteLoadData = System.Convert.FromBase64String(loadDataJson);
+            string encodedLoadJson = System.Text.Encoding.UTF8.GetString(byteLoadData);
 
-            if (loadDataJson != null && loadDataJson.Length > 0)
+            if (encodedLoadJson != null && encodedLoadJson.Length > 0)
             {
-                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(loadDataJson);
+                Dictionary<string, long> loadData = DataJson.DictionaryFromJson<string, long>(encodedLoadJson);
 
                 // 파싱한 Dictionary를 순회하며 검의 파편 아이템이 있다면 개수 증가
                 if (loadData.ContainsKey(itemName))
@@ -489,7 +491,9 @@ public class GameManager : Singleton<GameManager>
 
                 // 수정 후 다시 저장
                 string saveDataJson = DataJson.DictionaryToJson(loadData);
-                File.WriteAllText(path + "/saveData.txt", saveDataJson);
+                byte[] byteSaveData = System.Text.Encoding.UTF8.GetBytes(saveDataJson);
+                string encodedSaveJson = System.Convert.ToBase64String(byteSaveData);
+                File.WriteAllText(path + "/saveData.json", encodedSaveJson);
             }
         }
         else
@@ -503,7 +507,9 @@ public class GameManager : Singleton<GameManager>
             saveData.Add(itemName, itemCount);
 
             string saveDataJson = DataJson.DictionaryToJson(saveData);
-            File.WriteAllText(path + "/saveData.txt", saveDataJson);
+            byte[] byteSaveData = System.Text.Encoding.UTF8.GetBytes(saveDataJson);
+            string encodedSaveJson = System.Convert.ToBase64String(byteSaveData);
+            File.WriteAllText(path + "/saveData.json", encodedSaveJson);
         }
     }
 }
