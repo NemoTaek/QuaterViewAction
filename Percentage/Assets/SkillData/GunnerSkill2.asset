@@ -21,13 +21,13 @@ MonoBehaviour:
   skillCoolTime: 5
   skillDuringTime: 0
   skillIcon: {fileID: 21300000, guid: d8702cb598f3eb24999de0ae1f7082f4, type: 3}
-  baseDamage: 50
+  baseDamage: 200
   upgradeDamage:
   - 0
-  - 10
-  - 10
-  - 10
   - 20
-  - 20
+  - 40
+  - 60
+  - 80
+  - 100
   level: 0
   maxLevel: 5

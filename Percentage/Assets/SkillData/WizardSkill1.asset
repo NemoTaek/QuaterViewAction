@@ -24,10 +24,10 @@ MonoBehaviour:
   baseDamage: 100
   upgradeDamage:
   - 0
-  - 5
-  - 5
   - 10
-  - 10
-  - 10
+  - 20
+  - 30
+  - 40
+  - 50
   level: 0
   maxLevel: 5

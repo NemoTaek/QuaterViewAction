@@ -134,66 +134,38 @@ public class Map : Singleton<Map>
         int downRoomIndex = nextMapPosition + 1;
         int leftRoomIndex = nextMapPosition + 9;
         int rightRoomIndex = nextMapPosition - 9;
-        int weight = 0;
 
-        // 사방을 보면서 비어있으면(룸 큐에 없다면) 해당 방향으로 가중치만큼 배열에 개수 추가
-        bool isExistUpRoom = settingRooms.ContainsKey(upRoomIndex);
-        if (!isExistUpRoom)
-        {
-            weight = (nextMapPosition - 1) % 9;
-            for(int i=0; i<weight; i++)
-            {
-                roomWeightList.Add(upRoomIndex);
-            }
-        }
-        bool isExistDownRoom = settingRooms.ContainsKey(downRoomIndex);
-        if (!isExistDownRoom)
-        {
-            weight = 8 - ((nextMapPosition - 1) % 9);
-            for (int i = 0; i < weight; i++)
-            {
-                roomWeightList.Add(downRoomIndex);
-            }
-        }
-        bool isExistLeftRoom = settingRooms.ContainsKey(leftRoomIndex);
-        if (!isExistLeftRoom)
-        {
-            weight = 8 - (nextMapPosition / 9);
-            for (int i = 0; i < weight; i++)
-            {
-                roomWeightList.Add(leftRoomIndex);
-            }
-        }
-        bool isExistRightRoom = settingRooms.ContainsKey(rightRoomIndex);
-        if (!isExistRightRoom)
-        {
-            weight = nextMapPosition / 9;
-            for (int i = 0; i < weight; i++)
-            {
-                roomWeightList.Add(rightRoomIndex);
-            }
-        }
+        // 사방을 보면서 비어있으면(선택한 방이 없다면) 해당 방향으로 가중치만큼 배열에 개수 추가
+        SetRoomWeightList(nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
 
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
-        int selectRoomIndex = Random.Range(0, roomWeightList.Count);
-        Vector3 randomRoomPosition = Vector3.zero;
+        // 그런데 진짜 낮은 확률로 어디에도 방을 놓을 수 없는 경우가 생기더라
+        // 그래서 놓을 수 있냐 없냐를 분리하겠다.
+        int selectRoomIndex = 0;
+        if (roomWeightList.Count > 0)
+        {
+            // 주변에 방을 설치할 수 있으면 랜덤으로 하나 선택
+            selectRoomIndex = Random.Range(0, roomWeightList.Count);
+        }
+        else
+        {
+            bool isSelectRoom = false;
 
-        if (roomWeightList[selectRoomIndex] == upRoomIndex)
-        {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.up * 12);
+            // 설치 가능한 방을 찾을때까지 반복
+            while(!isSelectRoom)
+            {
+                // 가장 마지막으로 저장된 방에서 탐색했을 때 오류가 났기 때문에 그 전까지 방 중 랜덤으로 하나 선택
+                List<int> keyList = new List<int>(settingRooms.Keys);
+                int tempRoomIndex = keyList[Random.Range(0, keyList.Count - 1)];
+
+                // 임시로 선택한 방 인덱스로 다시 가중치 설정
+                SetRoomWeightList(tempRoomIndex, tempRoomIndex - 1, tempRoomIndex + 1, tempRoomIndex + 9, tempRoomIndex - 9);
+
+                // 설치 가능한 위치를 찾았으면 그만
+                if (roomWeightList.Count > 0) isSelectRoom = true;
+            }
         }
-        else if (roomWeightList[selectRoomIndex] == downRoomIndex)
-        {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.down * 12);
-        }
-        else if (roomWeightList[selectRoomIndex] == leftRoomIndex)
-        {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.left * 20);
-        }
-        else if (roomWeightList[selectRoomIndex] == rightRoomIndex)
-        {
-            randomRoomPosition = (settingRoomPositions[nextMapPosition] + Vector3.right * 20);
-        }
+        Vector3 randomRoomPosition = SetRoomPosition(selectRoomIndex, nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
 
         // 큐, 방, 방 위치에 추가
         roomQueue.Enqueue(roomWeightList[selectRoomIndex]);
@@ -202,6 +174,72 @@ public class Map : Singleton<Map>
 
         // 가중치 배열 초기화
         roomWeightList.Clear();
+    }
+
+    void SetRoomWeightList(int roomIndex, int up, int down, int left, int right)
+    {
+        int weight = 0;
+
+        bool isExistUpRoom = settingRooms.ContainsKey(up);
+        if (!isExistUpRoom)
+        {
+            weight = (roomIndex - 1) % 9;
+            for (int i = 0; i < weight; i++)
+            {
+                roomWeightList.Add(up);
+            }
+        }
+        bool isExistDownRoom = settingRooms.ContainsKey(down);
+        if (!isExistDownRoom)
+        {
+            weight = 8 - ((roomIndex - 1) % 9);
+            for (int i = 0; i < weight; i++)
+            {
+                roomWeightList.Add(down);
+            }
+        }
+        bool isExistLeftRoom = settingRooms.ContainsKey(left);
+        if (!isExistLeftRoom)
+        {
+            weight = 8 - ((roomIndex / 9) - 1);
+            for (int i = 0; i < weight; i++)
+            {
+                roomWeightList.Add(left);
+            }
+        }
+        bool isExistRightRoom = settingRooms.ContainsKey(right);
+        if (!isExistRightRoom)
+        {
+            weight = (roomIndex / 9) - 1;
+            for (int i = 0; i < weight; i++)
+            {
+                roomWeightList.Add(right);
+            }
+        }
+    }
+
+    Vector3 SetRoomPosition(int selectRoomIndex, int current, int up, int down, int left, int right)
+    {
+        Vector3 randomRoomPosition = Vector3.zero;
+
+        if (roomWeightList[selectRoomIndex] == up)
+        {
+            randomRoomPosition = (settingRoomPositions[current] + Vector3.up * 12);
+        }
+        else if (roomWeightList[selectRoomIndex] == down)
+        {
+            randomRoomPosition = (settingRoomPositions[current] + Vector3.down * 12);
+        }
+        else if (roomWeightList[selectRoomIndex] == left)
+        {
+            randomRoomPosition = (settingRoomPositions[current] + Vector3.left * 20);
+        }
+        else if (roomWeightList[selectRoomIndex] == right)
+        {
+            randomRoomPosition = (settingRoomPositions[current] + Vector3.right * 20);
+        }
+
+        return randomRoomPosition;
     }
 
     void ArrangeSpecialRoom()

@@ -22,15 +22,18 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Wall") || (!isPenetrate && collision.CompareTag("Object")))
+        if (id != 3)
         {
-            if (gameObject.CompareTag("Bullet") || gameObject.CompareTag("EnemyBullet") || gameObject.CompareTag("FamiliarBullet")) gameObject.SetActive(false);
-            else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
-        }
-        if (collision.CompareTag("Enemy"))
-        {
-            if (gameObject.CompareTag("Bullet") || gameObject.CompareTag("FamiliarBullet")) gameObject.SetActive(false);
-            else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
+            if (collision.CompareTag("Wall") || (!isPenetrate && collision.CompareTag("Object")))
+            {
+                if (gameObject.CompareTag("Bullet") || gameObject.CompareTag("EnemyBullet") || gameObject.CompareTag("FamiliarBullet")) gameObject.SetActive(false);
+                else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
+            }
+            if (collision.CompareTag("Enemy"))
+            {
+                if (gameObject.CompareTag("Bullet") || gameObject.CompareTag("FamiliarBullet")) gameObject.SetActive(false);
+                else if (gameObject.CompareTag("SkillBullet")) StartCoroutine(SetActiveFalseBullet());
+            }
         }
     }
 
