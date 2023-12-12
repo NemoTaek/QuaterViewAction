@@ -44,11 +44,17 @@ public class Weapon : MonoBehaviour
         sr.sprite = icon;
         sr.sortingOrder = -1;
 
-        // 무기가 피격범위에 닿아도 플레이어가 피격 처리되지 않도록
-        polygon = gameObject.AddComponent<PolygonCollider2D>();
         rigid = gameObject.AddComponent<Rigidbody2D>();
+
+        // 마법사는 마법공격으로 해야지 지팡이 휘둘러도 같이 공격판정 되면 그게 기사지 마법사냐? 그래? 안그래?
+        if (GameManager.instance.player.role != 1)
+        {
+            polygon = gameObject.AddComponent<PolygonCollider2D>();
+            polygon.isTrigger = true;
+        }
+        
+        // 무기가 피격범위에 닿아도 플레이어가 피격 처리되지 않도록
         rigid.bodyType = RigidbodyType2D.Kinematic;
-        polygon.isTrigger = true;
 
         // 용천권 이미지가 좀 그래서 뒤집어야 손잡이가 플레이어 쪽으로 옴...
         if(id == 13)    sr.flipX = true;
@@ -62,7 +68,7 @@ public class Weapon : MonoBehaviour
         }
         else if (GameManager.instance.player.role == 2 || GameManager.instance.player.role == 3)
         {
-            transform.localPosition = new Vector3(0.3f, -0.1f, 0);
+            transform.localPosition = id == 13 ? new Vector3(0.1f, 0, 0) : new Vector3(0.3f, -0.1f, 0);
             transform.localRotation = Quaternion.Euler(0, 180, -45);
         }
     }

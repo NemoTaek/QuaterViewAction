@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
 
             // 기본적으로 몬스터에 들어가는 데미지는 플레이어의 공격력에 따른다. 공격력 공식은 플레이어 스크립트에 있다.
             // 무기 데미지를 추가되는 공격력으로 넣고, 스킬 데미지는 플레이어의 공격력에 x% 데미지로 들어간다.
-            float finalDamage = GameManager.instance.player.power * ((skill.damage + skill.upgradeDamage[skill.level]) / 100);
+            float finalDamage = GameManager.instance.player.power * (skill.damage / 100);
             EnemyDamaged(finalDamage);
 
             // 투과 효과를 먹지 않았다면 넉백효과 (보스는 넉백 안먹히도록)

@@ -135,6 +135,7 @@ public class RoomReward : MonoBehaviour
                                 파괴되는 무기의 공격력 감소 -> 착용하는 무기를 기본무기(0번)로 변경 -> 터진다 -> hand에 있는 그 곳부터 한칸씩 앞으로 shift 한다. -> 갱신!
                                 */
 
+                                // 현재 착용중인 무기가 파괴되었으면
                                 if (i == GameManager.instance.player.currentWeaponIndex)
                                 {
                                     // 파괴된 무기 공격력만큼 감소
@@ -144,6 +145,13 @@ public class RoomReward : MonoBehaviour
                                     GameManager.instance.player.currentWeaponIndex = 0;
                                     GameManager.instance.player.hand[GameManager.instance.player.role].isWeaponChanged = true;
                                 }
+                                // 파괴된 무기보다 뒷 순번 무기를 착용하고 있으면
+                                else if (i < GameManager.instance.player.currentWeaponIndex)
+                                {
+                                    // 앞으로 당겨야하니까 인덱스 감소
+                                    GameManager.instance.player.currentWeaponIndex--;
+                                }
+                                // 앞에있으면 변화 없음
 
                                 // 무기 개수 감소
                                 GameManager.instance.player.getWeaponCount--;
@@ -152,23 +160,20 @@ public class RoomReward : MonoBehaviour
                                 GameObject destoryWeapon = GameManager.instance.weapon[i].gameObject;
                                 Destroy(destoryWeapon);
 
-                                // hand에 있는 오브젝트를 한칸씩 앞으로 shift
+                                // 손에 든 무기 업데이트, UI 적용
+                                GameManager.instance.ui.isChanged = true;
+
+                                // 무기 한칸씩 앞으로 shift
                                 for (int j = i; j < GameManager.instance.player.getWeaponCount; j++)
                                 {
                                     GameManager.instance.weapon[j] = GameManager.instance.weapon[j + 1];
-                                    GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[j] =
-                                        GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[j + 1];
                                 }
-                                
+
                                 // 나머지는 null 값으로 설정
                                 for (int j = GameManager.instance.player.getWeaponCount; j < GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons.Length; j++)
                                 {
                                     GameManager.instance.weapon[j] = null;
-                                    GameManager.instance.player.hand[GameManager.instance.player.role].haveWeapons[j] = null;
                                 }
-
-                                // 손에 든 무기 업데이트, UI 적용
-                                GameManager.instance.ui.isChanged = true;
 
                                 // 파괴 시 검의 파편 아이템 획득
                                 GameManager.instance.GameDataManage("검의 파편", (random % 5) + 1);
@@ -313,11 +318,19 @@ public class RoomReward : MonoBehaviour
                                 destroyedText.text = "스킬 " + randomSkillData.skillName + " 강화에 실패하여 스킬이 파괴되었습니다.\n" + 
                                     "검의 파편 " + ((random % 5) + 1) + "개를 획득하였습니다.";
 
+                                // 현재 사용중인 스킬이 파괴되었으면
                                 if (i == GameManager.instance.player.currentSkillIndex)
                                 {
                                     // 스킬을 기본스킬로 변경
                                     GameManager.instance.player.currentSkillIndex = 0;
                                 }
+                                // 파괴된 스킬보다 뒷 순번 스킬을 사용하고 있으면
+                                else if (i < GameManager.instance.player.currentSkillIndex)
+                                {
+                                    // 앞으로 당겨야하니까 인덱스 감소
+                                    GameManager.instance.player.currentSkillIndex--;
+                                }
+                                // 앞에있으면 변화 없음
 
                                 // 스킬 개수 감소
                                 GameManager.instance.player.getSkillCount--;
@@ -326,24 +339,21 @@ public class RoomReward : MonoBehaviour
                                 GameObject destorySkill = GameManager.instance.skill[i].gameObject;
                                 Destroy(destorySkill);
 
-                                // hand에 있는 오브젝트를 한칸씩 앞으로 shift
+                                // 손에 든 무기 업데이트, UI 적용
+                                GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
+                                GameManager.instance.ui.isChanged = true;
+
+                                // 스킬 한칸씩 앞으로 shift
                                 for (int j = i; j < GameManager.instance.player.getSkillCount; j++)
                                 {
                                     GameManager.instance.skill[j] = GameManager.instance.skill[j + 1];
-                                    GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[j] =
-                                        GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[j + 1];
                                 }
 
                                 // 나머지는 null 값으로 설정
                                 for (int j = GameManager.instance.player.getSkillCount; j < 5; j++)
                                 {
                                     GameManager.instance.skill[j] = null;
-                                    GameManager.instance.player.hand[GameManager.instance.player.role].haveSkills[j] = null;
                                 }
-
-                                // 손에 든 무기 업데이트, UI 적용
-                                GameManager.instance.player.hand[GameManager.instance.player.role].isSkillChanged = true;
-                                GameManager.instance.ui.isChanged = true;
 
                                 // 파괴 시 검의 파편 아이템 획득
                                 GameManager.instance.GameDataManage("검의 파편", (random % 5) + 1);
