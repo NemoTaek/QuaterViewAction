@@ -157,15 +157,17 @@ MonoBehaviour:
   isSlashing: 0
   currentWeaponIndex: 0
   currentSkillIndex: 0
-  isOnObject: 0
+  isRoomMove: 0
+  isOnObjectCount: 0
   isDamaged: 0
   isInvincible: 0
   isDead: 0
   keydownTimer: 0
   isKeydown: 0
   isChargeComplete: 0
-  isGameClear: 0
+  stopMove: 0
   killEnemyCount: 0
+  damagedCount: 0
   role: 0
   roleName: 
   getWeaponCount: 0
@@ -182,6 +184,7 @@ MonoBehaviour:
   staticPower: 0
   isFly: 0
   isScapular: 0
+  isGuard: 0
 --- !u!50 &3055320546974436605
 Rigidbody2D:
   serializedVersion: 4
@@ -448,6 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3055320547397134162}
+  - component: {fileID: 5365684672513947256}
   - component: {fileID: 3055320547397134161}
   m_Layer: 0
   m_Name: Gunner Hand Pivot
@@ -471,6 +475,27 @@ Transform:
   m_Father: {fileID: 3055320546974436602}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5365684672513947256
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055320547397134163}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aae045750436126479a2c08cbf15cb2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3055320547397134161
 MonoBehaviour:
   m_ObjectHideFlags: 0

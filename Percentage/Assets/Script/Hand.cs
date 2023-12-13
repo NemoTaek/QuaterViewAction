@@ -56,7 +56,7 @@ public class Hand : MonoBehaviour
         if (!isUsableSkill) return;
 
         // 애니메이터 속도 기본값. 전사 돌진에서 속도를 5로 사용하기 때문에 기본값이 필요
-        if (GameManager.instance.player.role != 3) animator.speed = 5;
+        animator.speed = 5;
 
         if (skillIndex == 0)
         {
@@ -64,7 +64,7 @@ public class Hand : MonoBehaviour
             GameManager.instance.skill[skillIndex].UseSkillSetting();
 
             // 총은 무기 움직이는 모션이 없으므로 제외하고 애니메이션 실행
-            if (GameManager.instance.player.role != 3) animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
+            animator.SetTrigger(GameManager.instance.SetAttackAnimation(dirVec));
 
             // 지팡이와 총은 각각 마법과 총알을 발사
             if (GameManager.instance.player.role == 0)
