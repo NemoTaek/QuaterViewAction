@@ -91,7 +91,7 @@ public class Room : MonoBehaviour
             if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Golden)
             {
                 // 탐험 보너스 추가
-                if (roomType == RoomType.Golden && !isVisited) GameManager.instance.gameResultPanel.resultScore += 30;
+                if (roomType == RoomType.Golden && !isVisited) GameManager.instance.gameResultPanel.explorationScore += 30;
 
                 DoorOpen();
             }
@@ -100,7 +100,7 @@ public class Room : MonoBehaviour
             else if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
             {
                 // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
+                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
 
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
@@ -128,7 +128,7 @@ public class Room : MonoBehaviour
             else if (roomType == RoomType.Arcade)
             {
                 // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
+                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
 
                 // 아케이드 방에도 충분히 적이 있을 수 있다.
                 if (!isClear && !isBattle) BattleStart();
@@ -141,7 +141,7 @@ public class Room : MonoBehaviour
             else if (roomType == RoomType.Quiz && !isClear)
             {
                 // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 10;
+                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
 
                 // 퀴즈 UI 세팅 ON
                 if (!isQuizSet)
@@ -160,7 +160,7 @@ public class Room : MonoBehaviour
             else if (roomType == RoomType.Shop && Map.instance.isItemSet)
             {
                 // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.resultScore += 30;
+                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 30;
 
                 for (int i = 0; i < Map.instance.itemPrice.Length; i++)
                 {

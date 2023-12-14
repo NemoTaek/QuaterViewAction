@@ -16,8 +16,8 @@ public class Heart : MonoBehaviour
         // 체력이 다 차있다면 안먹어지도록
         if (collision.CompareTag("Player") && GameManager.instance.player.health > GameManager.instance.player.currentHealth)
         {
-            if (recovery < 1) GameManager.instance.gameResultPanel.pickUpScore += 0.5f;
-            else if (recovery == 1) GameManager.instance.gameResultPanel.pickUpScore++;
+            if (recovery < 1) GameManager.instance.gameResultPanel.pickUpScore ++;
+            else if (recovery == 1) GameManager.instance.gameResultPanel.pickUpScore += 2;
 
             GameManager.instance.player.currentHealth += recovery;
             GameManager.instance.ui.isChanged = true;

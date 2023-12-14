@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,9 +67,6 @@ public class Map : Singleton<Map>
 
         // 각 방마다 세팅값 설정
         MapInit();
-
-        // 게임 결과 스코어 점수 추가
-        GameManager.instance.gameResultPanel.resultScore += (500 * GameManager.instance.stage);
     }
 
     void RoomVariableInit()
@@ -140,31 +138,28 @@ public class Map : Singleton<Map>
 
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
         // 그런데 진짜 낮은 확률로 어디에도 방을 놓을 수 없는 경우가 생기더라
-        // 그래서 놓을 수 있냐 없냐를 분리하겠다.
-        int selectRoomIndex = 0;
-        if (roomWeightList.Count > 0)
+        // 그래서 놓을 수 없으면 설치 가능한 방을 찾을때까지 반복 후 선택해서 이어나가도록 설정
+        // 설치 가능한 방을 찾을때까지 반복
+        while (roomWeightList.Count <= 0)
         {
-            // 주변에 방을 설치할 수 있으면 랜덤으로 하나 선택
-            selectRoomIndex = Random.Range(0, roomWeightList.Count);
+            // 가장 마지막으로 저장된 방에서 탐색했을 때 오류가 났기 때문에 그 전까지 방 중 랜덤으로 하나 선택
+            // 선택 후에 다시 주변 방 번호 세팅
+            List<int> keyList = new List<int>(settingRooms.Keys);
+            nextMapPosition = keyList[Random.Range(0, keyList.Count - 1)];
+            upRoomIndex = nextMapPosition - 1;
+            downRoomIndex = nextMapPosition + 1;
+            leftRoomIndex = nextMapPosition + 9;
+            rightRoomIndex = nextMapPosition - 9;
+
+            // 임시로 선택한 방 인덱스로 다시 가중치 설정
+            SetRoomWeightList(nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
+
+            // 설치 가능한 위치를 찾았으면 그만
+            if (roomWeightList.Count > 0) break;
         }
-        else
-        {
-            bool isSelectRoom = false;
 
-            // 설치 가능한 방을 찾을때까지 반복
-            while(!isSelectRoom)
-            {
-                // 가장 마지막으로 저장된 방에서 탐색했을 때 오류가 났기 때문에 그 전까지 방 중 랜덤으로 하나 선택
-                List<int> keyList = new List<int>(settingRooms.Keys);
-                int tempRoomIndex = keyList[Random.Range(0, keyList.Count - 1)];
-
-                // 임시로 선택한 방 인덱스로 다시 가중치 설정
-                SetRoomWeightList(tempRoomIndex, tempRoomIndex - 1, tempRoomIndex + 1, tempRoomIndex + 9, tempRoomIndex - 9);
-
-                // 설치 가능한 위치를 찾았으면 그만
-                if (roomWeightList.Count > 0) isSelectRoom = true;
-            }
-        }
+        // 주변에 방을 설치할 수 있으면 랜덤으로 하나 선택
+        int selectRoomIndex = Random.Range(0, roomWeightList.Count);
         Vector3 randomRoomPosition = SetRoomPosition(selectRoomIndex, nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
 
         // 큐, 방, 방 위치에 추가

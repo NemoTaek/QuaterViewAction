@@ -18,7 +18,8 @@ public class GameResult : MonoBehaviour
     public Image itemImageCase;
     Image itemImage;
     public Sprite[] bannerImage;
-    public float pickUpScore;
+    public int explorationScore;
+    public int pickUpScore;
     public int resultScore;
     public Text resultScoreText;
 
@@ -79,17 +80,19 @@ public class GameResult : MonoBehaviour
         }
         // 탐험 보너스: 일반방 = 10점, 보스방 = 10점 클리어시 + 100점, 상점방 = 30점, 아이템방 = 30점
         // 또한 floor(ceil(킬수^0.2 * 5)) 점수가 더해진다.
-        int explorationScore = Mathf.FloorToInt(Mathf.CeilToInt(Mathf.Pow(GameManager.instance.player.killEnemyCount, 0.2f) * 5));
+        explorationScore += Mathf.CeilToInt(Mathf.Pow(GameManager.instance.player.killEnemyCount, 0.2f) * 5);
         // 스웩 보너스: 한 게임에서 픽업을 수집한 보너스 = 여기서는 코인과 하트밖에 없다. 하트: 반칸당 1, 코인: 1원당 1. 이 점수는 습득 즉시 더해진다.
+        // 또한 게임 종료 시 현재 체력 반칸당 1점이 더해진다.
+        pickUpScore += (int)(GameManager.instance.player.currentHealth * 2);
         // 데미지 패널티: ceil(1 - e^(맞은 횟수 * log(0.8) / 12) * 탐험 보너스 * 0.8).
         int damagePenalty = Mathf.CeilToInt((1 - Mathf.Exp(GameManager.instance.player.damagedCount * Mathf.Log10(0.8f) / 12)) * explorationScore * 0.8f);
         // 시간 패널티: floor(ceil((스테이지 보너스 * 0.8) * (1 - e^(경과 시간 * (-0.22) / 스테이지 패널티))). 여기서 스테이지 패널티는 60 / 120 / 180 과 같이 늘어난다.
-        int timePenalty = Mathf.FloorToInt(Mathf.CeilToInt(stageScore * 0.8f * (1 - Mathf.Exp(((int)GameManager.instance.elapsedTime % 60) * -0.22f / 120))));
+        int timePenalty = Mathf.CeilToInt((stageScore / GameManager.instance.stage) * 0.8f * (1 - Mathf.Exp(((int)GameManager.instance.elapsedTime) * -0.22f / 120)));
         // 아이템 패널티: floor(ceil((스웩 보너스 * 0.8) * (1 - e^(획득 아이템 수 * (-0.22) / (엔딩 값 * 2.5))))). 여기서 엔딩 값은 각 스테이지 클리어 기준으로 0 / 1 / 2 와 같이 늘어난다.
-        int itemPenalty = Mathf.FloorToInt(Mathf.CeilToInt(pickUpScore * 0.8f * (1 - Mathf.Exp(GameManager.instance.getItemList.Count * -0.22f / (GameManager.instance.stage * 2.5f)))));
+        int itemPenalty = Mathf.CeilToInt(pickUpScore * 0.8f * (1 - Mathf.Exp(GameManager.instance.getItemList.Count * -0.22f / (GameManager.instance.stage * 2.5f))));
 
         // 최종 점수
-        resultScore = stageScore + explorationScore - damagePenalty - timePenalty - itemPenalty;
+        resultScore += (stageScore + explorationScore + pickUpScore - damagePenalty - timePenalty - itemPenalty);
 
         // 최종 점수에 따라 강화게임 돈 추가
         GameManager.instance.GameDataManage("돈", resultScore * 10000);
