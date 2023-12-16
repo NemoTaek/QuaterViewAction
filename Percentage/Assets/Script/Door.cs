@@ -26,8 +26,6 @@ public class Door : MonoBehaviour
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.upRoom;
-                Map.instance.currentRoom.isVisited = true;
-                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition -= 1;
             }
             if (doorTag == "BottomDoor")
@@ -37,8 +35,6 @@ public class Door : MonoBehaviour
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.downRoom;
-                Map.instance.currentRoom.isVisited = true;
-                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition += 1;
             }
             if (doorTag == "LeftDoor")
@@ -48,8 +44,6 @@ public class Door : MonoBehaviour
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.leftRoom;
-                Map.instance.currentRoom.isVisited = true;
-                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition += 9;
             }
             if (doorTag == "RightDoor")
@@ -59,8 +53,6 @@ public class Door : MonoBehaviour
                 StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
 
                 Map.instance.currentRoom = Map.instance.currentRoom.rightRoom;
-                Map.instance.currentRoom.isVisited = true;
-                Map.instance.currentRoom.isMapDraw = false;
                 Map.instance.mapPosition -= 9;
             }
 
@@ -72,6 +64,7 @@ public class Door : MonoBehaviour
 
             GameManager.instance.player.isRoomMove = true;
         }
+        Debug.Log("이동 완료");
     }
 
     // isRoomMove(방을 이동했는가의 bool 형 변수) 를 설정하지 않으면 정말 딱 콜라이더 크기만큼 이동했을 경우

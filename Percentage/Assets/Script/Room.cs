@@ -87,21 +87,20 @@ public class Room : MonoBehaviour
             // 주변 맵 밝히기
             if (!isMapDraw) DrawMap();
 
-            // 시작 방이면 현재 방을 시작 방으로 설정
-            if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Golden)
+            // 탐험 보너스 추가
+            if (!isVisited)
             {
-                // 탐험 보너스 추가
-                if (roomType == RoomType.Golden && !isVisited) GameManager.instance.gameResultPanel.explorationScore += 30;
-
-                DoorOpen();
+                if (roomType == RoomType.Golden || roomType == RoomType.Shop) GameManager.instance.gameResultPanel.explorationScore += 30;
+                else if (roomType == RoomType.Battle || roomType == RoomType.Boss || roomType == RoomType.Arcade || roomType == RoomType.Quiz) GameManager.instance.gameResultPanel.explorationScore += 10;
+                isVisited = true;
             }
+
+            // 시작 방이면 현재 방을 시작 방으로 설정
+            if (roomType == RoomType.Start || roomType == RoomType.Clear || roomType == RoomType.Golden) DoorOpen();
 
             // 스폰 포인트가 있으면 전투방
             else if ((roomType == RoomType.Battle || roomType == RoomType.Boss) && spawnPoint.Length > 0)
             {
-                // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
-
                 // 전투 시작중이 아니라면 전투 시작
                 if (!isClear && !isBattle) BattleStart();
 
@@ -127,9 +126,6 @@ public class Room : MonoBehaviour
             // 버튼이 있으면 아케이드방
             else if (roomType == RoomType.Arcade)
             {
-                // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
-
                 // 아케이드 방에도 충분히 적이 있을 수 있다.
                 if (!isClear && !isBattle) BattleStart();
 
@@ -140,9 +136,6 @@ public class Room : MonoBehaviour
             // 퀴즈방
             else if (roomType == RoomType.Quiz && !isClear)
             {
-                // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 10;
-
                 // 퀴즈 UI 세팅 ON
                 if (!isQuizSet)
                 {
@@ -159,9 +152,6 @@ public class Room : MonoBehaviour
             // 상점방에 들어가면 숨겼던 아이템 가격 다시 활성화
             else if (roomType == RoomType.Shop && Map.instance.isItemSet)
             {
-                // 탐험 보너스 추가
-                if (!isVisited) GameManager.instance.gameResultPanel.explorationScore += 30;
-
                 for (int i = 0; i < Map.instance.itemPrice.Length; i++)
                 {
                     // 텍스트를 출력하기 위해 텍스트 프리팹을 UI 캔버스에 맞춰 세팅
