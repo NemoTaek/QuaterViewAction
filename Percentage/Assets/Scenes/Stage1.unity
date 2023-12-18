@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cbdef1cbfff9f4dad0b9e741a007bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInstalledRoom: 
   roomPrefabs:
   - {fileID: 8048753933127747479, guid: 79401a785f4a574469b87ad01b2bdab1, type: 3}
   - {fileID: 8048753933127747479, guid: 5604af5bd2240474a933ae8adcf62076, type: 3}
@@ -184,8 +185,6 @@ MonoBehaviour:
   - {fileID: 6898856697258561657, guid: e0cce10b4f7d0d646a59fd3c7e19e5ff, type: 3}
   - {fileID: 1681536416299413692, guid: a6fb46e26096317408339a5dc37e818b, type: 3}
   rooms: []
-  completeArrangeRooms: 0
-  completeSettingRooms: 0
   startRoom: {fileID: 4774018628592706486, guid: 65448293c8aa4ef428aaa525c7395525, type: 3}
   currentRoom: {fileID: 0}
   mapPosition: 41

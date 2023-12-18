@@ -21,40 +21,32 @@ public class Door : MonoBehaviour
             // 맵 이동
             if (doorTag == "TopDoor")
             {
-                cameraPosition += Vector3.up * 12f;
                 GameManager.instance.player.transform.position = playerPosition + Vector3.up * 5f;
-                StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
-
                 Map.instance.currentRoom = Map.instance.currentRoom.upRoom;
                 Map.instance.mapPosition -= 1;
             }
             if (doorTag == "BottomDoor")
             {
-                cameraPosition += Vector3.down * 12f;
                 GameManager.instance.player.transform.position = playerPosition + Vector3.down * 5f;
-                StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
-
                 Map.instance.currentRoom = Map.instance.currentRoom.downRoom;
                 Map.instance.mapPosition += 1;
             }
             if (doorTag == "LeftDoor")
             {
-                cameraPosition += Vector3.left * 20f;
                 GameManager.instance.player.transform.position = playerPosition + Vector3.left * 5f;
-                StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
-
                 Map.instance.currentRoom = Map.instance.currentRoom.leftRoom;
                 Map.instance.mapPosition += 9;
             }
             if (doorTag == "RightDoor")
             {
-                cameraPosition += Vector3.right * 20f;
                 GameManager.instance.player.transform.position = playerPosition + Vector3.right * 5f;
-                StartCoroutine(GameManager.instance.cam.MoveRoom(cameraPosition));
-
                 Map.instance.currentRoom = Map.instance.currentRoom.rightRoom;
                 Map.instance.mapPosition -= 9;
             }
+
+            // 이동할 방 인덱스를 찾고 그 위치로 카메라 이동
+            RoomProperty roomProperty = Map.instance.roomProperties.Find(room => room.roomIndex == Map.instance.mapPosition);
+            StartCoroutine(GameManager.instance.cam.MoveRoom(roomProperty.roomPosition));
 
             // 플라잉 적이 있어서 장애물과 충돌 해제를 했다면 방 이동 시 충돌 설정
             if (Physics2D.GetIgnoreLayerCollision(7, 8))
@@ -62,9 +54,10 @@ public class Door : MonoBehaviour
                 Physics2D.IgnoreLayerCollision(7, 8, false);
             }
 
+            // 이동 완료
             GameManager.instance.player.isRoomMove = true;
+            Map.instance.currentRoom.isMapDraw = false;
         }
-        Debug.Log("이동 완료");
     }
 
     // isRoomMove(방을 이동했는가의 bool 형 변수) 를 설정하지 않으면 정말 딱 콜라이더 크기만큼 이동했을 경우

@@ -217,7 +217,6 @@ public class GameManager : Singleton<GameManager>
                 rKeyTimer = 0;
                 isInputRKey = false;
                 StartCoroutine(GameRestart());
-                //GameRestart();
             }
         }
         else

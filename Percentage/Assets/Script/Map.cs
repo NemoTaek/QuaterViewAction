@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+
+public class RoomProperty
+{
+    public Room roomPrefab;
+    public Vector3 roomPosition;
+    public int roomIndex;
+}
 
 public class Map : Singleton<Map>
 {
     [Header("----- Map Init Setting -----")]
     int[] roomCount = { 0, 10, 15, 20, 25 };
-    Queue<int> roomQueue;
     List<int> roomWeightList;
-    Dictionary<int, Room> settingRooms;
-    Dictionary<int, Vector3> settingRoomPositions;
+    public bool[] isInstalledRoom;
+    public List<RoomProperty> roomProperties;
+    Queue<RoomProperty> roomPropertiesQueue;
     public Room[] roomPrefabs;
     public Room[] specialroomPrefabs;
     public Room[] rooms;
@@ -48,6 +54,20 @@ public class Map : Singleton<Map>
 
     }
 
+    void CreateRoomProperty(int index, Room prefab, Vector3 position, bool roomEnqueue = true)
+    {
+        // 방 속성 객체 생성
+        RoomProperty room = new RoomProperty();
+        room.roomIndex = index;
+        room.roomPrefab = prefab;
+        room.roomPosition = position;
+
+        // 방 속성 객체를 생성 후 리스트에 추가하고 해당 위치에 방이 설치되었다고 설정
+        roomProperties.Add(room);
+        isInstalledRoom[room.roomIndex] = true;
+        if (roomEnqueue) roomPropertiesQueue.Enqueue(room);
+    }
+
     public void MapSetting()
     {
         // 방 설치 변수 초기화
@@ -71,70 +91,65 @@ public class Map : Singleton<Map>
 
     void RoomVariableInit()
     {
-        // 맵 정중앙은 41번
-        roomQueue = new Queue<int>();
+        // 방 설치 순서를 설정할 큐, 설치할 방 리스트, 설치 유무 배열, 설치할 위치의 가중치 리스트
+        roomPropertiesQueue = new Queue<RoomProperty>();
+        roomProperties = new List<RoomProperty>();
+        isInstalledRoom = new bool[82];
         roomWeightList = new List<int>();
-        settingRooms = new Dictionary<int, Room>();
-        settingRoomPositions = new Dictionary<int, Vector3>();
-        mapPosition = 41;
 
         // 상점방, 아이템방 관련 리스트
         shopItemCount = 3;
         itemsInShop = new List<int>();
         itemPrefab = new Item[shopItemCount];
 
+        // 첫 방 설정
+        CreateRoomProperty(41, startRoom, Vector2.zero, false);
+
         // 일반방 랜덤 배치        
         // 처음 뻗어나갈 때 몇가지 방향으로 뻗어나갈건지 세팅
-        settingRooms.Add(41, startRoom);
-        settingRoomPositions.Add(41, Vector3.zero);
-
         int branch = Random.Range(1, 5);
         int[] firstRoomIndex = { 40, 42, 32, 50 };
         Vector3 firstRoomPosition = Vector3.zero;
 
         // 가지 뻗기
         // 중복된 위치가 나오면 다시 뽑기
-        while (roomQueue.Count < branch)
+        while (roomPropertiesQueue.Count < branch)
         {
-            int choiceRoom = firstRoomIndex[Random.Range(0, 4)];
-            if (!settingRooms.ContainsKey(choiceRoom))
+            int choiceRoomIndex = firstRoomIndex[Random.Range(0, 4)];
+            bool checkRoom = isInstalledRoom[choiceRoomIndex];
+
+            if (!checkRoom)
             {
-                if (choiceRoom == 40)
+                if (choiceRoomIndex == 40)
                 {
                     firstRoomPosition = Vector3.up * 12;
                 }
-                else if (choiceRoom == 42)
+                else if (choiceRoomIndex == 42)
                 {
                     firstRoomPosition = Vector3.down * 12;
                 }
-                else if (choiceRoom == 32)
+                else if (choiceRoomIndex == 32)
                 {
                     firstRoomPosition = Vector3.right * 20;
                 }
-                else if (choiceRoom == 50)
+                else if (choiceRoomIndex == 50)
                 {
                     firstRoomPosition = Vector3.left * 20;
                 }
 
-                // 큐, 방, 방 위치에 각각 추가
-                roomQueue.Enqueue(choiceRoom);
-                settingRooms.Add(choiceRoom, roomPrefabs[Random.Range(0, roomPrefabs.Length)]);
-                settingRoomPositions.Add(choiceRoom, firstRoomPosition);
+                // 해당 방 설정
+                CreateRoomProperty(choiceRoomIndex, roomPrefabs[Random.Range(0, roomPrefabs.Length)], firstRoomPosition);
             }
         }
     }
 
     void ArrangeMap()
     {
-        // 위: -1, 아래: +1, 좌: +9, 우: -9
-        int nextMapPosition = roomQueue.Dequeue();
-        int upRoomIndex = nextMapPosition - 1;
-        int downRoomIndex = nextMapPosition + 1;
-        int leftRoomIndex = nextMapPosition + 9;
-        int rightRoomIndex = nextMapPosition - 9;
+        // 큐에서 차례대로 방을 꺼내 이어서 설치
+        RoomProperty prevRoom = roomPropertiesQueue.Dequeue();
 
         // 사방을 보면서 비어있으면(선택한 방이 없다면) 해당 방향으로 가중치만큼 배열에 개수 추가
-        SetRoomWeightList(nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
+        SetRoomWeightList(prevRoom.roomIndex);
 
         // 위에서 추가한 방 인덱스 배열 중 랜덤으로 하나 선택
         // 그런데 진짜 낮은 확률로 어디에도 방을 놓을 수 없는 경우가 생기더라
@@ -143,69 +158,56 @@ public class Map : Singleton<Map>
         while (roomWeightList.Count <= 0)
         {
             // 가장 마지막으로 저장된 방에서 탐색했을 때 오류가 났기 때문에 그 전까지 방 중 랜덤으로 하나 선택
-            // 선택 후에 다시 주변 방 번호 세팅
-            List<int> keyList = new List<int>(settingRooms.Keys);
-            nextMapPosition = keyList[Random.Range(0, keyList.Count - 1)];
-            upRoomIndex = nextMapPosition - 1;
-            downRoomIndex = nextMapPosition + 1;
-            leftRoomIndex = nextMapPosition + 9;
-            rightRoomIndex = nextMapPosition - 9;
-
             // 임시로 선택한 방 인덱스로 다시 가중치 설정
-            SetRoomWeightList(nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
+            SetRoomWeightList(roomProperties[Random.Range(0, roomProperties.Count - 1)].roomIndex);
 
             // 설치 가능한 위치를 찾았으면 그만
             if (roomWeightList.Count > 0) break;
         }
 
-        // 주변에 방을 설치할 수 있으면 랜덤으로 하나 선택
+        // 주변에 방을 설치할 수 있으면 랜덤으로 하나 선택한 후 방 설치
         int selectRoomIndex = Random.Range(0, roomWeightList.Count);
-        Vector3 randomRoomPosition = SetRoomPosition(selectRoomIndex, nextMapPosition, upRoomIndex, downRoomIndex, leftRoomIndex, rightRoomIndex);
-
-        // 큐, 방, 방 위치에 추가
-        roomQueue.Enqueue(roomWeightList[selectRoomIndex]);
-        settingRooms.Add(roomWeightList[selectRoomIndex], roomPrefabs[Random.Range(0, roomPrefabs.Length)]);
-        settingRoomPositions.Add(roomWeightList[selectRoomIndex], randomRoomPosition);
+        SetNextRoom(selectRoomIndex, prevRoom);
 
         // 가중치 배열 초기화
         roomWeightList.Clear();
     }
 
-    void SetRoomWeightList(int roomIndex, int up, int down, int left, int right)
+    void SetRoomWeightList(int prevRoomIndex)
     {
         int weight = 0;
+        int up = prevRoomIndex - 1;
+        int down = prevRoomIndex + 1;
+        int left = prevRoomIndex + 9;
+        int right = prevRoomIndex - 9;
 
-        bool isExistUpRoom = settingRooms.ContainsKey(up);
-        if (!isExistUpRoom)
+        if (up > 0 && !isInstalledRoom[up])
         {
-            weight = (roomIndex - 1) % 9;
+            weight = (prevRoomIndex - 1) % 9;
             for (int i = 0; i < weight; i++)
             {
                 roomWeightList.Add(up);
             }
         }
-        bool isExistDownRoom = settingRooms.ContainsKey(down);
-        if (!isExistDownRoom)
+        if (down < 82 && !isInstalledRoom[down])
         {
-            weight = 8 - ((roomIndex - 1) % 9);
+            weight = 8 - ((prevRoomIndex - 1) % 9);
             for (int i = 0; i < weight; i++)
             {
                 roomWeightList.Add(down);
             }
         }
-        bool isExistLeftRoom = settingRooms.ContainsKey(left);
-        if (!isExistLeftRoom)
+        if (left < 82 && !isInstalledRoom[left])
         {
-            weight = 8 - ((roomIndex / 9) - 1);
+            weight = 8 - ((prevRoomIndex / 9) - 1);
             for (int i = 0; i < weight; i++)
             {
                 roomWeightList.Add(left);
             }
         }
-        bool isExistRightRoom = settingRooms.ContainsKey(right);
-        if (!isExistRightRoom)
+        if (right > 0 && !isInstalledRoom[right])
         {
-            weight = (roomIndex / 9) - 1;
+            weight = (prevRoomIndex / 9) - 1;
             for (int i = 0; i < weight; i++)
             {
                 roomWeightList.Add(right);
@@ -213,28 +215,33 @@ public class Map : Singleton<Map>
         }
     }
 
-    Vector3 SetRoomPosition(int selectRoomIndex, int current, int up, int down, int left, int right)
+    void SetNextRoom(int selectRoomIndex, RoomProperty prevRoom)
     {
-        Vector3 randomRoomPosition = Vector3.zero;
+        int choiceRoomIndex = 0;
+        Vector3 choiceRoomPosition = prevRoom.roomPosition;
 
-        if (roomWeightList[selectRoomIndex] == up)
+        if (roomWeightList[selectRoomIndex] == prevRoom.roomIndex - 1)
         {
-            randomRoomPosition = (settingRoomPositions[current] + Vector3.up * 12);
+            choiceRoomIndex = prevRoom.roomIndex - 1;
+            choiceRoomPosition += Vector3.up * 12;
         }
-        else if (roomWeightList[selectRoomIndex] == down)
+        else if (roomWeightList[selectRoomIndex] == prevRoom.roomIndex + 1)
         {
-            randomRoomPosition = (settingRoomPositions[current] + Vector3.down * 12);
+            choiceRoomIndex = prevRoom.roomIndex + 1;
+            choiceRoomPosition += Vector3.down * 12;
         }
-        else if (roomWeightList[selectRoomIndex] == left)
+        else if (roomWeightList[selectRoomIndex] == prevRoom.roomIndex + 9)
         {
-            randomRoomPosition = (settingRoomPositions[current] + Vector3.left * 20);
+            choiceRoomIndex = prevRoom.roomIndex + 9;
+            choiceRoomPosition += Vector3.left * 20;
         }
-        else if (roomWeightList[selectRoomIndex] == right)
+        else if (roomWeightList[selectRoomIndex] == prevRoom.roomIndex - 9)
         {
-            randomRoomPosition = (settingRoomPositions[current] + Vector3.right * 20);
+            choiceRoomIndex = prevRoom.roomIndex - 9;
+            choiceRoomPosition += Vector3.right * 20;
         }
 
-        return randomRoomPosition;
+        CreateRoomProperty(choiceRoomIndex, roomPrefabs[Random.Range(0, roomPrefabs.Length)], choiceRoomPosition);
     }
 
     void ArrangeSpecialRoom()
@@ -246,13 +253,13 @@ public class Map : Singleton<Map>
         int selectBossRoomIndex = 0;
 
         // 설치한 방 위치 인덱스 배열 생성, 제일 거리가 먼 방을 보스룸으로 설정
-        foreach (KeyValuePair<int, Vector3> installedRoom in settingRoomPositions)
+        foreach (RoomProperty roomProperty in roomProperties)
         {
-            roomIndexList.Add(installedRoom.Key);
-            if (longestDistance < installedRoom.Value.magnitude)
+            roomIndexList.Add(roomProperty.roomIndex);
+            if (longestDistance < roomProperty.roomPosition.magnitude)
             {
-                longestDistance = installedRoom.Value.magnitude;
-                selectBossRoomIndex = installedRoom.Key;
+                longestDistance = roomProperty.roomPosition.magnitude;
+                selectBossRoomIndex = roomProperty.roomIndex;
             }
         }
 
@@ -268,23 +275,21 @@ public class Map : Singleton<Map>
         }
 
         // 방 정보 변경
-        settingRooms[selectItemRoomIndex] = specialroomPrefabs[0];
-        settingRooms[selectShopRoomIndex] = specialroomPrefabs[1];
-        settingRooms[selectBossRoomIndex] = specialroomPrefabs[2];
+        foreach (RoomProperty roomProperty in roomProperties)
+        {
+            if (roomProperty.roomIndex == selectItemRoomIndex) roomProperty.roomPrefab = specialroomPrefabs[0];
+            if (roomProperty.roomIndex == selectShopRoomIndex) roomProperty.roomPrefab = specialroomPrefabs[1];
+            if (roomProperty.roomIndex == selectBossRoomIndex) roomProperty.roomPrefab = specialroomPrefabs[2];
+        }
     }
 
     void InstallRoom()
     {
-        Room room = null;
-
         // 앞에서 설정한 위치에 설정한 방을 생성
-        foreach (KeyValuePair<int, Room> installRoom in settingRooms)
+        foreach (RoomProperty roomProperty in roomProperties)
         {
-            if (installRoom.Value != null)
-            {
-                room = Instantiate(installRoom.Value, transform);
-                room.transform.position = settingRoomPositions[installRoom.Key];
-            }
+            Room room = Instantiate(roomProperty.roomPrefab, transform);
+            room.transform.position = roomProperty.roomPosition;
         }
     }
 
